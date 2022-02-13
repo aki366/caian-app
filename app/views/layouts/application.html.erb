@@ -11,6 +11,50 @@
   </head>
 
   <body>
+    <header>
+      <div class="header-logo">
+        <%=link_to("Caian","/top")%>
+      </div>
+
+      <ul class="header-menus">
+        <%=link_to("Caianとは","/about")%>
+      </ul>
+      
+      <ul class="header-menus">
+      <%=link_to("投稿","/posts/index")%>
+      </ul>
+
+      <ul class="header-menus">
+      <%=link_to("チケット一覧","/top")%>
+      </ul>
+      
+      <ul class="header-menus">
+      <%=link_to("チケット追加","/top")%>
+      </ul>
+      
+      <ul class="header-menus">
+      <%=link_to("Caian","/top")%>
+        <a href="/posts/index">チャート</a>
+      </ul>
+      
+      <ul class="header-menus">
+      <%=link_to("Caian","/top")%>
+        <a href="/posts/index">マイページ</a>
+      </ul>
+      
+      <ul class="header-menus">
+      <%=link_to("お気に入り","/top")%>
+      </ul>
+      
+      <ul class="header-menus">
+      <%=link_to("ユーザー登録","/top")%>
+      </ul>
+      
+      <ul class="header-menus">
+      <%=link_to("設定","/top")%>
+      </ul>
+
+    </header>
     <%= yield %>
   </body>
 </html>
