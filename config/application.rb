@@ -8,6 +8,8 @@ Bundler.require(*Rails.groups)
 
 module CaianApp
   class Application < Rails::Application
+    config.i18n.default_locale = :ja
+    config.action_dispatch.default_headers.delete 'X-Frame-Options' 
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
 
@@ -15,8 +17,8 @@ module CaianApp
     #
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
-    #
-    # config.time_zone = "Central Time (US & Canada)"
+    config.time_zone = "Tokyo"
+    config.active_record.default_timezone = :local
     # config.eager_load_paths << Rails.root.join("extras")
   end
 end
