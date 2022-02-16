@@ -23,6 +23,7 @@ class PostsController < ApplicationController
   def update
     @post = Post.find_by(id:params[:id])
     @post.content = params[:content]
+    render("posts/edit")
    if @post.save
     redirect_to("/posts/index")
    else
