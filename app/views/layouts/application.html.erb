@@ -55,8 +55,12 @@
       <ul class="header-menus">
         <%=link_to("設定","/top")%>
       </ul>
-
     </header>
+    <% if flash[:notice]%>
+      <div class="flash">
+        <%= flash[:notice]%>
+      </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>
