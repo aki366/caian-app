@@ -17,45 +17,53 @@
       </div>
 
       <ul class="header-menus">
+      <li>
         <%=link_to("Caianとは","/about")%>
-      </ul>
-      
-      <ul class="header-menus">
-        <%=link_to("投稿","/posts/index")%>
-      </ul>
+      </li>
 
-      <ul class="header-menus">
+      <li>
+        <%=link_to("投稿一覧","/posts/index")%>
+      </li>
+
+      <li>
         <%=link_to("新規投稿","/posts/new")%>
-      </ul>
+      </li>
       
-      <ul class="header-menus">
+      <li>
+        <%=link_to("ユーザー一覧","/users/index")%>
+      </li>
+
+      <li>
         <%=link_to("チケット一覧","/top")%>
-      </ul>
+      </li>
       
-      <ul class="header-menus">
+      <li>
         <%=link_to("チケット追加","/top")%>
-      </ul>
+      </li>
       
-      <ul class="header-menus">
+      <li>
         <%=link_to("チャート","/top")%>
-      </ul>
+      </li>
       
-      <ul class="header-menus">
+      <li>
         <%=link_to("マイページ","/top")%>
-      </ul>
+      </li>
       
-      <ul class="header-menus">
+      <li>
         <%=link_to("お気に入り","/top")%>
-      </ul>
+      </li>
       
-      <ul class="header-menus">
+      <li>
         <%=link_to("ユーザー登録","/top")%>
-      </ul>
+      </li>
       
-      <ul class="header-menus">
+      <li>
         <%=link_to("設定","/top")%>
+      </li>
+
       </ul>
     </header>
+
     <% if flash[:notice]%>
       <div class="flash">
         <%= flash[:notice]%>
