@@ -13,9 +13,10 @@ Rails.application.routes.draw do
   post "posts/:id/update" => "posts#update"
   post "posts/:id/destroy" => "posts#destroy"
   
+  post "users/create" => "users#create"
+  get "signup" => "users#new"
   get "users/index" => "users#index"
   get "users/:id" => "users#show"
 
-  get "signup" => "users#new"
 
 end
