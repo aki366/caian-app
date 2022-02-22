@@ -8,7 +8,6 @@ class UsersController < ApplicationController
   end
 
   def new
-    # Userインスタンスを作成し、変数@userに代入してください
     @user = User.new
   end
 
@@ -24,6 +23,18 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find_by(id:params[:id])
+  end
+
+  def update
+    @user = User.find_by(id: params[:id])
+    @user.name = params[:name]
+    @user.email = params[:email]
+    if @user.save
+      flash[:notice] = "ユーザー情報を編集しました"
+      redirect_to("/users/#{@user.id}")
+    else
+      render("users/edit")
+    end
   end
 
 end
