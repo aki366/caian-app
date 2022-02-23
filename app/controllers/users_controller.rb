@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     @user = User.new(
       name: params[:name],
       email: params[:email],
-      user_images:"default_user.png"
+      user_image: "default_user.png"
     )
     if @user.save
       flash[:notice] = "ユーザー登録が完了しました"
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
       image = params[:image]
       File.binwrite("public/user_images/#{@user.user_image}",image.read)
     end
-
+      
     if @user.save
       flash[:notice] = "ユーザー情報を編集しました"
       redirect_to("/users/#{@user.id}")
