@@ -4,7 +4,6 @@ Rails.application.routes.draw do
 
   get "top" => "home#top"
   get "about" => "home#about"
-  get "login" => "users#login_form"
 
   get "posts/index" => "posts#index"
   get "posts/new" => "posts#new"
@@ -20,5 +19,8 @@ Rails.application.routes.draw do
   get "users/:id" => "users#show"
   get "users/:id/edit" => "users#edit" 
   post "users/:id/update" => "users#update"
+
+  get "login" => "users#login_form"
+  post "login" => "users#login"
 
 end
