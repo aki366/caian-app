@@ -48,4 +48,8 @@ class UsersController < ApplicationController
     end
   end
 
+  def login_form
+    # @user = User.login_form
+  end
+
 end
