@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>CaianApp</title>
-    # <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -17,10 +17,12 @@
       </div>
 
       <ul class="header-menus">
+        <% current_user = User.find_by(id: session[:user_id]) %>
 
-        <% if session[:user_id] %>
+        <% if current_user %>
+          
           <li>
-            <%= session[:user_id] %>
+            <%= link_to(current_user.name, "/users/#{current_user.id}") %>
           </li>
 
           <li>
