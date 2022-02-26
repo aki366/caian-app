@@ -17,53 +17,61 @@
       </div>
 
       <ul class="header-menus">
-      <li>
-        <%=link_to("Caianとは","/about")%>
-      </li>
 
-      <li>
-        <%=link_to("投稿一覧","/posts/index")%>
-      </li>
+        <% if session[:user_id] %>
+          <li>
+            現在ログインしているユーザーのid:
+            <%= session[:user_id] %>
+          </li>
+        <% end %>
 
-      <li>
-        <%=link_to("新規投稿","/posts/new")%>
-      </li>
-      
-      <li>
-        <%=link_to("ユーザー一覧","/users/index")%>
-      </li>
+        <li>
+          <%=link_to("Caianとは","/about")%>
+        </li>
 
-      <li>
-        <%=link_to("チケット一覧","/top")%>
-      </li>
-      
-      <li>
-        <%=link_to("チケット追加","/top")%>
-      </li>
-      
-      <li>
-        <%=link_to("チャート","/top")%>
-      </li>
-      
-      <li>
-        <%=link_to("マイページ","/top")%>
-      </li>
-      
-      <li>
-        <%=link_to("お気に入り","/top")%>
-      </li>
-      
-      <li>
-        <%=link_to("ユーザー登録","/signup")%>
-      </li>
-      
-      <li>
-        <%=link_to("設定","/top")%>
-      </li>
+        <li>
+          <%=link_to("投稿一覧","/posts/index")%>
+        </li>
 
-      <li>
-        <%= link_to("ログイン", "/login") %>
-      </li>
+        <li>
+          <%=link_to("新規投稿","/posts/new")%>
+        </li>
+        
+        <li>
+          <%=link_to("ユーザー一覧","/users/index")%>
+        </li>
+
+        <li>
+          <%=link_to("チケット一覧","/top")%>
+        </li>
+        
+        <li>
+          <%=link_to("チケット追加","/top")%>
+        </li>
+        
+        <li>
+          <%=link_to("チャート","/top")%>
+        </li>
+        
+        <li>
+          <%=link_to("マイページ","/top")%>
+        </li>
+        
+        <li>
+          <%=link_to("お気に入り","/top")%>
+        </li>
+        
+        <li>
+          <%=link_to("ユーザー登録","/signup")%>
+        </li>
+        
+        <li>
+          <%=link_to("設定","/top")%>
+        </li>
+
+        <li>
+          <%= link_to("ログイン", "/login") %>
+        </li>
 
       </ul>
     </header>
