@@ -10,6 +10,12 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder'
 gem 'bootsnap', '>= 1.4.4', require: false
 
+# 0228_Heroku_errorの切り分けで追加
+gem 'uglifier'
+gem 'pry-rails'
+gem 'jquery-rails'
+gem 'bcrypt'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'spring-commands-rspec'
