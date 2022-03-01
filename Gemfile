@@ -11,6 +11,7 @@ gem 'jbuilder'
 gem 'bootsnap', '>= 1.4.4', require: false
 
 # 0228_Heroku_errorの切り分けで追加
+# 0301_ステージング環境で検証
 gem 'uglifier'
 gem 'pry-rails'
 gem 'jquery-rails'
