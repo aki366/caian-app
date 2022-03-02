@@ -18,7 +18,7 @@ gem 'jquery-rails'
 gem 'bcrypt'
 
 group :development, :test do
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 3.6'
   gem 'spring-commands-rspec'
   gem 'sqlite3', '~> 1.4'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
