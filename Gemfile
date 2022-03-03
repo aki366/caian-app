@@ -19,7 +19,7 @@ gem 'bcrypt'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.6'
-  gem 'spring-commands-rspec'
+  # gem 'spring-commands-rspec'
   gem 'sqlite3', '~> 1.4'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
