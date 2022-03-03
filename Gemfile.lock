@@ -303,7 +303,6 @@ DEPENDENCIES
   rspec-rails (~> 3.6)
   sass-rails (>= 6)
   selenium-webdriver
-  spring (= 2.1.1)
   spring-commands-rspec
   spring-watcher-listen
   sqlite3 (~> 1.4)
