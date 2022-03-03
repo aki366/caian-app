@@ -29,7 +29,7 @@ group :development do
   gem 'rack-mini-profiler', '~> 2.0'
   gem 'listen'
   # gem 'spring', '= 2.1.1'
-  gem 'spring-watcher-listen'
+  # gem 'spring-watcher-listen'
 end
 
 group :test do
