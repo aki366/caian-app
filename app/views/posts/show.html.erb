@@ -13,6 +13,12 @@
 
         <%= link_to("削除", "/posts/#{@post.id}/destroy",{method: "post"}) %>
       </div>
+
+      <div class="post-user-name">
+        <img src="<%= "/user_images/#{@user.image_name}" %>">
+        <%= link_to(@user.name, "/users/#{@user.id}") %>
+      </div>
+
     </div>
   </div>
 </div>
