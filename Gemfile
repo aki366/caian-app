@@ -9,17 +9,14 @@ gem 'webpacker'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder'
 gem 'bootsnap', '>= 1.4.4', require: false
-
-# 0228_Heroku_errorの切り分けで追加
-# 0301_ステージング環境で検証
 gem 'uglifier'
 gem 'pry-rails'
 gem 'jquery-rails'
 gem 'bcrypt'
+gem 'devise'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.6'
-  # gem 'spring-commands-rspec'
   gem 'sqlite3', '~> 1.4'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
@@ -28,8 +25,6 @@ group :development do
   gem 'web-console'
   gem 'rack-mini-profiler', '~> 2.0'
   gem 'listen'
-  # gem 'spring', '= 2.1.1'
-  # gem 'spring-watcher-listen'
 end
 
 group :test do
