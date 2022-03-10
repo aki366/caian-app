@@ -1,0 +1,125 @@
+diff --git a/app/controllers/guest_user_login_controller.rb b/app/controllers/guest_user_login_controller.rb
+new file mode 100644
+index 0000000..281bc2d
+--- /dev/null
++++ b/app/controllers/guest_user_login_controller.rb
+@@ -0,0 +1,9 @@
++#TODO: ゲストユーザー用のログイン機能を追加
++class GuestUserLoginController < UsersController
++  def create
++    guest = User.find_by(email: 'guest@example.com',password: 'password') 
++    session[:user_id] = guest.id
++    flash[:notice] = "ゲストユーザーとしてログインしました"
++    redirect_to ("/posts/index")
++  end
++end
+diff --git a/app/controllers/users_controller.rb b/app/controllers/users_controller.rb
+index a11614e..de00480 100644
+--- a/app/controllers/users_controller.rb
++++ b/app/controllers/users_controller.rb
+@@ -47,7 +47,9 @@ class UsersController < ApplicationController
+       File.binwrite("public/user_images/#{@user.user_image}",image.read)
+     end
+       
+-    if @user.save
++    #TODO: ゲストユーザーは更新できないようにする
++    #if @user.save
++    if !@user.guest? && @user.save
+       flash[:notice] = "ユーザー情報を編集しました"
+       redirect_to("/users/#{@user.id}")
+     else
+@@ -79,6 +81,9 @@ class UsersController < ApplicationController
+     redirect_to("/login")
+   end
+ 
++  #FIXME: privateメソッドの追加
++  private
++
+   def ensure_correct_user
+     if @current_user.id != params[:id].to_i
+       flash[:notice]= "権限がありません"
+diff --git a/app/models/user.rb b/app/models/user.rb
+index eadb042..7b062f3 100644
+--- a/app/models/user.rb
++++ b/app/models/user.rb
+@@ -9,4 +9,8 @@ class User < ApplicationRecord
+ 
+   validates :password, {presence: true}
+ 
+-end
+\ No newline at end of file
++  #TODO: ゲストかどうか判別するメソッドを定義
++  def guest?
++    self.email == "guest@example.com"
++  end
++end
+diff --git a/app/views/users/login_form.html.erb b/app/views/users/login_form.html.erb
+index 5d7b54a..e152b3e 100644
+--- a/app/views/users/login_form.html.erb
++++ b/app/views/users/login_form.html.erb
+@@ -14,8 +14,10 @@
+           <p>パスワード</p>
+           <input type="password" name="password" value="<%= @password %>">
+           <input type="submit" value="ログイン">
++          <% #TODO: ゲストログインの入口を追加 %>
++          <%= link_to 'ゲストとしてログインする', guest_login_path, style: 'color:#1ea3ff;' %>
+         <% end %>
+       </div>
+     </div>
+   </div>
+-</div>
+\ No newline at end of file
++</div>
+diff --git a/app/views/users/show.html.erb b/app/views/users/show.html.erb
+index 47b8170..4a8d175 100644
+--- a/app/views/users/show.html.erb
++++ b/app/views/users/show.html.erb
+@@ -5,9 +5,11 @@
+ 
+       <h2><%= @user.name %></h2>
+       <p><%= @user.email %></p>
+-      <% if @user.id == @current_user.id %>
++      <%# if @user.id == @current_user.id %>
++      <% #TODO: ゲストでなければという条件を追加（models/user.rbを参照） %>
++      <% if @user.id == @current_user.id && !@user.guest? %>
+       <%= link_to("編集", "/users/#{@user.id}/edit") %>
+       <% end %>
+     </div>
+   </div>
+-</div>
+\ No newline at end of file
++</div>
+diff --git a/config/routes.rb b/config/routes.rb
+index 3c59343..17ae1f1 100644
+--- a/config/routes.rb
++++ b/config/routes.rb
+@@ -23,7 +23,10 @@ Rails.application.routes.draw do
+ 
+   get "login" => "users#login_form"
+   post "login" => "users#login"
++
++  #TODO: ゲストログイン用のルーティングを追加
++  get "guest_login" => "guest_user_login#create"
+   
+   post "logout" => "users#logout"
+ 
+-end
+\ No newline at end of file
++end
+diff --git a/db/seeds.rb b/db/seeds.rb
+index f3a0480..46b85d2 100644
+--- a/db/seeds.rb
++++ b/db/seeds.rb
+@@ -5,3 +5,12 @@
+ #
+ #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
+ #   Character.create(name: 'Luke', movie: movies.first)
++
++#TODO: ゲストユーザーをあらかじめ登録しておく
++#TODO: ゲストユーザーのアイコンを登録する（public/user_images/guest_user_icon.png）
++User.create(name: "ゲストユーザー",
++            email: "guest@example.com",
++            password: "password",
++            profile: "ゲストユーザー専用アカウント",
++            user_image: "guest_user_icon.png",
++            career: "不明")

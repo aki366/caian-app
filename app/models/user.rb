@@ -9,4 +9,8 @@ class User < ApplicationRecord
 
   validates :password, {presence: true}
 
+  #TODO: ゲストかどうか判別するメソッドを定義
+  def guest?
+    self.email == "guest@example.com"
+  end
 end

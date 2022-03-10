@@ -23,6 +23,9 @@ Rails.application.routes.draw do
 
   get "login" => "users#login_form"
   post "login" => "users#login"
+
+  #TODO: ゲストログイン用のルーティングを追加
+  get "guest_login" => "guest_user_login#create"
   
   post "logout" => "users#logout"
 
