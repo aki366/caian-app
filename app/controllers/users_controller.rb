@@ -47,7 +47,9 @@ class UsersController < ApplicationController
       File.binwrite("public/user_images/#{@user.user_image}",image.read)
     end
       
-    if @user.save
+    #TODO: ゲストユーザーは更新できないようにする
+    #if @user.save
+    if !@user.guest? && @user.save
       flash[:notice] = "ユーザー情報を編集しました"
       redirect_to("/users/#{@user.id}")
     else
@@ -78,6 +80,9 @@ class UsersController < ApplicationController
     flash[:notice] = "ログアウトしました"
     redirect_to("/login")
   end
+
+  #FIXME: privateメソッドの追加
+  private
 
   def ensure_correct_user
     if @current_user.id != params[:id].to_i

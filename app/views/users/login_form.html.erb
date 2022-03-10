@@ -14,6 +14,8 @@
           <p>パスワード</p>
           <input type="password" name="password" value="<%= @password %>">
           <input type="submit" value="ログイン">
+          <% #TODO: ゲストログインの入口を追加 %>
+          <%= link_to 'ゲストとしてログインする', guest_login_path, style: 'color:#1ea3ff;' %>
         <% end %>
       </div>
     </div>
