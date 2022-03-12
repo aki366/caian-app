@@ -38,7 +38,7 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find_by(id: params[:id])
-    redirect_to("/users/#{@user.id}") if @user.guest?
+    redirect_to("/users/#{@user.id}") and return if @user.guest?
     @user.name = params[:name]
     @user.email = params[:email]
 
@@ -92,4 +92,4 @@ class UsersController < ApplicationController
     end
   end
 
-  end
+end
