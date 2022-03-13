@@ -1,5 +1,5 @@
 # Caian
-アプリ：[https://caian-app.herokuapp.com/]
+## [Caian](https://caian-app.herokuapp.com/)とは、チームの課題管理と実績評価機能が一つになったSNSサービスです。
 
 ## 概要
 
