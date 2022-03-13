@@ -3,13 +3,13 @@ class UsersController < ApplicationController
   before_action :authenticate_user,{only:[:index, :show, :edit, :update]}
   before_action :forbid_login_user,{only:[:new, :create, :login_form, :login]}
   before_action :ensure_correct_user,{only:[:edit, :update]}
+  before_action :set_user, {only:[:show, :edit, :update]}
 
   def index
     @users = User.all
   end
 
   def show 
-    @user = User.find_by(id: params[:id])
   end
 
   def new
@@ -33,24 +33,19 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find_by(id:params[:id])
   end
 
   def update
-    @user = User.find_by(id: params[:id])
     redirect_to("/users/#{@user.id}") and return if @user.guest?
+
     @user.name = params[:name]
     @user.email = params[:email]
+    @user.user_image = "#{@user.id}.jpg"
 
-    if params[:image]
-      @user.user_image = "#{@user.id}.jpg"
-      image = params[:image]
-      File.binwrite("public/user_images/#{@user.user_image}",image.read)
-    end
-      
-    #TODO: ゲストユーザーは更新できないようにする
-    #if @user.save
-    if !@user.guest? && @user.save
+    if @user.save
+      #もしイメージがパラメーターに含まれていれば、write_imageメソッドを呼び出す。
+      # user情報編集は理解しやすいよう、かたまりで上にまとめて、保存に成功した時点で画像をファイルに書き込みます。
+      write_image(@user.user_image, params[:image]) if params[:image]
       flash[:notice] = "ユーザー情報を編集しました"
       redirect_to("/users/#{@user.id}")
     else
@@ -59,7 +54,6 @@ class UsersController < ApplicationController
   end
 
   def login_form
-    # @user = User.login_form
   end
   
   def login
@@ -84,6 +78,18 @@ class UsersController < ApplicationController
 
   #FIXME: privateメソッドの追加
   private
+
+  def set_user
+    @user = User.find_by(id: params[:id])
+  end
+
+
+  #write_imageメソッドは第一引数に画像ファイル名, 第二引数にイメージを必要とする
+  #（file_name == @user.user_image, image == params[:image]）
+  def write_image(file_name, image)
+    image = params[:image]
+    File.binwrite("public/user_images/#{file_name}",image.read)
+  end
 
   def ensure_correct_user
     if @current_user.id != params[:id].to_i
