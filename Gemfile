@@ -13,9 +13,6 @@ gem 'uglifier'
 gem 'pry-rails'
 gem 'jquery-rails'
 gem 'bcrypt'
-gem 'devise'
-gem 'refile', require: 'refile/rails', github: 'refile/refile'
-gem 'refile-mini_magick'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.6'
