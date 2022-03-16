@@ -24,6 +24,7 @@ class PostsController < ApplicationController
       content: params[:content],
       user_id: @current_user.id
     )
+    @post.image.attach(params[:post][:image])
     if @post.save
       flash[:notice] = "投稿を作成しました"
       redirect_to("/posts/index")
@@ -54,4 +55,11 @@ class PostsController < ApplicationController
     flash[:notice] = "投稿を削除しました"
     redirect_to("/posts/index")
   end
+
+  private
+
+  def post_params
+    params.require(:post).permit(:content, :image)
+  end
+
 end

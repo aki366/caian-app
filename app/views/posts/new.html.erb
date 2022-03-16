@@ -9,7 +9,13 @@
               <%= message %>
             </div>
           <% end %>
-          
+
+          <%= form_with(model: @micoropost, local: true) do |f| %>
+            <span class="image">
+              <%= f.file_field :image %>
+            </span>
+          <% end %>
+
           <textarea name="content"><%= @post.content %></textarea>
           <input type="submit" value="投稿">
         </div>
