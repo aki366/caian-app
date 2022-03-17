@@ -13,6 +13,8 @@ gem 'uglifier'
 gem 'pry-rails'
 gem 'jquery-rails'
 gem 'bcrypt'
+gem "image_processing", ">= 1.2"
+gem 'mini_magick'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.6'
