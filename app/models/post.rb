@@ -1,7 +1,7 @@
 class Post < ApplicationRecord
   has_one_attached :image
-  # has_many_attached 複数のファイルが添付可能。
-  
+  #ちなみに複数の場合は has_many_attached :images になります。
+
   validates :content, {presence: true,length: {maximum: 140}}
   validates :user_id, {presence: true}
   

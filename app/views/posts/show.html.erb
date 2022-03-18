@@ -7,7 +7,9 @@
       </div>
       <p>
         <%= @post.content%>
-        <%= image_tag post.image if post.image.attached? %>
+        <% if @post.image.attached? %> #画像が投稿に紐づけられていた場合に表示
+        <%= image_tag @post.image %>
+        <% end %>
       </p>
       <div class="post-time">
         <%= @post.created_at%>

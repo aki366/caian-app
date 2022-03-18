@@ -2,6 +2,8 @@ class PostsController < ApplicationController
 
   before_action :authenticate_user,{only:[:edit, :update]}
 
+  skip_before_action :verify_authenticity_token
+
   def index
     @posts = Post.all.order(created_at: :desc)
   end
@@ -20,11 +22,8 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(
-      content: params[:content],
-      user_id: @current_user.id
-    )
-    @post.image.attach(params[:post][:image])
+    # アソシエーションを用いることで、user_idカラムにcurrent_user.idが入る
+    @post = current_user.posts.new(post_params)
     if @post.save
       flash[:notice] = "投稿を作成しました"
       redirect_to("/posts/index")
@@ -44,7 +43,6 @@ class PostsController < ApplicationController
       flash[:notice] = "投稿を編集しました"
       redirect_to("/posts/index")
     else
-      # render("posts/edit")
       redirect_to("/posts/#{@post.id}/edit")
     end
   end
@@ -59,7 +57,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:content, :image)
+    params.require(:post).permit(:content, :image) #ここにimageを追加する
   end
 
 end

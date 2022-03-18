@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   # devise_for :users
   root "home#top"
+  resources :post
 
   get "top" => "home#top"
   get "about" => "home#about"
@@ -26,7 +27,7 @@ Rails.application.routes.draw do
 
   #TODO: ゲストログイン用のルーティングを追加
   get "guest_login" => "guest_user_login#create"
-  
+
   post "logout" => "users#logout"
 
 end

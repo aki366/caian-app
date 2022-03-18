@@ -10,10 +10,15 @@
             </div>
           <% end %>
 
-          <%= form_with(model: @micropost, local: true) do |f| %>
-            <span class="image">
-              <%= f.file_field :image %>
-            </span>
+          <%= form_with(model: @posts, local: true) do |form| %>
+            <div class="field">
+              <%= form.label :image %>
+              <%= form.file_field :image %>
+            </div>
+
+            <div class="actions">
+              <%= form.submit %>
+            </div>
           <% end %>
 
           <textarea name="content"><%= @post.content %></textarea>
