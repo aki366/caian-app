@@ -42,9 +42,9 @@ class UsersController < ApplicationController
       # user情報編集は理解しやすいよう、かたまりで上にまとめて、保存に成功した時点で画像をファイルに書き込みます。
       write_image(@user.user_image, params[:image]) if params[:image]
       flash[:notice] = "ユーザー情報を編集しました"
-      redirect_to("/users/#{@user.id}")
+      redirect_to user_path(@user.id)
     else
-      render("users/edit")
+      render edit_user_path
     end
   end
 
@@ -91,7 +91,7 @@ class UsersController < ApplicationController
   def ensure_correct_user
     if @current_user.id != params[:id].to_i
       flash[:notice]= "権限がありません"
-      redirect_to("/posts/index")
+      redirect_to posts_path
     end
   end
 
