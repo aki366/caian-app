@@ -4,6 +4,7 @@ class GuestUserLoginController < UsersController
     guest = User.find_by(email: 'guest@example.com',password: 'password') 
     session[:user_id] = guest.id
     flash[:notice] = "ゲストユーザーとしてログインしました"
-    redirect_to ("/posts/index")
+    #TODO: routingを変更したため
+    redirect_to posts_path
   end
 end

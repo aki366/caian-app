@@ -10,14 +10,15 @@ class ApplicationController < ActionController::Base
   def authenticate_user
     if @current_user == nil
       flash[:notice] ="ログインが必要です"
-      redirect_to("/login")
+      redirect_to login_path
     end
   end
 
   def forbid_login_user
     if @current_user
       flash[:notice] = "すでにログインしています"
-      redirect_to("/posts/index")
+      #TODO: routingを変更したため
+      redirect_to posts_path
     end
   end
 
