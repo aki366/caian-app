@@ -31,7 +31,7 @@ class PostsController < ApplicationController
       flash[:notice] = "投稿を作成しました"
       redirect_to posts_path
     else
-      render new_post_path
+      render :new
     end
   end
 
