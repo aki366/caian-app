@@ -19,7 +19,7 @@
     </div>
     <div>
       <% # variantメソッドを用いることで、サイズなど加工ができる %>
-      <%= image_tag @post.image.variant(resize: "570x570") %>
+      <%= image_tag @post.image.variant(resize: "570x570") if @post.image.attached? %>
     </div>
   </div>
 </div>
