@@ -9,8 +9,8 @@
 #TODO: ゲストユーザーをあらかじめ登録しておく
 #TODO: ゲストユーザーのアイコンを登録する（public/user_images/guest_user_icon.png）
 User.create(name: "ゲストユーザー",
-            email: "guest@example.com",
-            password: "password",
-            profile: "ゲストユーザー専用アカウント",
-            user_image: "guest_user_icon.png",
-            career: "不明")
+  email: "guest@example.com",
+  password: "password",
+  profile: "ゲストユーザー専用アカウント",
+  user_image: "guest_user_icon.png",
+  career: "不明")

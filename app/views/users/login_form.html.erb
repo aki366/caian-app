@@ -8,12 +8,12 @@
             <%= @error_message %>
           </div>
         <% end %>
-        <%= form_tag("/login") do %>
+        <%= form_with model: @user, url: login_path do |f| %>
           <p>メールアドレス</p>
-          <input name="email" value="<%= @email %>">
+          <%= f.email_field :email %>
           <p>パスワード</p>
-          <input type="password" name="password" value="<%= @password %>">
-          <input type="submit" value="ログイン">
+          <%= f.password_field :pssword %>
+          <%= f.submit 'ログイン' %>
           <% #TODO: ゲストログインの入口を追加 %>
           <%= link_to 'ゲストとしてログインする', guest_login_path, style: 'color:#1ea3ff;' %>
         <% end %>

@@ -17,18 +17,13 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(
-      name: params[:name],
-      email: params[:email],
-      user_image: "default_user.jpg",
-      password: params[:password]
-    )
+    @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
       flash[:notice] = "ユーザー登録が完了しました"
-      redirect_to("/users/#{@user.id}")
+      redirect_to user_path(@user.id)
     else
-      render("users/new")
+      render :new
     end
   end
 
@@ -36,7 +31,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    redirect_to("/users/#{@user.id}") and return if @user.guest?
+    redirect_to user_path(@user.id) and return if @user.guest?
 
     @user.name = params[:name]
     @user.email = params[:email]
@@ -54,26 +49,28 @@ class UsersController < ApplicationController
   end
 
   def login_form
+    #TODO: ログインフォームのviewで使用するため@userを定義
+    @user = User.new
   end
   
   def login
-    @user = User.find_by(email: params[:email],password: params[:password])
+    @user = User.find_by(login_params)
     if @user
       session[:user_id] = @user.id
       flash[:notice] = "ログインしました"
-      redirect_to ("/posts/index")
+      redirect_to posts_path
     else
       @error_message = "メールアドレスまたはパスワードが間違っています"
       @email = params[:email]
       @password = params[:password]
-      render("users/login_form")
+      render login_path
     end
   end
 
   def logout
     session[:user_id] = nil
     flash[:notice] = "ログアウトしました"
-    redirect_to("/login")
+    redirect_to login_path
   end
 
   #FIXME: privateメソッドの追加
@@ -98,4 +95,14 @@ class UsersController < ApplicationController
     end
   end
 
+  private
+
+  def user_params
+    #TODO: ストロングパラメーターについて調べてみてください
+    params.require(:user).permit(:name, :email, :password)
+  end
+
+  def login_params
+    params.require(:user).permit(:email, :password)
+  end
 end

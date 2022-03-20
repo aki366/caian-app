@@ -1,7 +1,7 @@
 <div class="main posts-new">
   <div class="container">
     <h1 class="form-heading">投稿する</h1>
-    <%= form_tag("/posts/create") do %>
+    <%= form_with model: @post, local: true do |f| %>
       <div class="form">
         <div class="form-body">
           <% @post.errors.full_messages.each do |message| %>
@@ -9,20 +9,10 @@
               <%= message %>
             </div>
           <% end %>
-
-          <%= form_with(model: @posts, local: true) do |form| %>
-            <div class="field">
-              <%= form.label :image %>
-              <%= form.file_field :image %>
-            </div>
-
-            <div class="actions">
-              <%= form.submit %>
-            </div>
-          <% end %>
-
-          <textarea name="content"><%= @post.content %></textarea>
-          <input type="submit" value="投稿">
+          <% #画像ファイルをアップロードするフォームを作成 %>
+          <%= f.file_field :image %> 
+          <%= f.text_area :content %>
+          <%= f.submit '投稿する' %>
         </div>
       </div>
     <% end %>

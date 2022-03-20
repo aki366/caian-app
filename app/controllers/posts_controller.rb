@@ -2,8 +2,6 @@ class PostsController < ApplicationController
 
   before_action :authenticate_user,{only:[:edit, :update]}
 
-  skip_before_action :verify_authenticity_token
-
   def index
     @posts = Post.all.order(created_at: :desc)
   end
@@ -22,28 +20,33 @@ class PostsController < ApplicationController
   end
 
   def create
-    # アソシエーションを用いることで、user_idカラムにcurrent_user.idが入る
-    @post = current_user.posts.new(post_params)
+    #TODO: Userモデルとのアソシエーション
+    #TODO: あらかじめuser_idが入った状態でPostモデルがnewされる
+    #TODO: Post.new
+    #TODO: => id: nil, content: nil, created_at: nil, updated_at: nil, user_id: nil>
+    #TODO: User.find(1).posts.new
+    #TODO: => <id: nil, content: nil, created_at: nil, updated_at: nil, user_id: 1>
+    @post = @current_user.posts.new(post_params)
     if @post.save
       flash[:notice] = "投稿を作成しました"
-      redirect_to("/posts/index")
+      redirect_to posts_path
     else
-      render("posts/new")
+      render :new
     end
   end
 
   def edit
-    @post = Post.find_by(id:params[:id])
+    @post = Post.find_by(id: params[:id])
   end
 
   def update
-    @post = Post.find_by(id:params[:id])
-    @post.content = params[:content]
-    if @post.save
+    @post = Post.find_by(id: params[:id])
+    if @post.update(post_params)
       flash[:notice] = "投稿を編集しました"
-      redirect_to("/posts/index")
+      redirect_to posts_path
     else
-      redirect_to("/posts/#{@post.id}/edit")
+      # render("posts/edit")
+      redirect_to post_path(@post.id)
     end
   end
 
@@ -57,7 +60,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:content, :image) #ここにimageを追加する
+    #TODO: formから渡ってきたパラメーターのうち下記２つだけを許容する
+    params.require(:post).permit(:content, :image)
   end
-
 end
