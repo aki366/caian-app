@@ -9,17 +9,16 @@
         <%= @post.content %>
       </p>
       <div class="post-time">
-        <%= @post.created_at%>
+        <%= @post.created_at %>
       </div>
       <div class="post-menus">
         <%= link_to "編集", edit_post_path(@post.id) %>
-        <% #TODO: deleteの場合はlink_toが使えないため、button_toにする %>
+        <% # deleteの場合はlink_toが使えないため、button_toにする %>
         <%= button_to "削除", post_path(@post.id),method: "delete") %>
       </div>
     </div>
     <div>
-      <% #TODO: 画像の表示 %>
-      <% #TODO: variantメソッドを用いることで、サイズなど加工ができる %>
+      <% # variantメソッドを用いることで、サイズなど加工ができる %>
       <%= image_tag @post.image.variant(resize: "570x570") %>
     </div>
   </div>

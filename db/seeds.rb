@@ -6,8 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-#TODO: ゲストユーザーをあらかじめ登録しておく
-#TODO: ゲストユーザーのアイコンを登録する（public/user_images/guest_user_icon.png）
+# ゲストユーザーをあらかじめ登録しておく
 User.create(name: "ゲストユーザー",
   email: "guest@example.com",
   password: "password",

@@ -5,6 +5,7 @@ class Post < ApplicationRecord
   #TODO: ActiveStorage用のカラムをpostモデルに追加する
   #TODO: この記述で、@post.imageで画像を呼び出すことができる
   has_one_attached :image
+  # 複数形の場合 has_many_attached :images
 
   #TODO: Userモデルとのアソシエーションを作成
   #TODO: Postモデルのインスタンスがuserメソッドを使えるようになる

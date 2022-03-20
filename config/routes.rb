@@ -12,16 +12,16 @@ Rails.application.routes.draw do
   # post "posts/create" => "posts#create"
   # post "posts/:id/update" => "posts#update"
   # post "posts/:id/destroy" => "posts#destroy"
-  #TODO: 上記の7つのメソッドは下記にまとめられる
+  # 上記の7つのメソッドは下記にまとめられる
   resources :posts
   
-  #get 'users/index'
-  #post "users/create" => "users#create"
-  #get "users/index" => "users#index"
-  #get "users/:id" => "users#show"
-  #get "users/:id/edit" => "users#edit" 
-  #post "users/:id/update" => "users#update"
-  #TODO: 上記のメソッドは下記にまとめられる（7つのメソッドのうち、destroy以外)
+  # get 'users/index'
+  # post "users/create" => "users#create"
+  # get "users/index" => "users#index"
+  # get "users/:id" => "users#show"
+  # get "users/:id/edit" => "users#edit" 
+  # post "users/:id/update" => "users#update"
+  # 上記のメソッドは下記にまとめられる（7つのメソッドのうち、destroy以外)
   resources :users, except: [:destroy]
 
   get "signup" => "users#new"
@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   post "login" => "users#login"
   delete "logout" => "users#logout"
 
-  #TODO: ゲストログイン用のルーティングを追加
+  # ゲストログイン用のルーティングを追加
   get "guest_login" => "guest_user_login#create"
 
 end
