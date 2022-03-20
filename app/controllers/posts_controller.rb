@@ -15,7 +15,7 @@ class PostsController < ApplicationController
     @post = Post.new
     if @current_user == nil
       flash[:notice] ="ログインが必要です"
-      redirect_to("/login")
+      redirect_to login_path
     end
   end
 
@@ -54,7 +54,7 @@ class PostsController < ApplicationController
     @post = Post.find_by(id: params[:id])
     @post.destroy
     flash[:notice] = "投稿を削除しました"
-    redirect_to("/posts/index")
+    redirect_to posts_path
   end
 
   private
