@@ -20,9 +20,6 @@
         <% end %>
       </div>
 
-      <% #TODO: navigationの書き方変更 %>
-      <% #TODO: routes.rbでパスを変更したため %>
-      <% #TODO: link_to 'name', users_path のような書き方をする %>
       <ul class="header-menus">
         <% current_user = User.find_by(id: session[:user_id]) %>
 
@@ -81,8 +78,6 @@
           -->
 
           <li>
-            <% #TODO:  routes.rbにより、deleteメソッドに変更 %>
-            <% #TODO: deleteの場合はlink_toが使えないため、button_toにする %>
             <%= button_to 'ログアウト', logout_path, method: :delete %>
           </li>
 
