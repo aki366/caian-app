@@ -23,7 +23,7 @@ class UsersController < ApplicationController
       flash[:notice] = "ユーザー登録が完了しました"
       redirect_to user_path(@user.id)
     else
-      render new_user_path
+      render :new
     end
   end
 
