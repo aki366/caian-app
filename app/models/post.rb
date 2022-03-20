@@ -2,14 +2,14 @@ class Post < ApplicationRecord
   validates :content, {presence: true,length: {maximum: 140}}
   validates :user_id, {presence: true}
 
-  #TODO: ActiveStorage用のカラムをpostモデルに追加する
-  #TODO: この記述で、@post.imageで画像を呼び出すことができる
+  # ActiveStorage用のカラムをpostモデルに追加する
+  # この記述で、@post.imageで画像を呼び出すことができる
   has_one_attached :image
   # 複数形の場合 has_many_attached :images
 
-  #TODO: Userモデルとのアソシエーションを作成
-  #TODO: Postモデルのインスタンスがuserメソッドを使えるようになる
-  #TODO: @post.user
+  # Userモデルとのアソシエーションを作成
+  # Postモデルのインスタンスがuserメソッドを使えるようになる
+  # @post.user
   belongs_to :user
   
   def user

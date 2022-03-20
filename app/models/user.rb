@@ -9,12 +9,12 @@ class User < ApplicationRecord
 
   validates :password, {presence: true}
 
-  #TODO: Postモデルとのアソシエーションを作成
-  #TODO: Userのインスタンスはpostsメソッドを使えるようになる
-  #TODO: @user.posts
+  # Postモデルとのアソシエーションを作成
+  # Userのインスタンスはpostsメソッドを使えるようになる
+  # @user.posts
   has_many :posts
 
-  #TODO: ゲストかどうか判別するメソッドを定義
+  # ゲストかどうか判別するメソッドを定義
   def guest?
     self.email == "guest@example.com"
   end

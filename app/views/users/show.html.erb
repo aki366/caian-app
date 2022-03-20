@@ -5,8 +5,6 @@
 
       <h2><%= @user.name %></h2>
       <p><%= @user.email %></p>
-      <%# if @user.id == @current_user.id %>
-      <% #TODO: ゲストでなければという条件を追加（models/user.rbを参照） %>
       <% if @user.id == @current_user.id && !@user.guest? %>
       <%= link_to("編集", "/users/#{@user.id}/edit") %>
       <% end %>
