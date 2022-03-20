@@ -31,7 +31,7 @@ class PostsController < ApplicationController
       flash[:notice] = "投稿を作成しました"
       redirect_to posts_path
     else
-      render :new
+      render new_post_path
     end
   end
 
@@ -60,7 +60,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    #TODO: formから渡ってきたパラメーターのうち下記２つだけを許容する
+    #formから渡ってきたパラメーターのうち下記２つだけを許容する
     params.require(:post).permit(:content, :image)
   end
 end

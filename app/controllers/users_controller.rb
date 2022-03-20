@@ -23,7 +23,7 @@ class UsersController < ApplicationController
       flash[:notice] = "ユーザー登録が完了しました"
       redirect_to user_path(@user.id)
     else
-      render :new
+      render new_user_path
     end
   end
 
@@ -49,7 +49,7 @@ class UsersController < ApplicationController
   end
 
   def login_form
-    #TODO: ログインフォームのviewで使用するため@userを定義
+    # ログインフォームのviewで使用するため@userを定義
     @user = User.new
   end
   

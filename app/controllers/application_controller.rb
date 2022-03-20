@@ -17,7 +17,6 @@ class ApplicationController < ActionController::Base
   def forbid_login_user
     if @current_user
       flash[:notice] = "すでにログインしています"
-      #TODO: routingを変更したため
       redirect_to posts_path
     end
   end
