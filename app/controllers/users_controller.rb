@@ -73,7 +73,7 @@ class UsersController < ApplicationController
     redirect_to login_path
   end
 
-  #FIXME: privateメソッドの追加
+  # privateメソッドの追加
   private
 
   def set_user
@@ -81,7 +81,7 @@ class UsersController < ApplicationController
   end
 
 
-  #write_imageメソッドは第一引数に画像ファイル名, 第二引数にイメージを必要とする
+  # write_imageメソッドは第一引数に画像ファイル名, 第二引数にイメージを必要とする
   #（file_name == @user.user_image, image == params[:image]）
   def write_image(file_name, image)
     image = params[:image]
@@ -98,7 +98,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    #TODO: ストロングパラメーターについて調べてみてください
+    # ストロングパラメーター
     params.require(:user).permit(:name, :email, :password)
   end
 
