@@ -20,12 +20,12 @@ class PostsController < ApplicationController
   end
 
   def create
-    #TODO: Userモデルとのアソシエーション
-    #TODO: あらかじめuser_idが入った状態でPostモデルがnewされる
-    #TODO: Post.new
-    #TODO: => id: nil, content: nil, created_at: nil, updated_at: nil, user_id: nil>
-    #TODO: User.find(1).posts.new
-    #TODO: => <id: nil, content: nil, created_at: nil, updated_at: nil, user_id: 1>
+    # Userモデルとのアソシエーション
+    # あらかじめuser_idが入った状態でPostモデルがnewされる
+    # Post.new
+    # => id: nil, content: nil, created_at: nil, updated_at: nil, user_id: nil>
+    # User.find(1).posts.new
+    # => <id: nil, content: nil, created_at: nil, updated_at: nil, user_id: 1>
     @post = @current_user.posts.new(post_params)
     if @post.save
       flash[:notice] = "投稿を作成しました"
