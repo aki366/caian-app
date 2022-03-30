@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   # devise_for :users
   root "home#top"
 
-  get "top" => "home#top"
-  get "about" => "home#about"
+  get "top", to: "home#top"
+  get "about", to: "home#about"
 
   resources :posts
   resources :users, except: [:destroy]
@@ -11,12 +11,12 @@ Rails.application.routes.draw do
   post "likes/:post_id/create", to: "likes#create"
   post "likes/:post_id/destroy", to: "likes#destroy"
 
-  get "signup" => "users#new"
-  get "login" => "users#login_form"
-  post "login" => "users#login"
-  delete "logout" => "users#logout"
+  get "signup", to: "users#new"
+  get "login", to: "users#login_form"
+  post "login", to: "users#login"
+  delete "logout", to: "users#logout"
 
   # ゲストログイン用のルーティングを追加
-  get "guest_login" => "guest_user_login#create"
+  get "guest_login", to: "guest_user_login#create"
 
 end
