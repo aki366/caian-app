@@ -22,6 +22,8 @@
           <span class="fa fa-heart unliked-btn"></span>
         <% end %>
       <% end %>
+      
+      <%= @likes_count %>
 
       <% if @post.user_id == @current_user.id %>
         <div class="post-menus">
