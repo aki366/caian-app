@@ -6,7 +6,10 @@ Rails.application.routes.draw do
   get "about", to: "home#about"
 
   resources :posts
+  
   resources :users, except: [:destroy]
+  get "users/:id/likes", to: "users#likes"
+
   resources :likes
   post "likes/:post_id/create", to: "likes#create"
   post "likes/:post_id/destroy", to: "likes#destroy"
