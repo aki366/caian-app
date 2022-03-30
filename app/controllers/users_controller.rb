@@ -88,6 +88,9 @@ class UsersController < ApplicationController
     File.binwrite("public/user_images/#{file_name}",image.read)
   end
 
+  def likes
+  end
+
   def ensure_correct_user
     if @current_user.id != params[:id].to_i
       flash[:notice]= "権限がありません"
@@ -105,4 +108,5 @@ class UsersController < ApplicationController
   def login_params
     params.require(:user).permit(:email, :password)
   end
+
 end
