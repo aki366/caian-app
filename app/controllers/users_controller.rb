@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
-  def show 
+  def show
   end
 
   def new
@@ -73,6 +73,11 @@ class UsersController < ApplicationController
     redirect_to login_path
   end
 
+  def likes
+    @user = User.find_by(id: params[:id])
+    @likes = Like.where(user_id: @user.id)
+  end
+
   # privateメソッドの追加
   private
 
@@ -86,9 +91,6 @@ class UsersController < ApplicationController
   def write_image(file_name, image)
     image = params[:image]
     File.binwrite("public/user_images/#{file_name}",image.read)
-  end
-
-  def likes
   end
 
   def ensure_correct_user
