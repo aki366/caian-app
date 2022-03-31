@@ -27,6 +27,7 @@ group :development do
   gem 'web-console'
   gem 'rack-mini-profiler', '~> 2.0'
   gem 'listen'
+  gem 'pre-commit'
   gem 'rubocop'
   gem 'rubocop-rails'
 end
