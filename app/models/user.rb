@@ -18,4 +18,9 @@ class User < ApplicationRecord
   def guest?
     self.email == "guest@example.com"
   end
+
+  def posts
+    return Post.where(user_id: self.id)
+  end
+
 end
