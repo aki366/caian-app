@@ -14,6 +14,8 @@ class User < ApplicationRecord
   # @user.posts
   has_many :posts
 
+  has_many :comments
+
   # ゲストかどうか判別するメソッドを定義
   def guest?
     self.email == "guest@example.com"
