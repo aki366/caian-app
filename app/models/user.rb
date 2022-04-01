@@ -12,9 +12,9 @@ class User < ApplicationRecord
   # Postモデルとのアソシエーションを作成
   # Userのインスタンスはpostsメソッドを使えるようになる
   # @user.posts
-  has_many :posts
+  has_many :posts, dependent: :destroy
 
-  has_many :comments
+  has_many :comments, dependent: :destroy
 
   # ゲストかどうか判別するメソッドを定義
   def guest?
