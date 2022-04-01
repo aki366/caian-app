@@ -12,7 +12,7 @@ class Post < ApplicationRecord
   # @post.user
   belongs_to :user
 
-  has_many :comments
+  has_many :comments, dependent: :destroy
   
   def user
     return User.find_by(id: self.user_id)
