@@ -18,7 +18,7 @@ gem "image_processing", ">= 1.2"
 gem 'mini_magick'
 
 group :development, :test do
-  gem 'rspec-rails', '~> 3.6'
+  gem 'rspec-rails', '~> 5.0.0'
   gem 'sqlite3', '~> 1.4'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
