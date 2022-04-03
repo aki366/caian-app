@@ -68,3 +68,7 @@ Metrics/MethodLength:
   Max: 20
   Exclude:
     - "db/migrate/*.rb"
+
+# private 以下のインデントを一段深くする書き方
+Layout/IndentationConsistency:
+  EnforcedStyle: indented_internal_methods
