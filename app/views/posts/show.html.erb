@@ -53,5 +53,22 @@
       </div>
     <% end %>
 
+	  <%# <% if Like.find_by(user_id: @current_user.id, post_id: @post.id) %>
+    
+    <%= form_with model: @comment, local: true do |f| %>
+      <div class="form">
+        <div class="form-body">
+          <% @post.errors.full_messages.each do |message| %>
+            <div class="form-error">
+              <%= message %>
+            </div>
+          <% end %>
+          <% # TODO: コメントにも画像投稿機能追加 %>
+          <% # = f.file_field :image  %>
+          <%= f.text_area :comment_text %>
+          <%= f.submit 'コメントを投稿する' %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
