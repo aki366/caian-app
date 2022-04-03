@@ -46,9 +46,9 @@
         </div>
         <div class="post-right">
           <div class="post-user-name">
-            <%= link_to(comment.user.name, "/comments/#{comment.user.id}") %>
+            <%= link_to(comment.user.name, "/users/#{comment.user.id}") %>
           </div>       
-          <%= link_to(comment.comment_text, "/comments/#{comment.id}") %>
+          <%= comment.comment_text %>
         </div>
       </div>
     <% end %>
