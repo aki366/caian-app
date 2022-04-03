@@ -11,7 +11,10 @@ class Post < ApplicationRecord
   # Postモデルのインスタンスがuserメソッドを使えるようになる
   # @post.user
   belongs_to :user
+
+  # postが複数のlikeを所有している関係
   has_many :likes, dependent: :destroy
+  
   has_many :comments, dependent: :destroy
   
   def user

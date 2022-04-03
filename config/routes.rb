@@ -6,8 +6,8 @@ Rails.application.routes.draw do
   get "about", to: "home#about"
 
   resources :posts
-  
-  resources :comments, only: [:create]
+
+  resources :comments
 
   resources :users, except: [:destroy]
   get "users/:id/likes", to: "users#likes"

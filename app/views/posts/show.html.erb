@@ -38,5 +38,20 @@
       <% # variantメソッドを用いることで、サイズなど加工ができる %>
       <%= image_tag @post.image.variant(resize: "570x570") if @post.image.attached? %>
     </div>
+
+    <% @post.comments.each do |comment| %>
+      <div class="posts-index-item">
+        <div class="post-left">
+          <img src='<%= "/user_images/#{comment.user.user_image}" %>'>
+        </div>
+        <div class="post-right">
+          <div class="post-user-name">
+            <%= link_to(comment.user.name, "/comments/#{comment.user.id}") %>
+          </div>       
+          <%= link_to(comment.comment_text, "/comments/#{comment.id}") %>
+        </div>
+      </div>
+    <% end %>
+
   </div>
 </div>
