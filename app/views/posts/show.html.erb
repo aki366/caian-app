@@ -35,7 +35,6 @@
 
     </div>
     <div>
-      <% # variantメソッドを用いることで、サイズなど加工ができる %>
       <%= image_tag @post.image.variant(resize: "570x570") if @post.image.attached? %>
     </div>
 
@@ -50,10 +49,13 @@
           </div>       
           <%= comment.comment_text %>
         </div>
+        <div class="post-menus">
+          <% if comment.user_id == @current_user.id %>
+            <%= link_to "削除", post_comment_path(@post, comment), method: :delete %>
+          <% end %>
+        </div>
       </div>
     <% end %>
-
-	  <%# <% if Like.find_by(user_id: @current_user.id, post_id: @post.id) %>
 
     <%= form_with(model: [@post, @comment], local: true) do |f| %>
       <div class="form">
