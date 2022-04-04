@@ -71,8 +71,8 @@ class PostsController < ApplicationController
 
   private
 
-  def post_params
-    #formから渡ってきたパラメーターのうち下記２つだけを許容する
-    params.require(:post).permit(:content, :image)
-  end
+    def post_params
+      # formから渡ってきたパラメーターのうち下記２つだけを許容する
+      params.require(:post).permit(:content, :image)
+    end
 end

@@ -102,13 +102,13 @@ class UsersController < ApplicationController
 
   private
 
-  def user_params
-    # ストロングパラメーター
-    params.require(:user).permit(:name, :email, :password)
-  end
+    def user_params
+      # ストロングパラメーター
+      params.require(:user).permit(:name, :email, :password)
+    end
 
-  def login_params
-    params.require(:user).permit(:email, :password)
-  end
+    def login_params
+      params.require(:user).permit(:email, :password)
+    end
 
 end
