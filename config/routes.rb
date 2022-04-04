@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   get "top", to: "home#top"
   get "about", to: "home#about"
 
-  resources :posts
+  resources :posts do
+    resources :comments, only:[:create, :destroy]
+  end
 
   resources :comments
 

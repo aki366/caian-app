@@ -12,6 +12,8 @@ class PostsController < ApplicationController
     @post = Post.find_by(id: params[:id])
     @user = @post.user
     @likes_count = Like.where(post_id: @post.id).count
+    @comments = @post.comments.includes(:user)
+    @comment = Comment.new
   end
 
   def new
@@ -56,7 +58,6 @@ class PostsController < ApplicationController
       flash[:notice] = "投稿を編集しました"
       redirect_to posts_path
     else
-      # render("posts/edit")
       redirect_to post_path(@post.id)
     end
   end
