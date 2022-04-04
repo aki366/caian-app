@@ -78,37 +78,32 @@ class UsersController < ApplicationController
     @likes = Like.where(user_id: @user.id)
   end
 
-  # privateメソッドの追加
   private
 
-  def set_user
-    @user = User.find_by(id: params[:id])
-  end
-
-
-  # write_imageメソッドは第一引数に画像ファイル名, 第二引数にイメージを必要とする
-  #（file_name == @user.user_image, image == params[:image]）
-  def write_image(file_name, image)
-    image = params[:image]
-    File.binwrite("public/user_images/#{file_name}",image.read)
-  end
-
-  def ensure_correct_user
-    if @current_user.id != params[:id].to_i
-      flash[:notice]= "権限がありません"
-      redirect_to posts_path
+    def set_user
+      @user = User.find_by(id: params[:id])
     end
-  end
 
-  private
+    # write_imageメソッドは第一引数に画像ファイル名, 第二引数にイメージを必要とする
+    #（file_name == @user.user_image, image == params[:image]）
+    def write_image(file_name, image)
+      image = params[:image]
+      File.binwrite("public/user_images/#{file_name}",image.read)
+    end
+
+    def ensure_correct_user
+      if @current_user.id != params[:id].to_i
+        flash[:notice]= "権限がありません"
+        redirect_to posts_path
+      end
+    end
 
     def user_params
       # ストロングパラメーター
-      params.require(:user).permit(:name, :email, :password)
+      params.permit(:name, :email, :password)
     end
 
     def login_params
       params.require(:user).permit(:email, :password)
     end
-
 end
