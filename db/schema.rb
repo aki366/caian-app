@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_05_091030) do
+ActiveRecord::Schema.define(version: 2022_04_05_100619) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -92,7 +92,7 @@ ActiveRecord::Schema.define(version: 2022_04_05_091030) do
     t.string "name"
     t.string "email"
     t.string "password"
-    t.string "user_image"
+    t.string "user_image", default: "guest_user_icon.png", null: false
     t.string "profile"
     t.string "career"
     t.datetime "created_at", precision: 6, null: false
