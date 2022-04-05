@@ -12,7 +12,7 @@ class User < ApplicationRecord
   # @user.posts
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
-  has_many :messages,
+  has_many :messages
 
   # ゲストかどうか判別するメソッドを定義
   def guest?
