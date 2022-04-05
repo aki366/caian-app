@@ -4,17 +4,15 @@ class User < ApplicationRecord
   # devise :database_authenticatable, :registerable,
   #        :recoverable, :rememberable, :validatable
   validates :name, {presence:true}
-
   validates :email, {presence: true,uniqueness:true}
-
   validates :password, {presence: true}
 
   # Postモデルとのアソシエーションを作成
   # Userのインスタンスはpostsメソッドを使えるようになる
   # @user.posts
   has_many :posts, dependent: :destroy
-
   has_many :comments, dependent: :destroy
+  has_many :messages,
 
   # ゲストかどうか判別するメソッドを定義
   def guest?
@@ -24,5 +22,4 @@ class User < ApplicationRecord
   def posts
     return Post.where(user_id: self.id)
   end
-
 end
