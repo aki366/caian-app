@@ -10,20 +10,20 @@
           </div>
         <% end %>
 
-        <%= form_tag("/users/create", {multipart:true}) do %>
-          <p>ユーザー名</p>
-          <input name="name" value="<%= @user.name %>">
+        <%= form_with model: @user, url: "/users/create", multipart: true do |f| %>
+          <%= f.label "ユーザー名" %>
+          <%= f.text_field :name %>
 
-          <p>画像</p>
-          <input name="image" type="file">
+          <%= f.label "画像" %>
+          <%= f.file_field :user_image %>
 
-          <p>メールアドレス</p>
-          <input name="email" value="<%= @user.email %>">
+          <%= f.label "メールアドレス" %>
+          <%= f.email_field :email %>
 
-          <p>パスワード</p>
-          <input name="password" type="password" value="<%= @user.password %>" >
+          <%= f.label "パスワード" %>
+          <%= f.password_field :password %>
 
-          <input type="submit" value="新規登録">
+          <%= f.submit "新規登録" %>
         <% end %>
       </div>
     </div>
