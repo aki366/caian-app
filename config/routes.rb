@@ -15,6 +15,8 @@ Rails.application.routes.draw do
 
   resources :comments
 
+  resources :messages
+
   resources :users, except: [:destroy]
   get "users/:id/likes", to: "users#likes"
   post "users/create", to: "users#create"
