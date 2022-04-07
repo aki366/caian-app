@@ -32,11 +32,10 @@ class UsersController < ApplicationController
 
   def update
     redirect_to user_path(@user.id) and return if @user.guest?
-
+    
     @user.name = params[:name]
     @user.email = params[:email]
     @user.user_image = "#{@user.id}.jpg"
-
     if @user.save
       #もしイメージがパラメーターに含まれていれば、write_imageメソッドを呼び出す。
       # user情報編集は理解しやすいよう、かたまりで上にまとめて、保存に成功した時点で画像をファイルに書き込みます。
