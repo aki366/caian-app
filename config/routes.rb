@@ -9,6 +9,10 @@ Rails.application.routes.draw do
     resources :comments, only: %i[create destroy]
   end
 
+  resources :rooms do
+    resources :messages
+  end
+
   resources :comments
 
   resources :users, except: [:destroy]
