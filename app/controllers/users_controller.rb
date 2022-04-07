@@ -18,11 +18,16 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    image = params[:user][:user_image]
+    hash = SecureRandom.hex(10)
+    @user.user_image = "#{@user.name}_#{hash}.jpg" if image
     if @user.save
+      write_image(@user.user_image, image) if image
       session[:user_id] = @user.id
       flash[:notice] = "ユーザー登録が完了しました"
       redirect_to user_path(@user.id)
     else
+      @user.user_image = image if image
       render :new
     end
   end
@@ -32,18 +37,22 @@ class UsersController < ApplicationController
 
   def update
     redirect_to user_path(@user.id) and return if @user.guest?
-    
+
     @user.name = params[:name]
     @user.email = params[:email]
-    @user.user_image = "#{@user.id}.jpg"
+
+    image = params[:image]
+    hash = SecureRandom.hex(10)
+    @user.user_image = "#{@user.name}_#{hash}.jpg" if image
     if @user.save
       #もしイメージがパラメーターに含まれていれば、write_imageメソッドを呼び出す。
       # user情報編集は理解しやすいよう、かたまりで上にまとめて、保存に成功した時点で画像をファイルに書き込みます。
-      write_image(@user.user_image, params[:image]) if params[:image]
+      write_image(@user.user_image, image) if image
       flash[:notice] = "ユーザー情報を編集しました"
       redirect_to user_path(@user.id)
     else
-      render edit_user_path
+      @user.user_image = image
+      render :edit
     end
   end
 
@@ -86,7 +95,6 @@ class UsersController < ApplicationController
     # write_imageメソッドは第一引数に画像ファイル名, 第二引数にイメージを必要とする
     #（file_name == @user.user_image, image == params[:image]）
     def write_image(file_name, image)
-      image = params[:image]
       File.binwrite("public/user_images/#{file_name}",image.read)
     end
 
@@ -99,7 +107,7 @@ class UsersController < ApplicationController
 
     def user_params
       # ストロングパラメーター
-      params.permit(:name, :user_image, :email, :password)
+      params.require(:user).permit(:name, :email, :password)
     end
 
     def login_params
