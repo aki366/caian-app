@@ -9,9 +9,11 @@ Rails.application.routes.draw do
     resources :comments, only: %i[create destroy]
   end
 
-  resources :rooms do
-    resources :messages
-  end
+  resources :rooms, only: %i[index new create]
+
+  # resources :rooms do
+  #   resources :messages
+  # end
 
   resources :comments
 
