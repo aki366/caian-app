@@ -7,12 +7,14 @@ class User < ApplicationRecord
   validates :email, {presence: true,uniqueness:true}
   validates :password, {presence: true}
 
-  # Postモデルとのアソシエーションを作成
-  # Userのインスタンスはpostsメソッドを使えるようになる
-  # @user.posts
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :messages
+  has_many :room_users
+
+  # throughは、特定のユーザー何と紐づいているか一発で引くことができる
+  # roomsとroom_usersが紐づいて、複数のroom_usersとuserが紐づくイメージ
+  has_many :rooms, through: :room_users
 
   # ゲストかどうか判別するメソッドを定義
   def guest?
