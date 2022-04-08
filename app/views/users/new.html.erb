@@ -14,14 +14,14 @@
           <%= f.label "ユーザー名" %>
           <%= f.text_field :name %>
 
-          <%= f.label "画像" %>
-          <%= f.file_field :user_image %>
-
           <%= f.label "メールアドレス" %>
           <%= f.email_field :email %>
 
           <%= f.label "パスワード" %>
           <%= f.password_field :password %>
+
+          <%= f.label "ユーザーイメージ" %>
+          <%= f.file_field :user_image %>
 
           <%= f.submit "新規登録" %>
         <% end %>
