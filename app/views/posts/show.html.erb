@@ -5,14 +5,14 @@
         <img src="<%= "/user_images/#{@user.user_image}" %>">
         <%= link_to(@user.name, "/users/#{@user.id}") %>
       </div>
-
       <p>
+      <div class="overflow-wrap">
         <%= @post.content %>
+      </div>
       </p>
       <div class="post-time">
         <%= @post.created_at %>
       </div>
-
       <% if Like.find_by(user_id: @current_user.id, post_id: @post.id) %>
         <%= link_to("/likes/#{@post.id}/destroy", {method: "post"}) do %>
           <span class="fa fa-heart liked-btn"></span>
