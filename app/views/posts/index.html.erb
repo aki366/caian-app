@@ -1,19 +1,20 @@
 <div class="main posts-index">
   <div class="container">
+    <h3>新規投稿一覧</h3>
+    <hr>
     <% @posts.each do |post| %>
-      <div class="posts-index-item">
-
-        <div class="post-left">
-          <img src="<%= "/user_images/#{post.user.user_image}" %>">
-        </div>
-        <div class="post-right">
-          <div class="post-user-name">
-            <%= link_to(post.user.name,"/users/#{post.user.id}") %>
-          </div>       
-
-          <%= link_to(post.content,"/posts/#{post.id}") %>
+      <div class="post-left">
+        <img src="<%= "/user_images/#{post.user.user_image}" %>">
+      </div>
+      <div class="post-right">
+        <div class="post-user-name">
+          <%= link_to(post.user.name,"/users/#{post.user.id}") %>
         </div>
       </div>
+      <div class="overflow-wrap">
+        <%= link_to(post.content,"/posts/#{post.id}") %>
+      </div>
+      <hr>
     <% end %>
   </div>
 </div>
