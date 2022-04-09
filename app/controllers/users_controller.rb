@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
 
-  before_action :authenticate_user,{only:[:index, :show, :edit, :update]}
   before_action :forbid_login_user,{only:[:new, :create, :login_form, :login]}
   before_action :ensure_correct_user,{only:[:edit, :update]}
   before_action :set_user, {only:[:show, :edit, :update]}
@@ -10,6 +9,25 @@ class UsersController < ApplicationController
   end
 
   def show
+    @user = User.find(params[:id])
+    @current_room_user = RoomUser.where(user_id: @current_user.id)
+    @another_room_user = RoomUser.where(user_id: @user.id)
+    if @user.id == @current_user.id
+    else
+      @current_room_user.each do |current|
+        @another_room_user.each do |another|
+          if current.room_id == another.room_id
+            @isRoom = true
+            @roomId = current.room_id
+          end
+        end
+      end
+      if @isRoom
+      else
+        @room = Room.new
+        @room_user = RoomUser.new
+      end
+    end
   end
 
   def new
