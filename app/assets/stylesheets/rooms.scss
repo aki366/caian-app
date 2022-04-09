@@ -30,8 +30,10 @@
 .room-right {
   float: left;
   width: 90%;
-  padding-left: 25px;
+  // padding-left: 25px;
   text-align: left;
+  // padding-left: 40px;
+  // padding-right: 15px;
 }
 
 /* rooms/show ================================ */
@@ -100,4 +102,15 @@
   min-height: 140px;
   border: 1px solid rgb(216, 218, 223);
   resize: none;
+}
+
+.rooms-show, .overflow-wrap {
+  margin: 0 6rem;
+  // width: 400px;
+  overflow-wrap: break-word;
+  max-width: 800px;
+  margin: auto;
+  padding-left: 40px;
+  padding-right: 15px;
+  clear: both;
 }
