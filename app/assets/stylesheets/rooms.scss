@@ -1,3 +1,39 @@
+/* rooms/index ================================ */
+.rooms-index-item {
+  padding: 20px 30px;
+  background-color: white;
+  overflow: hidden;
+  box-shadow: 0 2px 6px #c1ced7;
+}
+
+.room-left img {
+  width: 35px;
+  height: 35px;
+  border-radius: 40%;
+  box-shadow: 0 2px 6px #c1ced7;
+  object-fit: cover;
+}
+
+.room-user-name a {
+  font-weight: 600;
+}
+
+.room-user-name a:hover {
+  color: #3ecdc6;
+}
+
+.room-left {
+  float: left;
+  width: 10%;
+}
+
+.room-right {
+  float: left;
+  width: 90%;
+  padding-left: 25px;
+  text-align: left;
+}
+
 /* rooms/show ================================ */
 .rooms-show form {
   display: inline;
