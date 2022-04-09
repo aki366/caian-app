@@ -13,7 +13,9 @@
             <%= m.created_at %>
           </div>
         </div> 
-        <%= m.message_text %>
+        <div class="overflow-wrap">
+          <%= m.message_text %>
+        </div> 
         <hr>
       <% end %>
     <% else %>
