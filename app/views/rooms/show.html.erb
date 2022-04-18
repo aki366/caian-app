@@ -1,9 +1,9 @@
 <div class="main room-show">
   <div class="container">
-    <h3>相手のユーザー名</h3>
+    <h3>ダイレクトメッセージ</h3>
     <hr>
     <% if @messages.present? %>
-      <% @messages.each do |m| %>
+      <% @room.messages.each do |m| %>
         <div class="room-left">
           <img src='<%= "/user_images/#{m.user.user_image}" %>'>
         </div>
@@ -15,6 +15,11 @@
         </div> 
         <div class="overflow-wrap">
           <%= m.message_text %>
+          <div class="room-menus">
+            <% if m.user_id == @current_user.id %>
+              <%= link_to "削除", room_message_path(@room, m), method: :delete %>
+            <% end %>
+          </div>
         </div> 
         <hr>
       <% end %>
