@@ -11,7 +11,6 @@ RSpec.describe Post, type: :model do
         @post.content = 'a' * 1
         @post.valid?
       end
-      
       it '内容が1000文字の場合' do
         @post.content = 'a' * 1000
         @post.valid?
@@ -24,7 +23,6 @@ RSpec.describe Post, type: :model do
         @post.valid?
         expect(@post.errors.full_messages).to include('Contentを入力してください')
       end
-
       it '内容が1001文字の場合' do
         @post.content = 'a' * 1001
         @post.valid?
