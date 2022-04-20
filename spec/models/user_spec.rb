@@ -1,6 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe "User" do # User モデルについて記述（describe）する
-  it "is valid with a name and email" # name と email を保持している
-  it "is invalid without a name"      # name が無いと無効である
+RSpec.describe User, type: :model do
+
+  it '名前がない場合無効。' do
+    @user = FactoryBot.build(:user, name: nil)
+    @user.valid?
+  end
+
 end
