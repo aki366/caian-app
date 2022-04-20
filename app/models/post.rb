@@ -1,5 +1,5 @@
 class Post < ApplicationRecord
-  validates :content, {presence: true,length: {maximum: 140}}
+  validates :content, {presence: true, length: {maximum: 1000}}
   validates :user_id, {presence: true}
 
   # ActiveStorage用のカラムをpostモデルに追加する
