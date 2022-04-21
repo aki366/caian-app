@@ -46,13 +46,15 @@
         <div class="post-right">
           <div class="post-user-name">
             <%= link_to(comment.user.name, "/users/#{comment.user.id}") %>
-          </div>       
-          <%= comment.comment_text %>
+          </div>
         </div>
-        <div class="post-menus">
-          <% if comment.user_id == @current_user.id %>
-            <%= link_to "削除", post_comment_path(@post, comment), method: :delete %>
-          <% end %>
+        <div class="overflow-wrap">
+          <%= comment.comment_text %>
+          <div class="post-menus">
+            <% if comment.user_id == @current_user.id %>
+              <%= link_to "削除", post_comment_path(@post, comment), method: :delete %>
+            <% end %>
+          </div>
         </div>
       </div>
     <% end %>
