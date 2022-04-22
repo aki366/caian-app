@@ -16,7 +16,7 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
-.rspec
+.vscode
 
 # Ignore pidfiles, but keep the directory.
 /tmp/pids/*
