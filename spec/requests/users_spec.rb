@@ -36,16 +36,15 @@ RSpec.describe 'Users', type: :request do
 
   describe 'GET #edit' do
     context 'ログイン状態のとき' do
-      # before do
-      #   session[:user_id] = @user.id
-      # end
-      it 'リクエストが成功すること' do
-        # get edit_user_path
-        # expect(response.status).to eq 200
+      before do
+        sign_in(user)
+        get edit_user_path(user)
       end
-
+      it 'リクエストが成功すること' do
+        expect(response.status).to eq 200
+      end
       it 'ユーザー名が表示されていること' do
-    #     expect(response.body).to include 'test'
+        # expect(response.body).to include 'test_user'
       end
     end
 
