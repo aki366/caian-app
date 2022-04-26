@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Users', type: :request do
+RSpec.describe 'Users Request', type: :request do
   let(:user) { create(:user) }
   describe 'GET #new' do
     context '新規ユーザー登録をするとき' do
