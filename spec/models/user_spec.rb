@@ -6,7 +6,7 @@ RSpec.describe User, type: :model do
   end
 
   describe '新規ユーザー登録' do
-    context '新規ユーザー登録がうまくいくとき' do
+    context '登録がうまくいくとき' do
       it '名前が30文字以下の場合' do
         @user.name = 'a' * 30
         @user.valid?
@@ -19,7 +19,7 @@ RSpec.describe User, type: :model do
       end
     end
 
-    context '新規ユーザー登録がうまくいかないとき' do
+    context '登録がうまくいかないとき' do
       it '名前がない場合' do
         @user.name = ''
         @user.valid?
