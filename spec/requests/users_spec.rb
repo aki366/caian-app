@@ -4,7 +4,7 @@ RSpec.describe 'Users Request', type: :request do
   let(:user) { create(:user) }
   describe 'GET #new' do
     context '新規ユーザー登録をするとき' do
-      it 'リクエストが成功すること' do
+      it '登録画面に遷移すること' do
         get new_user_path
         expect(response.status).to eq 200
       end
@@ -26,16 +26,16 @@ RSpec.describe 'Users Request', type: :request do
   end
   
   describe 'GET #show' do
-    context 'ユーザーが存在するとき' do
+    context 'ログイン状態のとき' do
       before do
         allow_any_instance_of(ActionDispatch::Request)
-          .to receive(:session).and_return(user_id: user.id)
+        .to receive(:session).and_return(user_id: user.id)
         get user_path(user.id)
       end
-      it 'リクエストが成功すること' do
+      it 'ユーザー詳細画面に遷移すること' do
         expect(response.status).to eq 200
       end
-      it 'ユーザー名が表示されていること' do
+      it 'ユーザー名が表示されること' do
         expect(response.body).to include 'test'
       end
     end
@@ -48,10 +48,10 @@ RSpec.describe 'Users Request', type: :request do
           .to receive(:session).and_return(user_id: user.id)
         get edit_user_path(user.id)
       end
-      it 'リクエストが成功すること' do
+      it '編集画面に遷移すること' do
         expect(response.status).to eq 200
       end
-      it 'ユーザー名が表示されていること' do
+      it 'ユーザー名が表示されること' do
         expect(response.body).to include user.name
       end
     end
