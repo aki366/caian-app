@@ -2,60 +2,11 @@ require 'rails_helper'
 
 RSpec.describe 'Users', type: :request do
   let(:user) { create(:user) }
-  # before do
-  #   @guest_user = User.create(
-  #     name: 'ゲストユーザー',
-  #     email: 'guest@example.com',
-  #     password: 'password'
-  #   )
-  # end
-
-  describe 'GET #show' do
-    context 'ユーザーが存在するとき' do
-      before do
-        get posts_path
-      end
-      it 'リクエストが成功すること' do
-        get users_path
-        expect(response.status).to eq 200
-      end
-      it 'ユーザー名が表示されていること' do
-        expect(response.body).to include 'test'
-      end
-    end
-  end
-
   describe 'GET #new' do
     context '新規ユーザー登録をするとき' do
       it 'リクエストが成功すること' do
         get new_user_path
         expect(response.status).to eq 200
-      end
-    end
-  end
-
-  describe 'GET #edit' do
-    context 'ログイン状態のとき' do
-      before do
-        sign_in(user)
-        get edit_user_path(user)
-      end
-      it 'リクエストが成功すること' do
-        expect(response.status).to eq 200
-      end
-      it 'ユーザー名が表示されていること' do
-        # expect(response.body).to include 'test_user'
-      end
-    end
-
-    context 'ゲストユーザーの場合' do
-  #     before do
-  #       sign_in(@guest_user)
-  #       get edit_user_registration_path(@guest_user)
-      # end
-      it 'トップページにリダイレクトされること' do
-  #       expect(response.status).to eq 302
-  #       expect(response).to redirect_to root_path
       end
     end
   end
@@ -75,6 +26,49 @@ RSpec.describe 'Users', type: :request do
       end
     end
   end
+  
+  describe 'GET #show' do
+    context 'ユーザーが存在するとき' do
+      before do
+        get posts_path
+      end
+      it 'リクエストが成功すること' do
+        get users_path
+        expect(response.status).to eq 200
+      end
+      it 'ユーザー名が表示されていること' do
+        expect(response.body).to include 'test'
+      end
+    end
+  end
+
+  describe 'GET #edit' do
+    context 'ログイン状態のとき' do
+      before 'ユーザーIDをセッションから取り出せるようにする' do
+        allow_any_instance_of(ActionDispatch::Request)
+          .to receive(:session).and_return(user_id: user.id)
+        get edit_user_path(user.id)
+      end
+      it 'リクエストが成功すること' do
+        expect(response.status).to eq 200
+      end
+      it 'ユーザー名が表示されていること' do
+        expect(response.body).to include user.name
+      end
+    end
+
+    context 'ゲストユーザーの場合' do
+  #     before do
+  #       sign_in(@guest_user)
+  #       get edit_user_registration_path(@guest_user)
+      # end
+      it 'トップページにリダイレクトされること' do
+  #       expect(response.status).to eq 302
+  #       expect(response).to redirect_to root_path
+      end
+    end
+  end
+
 
   describe 'PUT #update' do
     context '未ログイン状態のとき' do
