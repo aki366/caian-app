@@ -28,10 +28,11 @@ RSpec.describe 'Users', type: :request do
   describe 'GET #show' do
     context 'ユーザーが存在するとき' do
       before do
-        get posts_path
+        allow_any_instance_of(ActionDispatch::Request)
+          .to receive(:session).and_return(user_id: user.id)
+        get user_path(user.id)
       end
       it 'リクエストが成功すること' do
-        get users_path
         expect(response.status).to eq 200
       end
       it 'ユーザー名が表示されていること' do
