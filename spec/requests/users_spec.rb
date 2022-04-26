@@ -13,16 +13,14 @@ RSpec.describe 'Users', type: :request do
 
   describe 'POST #create' do
     describe 'パラメータが妥当なとき' do
-  #     before do
-  #       post user_registration_path
-  #     end
-
-      it 'リクエストが成功すること' do
-  #       expect(response.status).to eq 200
+      before do
+        # post users_path
       end
-
+      it 'リクエストが成功すること' do
+        # expect(response.status).to eq 200
+      end
       it 'ユーザーが登録されること' do
-  #       expect(user.name).to eq 'test'
+        # expect(user.name).to eq 'test'
       end
     end
   end
