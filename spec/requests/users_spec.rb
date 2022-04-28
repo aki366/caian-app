@@ -4,7 +4,7 @@ RSpec.describe 'Users Request', type: :request do
   let(:user) { create(:user) }
   describe 'GET #new' do
     context '新規ユーザー登録をするとき' do
-      it '登録画面に遷移すること' do
+      it '200レスポンスを返すこと' do
         get new_user_path
         expect(response.status).to eq 200
       end
@@ -14,11 +14,10 @@ RSpec.describe 'Users Request', type: :request do
   describe 'POST #create' do
     context 'パラメータが妥当なとき' do
       before do
-        # @user = FactoryBot.build(:user)
-        # @user = FactoryBot.create(:user)
-        # get user_path(@user.id)
+        # post user_registration_path
+        # post users_path(user.id)
       end
-      it 'リクエストが成功すること' do
+      it '200レスポンスを返すこと' do
         # expect(response.status).to eq 200
       end
       it 'ユーザーが登録されること' do
@@ -37,7 +36,7 @@ RSpec.describe 'Users Request', type: :request do
         .to receive(:session).and_return(user_id: user.id)
         get user_path(user.id)
       end
-      it 'リクエストが成功すること' do
+      it '200レスポンスを返すこと' do
         expect(response.status).to eq 200
       end
       it 'ユーザー名が表示されること' do
@@ -53,7 +52,7 @@ RSpec.describe 'Users Request', type: :request do
           .to receive(:session).and_return(user_id: user.id)
         get edit_user_path(user.id)
       end
-      it 'リクエストが成功すること' do
+      it '200レスポンスを返すこと' do
         expect(response.status).to eq 200
       end
       it 'ユーザー名が表示されること' do
@@ -69,7 +68,7 @@ RSpec.describe 'Users Request', type: :request do
       .to receive(:session).and_return(user_id: user.id)
       put user_path(user.id)
       end
-      it 'リクエストが成功すること' do
+      it '200レスポンスを返すこと' do
         expect(response.status).to eq 200
       end
     end
