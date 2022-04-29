@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Comments", type: :request do
+RSpec.describe "Comments Request", type: :request do
   let(:user) { create(:user) }
   describe 'GET #edit' do
     context 'ログイン状態のとき' do
