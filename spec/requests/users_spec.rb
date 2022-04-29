@@ -14,17 +14,20 @@ RSpec.describe 'Users Request', type: :request do
   describe 'POST #create' do
     context 'パラメータが妥当なとき' do
       before do
-        # post user_registration_path
-        # post users_path(user.id)
+        @user = FactoryBot.create(:user)
       end
-      it '200レスポンスを返すこと' do
-        # expect(response.status).to eq 200
+      it '302レスポンスを返すこと' do
+        post users_url, params: { user: FactoryBot.attributes_for(:user) }
+        expect(response.status).to eq 302
       end
       it 'ユーザーが登録されること' do
-        # expect(user.name).to eq 'test'
+        expect do
+          post users_url, params: { user: FactoryBot.attributes_for(:user) }
+        end.to change(User, :count).by(1)
       end
-      it 'メッセージが表示されること' do
-        # expect(flash[:notice]).to eq 'ユーザー登録が完了しました'
+      it 'リダイレクトすること' do
+        post users_url, params: { user: FactoryBot.attributes_for(:user) }
+        expect(response).to redirect_to User.last
       end
     end
   end
