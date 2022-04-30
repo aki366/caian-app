@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Users Request', type: :request do
   let(:user) { create(:user) }
   describe 'GET #new' do
-    context '新規ユーザー登録をするとき' do
+    context '新規ユーザー登録をしたとき' do
       it '200レスポンスを返すこと' do
         get new_user_path
         expect(response.status).to eq 200
@@ -73,6 +73,25 @@ RSpec.describe 'Users Request', type: :request do
       end
       it '200レスポンスを返すこと' do
         expect(response.status).to eq 200
+      end
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    context 'ユーザーアカウントを削除したとき' do
+      let!(:user) { FactoryBot.create :user }
+      it 'リクエストが成功すること' do
+        delete user_path(user.id)
+        expect(response.status).to eq 302
+      end
+      it 'ユーザーが削除されること' do
+        expect do
+          delete user_path(user.id)
+        end.to change(User, :count).by(-1)
+      end
+      it 'トップ画面にリダイレクトすること' do
+        delete user_path(user.id)
+        expect(response).to redirect_to(root_path)
       end
     end
   end
