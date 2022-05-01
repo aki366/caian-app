@@ -1,24 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe "Posts Request", type: :request do
-  let(:user) { create(:user) }
-  describe 'GET #index' do
-    context 'ログイン状態のとき' do
-      it 'リクエストが成功すること' do
-      end
-    end
-  end
-
-  describe 'GET #show' do
-    context 'ログイン状態のとき' do
-      it 'リクエストが成功すること' do
-      end
-    end
-  end
-
+  let(:post) { create(:post) }
   describe 'GET #new' do
-    context 'ログイン状態のとき' do
-      it 'リクエストが成功すること' do
+    context '新規投稿をするとき' do
+      it '302レスポンスを返すこと' do
+        get new_post_path
+        expect(response.status).to eq 302
       end
     end
   end
@@ -31,6 +19,20 @@ RSpec.describe "Posts Request", type: :request do
       it '302レスポンスを返すこと' do
         # post users_url, params: { user: FactoryBot.attributes_for(:user) }
         # expect(response.status).to eq 302
+      end
+    end
+  end
+
+  describe 'GET #index' do
+    context 'ログイン状態のとき' do
+      it 'リクエストが成功すること' do
+      end
+    end
+  end
+
+  describe 'GET #show' do
+    context 'ログイン状態のとき' do
+      it 'リクエストが成功すること' do
       end
     end
   end
@@ -49,14 +51,14 @@ RSpec.describe "Posts Request", type: :request do
     end
   end
 
-  describe 'GET #update' do
+  describe 'PUT #update' do
     context 'ログイン状態のとき' do
       it 'リクエストが成功すること' do
       end
     end
   end
 
-  describe 'GET #destroy' do
+  describe 'DELETE #destroy' do
     context 'ログイン状態のとき' do
       it 'リクエストが成功すること' do
       end
