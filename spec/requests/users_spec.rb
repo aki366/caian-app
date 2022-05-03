@@ -82,10 +82,9 @@ RSpec.describe 'Users Request', type: :request do
 
   describe 'DELETE #destroy' do
     let!(:user) { create :user }
+    subject { delete user_path(user.id) }
     it 'ユーザーが削除されること' do
-      expect do
-        delete user_path(user.id)
-      end.to change(User, :count).by(-1)
+      expect { subject }.to change(User, :count).by(-1)
       expect(response).to redirect_to(root_path)
     end
   end
