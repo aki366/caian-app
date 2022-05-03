@@ -14,19 +14,19 @@ RSpec.describe 'Users Request', type: :request do
   describe 'POST #create' do
     context 'パラメータが妥当なとき' do
       before do
-        @user = FactoryBot.create(:user)
+        @user = create(:user)
       end
       it '302レスポンスを返すこと' do
-        post users_path, params: { user: FactoryBot.attributes_for(:user) }
+        post users_path, params: { user: attributes_for(:user) }
         expect(response.status).to eq 302
       end
       it 'ユーザーが登録されること' do
         expect do
-          post users_path, params: { user: FactoryBot.attributes_for(:user) }
+          post users_path, params: { user: attributes_for(:user) }
         end.to change(User, :count).by(1)
       end
       it 'リダイレクトすること' do
-        post users_path, params: { user: FactoryBot.attributes_for(:user) }
+        post users_path, params: { user: attributes_for(:user) }
         expect(response).to redirect_to User.last
       end
     end
@@ -79,7 +79,7 @@ RSpec.describe 'Users Request', type: :request do
 
   describe 'DELETE #destroy' do
     context 'ユーザーアカウントを削除したとき' do
-      let!(:user) { FactoryBot.create :user }
+      let!(:user) { create :user }
       it 'リクエストが成功すること' do
         delete user_path(user.id)
         expect(response.status).to eq 302
