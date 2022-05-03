@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Posts Request", type: :request do
-  let(:new_post) { FactoryBot.create(:post) }
+  let(:post) { create(:post) }
   describe 'GET #new' do
     context '新規投稿をするとき' do
       it '302レスポンスを返すこと' do
@@ -10,17 +10,20 @@ RSpec.describe "Posts Request", type: :request do
       end
     end
   end
-
+  
   describe 'POST #create' do
     context '新規投稿をしたとき' do
       before do
         @post = FactoryBot.create(:post)
+        post posts_path
       end
       it '302レスポンスを返すこと' do
-        # post posts_path, params: { post: FactoryBot.attributes_for(:post) }
-        # expect(response.status).to eq 302
+        # post posts_url, params: { post: FactoryBot.attributes_for(:post) }
+        # post posts_url
+        expect(response.status).to eq 302
       end
       it 'メッセージが表示されること' do
+        expect(response.body).to include '投稿を作成しました'
       end
     end
   end
@@ -63,6 +66,9 @@ RSpec.describe "Posts Request", type: :request do
   describe 'DELETE #destroy' do
     context 'ログイン状態のとき' do
       it 'リクエストが成功すること' do
+      end
+      it 'メッセージが表示されること' do
+        # expect(response.body).to include '投稿を削除しました'
       end
     end
   end
