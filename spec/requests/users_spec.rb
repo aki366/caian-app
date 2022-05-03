@@ -17,16 +17,16 @@ RSpec.describe 'Users Request', type: :request do
         @user = FactoryBot.create(:user)
       end
       it '302レスポンスを返すこと' do
-        post users_url, params: { user: FactoryBot.attributes_for(:user) }
+        post users_path, params: { user: FactoryBot.attributes_for(:user) }
         expect(response.status).to eq 302
       end
       it 'ユーザーが登録されること' do
         expect do
-          post users_url, params: { user: FactoryBot.attributes_for(:user) }
+          post users_path, params: { user: FactoryBot.attributes_for(:user) }
         end.to change(User, :count).by(1)
       end
       it 'リダイレクトすること' do
-        post users_url, params: { user: FactoryBot.attributes_for(:user) }
+        post users_path, params: { user: FactoryBot.attributes_for(:user) }
         expect(response).to redirect_to User.last
       end
     end
