@@ -14,6 +14,9 @@ RSpec.describe 'Users Request', type: :request do
   describe 'POST #create' do
     context 'パラメータが妥当なとき' do
       before do
+        # spec/support/factory_bot.rbで
+        # config.include FactoryBot::Syntax::Methodsと
+        # 設定しているので、"FactoryBot"は省略
         @user = create(:user)
       end
       it '302レスポンスを返すこと' do
