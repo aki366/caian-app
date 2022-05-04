@@ -83,9 +83,10 @@ RSpec.describe 'Users Request', type: :request do
     # end
     context 'パラメータが不正なとき' do
       before do
-      allow_any_instance_of(ActionDispatch::Request)
-      .to receive(:session).and_return(user_id: user.id)
-      put user_path(user.id)
+      # allow_any_instance_of(ActionDispatch::Request)
+      # .to receive(:session).and_return(user_id: user.id)
+        include_context 'login_as_user'
+        put user_path(user.id)
       end
       it 'ユーザー情報が更新されないこと' do
         expect { subject }.not_to change { user }
