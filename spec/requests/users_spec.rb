@@ -1,4 +1,5 @@
 require 'rails_helper'
+require './spec/support/contexts/login_as_user'
 
 RSpec.describe 'Users Request', type: :request do
   let(:user) { create(:user) }
@@ -68,7 +69,9 @@ RSpec.describe 'Users Request', type: :request do
   end
 
   describe 'PUT #update' do
-    subject { redirect_to user_path }
+    let!(:user) { create(:user) }
+    subject { put user_path(user.id) }
+    byebug
     context 'userがゲストのとき' do
       it 'redirect_to user_path されること' do
       end
@@ -82,12 +85,7 @@ RSpec.describe 'Users Request', type: :request do
     #   end
     # end
     context 'パラメータが不正なとき' do
-      before do
-      # allow_any_instance_of(ActionDispatch::Request)
-      # .to receive(:session).and_return(user_id: user.id)
-        include_context 'login_as_user'
-        put user_path(user.id)
-      end
+      include_context 'login_as_user'
       it 'ユーザー情報が更新されないこと' do
         expect { subject }.not_to change { user }
         expect(response).to be_successful
