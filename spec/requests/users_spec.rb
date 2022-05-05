@@ -1,5 +1,4 @@
 require 'rails_helper'
-require './spec/support/contexts/login_as_user'
 
 RSpec.describe 'Users Request', type: :request do
   let(:user) { create(:user) }
@@ -71,7 +70,6 @@ RSpec.describe 'Users Request', type: :request do
   describe 'PUT #update' do
     let!(:user) { create(:user) }
     subject { put user_path(user.id) }
-    byebug
     context 'userがゲストのとき' do
       it 'redirect_to user_path されること' do
       end

@@ -4,6 +4,9 @@ require 'spec_helper'
 # factory_botのメソッドを簡単に使うための設定 
 require 'support/factory_bot.rb'
 
+# login_as_userのメソッドを呼び出すための設定 
+require './spec/support/contexts/login_as_user'
+
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 # Prevent database truncation if the environment is production
