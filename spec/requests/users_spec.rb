@@ -140,4 +140,40 @@ RSpec.describe 'Users Request', type: :request do
       expect(response).to redirect_to(root_path)
     end
   end
+
+  describe 'POST #login' do
+    let!(:user) { create :user }
+    subject { post login_path }
+    it 'ログイン画面に遷移できること' do
+      # subject
+      # expect(response).to be_successful
+    end
+  end
+
+  describe 'GET #login_form' do
+    let!(:user) { create(:user) }
+    subject { get login_path }
+    context 'パラメータが正常なとき' do
+      it 'ユーザーのログインができること' do
+      end
+    end
+    context 'パラメータが不正なとき' do
+      include_context 'login_as_user'
+      it 'ユーザーのログインができないこと' do
+        # expect { subject }.not_to change { user }
+        # expect(response).to be_successful
+      end
+    end
+  end
+
+  describe 'GET #likes' do
+    it 'いいね!をした投稿の一覧が表示されること' do
+    end
+  end
+
+  describe 'DELETE #logout' do
+    subject { delete logout_path }
+    it 'ログアウトができること' do
+    end
+  end
 end
