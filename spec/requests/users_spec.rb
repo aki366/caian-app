@@ -52,17 +52,30 @@ RSpec.describe 'Users Request', type: :request do
   end
 
   describe 'GET #edit' do
-    context 'ログイン状態のとき' do
-      before 'ユーザーIDをセッションから取り出せるようにする' do
-        allow_any_instance_of(ActionDispatch::Request)
-          .to receive(:session).and_return(user_id: user.id)
-        get edit_user_path(user.id)
+    let!(:user) { create(:user) }
+    subject { get edit_user_path(user.id) }
+    context 'ログインしているとき' do
+      include_context 'login_as_user'
+      context 'ユーザーが自分の場合' do
+        it 'ユーザーの編集画面に遷移できること' do
+          subject
+          expect(response).to be_successful
+        end
       end
-      it '200レスポンスを返すこと' do
-        expect(response.status).to eq 200
+      context 'ユーザーが自分ではない場合' do
+        it 'ユーザーの編集画面に遷移できないこと' do
+          # expect(response).to be_successful
+        end
       end
-      it 'ユーザー名が表示されること' do
-        expect(response.body).to include user.name
+    end
+    context 'ログインしていないとき' do
+      it 'ユーザーの編集画面に遷移できないこと' do
+        # expect(response).to be_successful
+      end
+    end
+    context 'userがゲストのとき' do
+      it 'ユーザーの編集画面に遷移できないこと' do
+        # expect(response).to be_successful
       end
     end
   end
