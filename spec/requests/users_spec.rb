@@ -12,25 +12,23 @@ RSpec.describe 'Users Request', type: :request do
   end
 
   describe 'POST #create' do
-    context 'パラメータが妥当なとき' do
+    subject { post users_path }
+    context 'パラメータが正常なとき' do
       before do
         # spec/support/factory_bot.rbで
         # config.include FactoryBot::Syntax::Methodsと
         # 設定しているので、"FactoryBot"は省略
         @user = create(:user)
       end
-      it '302レスポンスを返すこと' do
-        post users_path, params: { user: attributes_for(:user) }
-        expect(response.status).to eq 302
-      end
-      it 'ユーザーが登録されること' do
+      it 'ユーザーが作成できること' do
         expect do
           post users_path, params: { user: attributes_for(:user) }
-        end.to change(User, :count).by(1)
-      end
-      it 'リダイレクトすること' do
-        post users_path, params: { user: attributes_for(:user) }
+        end.to change(User, :count).by(+1)
         expect(response).to redirect_to User.last
+      end
+    end
+    context 'パラメータが不正なとき' do
+      it 'ユーザーが作成できないこと' do
       end
     end
   end
