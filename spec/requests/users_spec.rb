@@ -2,12 +2,12 @@ require 'rails_helper'
 
 RSpec.describe 'Users Request', type: :request do
   let(:user) { create(:user) }
+
   describe 'GET #new' do
-    context '新規ユーザー登録をしたとき' do
-      it '200レスポンスを返すこと' do
-        get new_user_path
-        expect(response.status).to eq 200
-      end
+    subject { get new_user_path }
+    it 'ユーザーの新規作成画面に遷移できること' do
+      subject
+      expect(response).to be_successful
     end
   end
 
