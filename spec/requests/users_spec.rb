@@ -36,17 +36,21 @@ RSpec.describe 'Users Request', type: :request do
   end
   
   describe 'GET #show' do
-    context 'ログイン状態のとき' do
-      before do
-        allow_any_instance_of(ActionDispatch::Request)
-        .to receive(:session).and_return(user_id: user.id)
-        get user_path(user.id)
-      end
-      it '200レスポンスを返すこと' do
-        expect(response.status).to eq 200
+    subject { get user_path(user.id) }
+    context 'ログインしているとき' do
+      include_context 'login_as_user'
+      it 'ユーザーの詳細ページに遷移できること' do
+        subject
+        expect(response).to be_successful
       end
       it 'ユーザー名が表示されること' do
+        subject
         expect(response.body).to include 'test'
+      end
+    end
+    context 'ログインしていないとき' do
+      it 'ユーザーの詳細ページに遷移できないこと' do
+        # expect(response).to be_successful
       end
     end
   end
