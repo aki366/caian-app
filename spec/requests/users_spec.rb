@@ -2,26 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'Users Request', type: :request do
   let(:user) { create(:user) }
-  describe 'GET #index' do
-    subject { get users_path }
-    context 'ログインしているとき' do
-      include_context 'login_as_user'
-      it 'ユーザーの一覧画面に遷移できること' do
-        subject
-        expect(response).to be_successful
-      end
-      it 'ユーザー一覧が取得できること' do
-        subject
-        expect(response.body).to include 'test'
-      end
-    end
-    context 'ログインしていないとき' do
-      it 'ユーザーの一覧画面に遷移できないこと' do
-        # expect(response).not_to be_successful
-      end
-    end
-  end
-
   describe 'GET #new' do
     context '新規ユーザー登録をしたとき' do
       it '200レスポンスを返すこと' do
@@ -54,23 +34,23 @@ RSpec.describe 'Users Request', type: :request do
       end
     end
   end
-  
-  describe 'GET #show' do
-    subject { get user_path(user.id) }
+
+  describe 'GET #index' do
+    subject { get users_path }
     context 'ログインしているとき' do
       include_context 'login_as_user'
-      it 'ユーザーの詳細ページに遷移できること' do
+      it 'ユーザーの一覧画面に遷移できること' do
         subject
         expect(response).to be_successful
       end
-      it 'ユーザー名が表示されること' do
+      it 'ユーザー一覧が取得できること' do
         subject
         expect(response.body).to include 'test'
       end
     end
     context 'ログインしていないとき' do
-      it 'ユーザーの詳細ページに遷移できないこと' do
-        # expect(response).to be_successful
+      it 'ユーザーの一覧画面に遷移できないこと' do
+        # expect(response).not_to be_successful
       end
     end
   end
@@ -103,6 +83,26 @@ RSpec.describe 'Users Request', type: :request do
     end
     context 'userがゲストのとき' do
       it 'ユーザーの編集画面に遷移できないこと' do
+        # expect(response).to be_successful
+      end
+    end
+  end
+
+  describe 'GET #show' do
+    subject { get user_path(user.id) }
+    context 'ログインしているとき' do
+      include_context 'login_as_user'
+      it 'ユーザーの詳細ページに遷移できること' do
+        subject
+        expect(response).to be_successful
+      end
+      it 'ユーザー名が表示されること' do
+        subject
+        expect(response.body).to include 'test'
+      end
+    end
+    context 'ログインしていないとき' do
+      it 'ユーザーの詳細ページに遷移できないこと' do
         # expect(response).to be_successful
       end
     end
