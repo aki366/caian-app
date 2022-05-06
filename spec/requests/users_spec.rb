@@ -137,9 +137,25 @@ RSpec.describe 'Users Request', type: :request do
   describe 'DELETE #destroy' do
     let!(:user) { create :user }
     subject { delete user_path(user.id) }
-    it 'ユーザーが削除されること' do
-      expect { subject }.to change(User, :count).by(-1)
-      expect(response).to redirect_to(root_path)
+    context 'userがゲストのとき' do
+      it 'ユーザーの削除ができないこと' do
+      end
+    end
+    context 'userがゲストではないとき' do
+      context 'ユーザーが自分の場合' do
+        it '削除されること' do
+          expect { subject }.to change(User, :count).by(-1)
+          expect(response).to redirect_to(root_path)
+        end
+      end
+      context 'ユーザーが自分ではない場合' do
+        it '削除ができないこと' do
+        end
+      end
+    end
+    context 'ログインしていないとき' do
+      it 'ユーザーの削除ができないこと' do
+      end
     end
   end
 
