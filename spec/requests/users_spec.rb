@@ -110,22 +110,26 @@ RSpec.describe 'Users Request', type: :request do
     let!(:user) { create(:user) }
     subject { put user_path(user.id) }
     context 'userがゲストのとき' do
-      it 'redirect_to user_path されること' do
+      it 'ユーザー情報が更新されないこと' do
       end
     end
-    # context 'userがゲストではないとき' do
-    #   context 'パラメータが正常なとき' do
-    #     it 'レコードが更新され、redirect_to user_pathされること' do
-    #       expect { subject }.to change(User, :count).by(-1)
-    #       expect(response).to be_successful
-    #     end
-    #   end
-    # end
-    context 'パラメータが不正なとき' do
-      include_context 'login_as_user'
+    context 'userがゲストではないとき' do
+      context 'パラメータが正常な場合' do
+        it 'ユーザー情報が更新されること' do
+          # expect { subject }.to change { user }
+          # expect(response).to be_successful
+        end
+      end
+      context 'パラメータが不正な場合' do
+        include_context 'login_as_user'
+        it 'ユーザー情報が更新されないこと' do
+          expect { subject }.not_to change { user }
+          expect(response).to be_successful
+        end
+      end
+    end
+    context 'ログインしていないとき' do
       it 'ユーザー情報が更新されないこと' do
-        expect { subject }.not_to change { user }
-        expect(response).to be_successful
       end
     end
   end
