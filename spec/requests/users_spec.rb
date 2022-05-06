@@ -65,6 +65,10 @@ RSpec.describe 'Users Request', type: :request do
           subject
           expect(response).to be_successful
         end
+        it 'ユーザー名が表示されること' do
+          subject
+          expect(response.body).to include user.name
+        end
       end
       context 'ユーザーが自分ではない場合' do
         it 'ユーザーの編集画面に遷移できないこと' do
