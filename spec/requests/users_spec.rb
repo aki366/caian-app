@@ -2,6 +2,26 @@ require 'rails_helper'
 
 RSpec.describe 'Users Request', type: :request do
   let(:user) { create(:user) }
+  describe 'GET #index' do
+    subject { get users_path }
+    context 'ログインしているとき' do
+      include_context 'login_as_user'
+      it 'ユーザーの一覧画面に遷移できること' do
+        subject
+        expect(response).to be_successful
+      end
+      it 'ユーザー一覧が取得できること' do
+        subject
+        expect(response.body).to include 'test'
+      end
+    end
+    context 'ログインしていないとき' do
+      it 'ユーザーの一覧画面に遷移できないこと' do
+        # expect(response).not_to be_successful
+      end
+    end
+  end
+
   describe 'GET #new' do
     context '新規ユーザー登録をしたとき' do
       it '200レスポンスを返すこと' do
