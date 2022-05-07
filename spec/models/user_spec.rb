@@ -58,35 +58,35 @@ RSpec.describe "Users Model", type: :model do
     end
     context 'メールアドレスがすでに登録されているとき
     ' do
-    before do
-      @user = FactoryBot.create(:user)
-      @user2 = FactoryBot.build(:user, email: @user.email)
+      before do
+        @user = FactoryBot.create(:user)
+        @user2 = FactoryBot.build(:user, email: @user.email)
+      end
+      it '登録が失敗すること' do
+        @user2.valid?
+      end
+      it 'エラーメッセージが表示されること' do
+        @user2.valid?
+        expect(@user2.errors.full_messages).to include('Emailはすでに存在します')
+      end
     end
-    it '登録が失敗すること' do
-      @user2.valid?
+    context 'メールアドレスの形が不正のとき' do
+      it '登録が失敗すること' do
+        @user.email = '456-9333'
+        @user.valid?
+      end
     end
-    it 'エラーメッセージが表示されること' do
-      @user2.valid?
-      expect(@user2.errors.full_messages).to include('Emailはすでに存在します')
+    context 'パスワードがないとき' do
+      before do
+        @user.password = ''
+      end
+      it '登録が失敗すること' do
+        @user.valid?
+      end
+      it 'エラーメッセージが表示されること' do
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Passwordを入力してください')
+      end
     end
   end
-  context 'メールアドレスの形が不正のとき' do
-    it '登録が失敗すること' do
-      @user.email = '456-9333'
-      @user.valid?
-    end
-  end
-  context 'パスワードがないとき' do
-    before do
-      @user.password = ''
-    end
-    it '登録が失敗すること' do
-      @user.valid?
-    end
-    it 'エラーメッセージが表示されること' do
-      @user.valid?
-      expect(@user.errors.full_messages).to include('Passwordを入力してください')
-    end
-  end
-end
 end
