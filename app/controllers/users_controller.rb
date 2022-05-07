@@ -58,7 +58,7 @@ class UsersController < ApplicationController
 
     @user.name = params[:name]
     @user.email = params[:email]
-
+    @user.password = params[:password]
     image = params[:image]
     hash = SecureRandom.hex(10)
     @user.user_image = "#{@user.name}_#{hash}.jpg" if image
