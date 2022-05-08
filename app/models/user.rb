@@ -9,8 +9,8 @@ class User < ApplicationRecord
 
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
-  has_many :messages
-  has_many :room_users
+  has_many :room_users, dependent: :destroy
+  has_many :messages, dependent: :destroy
   has_secure_password
 
   # throughは、特定のユーザー何と紐づいているか一発で引くことができる
