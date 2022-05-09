@@ -87,7 +87,7 @@ class UsersController < ApplicationController
   end
   
   def login
-    @user = User.find_by(login_params)
+    @user = User.find_by(email: login_params[:email])&.authenticate(login_params[:password])
     if @user
       session[:user_id] = @user.id
       flash[:notice] = "ログインしました"
@@ -132,10 +132,10 @@ class UsersController < ApplicationController
 
     def user_params
       # ストロングパラメーター
-      params.require(:user).permit(:name, :email, :password)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
 
     def login_params
-      params.require(:user).permit(:email, :password)
+      params.require(:user).permit(:email, :password, :password_confirmation)
     end
 end

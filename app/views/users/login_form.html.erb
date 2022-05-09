@@ -11,8 +11,13 @@
         <%= form_with model: @user, url: login_path do |f| %>
           <%= f.label "メールアドレス" %>
           <%= f.email_field :email %>
+
           <%= f.label "パスワード" %>
           <%= f.password_field :password %>
+
+          <%= f.label "パスワード再入力" %>
+          <%= f.password_field :password_confirmation %>
+
           <%= f.submit 'ログイン' %>
           <%= link_to 'ゲストとしてログインする', guest_login_path, style: 'color:#1ea3ff;' %>
         <% end %>
