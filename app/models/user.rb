@@ -5,7 +5,7 @@ class User < ApplicationRecord
   #        :recoverable, :rememberable, :validatable
   validates :name, {presence: true, length: {maximum: 30}}
   validates :email, {presence: true, uniqueness:true, length: {maximum: 256}}
-  validates :password, {presence: true, length: {maximum: 30}}
+  validates :password, {presence: true, length: {maximum: 30}, if: ->(record) { record.new_record? || record.password.present? }}
 
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
