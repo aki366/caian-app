@@ -93,10 +93,10 @@ class UsersController < ApplicationController
       flash[:notice] = "ログインしました"
       redirect_to posts_path
     else
-      @error_message = "メールアドレスまたはパスワードが間違っています"
+      flash[:notice] = "メールアドレスまたはパスワードが間違っています"
       @email = params[:email]
       @password = params[:password]
-      render login_path
+      redirect_to login_path
     end
   end
 
