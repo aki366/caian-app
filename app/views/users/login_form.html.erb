@@ -9,10 +9,12 @@
           </div>
         <% end %>
         <%= form_with model: @user, url: login_path do |f| %>
-          <p>メールアドレス</p>
+          <%= f.label "メールアドレス" %>
           <%= f.email_field :email %>
-          <p>パスワード</p>
-          <%= f.password_field :pssword %>
+
+          <%= f.label "パスワード" %>
+          <%= f.password_field :password %>
+
           <%= f.submit 'ログイン' %>
           <%= link_to 'ゲストとしてログインする', guest_login_path, style: 'color:#1ea3ff;' %>
         <% end %>

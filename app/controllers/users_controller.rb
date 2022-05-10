@@ -58,7 +58,7 @@ class UsersController < ApplicationController
 
     @user.name = params[:name]
     @user.email = params[:email]
-
+    @user.password = params[:password]
     image = params[:image]
     hash = SecureRandom.hex(10)
     @user.user_image = "#{@user.name}_#{hash}.jpg" if image
@@ -87,16 +87,16 @@ class UsersController < ApplicationController
   end
   
   def login
-    @user = User.find_by(login_params)
+    @user = User.find_by(email: login_params[:email])&.authenticate(login_params[:password])
     if @user
       session[:user_id] = @user.id
       flash[:notice] = "ログインしました"
       redirect_to posts_path
     else
-      @error_message = "メールアドレスまたはパスワードが間違っています"
+      flash[:notice] = "メールアドレスまたはパスワードが間違っています"
       @email = params[:email]
       @password = params[:password]
-      render login_path
+      redirect_to login_path
     end
   end
 
@@ -132,10 +132,10 @@ class UsersController < ApplicationController
 
     def user_params
       # ストロングパラメーター
-      params.require(:user).permit(:name, :email, :password)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
 
     def login_params
-      params.require(:user).permit(:email, :password)
+      params.require(:user).permit(:email, :password, :password_confirmation)
     end
 end
