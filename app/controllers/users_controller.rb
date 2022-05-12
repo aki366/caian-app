@@ -10,19 +10,18 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @current_room_user = RoomUser.where(user_id: @current_user.id)
-    @another_room_user = RoomUser.where(user_id: @user.id)
+    # 各ユーザーが持つroomのid一覧を配列で取得
+    @current_user_rooms = @current_user.rooms.pluck(:id)
+    @another_user_rooms = @user.rooms.pluck(:id)
+
+    # 取得した配列の積集合を取る
+    @room_ids = @current_user_rooms & @another_user_rooms
     if @user.id == @current_user.id
     else
-      @current_room_user.each do |current|
-        @another_room_user.each do |another|
-          if current.room_id == another.room_id
-            @isRoom = true
-            @roomId = current.room_id
-          end
-        end
-      end
+      # 空でない場合は既に共通のroom idが存在する=ルーム作成済みと判定
+      @isRoom = !@room_ids.empty?
       if @isRoom
+        @roomId = @room_ids.first
       else
         @room = Room.new
         @room_user = RoomUser.new
