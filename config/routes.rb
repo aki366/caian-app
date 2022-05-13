@@ -25,9 +25,9 @@ Rails.application.routes.draw do
       get :likes
     end
     collection do # idを渡さない場合
-      get :login_form
-      post :login
-      delete :logout
+      # get :login_form
+      # post :login
+      # delete :logout
     end
   end
 
@@ -35,9 +35,11 @@ Rails.application.routes.draw do
   post "likes/:post_id/destroy", to: "likes#destroy"
 
   get "signup", to: "users#new"
-  get "login", to: "users#login_form"
-  post "login", to: "users#login"
-  delete "logout", to: "users#logout"
+  resources :login, only: [:new, :create], controller: :sessions  
+  delete :logout, to: 'sessions#destroy'
+  # get "login", to: "users#login_form"
+  # post "login", to: "users#login"
+  # delete "logout", to: "users#logout"
 
   # ゲストログイン用のルーティングを追加
   get "guest_login", to: "guest_user_login#create"

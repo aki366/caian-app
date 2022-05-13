@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_action :forbid_login_user,{only:[:new, :create, :login_form, :login]}
+  before_action :forbid_login_user,{only:[:new, :create]}
   before_action :ensure_correct_user,{only:[:edit, :update]}
   before_action :set_user, {only:[:show, :edit, :update]}
 
@@ -80,31 +80,6 @@ class UsersController < ApplicationController
     redirect_to root_path
   end
 
-  def login_form
-    # ログインフォームのviewで使用するため@userを定義
-    @user = User.new
-  end
-  
-  def login
-    @user = User.find_by(email: login_params[:email])&.authenticate(login_params[:password])
-    if @user
-      session[:user_id] = @user.id
-      flash[:notice] = "ログインしました"
-      redirect_to posts_path
-    else
-      flash[:notice] = "メールアドレスまたはパスワードが間違っています"
-      @email = params[:email]
-      @password = params[:password]
-      redirect_to login_path
-    end
-  end
-
-  def logout
-    session[:user_id] = nil
-    flash[:notice] = "ログアウトしました"
-    redirect_to login_path
-  end
-
   def likes
     @user = User.find_by(id: params[:id])
     @likes = Like.where(user_id: @user.id)
@@ -132,9 +107,5 @@ class UsersController < ApplicationController
     def user_params
       # ストロングパラメーター
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
-    end
-
-    def login_params
-      params.require(:user).permit(:email, :password, :password_confirmation)
     end
 end
