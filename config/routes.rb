@@ -19,10 +19,17 @@ Rails.application.routes.draw do
 
   resources :messages
 
-  resources :users
-  get "users/:id/likes", to: "users#likes"
-  post "users/create", to: "users#create"
-  post "users/:id/update", to: "users#update"
+  resources :users do
+    member do
+      post :likes
+      get :likes
+    end
+    collection do
+      get :login_form
+      post :login
+      delete :logout
+    end
+  end
 
   resources :likes
   post "likes/:post_id/create", to: "likes#create"
