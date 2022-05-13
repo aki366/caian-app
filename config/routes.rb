@@ -20,18 +20,17 @@ Rails.application.routes.draw do
   resources :messages
 
   resources :users do
-    member do
+    member do # idを渡す場合
       post :likes
       get :likes
     end
-    collection do
+    collection do # idを渡さない場合
       get :login_form
       post :login
       delete :logout
     end
   end
 
-  resources :likes
   post "likes/:post_id/create", to: "likes#create"
   post "likes/:post_id/destroy", to: "likes#destroy"
 
