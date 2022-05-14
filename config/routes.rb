@@ -1,23 +1,19 @@
 Rails.application.routes.draw do
   # devise_for :users
   root "home#top"
-
   get "top", to: "home#top"
   get "about", to: "home#about"
 
-  resources :posts do
-    resources :comments, only: %i[create destroy]
-  end
+  post "likes/:post_id/create", to: "likes#create"
+  post "likes/:post_id/destroy", to: "likes#destroy"
+  get "guest_login", to: "guest_user_login#create"
 
   resources :rooms, only: %i[index new create]
-
-  resources :rooms do
-    resources :messages
-  end
-
   resources :comments
-
   resources :messages
+
+  resources :login, only: [:new, :create], controller: :sessions  
+  delete :logout, to: 'sessions#destroy'
 
   resources :users do
     member do # idを渡す場合
@@ -28,14 +24,11 @@ Rails.application.routes.draw do
     end
   end
 
-  post "likes/:post_id/create", to: "likes#create"
-  post "likes/:post_id/destroy", to: "likes#destroy"
+  resources :posts do
+    resources :comments, only: %i[create destroy]
+  end
 
-  get "signup", to: "users#new"
-  resources :login, only: [:new, :create], controller: :sessions  
-  delete :logout, to: 'sessions#destroy'
-
-  # ゲストログイン用のルーティングを追加
-  get "guest_login", to: "guest_user_login#create"
-
+  resources :rooms do
+    resources :messages
+  end
 end
