@@ -82,7 +82,7 @@ class UsersController < ApplicationController
 
   def likes
     @user = User.find_by(id: params[:id])
-    @likes = Like.where(user_id: @user.id)
+    @likes = @user.likes.includes(post: :user)
   end
 
   private
