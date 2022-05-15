@@ -14,6 +14,7 @@ class PostsController < ApplicationController
     @likes_count = Like.where(post_id: @post.id).count
     @comments = @post.comments.includes(:user)
     @comment = Comment.new
+    @likes = Like.find_by(user_id: @current_user.id, post_id: @post.id)
   end
 
   def new
