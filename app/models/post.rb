@@ -14,11 +14,7 @@ class Post < ApplicationRecord
 
   # postが複数のlikeを所有している関係
   has_many :likes, dependent: :destroy
-  
+
   has_many :comments, dependent: :destroy
-  
-  def user
-    return User.find_by(id: self.user_id)
-  end
 
 end
