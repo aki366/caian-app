@@ -38,21 +38,21 @@
       <%= image_tag @post.image.variant(resize: "570x570") if @post.image.attached? %>
     </div>
 
-    <% @comments.each do |comment| %>
+    <% @comments.each do |c| %>
       <div class="posts-index-item">
         <div class="post-left">
-          <img src='<%= "/user_images/#{comment.user.user_image}" %>'>
+          <img src='<%= "/user_images/#{c.user.user_image}" %>'>
         </div>
         <div class="post-right">
           <div class="post-user-name">
-            <%= link_to(comment.user.name, "/users/#{comment.user.id}") %>
+            <%= link_to(c.user.name, "/users/#{c.user.id}") %>
           </div>
         </div>
         <div class="overflow-wrap">
-          <%= comment.comment_text %>
+          <%= c.comment_text %>
           <div class="post-menus">
-            <% if comment.user_id == @current_user.id %>
-              <%= link_to "削除", post_comment_path(@post, comment), method: :delete %>
+            <% if c.user_id == @current_user.id %>
+              <%= link_to "削除", post_comment_path(@post, c), method: :delete %>
             <% end %>
           </div>
         </div>
