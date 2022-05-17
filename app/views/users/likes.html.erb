@@ -15,16 +15,16 @@
       <li class="active"><%= link_to("いいね!", "/users/#{@user.id}/likes") %></li>
     </ul>
 
-    <% @likes.each do |like| %>
+    <% @likes.each do |l| %>
       <div class="posts-index-item">
         <div class="post-left">
-          <img src="<%= "/user_images/#{like.post.user.user_image}" %>">
+          <img src="<%= "/user_images/#{l.post.user.user_image}" %>">
         </div>
         <div class="post-right">
           <div class="post-user-name">
-            <%= link_to(like.post.user.name, "/users/#{like.post.user.id}") %>
+            <%= link_to(l.post.user.name, "/users/#{l.post.user.id}") %>
           </div>
-          <%= link_to(like.post.content, "/posts/#{like.post.id}") %>
+          <%= link_to(l.post.content, "/posts/#{l.post.id}") %>
         </div>
       </div>
     <% end %>
