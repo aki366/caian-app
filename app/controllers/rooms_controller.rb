@@ -7,10 +7,10 @@ class RoomsController < ApplicationController
 
   def show
     @room = Room.find(params[:id])
+    @message = Message.new
     if RoomUser.where(:user_id => @current_user.id, :room_id => @room.id).present?
-      @messages = @room.messages
-      @message = Message.new
-      @room_users = @room.room_users
+      @messages = @room.room_users
+      @room_users = @room.messages.includes(:user)
     else
       redirect_back(fallback_location: root_path)
     end
