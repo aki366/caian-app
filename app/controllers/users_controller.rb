@@ -9,7 +9,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = User.find_by(id: params[:id])
+    @post = @user.posts.includes(:user)
     # 各ユーザーが持つroomのid一覧を配列で取得
     @current_user_rooms = @current_user.rooms.pluck(:id)
     @another_user_rooms = @user.rooms.pluck(:id)
