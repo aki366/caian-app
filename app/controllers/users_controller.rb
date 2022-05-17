@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by(id: params[:id])
+    @user = User.find(params[:id])
     @post = @user.posts.includes(:user)
     # 各ユーザーが持つroomのid一覧を配列で取得
     @current_user_rooms = @current_user.rooms.pluck(:id)
@@ -75,7 +75,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find_by(id: params[:id])
+    @user = User.find(params[:id])
     @user.destroy
     flash[:notice] = "アカウントを削除しました"
     redirect_to root_path
@@ -83,8 +83,8 @@ class UsersController < ApplicationController
 
   def likes
     # 仮に/users/1/likesというリクエストを受取った場合
-    # id:'1'を取得し、User.find_by(id:1)となる
-    @user = User.find_by(id: params[:id])
+    # id:'1'を取得し、User.find(id:1)となる
+    @user = User.find(params[:id])
     # @userで取得したidに関連するlikesを取得
     # likesに紐づくpost:(関連1)を紐付け
     # 関連1に紐づく、:user(関連2)の情報を取得
@@ -94,7 +94,7 @@ class UsersController < ApplicationController
   private
 
     def set_user
-      @user = User.find_by(id: params[:id])
+      @user = User.find(params[:id])
     end
 
     # write_imageメソッドは第一引数に画像ファイル名, 第二引数にイメージを必要とする
