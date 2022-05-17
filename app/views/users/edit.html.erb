@@ -4,9 +4,9 @@
       <div class="form users-form">
         <div class="form-body">
 
-          <% @user.errors.full_messages.each do |message| %>
+          <% @user.errors.full_messages.each do |m| %>
             <div class="form-error">
-              <%= message %>
+              <%= m %>
             </div>
           <% end %>
 
