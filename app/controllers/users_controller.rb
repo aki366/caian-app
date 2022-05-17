@@ -81,7 +81,12 @@ class UsersController < ApplicationController
   end
 
   def likes
+    # 仮に/users/1/likesというリクエストを受取った場合
+    # id:'1'を取得し、User.find_by(id:1)となる
     @user = User.find_by(id: params[:id])
+    # @userで取得したidに関連するlikesを取得
+    # likesに紐づくpost:(関連1)を紐付け
+    # 関連1に紐づく、:user(関連2)の情報を取得
     @likes = @user.likes.includes(post: :user)
   end
 
