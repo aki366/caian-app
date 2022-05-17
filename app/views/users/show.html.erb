@@ -32,17 +32,17 @@
       <li><%= link_to("いいね!", "/users/#{@user.id}/likes") %></li>
     </ul>
 
-    <% @post.each do |post| %>
+    <% @post.each do |p| %>
       <div class="posts-index-item">
         <div class="post-left">
-          <img src='<%= "/user_images/#{post.user.user_image}" %>'>
+          <img src='<%= "/user_images/#{p.user.user_image}" %>'>
         </div>
         <div class="post-right">
           <div class="post-user-name">
-            <%= link_to(post.user.name, "/users/#{post.user.id}") %>
+            <%= link_to(p.user.name, "/users/#{p.user.id}") %>
           </div>
           <div class="user-show-overflow-wrap">
-            <%= link_to(post.content, "/posts/#{post.id}") %>
+            <%= link_to(p.content, "/posts/#{p.id}") %>
           </div>
         </div>
       </div>
