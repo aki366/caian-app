@@ -38,7 +38,7 @@
       <%= image_tag @post.image.variant(resize: "570x570") if @post.image.attached? %>
     </div>
 
-    <% @post.comments.each do |comment| %>
+    <% @comments.each do |comment| %>
       <div class="posts-index-item">
         <div class="post-left">
           <img src='<%= "/user_images/#{comment.user.user_image}" %>'>
