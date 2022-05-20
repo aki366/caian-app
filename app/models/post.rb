@@ -1,5 +1,5 @@
 class Post < ApplicationRecord
-  validates :content, {presence: true,length: {maximum: 140}}
+  validates :content, {presence: true, length: {maximum: 1000}}
   validates :user_id, {presence: true}
 
   # ActiveStorage用のカラムをpostモデルに追加する
@@ -14,11 +14,7 @@ class Post < ApplicationRecord
 
   # postが複数のlikeを所有している関係
   has_many :likes, dependent: :destroy
-  
+
   has_many :comments, dependent: :destroy
-  
-  def user
-    return User.find_by(id: self.user_id)
-  end
 
 end

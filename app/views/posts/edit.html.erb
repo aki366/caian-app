@@ -1,18 +1,22 @@
 <div class="main posts-new">
   <div class="container">
     <h1 class="form-heading">編集する</h1>
-    <%= form_with model: @post do |f| %>
       <div class="form">
         <div class="form-body">
-          <% @post.errors.full_messages.each do |message| %>
+        
+          <% @post.errors.full_messages.each do |p| %>
             <div class="form-error">
-              <%= message %>
+              <%= p %>
             </div>
           <% end %>
-          <%= f.text_area :content %>
-          <%= f.submit '保存' %>
+          <%= form_with model: @post, local: true do |f| %>
+            <%= f.label "投稿の編集" %>
+            <%= f.text_area :content %>
+            <%= f.file_field :image %> 
+            <%= f.submit '保存' %>
+          <% end %>
         </div>
       </div>
-    <% end %>
+    </div>
   </div>
 </div>

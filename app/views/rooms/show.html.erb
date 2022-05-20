@@ -3,21 +3,21 @@
     <h3>ダイレクトメッセージ</h3>
     <hr>
     <% if @messages.present? %>
-      <% @room.messages.each do |m| %>
+      <% @room_users.each do |r| %>
         <div class="room-left">
-          <img src='<%= "/user_images/#{m.user.user_image}" %>'>
+          <img src='<%= "/user_images/#{r.user.user_image}" %>'>
         </div>
         <div class="room-right">
           <div class="room-user-name">
-            <a href="/users/<%= m.user_id %>"><%= m.user.name %></a>
-            <%= m.created_at %>
+            <%= link_to(r.user.name, "/users/#{r.user.id}") %>
+            <%= r.created_at %>
           </div>
         </div> 
         <div class="overflow-wrap">
-          <%= m.message_text %>
+          <%= r.message_text %>
           <div class="room-menus">
-            <% if m.user_id == @current_user.id %>
-              <%= link_to "削除", room_message_path(@room, m), method: :delete %>
+            <% if r.user_id == @current_user.id %>
+              <%= link_to "削除", room_message_path(@room, r), method: :delete %>
             <% end %>
           </div>
         </div> 
