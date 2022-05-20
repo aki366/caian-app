@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_action :forbid_login_user,{only:[:new, :create, :login_form, :login]}
+  before_action :forbid_login_user,{only:[:new, :create]}
   before_action :ensure_correct_user,{only:[:edit, :update]}
   before_action :set_user, {only:[:show, :edit, :update]}
 
@@ -10,19 +10,19 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @current_room_user = RoomUser.where(user_id: @current_user.id)
-    @another_room_user = RoomUser.where(user_id: @user.id)
+    @post = @user.posts.includes(:user)
+    # 各ユーザーが持つroomのid一覧を配列で取得
+    @current_user_rooms = @current_user.rooms.pluck(:id)
+    @another_user_rooms = @user.rooms.pluck(:id)
+
+    # 取得した配列の積集合を取る
+    @room_ids = @current_user_rooms & @another_user_rooms
     if @user.id == @current_user.id
     else
-      @current_room_user.each do |current|
-        @another_room_user.each do |another|
-          if current.room_id == another.room_id
-            @isRoom = true
-            @roomId = current.room_id
-          end
-        end
-      end
+      # 空でない場合は既に共通のroom idが存在する=ルーム作成済みと判定
+      @isRoom = !@room_ids.empty?
       if @isRoom
+        @roomId = @room_ids.first
       else
         @room = Room.new
         @room_user = RoomUser.new
@@ -58,7 +58,7 @@ class UsersController < ApplicationController
 
     @user.name = params[:name]
     @user.email = params[:email]
-
+    @user.password = params[:password]
     image = params[:image]
     hash = SecureRandom.hex(10)
     @user.user_image = "#{@user.name}_#{hash}.jpg" if image
@@ -74,40 +74,27 @@ class UsersController < ApplicationController
     end
   end
 
-  def login_form
-    # ログインフォームのviewで使用するため@userを定義
-    @user = User.new
-  end
-  
-  def login
-    @user = User.find_by(login_params)
-    if @user
-      session[:user_id] = @user.id
-      flash[:notice] = "ログインしました"
-      redirect_to posts_path
-    else
-      @error_message = "メールアドレスまたはパスワードが間違っています"
-      @email = params[:email]
-      @password = params[:password]
-      render login_path
-    end
-  end
-
-  def logout
-    session[:user_id] = nil
-    flash[:notice] = "ログアウトしました"
-    redirect_to login_path
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    flash[:notice] = "アカウントを削除しました"
+    redirect_to root_path
   end
 
   def likes
-    @user = User.find_by(id: params[:id])
-    @likes = Like.where(user_id: @user.id)
+    # 仮に/users/1/likesというリクエストを受取った場合
+    # id:'1'を取得し、User.find(id:1)となる
+    @user = User.find(params[:id])
+    # @userで取得したidに関連するlikesを取得
+    # likesに紐づくpost:(関連1)を紐付け
+    # 関連1に紐づく、:user(関連2)の情報を取得
+    @likes = @user.likes.includes(post: :user)
   end
 
   private
 
     def set_user
-      @user = User.find_by(id: params[:id])
+      @user = User.find(params[:id])
     end
 
     # write_imageメソッドは第一引数に画像ファイル名, 第二引数にイメージを必要とする
@@ -125,10 +112,6 @@ class UsersController < ApplicationController
 
     def user_params
       # ストロングパラメーター
-      params.require(:user).permit(:name, :email, :password)
-    end
-
-    def login_params
-      params.require(:user).permit(:email, :password)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
 end
