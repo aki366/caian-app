@@ -1,6 +1,8 @@
 class AddUserAndPostReferencesToLikes < ActiveRecord::Migration[6.1]
   def change
-    add_reference :likes, :user, foreign_key: true
-    add_reference :likes, :post, foreign_key: true
+    add_index :likes, :user_id
+    add_index :likes, :post_id
+    add_foreign_key :likes, :users
+    add_foreign_key :likes, :posts
   end
 end
