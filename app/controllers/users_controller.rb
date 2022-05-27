@@ -70,6 +70,7 @@ class UsersController < ApplicationController
       redirect_to user_path(@user.id)
     else
       @user.user_image = image
+      # 同じコントローラ内のeditのビューを表示
       render :edit
     end
   end
@@ -103,6 +104,9 @@ class UsersController < ApplicationController
       File.binwrite("public/user_images/#{file_name}",image.read)
     end
 
+    # 投稿者だけが編集できるように
+    # ensure_correct_userという現在のuser_idと
+    # 投稿者のidが一致していないとはじくメソッド
     def ensure_correct_user
       if @current_user.id != params[:id].to_i
         flash[:notice]= "権限がありません"
