@@ -109,9 +109,9 @@ RSpec.describe 'Users Request', type: :request do
   describe 'PUT #update' do
     subject { put user_path(user.id) }
     context 'userがゲストのとき' do
-      let!(:user) { create(:guest) }
+      let!(:guest) { create(:guest) }
       it 'ユーザー情報が更新されないこと' do
-        expect { subject }.not_to change { user }
+        expect { subject }.not_to change { guest }
         expect(response).to be_successful
       end
     end

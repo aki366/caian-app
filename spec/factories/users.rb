@@ -10,7 +10,9 @@ FactoryBot.define do
     career { Faker::Job.position }
   end
 
-  factory :guest do
+  factory :guest, class: User do
+    name { "ゲストユーザー" }
     email { "guest@example.com" }
+    password { "password" }
   end
 end
