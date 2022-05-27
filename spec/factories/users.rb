@@ -2,6 +2,7 @@
 # see: https://github.com/faker-ruby/faker
 FactoryBot.define do
   factory :user do
+    # Fakerで毎回ランダムな値を生成して検証
     name { Faker::Name.name }
     email { Faker::Internet.email }
     password { "password" }
