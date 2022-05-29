@@ -69,8 +69,9 @@ require 'support/factory_bot.rb'
 # login_as_userのメソッドを呼び出すための設定 
 require './spec/support/contexts/login_as_user'
 
-Rails.logger = Logger.new(STDOUT) # Rails.loggerを出す
-ActiveRecord::Base.logger = Logger.new(STDOUT) # SQLログ出す
+# log確認用
+# Rails.logger = Logger.new(STDOUT) # Rails.logger
+# ActiveRecord::Base.logger = Logger.new(STDOUT) # SQL
 
 # RSpec.configure do |config|
 # end
