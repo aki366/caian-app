@@ -2,12 +2,14 @@ require 'rails_helper'
 
 RSpec.describe "Posts Request", type: :request do
   let(:post) { create(:post) }
+
   describe 'GET #new' do
-    context '新規投稿をするとき' do
-      it '302レスポンスを返すこと' do
-        get new_post_path
-        expect(response.status).to eq 302
-      end
+    subject { get new_post_path(user.id) }
+    let!(:user) { create(:user) }
+    include_context 'login_as_user'
+    it '新規投稿画面に遷移できること' do
+      subject
+      expect(response).to be_successful
     end
   end
   
