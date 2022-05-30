@@ -73,5 +73,6 @@ require './spec/support/contexts/login_as_user'
 # Rails.logger = Logger.new(STDOUT) # Rails.logger
 # ActiveRecord::Base.logger = Logger.new(STDOUT) # SQL
 
-# RSpec.configure do |config|
-# end
+RSpec.configure do |config|
+  config.example_status_persistence_file_path = "spec/examples.txt"
+end
