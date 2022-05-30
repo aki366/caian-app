@@ -70,8 +70,8 @@ require 'support/factory_bot.rb'
 require './spec/support/contexts/login_as_user'
 
 # log確認用
-Rails.logger = Logger.new(STDOUT) # Rails.logger
-ActiveRecord::Base.logger = Logger.new(STDOUT) # SQL
+# Rails.logger = Logger.new(STDOUT) # Rails.logger
+# ActiveRecord::Base.logger = Logger.new(STDOUT) # SQL
 
 # RSpec.configure do |config|
 # end
