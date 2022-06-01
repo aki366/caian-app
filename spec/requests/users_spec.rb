@@ -79,7 +79,7 @@ RSpec.describe 'Users Request', type: :request do
         # expect(response).to be_successful
       end
     end
-    context 'userがゲストのとき' do
+    context 'ユーザーがゲストのとき' do
       let!(:user) { create(:guest) }
       include_context 'login_as_user'
       it 'ユーザーの編集画面に遷移できないこと' do
@@ -112,7 +112,7 @@ RSpec.describe 'Users Request', type: :request do
   describe 'PUT #update' do
     # パラメーターを追加
     subject { put user_path(user.id), params: { career: "hacker"} }
-    context 'userがゲストのとき' do
+    context 'ユーザーがゲストのとき' do
       let!(:user) { create(:guest) }
       include_context 'login_as_user'
       it 'ユーザー情報が更新されないこと' do
@@ -121,7 +121,7 @@ RSpec.describe 'Users Request', type: :request do
         expect(response).to have_http_status(:redirect)
       end
     end
-    context 'userがゲストではないとき' do
+    context 'ユーザーがゲストではないとき' do
       let!(:user) { create(:user) }
       context 'パラメータが正常な場合' do
         it 'ユーザー情報が更新されること' do
@@ -144,13 +144,17 @@ RSpec.describe 'Users Request', type: :request do
   end
 
   describe 'DELETE #destroy' do
-    let!(:user) { create :user }
     subject { delete user_path(user.id) }
-    context 'userがゲストのとき' do
+    context 'ユーザーがゲストのとき' do
+      let!(:user) { create(:guest) }
+      include_context 'login_as_user'
       it 'ユーザーの削除ができないこと' do
+        expect { subject }.not_to change { user }
+        expect(response).to have_http_status(:redirect)
       end
     end
-    context 'userがゲストではないとき' do
+    context 'ユーザーがゲストではないとき' do
+      let!(:user) { create :user }
       context 'ユーザーが自分の場合' do
         it '削除されること' do
           expect { subject }.to change(User, :count).by(-1)
