@@ -29,6 +29,8 @@ RSpec.describe 'Users Request', type: :request do
     end
     context 'パラメータが不正なとき' do
       it 'ユーザーが作成できないこと' do
+        test
+        # expect
       end
     end
   end
@@ -48,7 +50,8 @@ RSpec.describe 'Users Request', type: :request do
     end
     context 'ログインしていないとき' do
       it 'ユーザーの一覧画面に遷移できないこと' do
-        # expect(response).not_to be_successful
+        subject
+        expect(response).not_to be_successful
       end
     end
   end
@@ -70,12 +73,14 @@ RSpec.describe 'Users Request', type: :request do
       end
       context 'ユーザーが自分ではない場合' do
         it 'ユーザーの編集画面に遷移できないこと' do
+          test
           # expect(response).to be_successful
         end
       end
     end
     context 'ログインしていないとき' do
       it 'ユーザーの編集画面に遷移できないこと' do
+        test
         # expect(response).to be_successful
       end
     end
@@ -104,6 +109,7 @@ RSpec.describe 'Users Request', type: :request do
     end
     context 'ログインしていないとき' do
       it 'ユーザーの詳細ページに遷移できないこと' do
+        test
         # expect(response).to be_successful
       end
     end
@@ -125,6 +131,7 @@ RSpec.describe 'Users Request', type: :request do
       let!(:user) { create(:user) }
       context 'パラメータが正常な場合' do
         it 'ユーザー情報が更新されること' do
+          test
           # expect { subject }.to change { user }
           # expect(response).to be_successful
         end
@@ -139,6 +146,7 @@ RSpec.describe 'Users Request', type: :request do
     end
     context 'ログインしていないとき' do
       it 'ユーザー情報が更新されないこと' do
+        test
       end
     end
   end
@@ -163,11 +171,13 @@ RSpec.describe 'Users Request', type: :request do
       end
       context 'ユーザーが自分ではない場合' do
         it '削除ができないこと' do
+          test
         end
       end
     end
     context 'ログインしていないとき' do
       it 'ユーザーの削除ができないこと' do
+        test
       end
     end
   end
@@ -176,6 +186,7 @@ RSpec.describe 'Users Request', type: :request do
     let!(:user) { create :user }
     subject { post login_path }
     it 'ログイン画面に遷移できること' do
+      test
       # subject
       # expect(response).to be_successful
     end
@@ -191,6 +202,7 @@ RSpec.describe 'Users Request', type: :request do
     context 'パラメータが不正なとき' do
       include_context 'login_as_user'
       it 'ユーザーのログインができないこと' do
+        test
         # expect { subject }.not_to change { user }
         # expect(response).to be_successful
       end
@@ -199,12 +211,14 @@ RSpec.describe 'Users Request', type: :request do
 
   describe 'GET #likes' do
     it 'いいね!をした投稿の一覧が表示されること' do
+      test
     end
   end
 
   describe 'DELETE #logout' do
     subject { delete logout_path }
     it 'ログアウトができること' do
+      test
     end
   end
 end
