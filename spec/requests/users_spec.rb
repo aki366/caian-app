@@ -57,9 +57,9 @@ RSpec.describe 'Users Request', type: :request do
   end
 
   describe 'GET #edit' do
-    let!(:user) { create(:user) }
     subject { get edit_user_path(user.id) }
     context 'ログインしているとき' do
+      let!(:user) { create(:user) }
       include_context 'login_as_user'
       context 'ユーザーが自分の場合' do
         it 'ユーザーの編集画面に遷移できること' do
@@ -82,7 +82,8 @@ RSpec.describe 'Users Request', type: :request do
     end
     context 'ログインしていないとき' do
       it 'ユーザーの編集画面に遷移できないこと' do
-        test
+        subject
+        expect(response).to redirect_to(login_path)
       end
     end
     context 'ユーザーがゲストのとき' do
