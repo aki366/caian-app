@@ -80,8 +80,11 @@ RSpec.describe 'Users Request', type: :request do
       end
     end
     context 'userがゲストのとき' do
+      let!(:user) { create(:guest) }
+      include_context 'login_as_user'
       it 'ユーザーの編集画面に遷移できないこと' do
-        # expect(response).to be_successful
+        expect { subject }.not_to change { user }
+        expect(response).to be_successful
       end
     end
   end
