@@ -66,22 +66,23 @@ RSpec.describe 'Users Request', type: :request do
           subject
           expect(response).to be_successful
         end
-        it 'ユーザー名が表示されること' do
-          subject
-          expect(response.body).to include user.name
-        end
+        # it 'ユーザー名が表示されること' do
+        # リクエストのテストでは無いか
+        #   subject
+        #   expect(response.body).to include user.name
+        # end
       end
       context 'ユーザーが自分ではない場合' do
+        include_context 'login_as_user'
         it 'ユーザーの編集画面に遷移できないこと' do
-          test
-          # expect(response).to be_successful
+          subject
+          expect(response).not_to have_http_status(:redirect)
         end
       end
     end
     context 'ログインしていないとき' do
       it 'ユーザーの編集画面に遷移できないこと' do
         test
-        # expect(response).to be_successful
       end
     end
     context 'ユーザーがゲストのとき' do

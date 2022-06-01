@@ -104,9 +104,9 @@ class UsersController < ApplicationController
       File.binwrite("public/user_images/#{file_name}",image.read)
     end
 
-    # 投稿者だけが編集できるように
+    # 自分だけが編集できるように
     # ensure_correct_userという現在のuser_idと
-    # 投稿者のidが一致していないとはじくメソッド
+    # 対象のuser_idが一致していないとはじくメソッド
     def ensure_correct_user
       if @current_user.id != params[:id].to_i
         flash[:notice]= "権限がありません"
