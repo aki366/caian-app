@@ -180,8 +180,10 @@ RSpec.describe 'Users Request', type: :request do
       end
     end
     context 'ログインしていないとき' do
+      let!(:user) { create :user }
       it 'ユーザーの削除ができないこと' do
-        test
+        expect { subject }.not_to change { user }
+        expect(response).to have_http_status(:redirect)
       end
     end
   end
