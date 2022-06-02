@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :forbid_login_user,{only:[:new, :create]}
   # ensure_correct_userが実行される前に検査するため
   # ensure_correct_userよりもauthenticate_userを上に記述
-  before_action :authenticate_user, {only:[:edit, :update]}
+  before_action :authenticate_user, {only:[:show, :edit, :update]}
   before_action :ensure_correct_user,{only:[:edit, :update]}
   before_action :set_user, {only:[:show, :edit, :update]}
 

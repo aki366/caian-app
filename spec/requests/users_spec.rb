@@ -111,8 +111,8 @@ RSpec.describe 'Users Request', type: :request do
     end
     context 'ログインしていないとき' do
       it 'ユーザーの詳細ページに遷移できないこと' do
-        test
-        # expect(response).to be_successful
+        subject
+        expect(response).to redirect_to(new_login_path)
       end
     end
   end
