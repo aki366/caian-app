@@ -73,10 +73,10 @@ RSpec.describe 'Users Request', type: :request do
         # end
       end
       context 'ユーザーが自分ではない場合' do
-        include_context 'login_as_user'
         it 'ユーザーの編集画面に遷移できないこと' do
-          subject
-          expect(response).not_to have_http_status(:redirect)
+          other_user_id = user.id + 1
+          get edit_user_path(other_user_id)
+          expect(response).to redirect_to(posts_path)
         end
       end
     end
@@ -131,11 +131,12 @@ RSpec.describe 'Users Request', type: :request do
     end
     context 'ユーザーがゲストではないとき' do
       let!(:user) { create(:user) }
+      include_context 'login_as_user'
       context 'パラメータが正常な場合' do
         it 'ユーザー情報が更新されること' do
-          test
-          # expect { subject }.to change { user }
-          # expect(response).to be_successful
+          # test
+          expect { subject }.to change { user }
+          expect(response).to be_successful
         end
       end
       context 'パラメータが不正な場合' do
