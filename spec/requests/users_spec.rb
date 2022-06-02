@@ -149,7 +149,8 @@ RSpec.describe 'Users Request', type: :request do
     end
     context 'ログインしていないとき' do
       it 'ユーザー情報が更新されないこと' do
-        test
+        expect { subject }.not_to change { user }
+        expect(response).to redirect_to(new_login_path)
       end
     end
   end
