@@ -83,7 +83,7 @@ RSpec.describe 'Users Request', type: :request do
     context 'ログインしていないとき' do
       it 'ユーザーの編集画面に遷移できないこと' do
         subject
-        expect(response).to redirect_to(login_path)
+        expect(response).to redirect_to(new_login_path)
       end
     end
     context 'ユーザーがゲストのとき' do
