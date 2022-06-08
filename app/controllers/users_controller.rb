@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
 
   before_action :forbid_login_user,{only:[:new, :create]}
+  # ensure_correct_userが実行される前に検査するため
+  # ensure_correct_userよりもauthenticate_userを上に記述
+  before_action :authenticate_user, {only:[:show, :edit, :update]}
   before_action :ensure_correct_user,{only:[:edit, :update]}
   before_action :set_user, {only:[:show, :edit, :update]}
 
@@ -56,15 +59,20 @@ class UsersController < ApplicationController
   def update
     redirect_to user_path(@user.id) and return if @user.guest?
 
-    @user.name = params[:name]
-    @user.email = params[:email]
-    @user.password = params[:password]
+    # user/editの入力フォームの値がnilでなければ
+    # trueとなりインスタンス変数の@user.XXに代入される
+    @user.name = params[:name] if params[:name]
+    @user.email = params[:email] if params[:email]
+    @user.password = params[:password] if params[:password]
+
     image = params[:image]
     hash = SecureRandom.hex(10)
     @user.user_image = "#{@user.name}_#{hash}.jpg" if image
     if @user.save
-      #もしイメージがパラメーターに含まれていれば、write_imageメソッドを呼び出す。
-      # user情報編集は理解しやすいよう、かたまりで上にまとめて、保存に成功した時点で画像をファイルに書き込みます。
+      # もしイメージがパラメーターに含まれていれば、
+      # write_imageメソッドを呼び出す。
+      # user情報編集は理解しやすいよう、かたまりで上にまとめて、
+      # 保存に成功した時点で画像をファイルに書き込む。
       write_image(@user.user_image, image) if image
       flash[:notice] = "ユーザー情報を編集しました"
       redirect_to user_path(@user.id)
@@ -98,15 +106,16 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
     end
 
-    # write_imageメソッドは第一引数に画像ファイル名, 第二引数にイメージを必要とする
+    # write_imageメソッドは第一引数に画像ファイル名, 
+    # 第二引数にイメージを必要とする
     #（file_name == @user.user_image, image == params[:image]）
     def write_image(file_name, image)
       File.binwrite("public/user_images/#{file_name}",image.read)
     end
 
-    # 投稿者だけが編集できるように
+    # 自分だけが編集できるように
     # ensure_correct_userという現在のuser_idと
-    # 投稿者のidが一致していないとはじくメソッド
+    # 対象のuser_idが一致していないとはじくメソッド
     def ensure_correct_user
       if @current_user.id != params[:id].to_i
         flash[:notice]= "権限がありません"

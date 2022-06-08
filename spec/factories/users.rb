@@ -9,4 +9,10 @@ FactoryBot.define do
     profile { Faker::Hacker.say_something_smart }
     career { Faker::Job.position }
   end
+
+  factory :guest, class: User do
+    name { "ゲストユーザー" }
+    email { "guest@example.com" }
+    password { "password" }
+  end
 end

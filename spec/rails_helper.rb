@@ -68,3 +68,11 @@ require 'support/factory_bot.rb'
 
 # login_as_userのメソッドを呼び出すための設定 
 require './spec/support/contexts/login_as_user'
+
+# log確認用
+# Rails.logger = Logger.new(STDOUT) # Rails.logger
+# ActiveRecord::Base.logger = Logger.new(STDOUT) # SQL
+
+RSpec.configure do |config|
+  config.example_status_persistence_file_path = "spec/examples.txt"
+end

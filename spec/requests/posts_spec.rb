@@ -2,29 +2,30 @@ require 'rails_helper'
 
 RSpec.describe "Posts Request", type: :request do
   let(:post) { create(:post) }
+
   describe 'GET #new' do
-    context '新規投稿をするとき' do
-      it '302レスポンスを返すこと' do
-        get new_post_path
-        expect(response.status).to eq 302
-      end
+    subject { get new_post_path(user.id) }
+    let!(:user) { create(:user) }
+    include_context 'login_as_user'
+    it '新規投稿画面に遷移できること' do
+      subject
+      expect(response).to be_successful
     end
   end
   
   describe 'POST #create' do
-    context '新規投稿をしたとき' do
-      before do
-        @post = FactoryBot.create(:post)
-        post posts_path
+    # subject { post posts_path }
+    context 'パラメータが正常なとき' do
+      # before do
+      #   @post = create(:post)
+      # end
+      it '新規投稿できること' do
+        # subject
+        # expect(response).to have_http_status(:redirect)
       end
-      it '302レスポンスを返すこと' do
-        # post posts_url, params: { post: FactoryBot.attributes_for(:post) }
-        # post posts_url
-        expect(response.status).to eq 302
-      end
-      it 'メッセージが表示されること' do
-        expect(response.body).to include '投稿を作成しました'
-      end
+      # it 'メッセージが表示されること' do
+      #   expect(response.body).to include '投稿を作成しました'
+      # end
     end
   end
 
