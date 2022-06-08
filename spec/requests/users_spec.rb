@@ -22,6 +22,7 @@ RSpec.describe 'Users Request', type: :request do
       end
       it 'ユーザーが作成できること' do
         expect do
+          # paramsをハッシュ化するattributes_forを使用
           post users_path, params: { user: attributes_for(:user) }
         end.to change(User, :count).by(+1)
         expect(response).to redirect_to User.last
@@ -118,8 +119,8 @@ RSpec.describe 'Users Request', type: :request do
   end
 
   describe 'PUT #update' do
-    # パラメーターを追加
-    subject { put user_path(user.id), params: { career: "hacker"} }
+    # ハッシュのキー"name"の値を"hacker"に更新
+    subject { put user_path(user.id), params: {"name" => "hacker"} }
     context 'ユーザーがゲストのとき' do
       let!(:user) { create(:guest) }
       include_context 'login_as_user'
@@ -134,9 +135,8 @@ RSpec.describe 'Users Request', type: :request do
       include_context 'login_as_user'
       context 'パラメータが正常な場合' do
         it 'ユーザー情報が更新されること' do
-          # test
-          expect { subject }.to change { user }
-          expect(response).to be_successful
+          expect { subject }.to change { User.find(1).name }
+          expect(response).to have_http_status(:redirect)
         end
       end
       context 'パラメータが不正な場合' do
@@ -203,6 +203,7 @@ RSpec.describe 'Users Request', type: :request do
     subject { get login_path }
     context 'パラメータが正常なとき' do
       it 'ユーザーのログインができること' do
+        test
       end
     end
     context 'パラメータが不正なとき' do
