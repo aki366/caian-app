@@ -1,6 +1,6 @@
 class LikesController < ApplicationController
 
-  before_action :authenticate_user   
+  before_action :authenticate_user
 
   def create
     @like = Like.new(
