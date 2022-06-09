@@ -119,8 +119,59 @@ RSpec.describe 'Users Request', type: :request do
   end
 
   describe 'PUT #update' do
+    context 'ログインしているとき' do
+      let!(:user) { create(:user) }
+      include_context 'login_as_user'
+      context 'nameに値が入力されている場合' do
+        subject { put user_path(user.id), params: {name: "hacker"} }
+        it 'nameの値が更新されること' do
+          expect { subject }.to change { User.find(1).name }
+          expect(response).to have_http_status(:redirect)
+        end
+      end
+      context 'nameに値が入力されていない場合' do
+        subject { put user_path(user.id) }
+        it 'nameの値が更新されないこと' do
+          expect { subject }.not_to change { User.find(1).name }
+          expect(response).to have_http_status(:redirect)
+        end
+      end
+      context 'profileに値が入力されている場合' do
+        subject { put user_path(user.id), params: {profile: "hacker"} }
+        it 'careerが更新されること' do
+          # expect { subject }.to change { User.find(1).profile }
+          # expect(response).to have_http_status(:redirect)
+        end
+      end
+      context 'profileに値が入力されていない場合' do
+        subject { put user_path(user.id) }
+        include_context 'login_as_user'
+        it 'profileが更新されないこと' do
+        end
+      end
+      context 'careerに値が入力されている場合' do
+        subject { put user_path(user.id), params: {career: "hacker"} }
+        it 'careerが更新されること' do
+          # expect { subject }.to change { User.find(1).career }
+          # expect(response).to have_http_status(:redirect)
+        end
+      end
+      context 'careerに値が入力されていない場合' do
+        subject { put user_path(user.id) }
+        include_context 'login_as_user'
+        it 'careerが更新されないこと' do
+        end
+      end
+    end
+
     # ハッシュのキー"name"の値を"hacker"に更新
-    subject { put user_path(user.id), params: {"name" => "hacker"} }
+    subject { put user_path(user.id), params: {name: "hacker"} }
+    context 'ログインしていないとき' do
+      it 'ユーザー情報が更新されないこと' do
+        expect { subject }.not_to change { user }
+        expect(response).to redirect_to(new_login_path)
+      end
+    end
     context 'ユーザーがゲストのとき' do
       let!(:user) { create(:guest) }
       include_context 'login_as_user'
@@ -128,29 +179,6 @@ RSpec.describe 'Users Request', type: :request do
         expect { subject }.not_to change { user }
         # 不正な場合はリダイレクトされる
         expect(response).to have_http_status(:redirect)
-      end
-    end
-    context 'ログインしているとき' do
-      let!(:user) { create(:user) }
-      include_context 'login_as_user'
-      context 'パラメータが正常な場合' do
-        it 'ユーザー情報が更新されること' do
-          expect { subject }.to change { User.find(1).name }
-          expect(response).to have_http_status(:redirect)
-        end
-      end
-      context 'パラメータが不正な場合' do
-        include_context 'login_as_user'
-        it 'ユーザー情報が更新されないこと' do
-          expect { subject }.not_to change { user }
-          expect(response).to be_successful
-        end
-      end
-    end
-    context 'ログインしていないとき' do
-      it 'ユーザー情報が更新されないこと' do
-        expect { subject }.not_to change { user }
-        expect(response).to redirect_to(new_login_path)
       end
     end
   end
