@@ -25,7 +25,6 @@ RSpec.describe 'Users Request', type: :request do
       subject{ post users_path }
       let!(:user) { create(:user) }
       it 'ユーザーが作成できないこと' do
-        # byebug
         expect { subject }.to change(User, :count).by(+0)
         # post users_path.not_to change(User, :count)
         expect(response).to have_http_status(:redirect)
@@ -190,8 +189,11 @@ RSpec.describe 'Users Request', type: :request do
   end
 
   describe 'GET #likes' do
+    subject { get likes_user_path(user.id) }
+    include_context 'login_as_user'
     it 'いいね!をした投稿の一覧が表示されること' do
-      test
+      subject
+      expect(response).to be_successful
     end
   end
 end
