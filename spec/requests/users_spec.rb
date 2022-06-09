@@ -21,15 +21,6 @@ RSpec.describe 'Users Request', type: :request do
         expect(response).to have_http_status(:redirect)
       end
     end
-    context 'パラメータが不正なとき' do
-      subject{ post users_path }
-      let!(:user) { create(:user) }
-      it 'ユーザーが作成できないこと' do
-        expect { subject }.to change(User, :count).by(+0)
-        # post users_path.not_to change(User, :count)
-        expect(response).to have_http_status(:redirect)
-      end
-    end
   end
 
   describe 'GET #index' do
