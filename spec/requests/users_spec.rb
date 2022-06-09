@@ -12,26 +12,23 @@ RSpec.describe 'Users Request', type: :request do
   end
 
   describe 'POST #create' do
-    subject { post users_path }
     context 'パラメータが正常なとき' do
-      before do
-        # spec/support/factory_bot.rbで
-        # config.include FactoryBot::Syntax::Methodsと
-        # 設定しているので、"FactoryBot"は省略
-        @user = create(:user)
-      end
       it 'ユーザーが作成できること' do
         expect do
           # paramsをハッシュ化するattributes_forを使用
           post users_path, params: { user: attributes_for(:user) }
         end.to change(User, :count).by(+1)
-        expect(response).to redirect_to User.last
+        expect(response).to have_http_status(:redirect)
       end
     end
     context 'パラメータが不正なとき' do
+      subject{ post users_path }
+      let!(:user) { create(:user) }
       it 'ユーザーが作成できないこと' do
-        test
-        # expect
+        # byebug
+        expect { subject }.to change(User, :count).by(+0)
+        # post users_path.not_to change(User, :count)
+        expect(response).to have_http_status(:redirect)
       end
     end
   end
@@ -122,48 +119,21 @@ RSpec.describe 'Users Request', type: :request do
     context 'ログインしているとき' do
       let!(:user) { create(:user) }
       include_context 'login_as_user'
-      context 'nameに値が入力されている場合' do
+      context 'パラメータが正常な場合' do
         subject { put user_path(user.id), params: {name: "hacker"} }
-        it 'nameの値が更新されること' do
+        it 'ユーザー情報が更新されること' do
           expect { subject }.to change { User.find(1).name }
           expect(response).to have_http_status(:redirect)
         end
       end
-      context 'nameに値が入力されていない場合' do
+      context 'パラメータが不正な場合' do
         subject { put user_path(user.id) }
-        it 'nameの値が更新されないこと' do
+        it 'ユーザー情報が更新されないこと' do
           expect { subject }.not_to change { User.find(1).name }
           expect(response).to have_http_status(:redirect)
         end
       end
-      context 'profileに値が入力されている場合' do
-        subject { put user_path(user.id), params: {profile: "hacker"} }
-        it 'careerが更新されること' do
-          # expect { subject }.to change { User.find(1).profile }
-          # expect(response).to have_http_status(:redirect)
-        end
-      end
-      context 'profileに値が入力されていない場合' do
-        subject { put user_path(user.id) }
-        include_context 'login_as_user'
-        it 'profileが更新されないこと' do
-        end
-      end
-      context 'careerに値が入力されている場合' do
-        subject { put user_path(user.id), params: {career: "hacker"} }
-        it 'careerが更新されること' do
-          # expect { subject }.to change { User.find(1).career }
-          # expect(response).to have_http_status(:redirect)
-        end
-      end
-      context 'careerに値が入力されていない場合' do
-        subject { put user_path(user.id) }
-        include_context 'login_as_user'
-        it 'careerが更新されないこと' do
-        end
-      end
     end
-
     # ハッシュのキー"name"の値を"hacker"に更新
     subject { put user_path(user.id), params: {name: "hacker"} }
     context 'ログインしていないとき' do
