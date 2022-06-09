@@ -165,6 +165,7 @@ RSpec.describe 'Users Request', type: :request do
     end
     context 'ログインしているとき' do
       let!(:user) { create :user }
+      include_context 'login_as_user'
       context 'ユーザーが自分の場合' do
         it '削除されること' do
           expect { subject }.to change(User, :count).by(-1)
@@ -173,7 +174,9 @@ RSpec.describe 'Users Request', type: :request do
       end
       context 'ユーザーが自分ではない場合' do
         it '削除ができないこと' do
-          test
+          other_user = create(:user)
+          delete user_path(other_user)
+          expect(response).to have_http_status(:redirect)
         end
       end
     end
