@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
       flash[:notice] = "メールアドレスまたはパスワードが間違っています"
       @email = params[:email]
       @password = params[:password]
-      redirect_to login_index_path
+      redirect_to new_login_path
     end
   end
 
