@@ -2,7 +2,6 @@ class SessionsController < ApplicationController
 
   before_action :forbid_login_user,{only:[:new, :create]}
 
-  # def new; end
   def new
     # ログインフォームのviewで使用するため@userを定義
     @user = User.new
