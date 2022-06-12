@@ -2,12 +2,11 @@ class SessionsController < ApplicationController
 
   before_action :forbid_login_user,{only:[:new, :create]}
 
-  # def new; end
   def new
     # ログインフォームのviewで使用するため@userを定義
     @user = User.new
   end
-  
+
   def create
     @user = User.find_by(email: login_params[:email])&.authenticate(login_params[:password])
     if @user
