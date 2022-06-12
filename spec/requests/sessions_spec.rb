@@ -23,23 +23,20 @@ RSpec.describe 'Sessions Request', type: :request do
   end
 
   describe 'GET #create' do
-    # subject { get new_login_path(user.id),
-    #   params: {name: "ログインテスト用ユーザー", email: "login.test@example.com"} }
+    subject { get posts_path }
+    let!(:user) { create(:user) }
     context 'パラメータが正常なとき' do
-      # let!(:user) { create(:login_test_user) }
       it 'ユーザーのログインができること' do
-      # byebug
-      # subject
-      # expect(response).to have_http_status(posts_path)
+        expect(user.authenticate("password")).to be_truthy
+        subject
+        expect(response).to be_successful
       end
     end
     context 'パラメータが不正なとき' do
       it 'ユーザーのログインができないこと' do
-        # https://qiita.com/nabenomoto/items/6c6a21e0d35d3f040821
-        # expect(user.authenticate("password")).to be_truthy
-
-        # expect { subject }.to change { User.find(1).name }
-        # expect(response).to have_http_status(new_login_path)
+        expect(user.authenticate("invalid_password")).to eq(false)
+        subject
+        expect(response).to redirect_to(new_login_path)
       end
     end
   end
