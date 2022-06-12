@@ -21,10 +21,10 @@ class PostsController < ApplicationController
   end
 
   def new
-    @post = Post.new
     if @current_user == nil
-      redirect_to login_path
+      redirect_to new_login_path
     end
+    @post = Post.new
   end
 
   def create
