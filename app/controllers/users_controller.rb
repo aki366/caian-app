@@ -121,7 +121,6 @@ class UsersController < ApplicationController
     # 対象のuser_idが一致していないとはじくメソッド
     def ensure_correct_user
       if @current_user.id != params[:id].to_i
-        flash[:notice]= "権限がありません"
         redirect_to posts_path
       end
     end

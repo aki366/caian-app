@@ -23,7 +23,6 @@ class PostsController < ApplicationController
   def new
     @post = Post.new
     if @current_user == nil
-      flash[:notice] ="ログインが必要です"
       redirect_to login_path
     end
   end
@@ -51,7 +50,6 @@ class PostsController < ApplicationController
   def ensure_correct_user
     @post = Post.find(params[:id])
     if @post.user_id != @current_user.id
-      flash[:notice] = "権限がありません"
       redirect_to posts_path
     end
   end
