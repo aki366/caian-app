@@ -12,6 +12,8 @@ RSpec.describe 'Sessions Request', type: :request do
         expect(response).to redirect_to(posts_path)
       end
     end
+    # ApplicationControllerのテストだが
+    # 保守性を考慮してSessionsで記述
     context 'ログインしていないとき' do
       it 'ログイン画面に遷移できること' do
         subject
@@ -33,6 +35,9 @@ RSpec.describe 'Sessions Request', type: :request do
     end
     context 'パラメータが不正なとき' do
       it 'ユーザーのログインができないこと' do
+        # https://qiita.com/nabenomoto/items/6c6a21e0d35d3f040821
+        # expect(user.authenticate("password")).to be_truthy
+
         # expect { subject }.to change { User.find(1).name }
         # expect(response).to have_http_status(new_login_path)
       end
@@ -40,13 +45,12 @@ RSpec.describe 'Sessions Request', type: :request do
   end
 
   describe 'DELETE #destroy' do
-    # subject { delete logout_path }
-    # let!(:user) { create(:user) }
-    # include_context 'login_as_user'
+    subject { delete logout_path(user.id) }
+    let!(:user) { create(:user) }
+    include_context 'login_as_user'
     it 'ログアウトができること' do
-      # byebug
-      # expect { subject }.to change { user }
-      # expect(response).to redirect_to(new_login_path)
+      subject
+      expect(response).to redirect_to(new_login_path)
     end
   end
 end

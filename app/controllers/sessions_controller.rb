@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     # ログインフォームのviewで使用するため@userを定義
     @user = User.new
   end
-  
+
   def create
     @user = User.find_by(email: login_params[:email])&.authenticate(login_params[:password])
     if @user
