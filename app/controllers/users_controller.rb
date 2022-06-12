@@ -8,6 +8,9 @@ class UsersController < ApplicationController
   before_action :set_user, {only:[:show, :edit, :update]}
 
   def index
+    if @current_user == nil
+      redirect_to new_login_path
+    end
     @users = User.all
   end
 
