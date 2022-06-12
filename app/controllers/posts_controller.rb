@@ -5,6 +5,9 @@ class PostsController < ApplicationController
   before_action :ensure_correct_user,{only:[:edit, :update, :destroy]}
 
   def index
+    if @current_user == nil
+      redirect_to new_login_path
+    end
     @posts = Post.all.includes(:user).order(created_at: :desc)
   end
 
