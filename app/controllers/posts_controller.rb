@@ -7,8 +7,9 @@ class PostsController < ApplicationController
   def index
     if @current_user == nil
       redirect_to new_login_path
+    else
+      @posts = Post.all.includes(:user).order(created_at: :desc)
     end
-    @posts = Post.all.includes(:user).order(created_at: :desc)
   end
 
   def show
@@ -27,8 +28,9 @@ class PostsController < ApplicationController
   def new
     if @current_user == nil
       redirect_to new_login_path
+    else
+      @post = Post.new
     end
-    @post = Post.new
   end
 
   def create
