@@ -6,13 +6,17 @@ class RoomsController < ApplicationController
   end
 
   def show
-    @room = Room.find(params[:id])
-    @message = Message.new
-    if RoomUser.where(:user_id => @current_user.id, :room_id => @room.id).present?
-      @messages = @room.room_users
-      @room_users = @room.messages.includes(:user)
+    if @current_user == nil
+      redirect_to new_login_path
     else
-      redirect_back(fallback_location: root_path)
+      @room = Room.find(params[:id])
+      @message = Message.new
+      if RoomUser.where(:user_id => @current_user.id, :room_id => @room.id).present?
+        @messages = @room.room_users
+        @room_users = @room.messages.includes(:user)
+      else
+        redirect_back(fallback_location: root_path)
+      end
     end
   end
 
