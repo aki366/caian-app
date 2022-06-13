@@ -10,8 +10,9 @@ class UsersController < ApplicationController
   def index
     if @current_user == nil
       redirect_to new_login_path
+    else
+      @users = User.all
     end
-    @users = User.all
   end
 
   def show
