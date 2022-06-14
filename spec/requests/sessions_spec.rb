@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Sessions Request', type: :request do
 
-  describe 'get #new' do
+  describe 'GET #new' do
     subject { get new_login_path }
     context 'ログインしているとき' do
       let!(:user) { create(:user) }
@@ -22,20 +22,18 @@ RSpec.describe 'Sessions Request', type: :request do
     end
   end
 
-  describe 'GET #create' do
-    subject { get posts_path }
-    let!(:user) { create(:user) }
+  describe 'POST #create' do
+    let(:user) { create(:user) }
     context 'パラメータが正常なとき' do
+      include_context 'login_as_user'
       it 'ユーザーのログインができること' do
-        expect(user.authenticate("password")).to be_truthy
-        subject
-        expect(response).to be_successful
+        post login_index_path, params: { email: user.email, password: user.password }
+        expect(response).to redirect_to(posts_path)
       end
     end
     context 'パラメータが不正なとき' do
       it 'ユーザーのログインができないこと' do
-        expect(user.authenticate("invalid_password")).to eq(false)
-        subject
+        post login_index_path, params: { email: user.email, password: "invalid_password" }
         expect(response).to redirect_to(new_login_path)
       end
     end

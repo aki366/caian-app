@@ -8,7 +8,11 @@ class UsersController < ApplicationController
   before_action :set_user, {only:[:show, :edit, :update]}
 
   def index
-    @users = User.all
+    if @current_user == nil
+      redirect_to new_login_path
+    else
+      @users = User.all
+    end
   end
 
   def show
@@ -118,7 +122,6 @@ class UsersController < ApplicationController
     # 対象のuser_idが一致していないとはじくメソッド
     def ensure_correct_user
       if @current_user.id != params[:id].to_i
-        flash[:notice]= "権限がありません"
         redirect_to posts_path
       end
     end

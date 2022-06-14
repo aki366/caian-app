@@ -37,11 +37,13 @@ Style/Documentation:
 Style/DoubleNegation:
   Enabled: false
 
-#文字列をfreezeするか
+# 文字列をfreezeするか
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-# selfが無くても良い時に省略するか。model内において、ローカル変数とメソッド呼び出しの区別をつけた方が分かりやすい場合が多い
+# selfが無くても良い時に省略するか。
+# model内において、ローカル変数とメソッド呼び出しの
+# 区別をつけた方が分かりやすい場合が多い
 Style/RedundantSelf:
   Enabled: false
 

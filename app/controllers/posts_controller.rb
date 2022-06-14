@@ -5,23 +5,31 @@ class PostsController < ApplicationController
   before_action :ensure_correct_user,{only:[:edit, :update, :destroy]}
 
   def index
-    @posts = Post.all.includes(:user).order(created_at: :desc)
+    if @current_user == nil
+      redirect_to new_login_path
+    else
+      @posts = Post.all.includes(:user).order(created_at: :desc)
+    end
   end
 
   def show
-    @comment = Comment.new
-    @post = Post.find(params[:id])
-    @user = @post.user
-    @likes_count = Like.where(post_id: @post.id).count
-    @comments = @post.comments.includes(:user)
-    @likes = Like.find_by(user_id: @current_user.id, post_id: @post.id)
+    if @current_user == nil
+      redirect_to new_login_path
+    else
+      @comment = Comment.new
+      @post = Post.find(params[:id])
+      @user = @post.user
+      @likes_count = Like.where(post_id: @post.id).count
+      @comments = @post.comments.includes(:user)
+      @likes = Like.find_by(user_id: @current_user.id, post_id: @post.id)
+    end
   end
 
   def new
-    @post = Post.new
     if @current_user == nil
-      flash[:notice] ="ログインが必要です"
-      redirect_to login_path
+      redirect_to new_login_path
+    else
+      @post = Post.new
     end
   end
 
@@ -48,7 +56,6 @@ class PostsController < ApplicationController
   def ensure_correct_user
     @post = Post.find(params[:id])
     if @post.user_id != @current_user.id
-      flash[:notice] = "権限がありません"
       redirect_to posts_path
     end
   end
