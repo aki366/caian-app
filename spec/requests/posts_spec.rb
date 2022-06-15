@@ -12,7 +12,7 @@ RSpec.describe "Posts Request", type: :request do
       expect(response).to be_successful
     end
   end
-  
+
   describe 'POST #create' do
     # subject { post posts_path }
     context 'パラメータが正常なとき' do
@@ -30,27 +30,45 @@ RSpec.describe "Posts Request", type: :request do
   end
 
   describe 'GET #index' do
-    context 'ログイン状態のとき' do
-      it 'リクエストが成功すること' do
+    context 'ログインしているとき' do
+      it '投稿の一覧画面に遷移できること' do
+      end
+    end
+    context 'ログインしていないとき' do
+      it '投稿の一覧画面に遷移できないこと' do
       end
     end
   end
 
   describe 'GET #show' do
-    context 'ログイン状態のとき' do
-      it 'リクエストが成功すること' do
+    context 'ログインしているとき' do
+      it '投稿の詳細画面に遷移できること' do
+      end
+    end
+    context 'ログインしていないとき' do
+      it '投稿の詳細画面に遷移できないこと' do
       end
     end
   end
 
   describe 'GET #edit' do
-    context 'ログイン状態のとき' do
+    context 'ログインしているとき' do
       before 'ユーザーIDをセッションから取り出せるようにする' do
       end
-      it 'リクエストが成功すること' do
-        # expect(response.status).to eq 200
+      context 'ユーザーが自分の場合' do
+        it '投稿の編集画面に遷移できること' do
+          # expect(response.status).to eq 200
+        end
       end
-      it 'ユーザー名が表示されていること' do
+      context 'ユーザーが自分ではない場合' do
+        it '投稿の編集画面に遷移できないこと' do
+          # get edit_user_url takashi
+          # expect(response.body).to include 'Takashi'
+        end
+      end
+    end
+    context 'ログインしていないとき' do
+      it '投稿の編集画面に遷移できないこと' do
         # get edit_user_url takashi
         # expect(response.body).to include 'Takashi'
       end
@@ -58,17 +76,36 @@ RSpec.describe "Posts Request", type: :request do
   end
 
   describe 'PUT #update' do
-    context 'ログイン状態のとき' do
-      it 'リクエストが成功すること' do
+    context 'ログインしているとき' do
+      context 'パラメータが正常な場合' do
+        it '投稿内容が更新されること' do
+        end
+      end
+      context 'パラメータが不正な場合' do
+        it '投稿内容が更新されないこと' do
+        end
+      end
+    end
+    context 'ログインしていないとき' do
+      it '投稿内容が更新されないこと' do
       end
     end
   end
 
   describe 'DELETE #destroy' do
-    context 'ログイン状態のとき' do
-      it 'リクエストが成功すること' do
+    context 'ログインしているとき' do
+      context 'ユーザーが自分の場合' do
+        it '投稿の削除ができること' do
+        end
       end
-      it 'メッセージが表示されること' do
+      context 'ユーザーが自分ではない場合' do
+        it '投稿の削除ができないこと' do
+          # expect(response.body).to include '投稿を削除しました'
+        end
+      end
+    end
+    context 'ログインしていないとき' do
+      it '投稿の削除ができないこと' do
         # expect(response.body).to include '投稿を削除しました'
       end
     end
