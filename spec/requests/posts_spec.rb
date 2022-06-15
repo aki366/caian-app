@@ -30,8 +30,13 @@ RSpec.describe "Posts Request", type: :request do
   end
 
   describe 'GET #index' do
+    subject { get posts_path }
     context 'ログインしているとき' do
+      let!(:user) { create(:user) }
+      include_context 'login_as_user'
       it '投稿の一覧画面に遷移できること' do
+        subject
+        expect(response).to be_successful
       end
     end
     context 'ログインしていないとき' do
