@@ -48,12 +48,19 @@ RSpec.describe "Posts Request", type: :request do
   end
 
   describe 'GET #show' do
+    subject { get post_path(post.id) }
+    let!(:user) { create(:user) }
+    let!(:post) { create(:post) }
     context 'ログインしているとき' do
+      include_context 'login_as_user'
       it '投稿の詳細画面に遷移できること' do
+        subject
+        expect(response).to be_successful
       end
     end
     context 'ログインしていないとき' do
       it '投稿の詳細画面に遷移できないこと' do
+        # byebug
       end
     end
   end
