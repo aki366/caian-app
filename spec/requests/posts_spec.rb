@@ -67,18 +67,22 @@ RSpec.describe "Posts Request", type: :request do
   end
 
   describe 'GET #edit' do
+    subject { get edit_post_path(post.id) }
+    let!(:post) { create(:post) }
     context 'ログインしているとき' do
-      before 'ユーザーIDをセッションから取り出せるようにする' do
-      end
       context 'ユーザーが自分の場合' do
         it '投稿の編集画面に遷移できること' do
-          # expect(response.status).to eq 200
+          # byebug
+          # post.idは取得出来ているが、結果がリダイレクトされる。
+          subject
+          expect(response).to be_successful
         end
       end
       context 'ユーザーが自分ではない場合' do
         it '投稿の編集画面に遷移できないこと' do
-          # get edit_user_url takashi
-          # expect(response.body).to include 'Takashi'
+          other_user_id = user.id + 1
+          get edit_post_path(other_user_id)
+          expect(response).to have_http_status(:redirect)
         end
       end
     end
