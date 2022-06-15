@@ -41,6 +41,8 @@ RSpec.describe "Posts Request", type: :request do
     end
     context 'ログインしていないとき' do
       it '投稿の一覧画面に遷移できないこと' do
+        subject
+        expect(response).to redirect_to(new_login_path)
       end
     end
   end
