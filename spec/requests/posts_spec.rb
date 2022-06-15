@@ -12,7 +12,7 @@ RSpec.describe "Posts Request", type: :request do
       expect(response).to be_successful
     end
   end
-  
+
   describe 'POST #create' do
     # subject { post posts_path }
     context 'パラメータが正常なとき' do
@@ -30,27 +30,64 @@ RSpec.describe "Posts Request", type: :request do
   end
 
   describe 'GET #index' do
-    context 'ログイン状態のとき' do
-      it 'リクエストが成功すること' do
+    subject { get posts_path }
+    context 'ログインしているとき' do
+      let!(:user) { create(:user) }
+      include_context 'login_as_user'
+      it '投稿の一覧画面に遷移できること' do
+        subject
+        expect(response).to be_successful
+      end
+    end
+    context 'ログインしていないとき' do
+      it '投稿の一覧画面に遷移できないこと' do
+        subject
+        expect(response).to redirect_to(new_login_path)
       end
     end
   end
 
   describe 'GET #show' do
-    context 'ログイン状態のとき' do
-      it 'リクエストが成功すること' do
+    subject { get post_path(post.id) }
+    let!(:user) { create(:user) }
+    let!(:post) { create(:post) }
+    context 'ログインしているとき' do
+      include_context 'login_as_user'
+      it '投稿の詳細画面に遷移できること' do
+        subject
+        expect(response).to be_successful
+      end
+    end
+    context 'ログインしていないとき' do
+      it '投稿の詳細画面に遷移できないこと' do
+        subject
+        expect(response).to redirect_to(new_login_path)
       end
     end
   end
 
   describe 'GET #edit' do
-    context 'ログイン状態のとき' do
-      before 'ユーザーIDをセッションから取り出せるようにする' do
+    subject { get edit_post_path(post.id) }
+    let!(:post) { create(:post) }
+    context 'ログインしているとき' do
+      context 'ユーザーが自分の場合' do
+        it '投稿の編集画面に遷移できること' do
+          # byebug
+          # post.idは取得出来ているが、結果がリダイレクトされる。
+          subject
+          expect(response).to be_successful
+        end
       end
-      it 'リクエストが成功すること' do
-        # expect(response.status).to eq 200
+      context 'ユーザーが自分ではない場合' do
+        it '投稿の編集画面に遷移できないこと' do
+          other_user_id = user.id + 1
+          get edit_post_path(other_user_id)
+          expect(response).to have_http_status(:redirect)
+        end
       end
-      it 'ユーザー名が表示されていること' do
+    end
+    context 'ログインしていないとき' do
+      it '投稿の編集画面に遷移できないこと' do
         # get edit_user_url takashi
         # expect(response.body).to include 'Takashi'
       end
@@ -58,17 +95,36 @@ RSpec.describe "Posts Request", type: :request do
   end
 
   describe 'PUT #update' do
-    context 'ログイン状態のとき' do
-      it 'リクエストが成功すること' do
+    context 'ログインしているとき' do
+      context 'パラメータが正常な場合' do
+        it '投稿内容が更新されること' do
+        end
+      end
+      context 'パラメータが不正な場合' do
+        it '投稿内容が更新されないこと' do
+        end
+      end
+    end
+    context 'ログインしていないとき' do
+      it '投稿内容が更新されないこと' do
       end
     end
   end
 
   describe 'DELETE #destroy' do
-    context 'ログイン状態のとき' do
-      it 'リクエストが成功すること' do
+    context 'ログインしているとき' do
+      context 'ユーザーが自分の場合' do
+        it '投稿の削除ができること' do
+        end
       end
-      it 'メッセージが表示されること' do
+      context 'ユーザーが自分ではない場合' do
+        it '投稿の削除ができないこと' do
+          # expect(response.body).to include '投稿を削除しました'
+        end
+      end
+    end
+    context 'ログインしていないとき' do
+      it '投稿の削除ができないこと' do
         # expect(response.body).to include '投稿を削除しました'
       end
     end
