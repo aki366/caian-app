@@ -26,7 +26,6 @@ RSpec.describe 'Sessions Request', type: :request do
     let(:user) { create(:user) }
     context 'パラメータが正常なとき' do
       it 'ユーザーのログインができること' do
-        # byebug
         post login_index_path, params: { user: {email: user.email, password: user.password} }
         expect(response).to redirect_to(posts_path)
       end
