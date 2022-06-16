@@ -50,7 +50,6 @@ RSpec.describe "Posts Request", type: :request do
   describe 'GET #show' do
     subject { get post_path(post.id) }
     let!(:user) { create(:user) }
-    let!(:post) { create(:post) }
     context 'ログインしているとき' do
       include_context 'login_as_user'
       it '投稿の詳細画面に遷移できること' do
@@ -70,6 +69,7 @@ RSpec.describe "Posts Request", type: :request do
     subject { get edit_post_path(post.id) }
     let!(:post) { create(:post) }
     context 'ログインしているとき' do
+      # include_context 'login_as_user'
       context 'ユーザーが自分の場合' do
         it '投稿の編集画面に遷移できること' do
           # byebug
