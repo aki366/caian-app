@@ -31,6 +31,14 @@ RSpec.describe 'Sessions Request', type: :request do
         expect(response).to redirect_to(posts_path)
       end
     end
+    context 'パラメータが正常なとき' do
+      let!(:user) { create(:user) }
+      include_context 'login_as_user'
+      it '既にログイン済みの場合' do
+        post login_index_path, params: { user: {email: user.email, password: user.password} }
+        expect(flash[:notice]).to eq("すでにログインしています")
+      end
+    end
     context 'パラメータが不正なとき' do
       it 'ユーザーのログインができないこと' do
         post login_index_path, params: { user: {email: user.email, password: "invalid_password"} }
