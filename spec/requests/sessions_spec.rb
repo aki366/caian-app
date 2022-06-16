@@ -25,15 +25,15 @@ RSpec.describe 'Sessions Request', type: :request do
   describe 'POST #create' do
     let(:user) { create(:user) }
     context 'パラメータが正常なとき' do
-      include_context 'login_as_user'
       it 'ユーザーのログインができること' do
-        post login_index_path, params: { email: user.email, password: user.password }
+        # byebug
+        post login_index_path, params: { user: {email: user.email, password: user.password} }
         expect(response).to redirect_to(posts_path)
       end
     end
     context 'パラメータが不正なとき' do
       it 'ユーザーのログインができないこと' do
-        post login_index_path, params: { email: user.email, password: "invalid_password" }
+        post login_index_path, params: { user: {email: user.email, password: "invalid_password"} }
         expect(response).to redirect_to(new_login_path)
       end
     end
