@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Posts Request", type: :request do
-  let(:post) { create(:post) }
+  # let(:post) { create(:post) }
 
   describe 'GET #new' do
     subject { get new_post_path(user.id) }
@@ -49,6 +49,7 @@ RSpec.describe "Posts Request", type: :request do
 
   describe 'GET #show' do
     subject { get post_path(post.id) }
+    let!(:post) { create(:post) }
     let!(:user) { create(:user) }
     context 'ログインしているとき' do
       include_context 'login_as_user'
@@ -69,11 +70,10 @@ RSpec.describe "Posts Request", type: :request do
     subject { get edit_post_path(post.id) }
     let!(:post) { create(:post) }
     context 'ログインしているとき' do
-      # include_context 'login_as_user'
       context 'ユーザーが自分の場合' do
+        include_context 'login_as_user'
         it '投稿の編集画面に遷移できること' do
           # byebug
-          # post.idは取得出来ているが、結果がリダイレクトされる。
           subject
           expect(response).to be_successful
         end
