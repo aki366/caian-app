@@ -67,13 +67,14 @@ RSpec.describe "Posts Request", type: :request do
   end
 
   describe 'GET #edit' do
-    subject { get edit_post_path(post.id) }
-    let!(:post) { create(:post) }
+    let!(:user) { create(:user) }
+    let!(:user_post) { create(:post, user_id: user.id) }
+    let(:other_user_post) { create(:post) }
+    subject { get edit_post_path(user_post.id) }
     context 'ログインしているとき' do
+      include_context 'login_as_user'
       context 'ユーザーが自分の場合' do
-        include_context 'login_as_user'
         it '投稿の編集画面に遷移できること' do
-          # byebug
           subject
           expect(response).to be_successful
         end
@@ -81,6 +82,7 @@ RSpec.describe "Posts Request", type: :request do
       context 'ユーザーが自分ではない場合' do
         it '投稿の編集画面に遷移できないこと' do
           other_user_id = user.id + 1
+          other_user_post
           get edit_post_path(other_user_id)
           expect(response).to have_http_status(:redirect)
         end
@@ -88,33 +90,51 @@ RSpec.describe "Posts Request", type: :request do
     end
     context 'ログインしていないとき' do
       it '投稿の編集画面に遷移できないこと' do
-        # get edit_user_url takashi
-        # expect(response.body).to include 'Takashi'
+        # subject
+        # expect(response).to have_http_status(:redirect)
       end
     end
   end
 
   describe 'PUT #update' do
     context 'ログインしているとき' do
+      # let!(:post) { create(:post) }
+      # include_context 'login_as_user'
       context 'パラメータが正常な場合' do
+        # subject { put post_path(post.id), params: {content: "投稿を編集しました"} }
         it '投稿内容が更新されること' do
+          # expect { subject }.to change { Post.find(1).content }
+          # expect(response).to redirect_to(post_path)
         end
       end
       context 'パラメータが不正な場合' do
+        # subject { put post_path(post.id) }
         it '投稿内容が更新されないこと' do
+          # expect { subject }.not_to change { Post.find(1).content }
+          # expect(response).to have_http_status(:redirect)
         end
       end
     end
     context 'ログインしていないとき' do
+      # subject { put post_path(post.id), params: {content: "投稿を編集しました"} }
       it '投稿内容が更新されないこと' do
+        # expect { subject }.not_to change { Post.find(1).content }
+        # expect(response).to have_http_status(:redirect)
       end
     end
   end
 
   describe 'DELETE #destroy' do
+    subject { delete post_path(post.id) }
     context 'ログインしているとき' do
+      # let!(:user) { create(:user) }
+      # include_context 'login_as_user'
+      # let!(:post) { create(:post) }
       context 'ユーザーが自分の場合' do
         it '投稿の削除ができること' do
+          # byebug
+          # expect { subject }.not_to change { post }
+          # expect(response).to redirect_to(post_path)
         end
       end
       context 'ユーザーが自分ではない場合' do
