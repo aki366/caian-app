@@ -90,8 +90,8 @@ RSpec.describe "Posts Request", type: :request do
     end
     context 'ログインしていないとき' do
       it '投稿の編集画面に遷移できないこと' do
-        # subject
-        # expect(response).to have_http_status(:redirect)
+        subject
+        expect(response).to have_http_status(:redirect)
       end
     end
   end
