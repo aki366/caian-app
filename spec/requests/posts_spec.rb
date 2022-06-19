@@ -95,25 +95,25 @@ RSpec.describe "Posts Request", type: :request do
     end
   end
 
-  describe 'PUT #update' do
+  describe 'PATCH #update' do
     let!(:user) { create(:user) }
     let!(:user_post) { create(:post, user_id: user.id) }
     context 'ログインしているとき' do
       include_context 'login_as_user'
       context 'パラメータが正常な場合' do
         it '投稿内容が更新されること' do
-          # byebug
           expect do
-            put post_path(user_post.id), params: { post: {content: "投稿を編集しました"} }
+            patch post_path(user_post.id), params: { post: {content: "投稿を編集しました"} }
           end.to change { Post.find(1).content }
           expect(response).to redirect_to(posts_path)
         end
       end
       context 'パラメータが不正な場合' do
-        # subject { put post_path(post.id) }
         it '投稿内容が更新されないこと' do
-          # expect { subject }.not_to change { Post.find(1).content }
-          # expect(response).to have_http_status(:redirect)
+          expect do
+            patch post_path(user_post.id), params: { post: {content: ""} }
+          end.not_to change { Post.find(1).content }
+          expect(response).to be_successful
         end
       end
     end
