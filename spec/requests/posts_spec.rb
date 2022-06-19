@@ -128,16 +128,15 @@ RSpec.describe "Posts Request", type: :request do
   end
 
   describe 'DELETE #destroy' do
-    subject { delete post_path(post.id) }
+    subject { delete post_path(user_post.id) }
+    let!(:user) { create(:user) }
+    let!(:user_post) { create(:post, user_id: user.id) }
     context 'ログインしているとき' do
-      # let!(:user) { create(:user) }
-      # include_context 'login_as_user'
-      # let!(:post) { create(:post) }
+      include_context 'login_as_user'
       context 'ユーザーが自分の場合' do
         it '投稿の削除ができること' do
-          # byebug
-          # expect { subject }.not_to change { post }
-          # expect(response).to redirect_to(post_path)
+          expect { subject }.to change(Post, :count).by(-1)
+          expect(response).to redirect_to(posts_path)
         end
       end
       context 'ユーザーが自分ではない場合' do
