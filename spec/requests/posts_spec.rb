@@ -118,10 +118,11 @@ RSpec.describe "Posts Request", type: :request do
       end
     end
     context 'ログインしていないとき' do
-      # subject { put post_path(post.id), params: {content: "投稿を編集しました"} }
       it '投稿内容が更新されないこと' do
-        # expect { subject }.not_to change { Post.find(1).content }
-        # expect(response).to have_http_status(:redirect)
+        expect do
+          patch post_path(user_post.id), params: { post: {content: "投稿を編集しました"} }
+        end.not_to change { Post.find(1).content }
+        expect(response).to have_http_status(:redirect)
       end
     end
   end
