@@ -131,6 +131,7 @@ RSpec.describe "Posts Request", type: :request do
     subject { delete post_path(user_post.id) }
     let!(:user) { create(:user) }
     let!(:user_post) { create(:post, user_id: user.id) }
+    let(:other_user) { create(:user) }
     context 'ログインしているとき' do
       include_context 'login_as_user'
       context 'ユーザーが自分の場合' do
@@ -141,7 +142,10 @@ RSpec.describe "Posts Request", type: :request do
       end
       context 'ユーザーが自分ではない場合' do
         it '投稿の削除ができないこと' do
-          # expect(response.body).to include '投稿を削除しました'
+          user_post = user.id + 1
+          other_user
+          expect { subject }.not_to change { user_post }
+          expect(response).to have_http_status(:redirect)
         end
       end
     end

@@ -1,7 +1,6 @@
 class PostsController < ApplicationController
 
   before_action :authenticate_user,{only:[:edit, :update]}
-
   before_action :ensure_correct_user,{only:[:edit, :update, :destroy]}
 
   def index
@@ -53,13 +52,6 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
 
-  def ensure_correct_user
-    @post = Post.find(params[:id])
-    if @post.user_id != @current_user.id
-      redirect_to posts_path
-    end
-  end
-
   def update
     @post = Post.find(params[:id])
     if @post.update(post_params)
@@ -76,6 +68,13 @@ class PostsController < ApplicationController
     flash[:notice] = "投稿を削除しました"
     redirect_to posts_path
   end
+
+    def ensure_correct_user
+      @post = Post.find(params[:id])
+      if @post.user_id != @current_user.id
+        redirect_to posts_path
+      end
+    end
 
   private
 
