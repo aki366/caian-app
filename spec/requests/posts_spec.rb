@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe "Posts Request", type: :request do
-  # let(:post) { create(:post) }
 
   describe 'GET #new' do
     subject { get new_post_path(user.id) }
@@ -97,14 +96,17 @@ RSpec.describe "Posts Request", type: :request do
   end
 
   describe 'PUT #update' do
+    let!(:user) { create(:user) }
+    let!(:user_post) { create(:post, user_id: user.id) }
     context 'ログインしているとき' do
-      # let!(:post) { create(:post) }
-      # include_context 'login_as_user'
+      include_context 'login_as_user'
       context 'パラメータが正常な場合' do
-        # subject { put post_path(post.id), params: {content: "投稿を編集しました"} }
         it '投稿内容が更新されること' do
-          # expect { subject }.to change { Post.find(1).content }
-          # expect(response).to redirect_to(post_path)
+          # byebug
+          expect do
+            put post_path(user_post.id), params: { post: {content: "投稿を編集しました"} }
+          end.to change { Post.find(1).content }
+          expect(response).to redirect_to(posts_path)
         end
       end
       context 'パラメータが不正な場合' do
