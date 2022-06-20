@@ -69,14 +69,14 @@ class PostsController < ApplicationController
     redirect_to posts_path
   end
 
+  private
+
     def ensure_correct_user
       @post = Post.find(params[:id])
       if @post.user_id != @current_user.id
         redirect_to posts_path
       end
     end
-
-  private
 
     def post_params
       # formから渡ってきたパラメーターのうち下記２つだけを許容する

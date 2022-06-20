@@ -151,7 +151,9 @@ RSpec.describe "Posts Request", type: :request do
     end
     context 'ログインしていないとき' do
       it '投稿の削除ができないこと' do
-        # expect(response.body).to include '投稿を削除しました'
+        # byebug
+        expect { subject }.not_to change { user_post }
+        expect(response).to have_http_status(:redirect)
       end
     end
   end
