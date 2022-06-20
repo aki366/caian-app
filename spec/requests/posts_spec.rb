@@ -13,18 +13,16 @@ RSpec.describe "Posts Request", type: :request do
   end
 
   describe 'POST #create' do
-    # subject { post posts_path }
+    let!(:user) { create(:user) }
+    let(:user_post) { create(:post, user_id: user.id) }
+    include_context 'login_as_user'
     context 'パラメータが正常なとき' do
-      # before do
-      #   @post = create(:post)
-      # end
       it '新規投稿できること' do
-        # subject
-        # expect(response).to have_http_status(:redirect)
+        expect do
+          post posts_path, params: { post: attributes_for(:post) }
+        end.to change(Post, :count).by(+1)
+        expect(response).to redirect_to(posts_path)
       end
-      # it 'メッセージが表示されること' do
-      #   expect(response.body).to include '投稿を作成しました'
-      # end
     end
   end
 
@@ -151,7 +149,6 @@ RSpec.describe "Posts Request", type: :request do
     end
     context 'ログインしていないとき' do
       it '投稿の削除ができないこと' do
-        # byebug
         expect { subject }.not_to change { user_post }
         expect(response).to have_http_status(:redirect)
       end
