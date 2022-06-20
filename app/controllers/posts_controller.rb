@@ -2,6 +2,7 @@ class PostsController < ApplicationController
 
   before_action :authenticate_user,{only:[:new, :show, :edit, :update, :destroy]}
   before_action :ensure_correct_user,{only:[:edit, :update, :destroy]}
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   def index
     if @current_user == nil
@@ -62,6 +63,10 @@ class PostsController < ApplicationController
   end
 
   private
+
+    def record_not_found
+      redirect_to posts_path
+    end
 
     def ensure_correct_user
       @post = Post.find(params[:id])
