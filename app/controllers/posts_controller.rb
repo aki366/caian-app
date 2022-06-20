@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
 
-  before_action :authenticate_user,{only:[:edit, :update]}
+  before_action :authenticate_user,{only:[:new, :show, :edit, :update, :destroy]}
   before_action :ensure_correct_user,{only:[:edit, :update, :destroy]}
 
   def index
@@ -12,24 +12,16 @@ class PostsController < ApplicationController
   end
 
   def show
-    if @current_user == nil
-      redirect_to new_login_path
-    else
-      @comment = Comment.new
-      @post = Post.find(params[:id])
-      @user = @post.user
-      @likes_count = Like.where(post_id: @post.id).count
-      @comments = @post.comments.includes(:user)
-      @likes = Like.find_by(user_id: @current_user.id, post_id: @post.id)
-    end
+    @comment = Comment.new
+    @post = Post.find(params[:id])
+    @user = @post.user
+    @likes_count = Like.where(post_id: @post.id).count
+    @comments = @post.comments.includes(:user)
+    @likes = Like.find_by(user_id: @current_user.id, post_id: @post.id)
   end
 
   def new
-    if @current_user == nil
-      redirect_to new_login_path
-    else
-      @post = Post.new
-    end
+    @post = Post.new
   end
 
   def create
