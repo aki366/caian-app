@@ -2,6 +2,8 @@ class PostsController < ApplicationController
 
   before_action :authenticate_user,{only:[:new, :show, :edit, :update, :destroy]}
   before_action :ensure_correct_user,{only:[:edit, :update, :destroy]}
+  rescue_from ActiveRecord::RecordNotFound,   with: :render_404
+  rescue_from ActionController::RoutingError, with: :render_404
 
   def index
     if @current_user == nil
@@ -62,6 +64,16 @@ class PostsController < ApplicationController
   end
 
   private
+
+    def render_404
+      respond_to do |format|
+        # defaultの404ページを表示させる場合↓
+        # format.html { render file: Rails.root.join('public/404.html'), status: 404, layout: false, content_type: 'text/html' }
+        format.html { redirect_to not_found_404_path }
+        format.xml  { head :not_found }
+        format.any  { head :not_found }
+      end
+    end
 
     def ensure_correct_user
       @post = Post.find(params[:id])
