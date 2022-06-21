@@ -1,7 +1,7 @@
 class ErrorsController < ApplicationController
 
   # Not Found_404
-  def not_found
+  def not_found_404
     render status: 404
   end
 
