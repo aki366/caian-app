@@ -70,8 +70,8 @@ class PostsController < ApplicationController
         # defaultの404ページを表示させる場合↓
         # format.html { render file: Rails.root.join('public/404.html'), status: 404, layout: false, content_type: 'text/html' }
         format.html { redirect_to not_found_404_path }
-        format.xml  { head :not_found }
-        format.any  { head :not_found }
+        format.xml  { head :not_found_404 }
+        format.any  { head :not_found_404 }
       end
     end
 
