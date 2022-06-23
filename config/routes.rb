@@ -34,8 +34,8 @@ Rails.application.routes.draw do
     resources :messages
   end
 
-  get "not_found_404",       to: "errors#not_found_404"
+  get "*unmatched_route",       to: "errors#not_found_404"
   # get "not_acceptable_406",  to: "errors#not_acceptable"
   # get "unprocessable_422",   to: "errors#unprocessable"
-  # get "internal_server_500", to: "errors#internal_server"
+  # get "internal_server_500", to: "errors#internal_server_500"
 end
