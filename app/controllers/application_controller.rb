@@ -33,9 +33,6 @@ class ApplicationController < ActionController::Base
 
   def render_500(e)
     logger.error [e, *e.backtrace].join("\n")
-    # 動的ページ
-    # render "error_500", status: 404, formats: [:html]
-
     # 静的ページ
     render file: Rails.root.join('public/500.html'), status: 500, layout: false, content_type: 'text/html'
   end
