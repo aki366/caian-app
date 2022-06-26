@@ -11,7 +11,6 @@ Rails.application.routes.draw do
   get "guest_login", to: "guest_user_login#create"
 
   resources :rooms, only: %i[index new create]
-  resources :comments
   resources :messages
 
   resources :login, only: [:new, :create], controller: :sessions  
