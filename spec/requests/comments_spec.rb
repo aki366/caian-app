@@ -5,7 +5,6 @@ RSpec.describe "Comments Request", type: :request do
   describe 'POST #create' do
     let!(:user_post) { create(:post) }
     let!(:user) { create(:user) }
-    let(:user_comment) { create(:comment, post_id: post.id) }
     include_context 'login_as_user'
     context 'パラメータが正常なとき' do
       it 'コメントが投稿できること' do
@@ -61,9 +60,17 @@ RSpec.describe "Comments Request", type: :request do
   # end
 
   describe 'DELETE #destroy' do
+    subject { delete "/posts/#{user_post.id}/comments/#{post_comment.id}" }
+    let!(:user_post) { create(:post) }
+    let!(:user) { create(:user) }
+    let(:post_comment) { create(:comment, post_id: user_post.id, user_id: user.id) }
+    include_context 'login_as_user'
     context 'ログインしているとき' do
       context 'ユーザーが自分の場合' do
         it 'コメントの削除ができること' do
+          post_comment
+          expect { subject }.to change(Comment, :count).by(-1)
+          expect(response).to have_http_status(:redirect)
         end
       end
       context 'ユーザーが自分ではない場合' do
