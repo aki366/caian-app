@@ -9,17 +9,18 @@ RSpec.describe "Comments Request", type: :request do
     include_context 'login_as_user'
     context 'パラメータが正常なとき' do
       it 'コメントが投稿できること' do
-        byebug
         expect do
           post post_comments_path(user_post.id), params: { comment: {comment_text: "コメントを投稿しました"} }
-
-          # post post_comments_path, params: { comment: attributes_for(:comment) }
         end.to change(Comment, :count).by(+1)
         expect(response).to have_http_status(:redirect)
       end
     end
     context 'パラメータが不正なとき' do
       it 'コメントが投稿できないこと' do
+        expect do
+          post post_comments_path(user_post.id), params: { comment: {comment_text: ""} }
+        end.to change(Comment, :count).by(+0)
+        expect(response).to have_http_status(:redirect)
       end
     end
   end
