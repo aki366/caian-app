@@ -63,6 +63,7 @@ RSpec.describe "Comments Request", type: :request do
     subject { delete "/posts/#{user_post.id}/comments/#{post_comment.id}" }
     let!(:user_post) { create(:post) }
     let!(:user) { create(:user) }
+    let(:other_user) { create(:user) }
     let(:post_comment) { create(:comment, post_id: user_post.id, user_id: user.id) }
     include_context 'login_as_user'
     context 'ログインしているとき' do
@@ -75,11 +76,16 @@ RSpec.describe "Comments Request", type: :request do
       end
       context 'ユーザーが自分ではない場合' do
         it 'コメントの削除ができないこと' do
+          post_comment
+          other_user
+          expect { subject }.not_to change { post_comment }
+          expect(response).to have_http_status(:redirect)
         end
       end
     end
     context 'ログインしていないとき' do
       it 'コメントの削除ができないこと' do
+        # byebug
       end
     end
   end
