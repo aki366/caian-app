@@ -32,8 +32,8 @@
           <%= button_to "削除", post_path(@post.id),method: "delete" %>
         </div>
       <% end %>
-
     </div>
+
     <div>
       <%= image_tag @post.image.variant(resize: "570x570") if @post.image.attached? %>
     </div>
@@ -67,6 +67,5 @@
         </div>
       </div>
     <% end %>
-
   </div>
 </div>

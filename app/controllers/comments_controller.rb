@@ -1,4 +1,7 @@
 class CommentsController < ApplicationController
+
+  before_action :authenticate_user
+
   def create
     @post = Post.find(params[:post_id])
     @comment = Comment.new(comment_params)
@@ -6,6 +9,8 @@ class CommentsController < ApplicationController
     @comment.post_id = @post.id
     if @comment.save
       flash[:notice] = "コメントを投稿しました"
+      redirect_to post_path(@post.id)
+    else
       redirect_to post_path(@post.id)
     end
   end
