@@ -8,6 +8,8 @@ class CommentsController < ApplicationController
     if @comment.save
       flash[:notice] = "コメントを投稿しました"
       redirect_to post_path(@post.id)
+    else
+      redirect_to post_path(@post.id)
     end
   end
 
