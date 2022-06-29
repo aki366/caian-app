@@ -45,6 +45,8 @@ RSpec.describe "Likes Request", type: :request do
     end
     context 'ログインしていないとき' do
       it 'イイね!の削除ができないこと' do
+        expect { subject }.not_to change { post_like }
+        expect(response).to have_http_status(:redirect)
       end
     end
   end
