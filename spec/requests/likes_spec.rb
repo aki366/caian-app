@@ -26,6 +26,7 @@ RSpec.describe "Likes Request", type: :request do
     let!(:user_post) { create(:post) }
     let!(:user) { create(:user) }
     let!(:post_like) { create(:like, post_id: user_post.id, user_id: user.id) }
+    let(:other_user) {create(:user)}
     context 'ログインしているとき' do
       include_context 'login_as_user'
       context 'ユーザーが自分の場合' do
@@ -36,6 +37,9 @@ RSpec.describe "Likes Request", type: :request do
       end
       context 'ユーザーが自分ではない場合' do
         it 'イイね!の削除ができないこと' do
+          other_user
+          expect { subject }.not_to change { post_like }
+          expect(response).to have_http_status(:redirect)
         end
       end
     end
