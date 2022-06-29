@@ -14,11 +14,11 @@
         <%= @post.created_at %>
       </div>
       <% if @likes %>
-        <%= link_to("/likes/#{@post.id}/destroy", {method: "post"}) do %>
+        <%= link_to post_like_path(@post.id), method: :delete do %>
           <span class="fa fa-heart liked-btn"></span>
         <% end %>
       <% else %>
-        <%= link_to("/likes/#{@post.id}/create", {method: "post"}) do %>
+        <%= link_to post_likes_path(@post.id), method: :post do %>
           <span class="fa fa-heart unliked-btn"></span>
         <% end %>
       <% end %>

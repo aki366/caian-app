@@ -60,7 +60,7 @@ RSpec.describe "Comments Request", type: :request do
   # end
 
   describe 'DELETE #destroy' do
-    subject { delete "/posts/#{user_post.id}/comments/#{post_comment.id}" }
+    subject { delete post_comment_path(user_post.id, post_comment.id) }
     # テスト条件
     # user.id(1)の投稿に対して、user.id(2)がコメントを投稿した状態
     let!(:user_post) { create(:post) }
