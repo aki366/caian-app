@@ -5,9 +5,6 @@ Rails.application.routes.draw do
   get "top",   to: "home#top"
   get "about", to: "home#about"
 
-  post "likes/:post_id/create",  to: "likes#create"
-  post "likes/:post_id/destroy", to: "likes#destroy"
-
   get "guest_login", to: "guest_user_login#create"
 
   resources :rooms, only: %i[index new create]
@@ -27,6 +24,7 @@ Rails.application.routes.draw do
 
   resources :posts do
     resources :comments, only: %i[create destroy]
+    resources :likes,    only: %i[create destroy]
   end
 
   resources :rooms do
