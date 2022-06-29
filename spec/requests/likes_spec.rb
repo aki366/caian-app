@@ -15,6 +15,8 @@ RSpec.describe "Likes Request", type: :request do
     end
     context 'ログインしていないとき' do
       it 'イイね!が作成できないこと' do
+        expect { subject }.to change(Like, :count).by(0)
+        expect(response).to have_http_status(:redirect)
       end
     end
   end
