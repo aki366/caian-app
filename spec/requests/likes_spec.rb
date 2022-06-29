@@ -22,9 +22,16 @@ RSpec.describe "Likes Request", type: :request do
   end
 
   describe 'DELETE #destroy' do
+    subject { delete post_like_path(user_post.id, post_like.id) }
+    let!(:user_post) { create(:post) }
+    let!(:user) { create(:user) }
+    let!(:post_like) { create(:like, post_id: user_post.id, user_id: user.id) }
     context 'ログインしているとき' do
+      include_context 'login_as_user'
       context 'ユーザーが自分の場合' do
         it 'イイね!の削除ができること' do
+          expect { subject }.to change(Like, :count).by(-1)
+          expect(response).to have_http_status(:redirect)
         end
       end
       context 'ユーザーが自分ではない場合' do
