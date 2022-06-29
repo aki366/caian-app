@@ -1,38 +1,58 @@
 require 'rails_helper'
 
-RSpec.describe 'Users Request', type: :request do
-  let(:user) { create(:user) }
+RSpec.describe 'Sessions Request', type: :request do
 
-  describe 'get #login' do
+  describe 'GET #new' do
     subject { get new_login_path }
-    it 'ログイン画面に遷移できること' do
-      subject
-      expect(response).to be_successful
+    context 'ログインしているとき' do
+      let!(:user) { create(:user) }
+      include_context 'login_as_user'
+      it 'ログイン画面に遷移でないこと' do
+        subject
+        expect(response).to redirect_to(posts_path)
+      end
+    end
+    # ApplicationControllerのテストだが
+    # 保守性を考慮してSessionsで記述
+    context 'ログインしていないとき' do
+      it 'ログイン画面に遷移できること' do
+        subject
+        expect(response).to be_successful
+      end
     end
   end
 
-  describe 'GET #login_form' do
-    let!(:user) { create(:user) }
-    subject { get login_path }
+  describe 'POST #create' do
+    let(:user) { create(:user) }
     context 'パラメータが正常なとき' do
       it 'ユーザーのログインができること' do
-        test
+        post login_index_path, params: { user: {email: user.email, password: user.password} }
+        expect(response).to redirect_to(posts_path)
+      end
+    end
+    context 'パラメータが正常なとき' do
+      let!(:user) { create(:user) }
+      include_context 'login_as_user'
+      it '既にログイン済みの場合' do
+        post login_index_path, params: { user: {email: user.email, password: user.password} }
+        expect(flash[:notice]).to eq("すでにログインしています")
       end
     end
     context 'パラメータが不正なとき' do
-      include_context 'login_as_user'
       it 'ユーザーのログインができないこと' do
-        test
-        # expect { subject }.not_to change { user }
-        # expect(response).to be_successful
+        post login_index_path, params: { user: {email: user.email, password: "invalid_password"} }
+        expect(response).to redirect_to(new_login_path)
       end
     end
   end
 
-  describe 'DELETE #logout' do
-    subject { delete logout_path }
+  describe 'DELETE #destroy' do
+    subject { delete logout_path(user.id) }
+    let!(:user) { create(:user) }
+    include_context 'login_as_user'
     it 'ログアウトができること' do
-      test
+      subject
+      expect(response).to redirect_to(new_login_path)
     end
   end
 end

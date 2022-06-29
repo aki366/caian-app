@@ -14,15 +14,15 @@
         <%= @post.created_at %>
       </div>
       <% if @likes %>
-        <%= link_to("/likes/#{@post.id}/destroy", {method: "post"}) do %>
+        <%= link_to post_like_path(@post.id), method: :delete do %>
           <span class="fa fa-heart liked-btn"></span>
         <% end %>
       <% else %>
-        <%= link_to("/likes/#{@post.id}/create", {method: "post"}) do %>
+        <%= link_to post_likes_path(@post.id), method: :post do %>
           <span class="fa fa-heart unliked-btn"></span>
         <% end %>
       <% end %>
-      
+
       <%= @likes_count %>
 
       <% if @post.user_id == @current_user.id %>
@@ -32,8 +32,8 @@
           <%= button_to "削除", post_path(@post.id),method: "delete" %>
         </div>
       <% end %>
-
     </div>
+
     <div>
       <%= image_tag @post.image.variant(resize: "570x570") if @post.image.attached? %>
     </div>
@@ -67,6 +67,5 @@
         </div>
       </div>
     <% end %>
-
   </div>
 </div>

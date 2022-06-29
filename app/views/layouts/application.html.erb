@@ -18,7 +18,7 @@
       <div class="header-logo">
         <% if @current_user %>
           <%= link_to "Caian", posts_path %>
-        <% else %> 
+        <% else %>
           <%= link_to "Caian", top_path %>
         <% end %>
       </div>
@@ -27,7 +27,7 @@
         <% current_user = User.find_by(id: session[:user_id]) %>
 
         <% if @current_user %>
-          
+
           <li>
             <%= link_to @current_user.name, user_path(@current_user.id) %>
           </li>

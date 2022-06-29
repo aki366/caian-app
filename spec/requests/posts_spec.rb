@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe "Posts Request", type: :request do
-  let(:post) { create(:post) }
 
   describe 'GET #new' do
     subject { get new_post_path(user.id) }
@@ -12,64 +11,146 @@ RSpec.describe "Posts Request", type: :request do
       expect(response).to be_successful
     end
   end
-  
+
   describe 'POST #create' do
-    # subject { post posts_path }
+    let!(:user) { create(:user) }
+    let(:user_post) { create(:post, user_id: user.id) }
+    include_context 'login_as_user'
     context 'パラメータが正常なとき' do
-      # before do
-      #   @post = create(:post)
-      # end
       it '新規投稿できること' do
-        # subject
-        # expect(response).to have_http_status(:redirect)
+        expect do
+          post posts_path, params: { post: attributes_for(:post) }
+        end.to change(Post, :count).by(+1)
+        expect(response).to redirect_to(posts_path)
       end
-      # it 'メッセージが表示されること' do
-      #   expect(response.body).to include '投稿を作成しました'
-      # end
     end
   end
 
   describe 'GET #index' do
-    context 'ログイン状態のとき' do
-      it 'リクエストが成功すること' do
+    subject { get posts_path }
+    context 'ログインしているとき' do
+      let!(:user) { create(:user) }
+      include_context 'login_as_user'
+      it '投稿の一覧画面に遷移できること' do
+        subject
+        expect(response).to be_successful
+      end
+    end
+    context 'ログインしていないとき' do
+      it '投稿の一覧画面に遷移できないこと' do
+        subject
+        expect(response).to redirect_to(new_login_path)
       end
     end
   end
 
   describe 'GET #show' do
-    context 'ログイン状態のとき' do
-      it 'リクエストが成功すること' do
+    subject { get post_path(post.id) }
+    let!(:post) { create(:post) }
+    let!(:user) { create(:user) }
+    context 'ログインしているとき' do
+      include_context 'login_as_user'
+      it '投稿の詳細画面に遷移できること' do
+        subject
+        expect(response).to be_successful
+      end
+    end
+    context 'ログインしていないとき' do
+      it '投稿の詳細画面に遷移できないこと' do
+        subject
+        expect(response).to redirect_to(new_login_path)
       end
     end
   end
 
   describe 'GET #edit' do
-    context 'ログイン状態のとき' do
-      before 'ユーザーIDをセッションから取り出せるようにする' do
+    let!(:user) { create(:user) }
+    let!(:user_post) { create(:post, user_id: user.id) }
+    let(:other_user_post) { create(:post) }
+    subject { get edit_post_path(user_post.id) }
+    context 'ログインしているとき' do
+      include_context 'login_as_user'
+      context 'ユーザーが自分の場合' do
+        it '投稿の編集画面に遷移できること' do
+          subject
+          expect(response).to be_successful
+        end
       end
-      it 'リクエストが成功すること' do
-        # expect(response.status).to eq 200
+      context 'ユーザーが自分ではない場合' do
+        it '投稿の編集画面に遷移できないこと' do
+          other_user_id = user.id + 1
+          other_user_post
+          get edit_post_path(other_user_id)
+          expect(response).to have_http_status(:redirect)
+        end
       end
-      it 'ユーザー名が表示されていること' do
-        # get edit_user_url takashi
-        # expect(response.body).to include 'Takashi'
+    end
+    context 'ログインしていないとき' do
+      it '投稿の編集画面に遷移できないこと' do
+        subject
+        expect(response).to have_http_status(:redirect)
       end
     end
   end
 
-  describe 'PUT #update' do
-    context 'ログイン状態のとき' do
-      it 'リクエストが成功すること' do
+  describe 'PATCH #update' do
+    let!(:user) { create(:user) }
+    let!(:user_post) { create(:post, user_id: user.id) }
+    context 'ログインしているとき' do
+      include_context 'login_as_user'
+      context 'パラメータが正常な場合' do
+        it '投稿内容が更新されること' do
+          expect do
+            patch post_path(user_post.id), params: { post: {content: "投稿を編集しました"} }
+          end.to change { Post.find(1).content }
+          expect(response).to redirect_to(posts_path)
+        end
+      end
+      context 'パラメータが不正な場合' do
+        it '投稿内容が更新されないこと' do
+          expect do
+            patch post_path(user_post.id), params: { post: {content: ""} }
+          end.not_to change { Post.find(1).content }
+          expect(response).to be_successful
+        end
+      end
+    end
+    context 'ログインしていないとき' do
+      it '投稿内容が更新されないこと' do
+        expect do
+          patch post_path(user_post.id), params: { post: {content: "投稿を編集しました"} }
+        end.not_to change { Post.find(1).content }
+        expect(response).to have_http_status(:redirect)
       end
     end
   end
 
   describe 'DELETE #destroy' do
-    context 'ログイン状態のとき' do
-      it 'リクエストが成功すること' do
+    subject { delete post_path(user_post.id) }
+    let!(:user) { create(:user) }
+    let!(:user_post) { create(:post, user_id: user.id) }
+    let(:other_user) { create(:user) }
+    context 'ログインしているとき' do
+      include_context 'login_as_user'
+      context 'ユーザーが自分の場合' do
+        it '投稿の削除ができること' do
+          expect { subject }.to change(Post, :count).by(-1)
+          expect(response).to redirect_to(posts_path)
+        end
       end
-      it 'メッセージが表示されること' do
-        # expect(response.body).to include '投稿を削除しました'
+      context 'ユーザーが自分ではない場合' do
+        it '投稿の削除ができないこと' do
+          user_post = user.id + 1
+          other_user
+          expect { subject }.not_to change { user_post }
+          expect(response).to have_http_status(:redirect)
+        end
+      end
+    end
+    context 'ログインしていないとき' do
+      it '投稿の削除ができないこと' do
+        expect { subject }.not_to change { user_post }
+        expect(response).to have_http_status(:redirect)
       end
     end
   end
