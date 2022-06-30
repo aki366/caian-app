@@ -1,4 +1,5 @@
 class RoomsController < ApplicationController
+
   def create
     @room = Room.new(room_params)
     @room.save
