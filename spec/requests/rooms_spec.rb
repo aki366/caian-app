@@ -15,6 +15,12 @@ RSpec.describe 'Rooms Request', type: :request do
         end
       end
     end
+    context 'ログインしていないとき' do
+      it 'トークルームが作成できないこと' do
+        expect { subject }.to change(RoomUser, :count).by(+0)
+        expect(response).to redirect_to(new_login_path)
+      end
+    end
   end
 
   describe 'GET #show' do
