@@ -15,6 +15,8 @@ RSpec.describe 'Rooms Request', type: :request do
           expect(response).to have_http_status(:redirect)
         end
       end
+      # viewで不正な値が入らない処理はしているが
+      # コントローラー側で不正な処理を防止する場合のテスト
       # context 'パラメータが不正な場合' do
       #   it 'トークルームが作成できないこと' do
       #     byebug
