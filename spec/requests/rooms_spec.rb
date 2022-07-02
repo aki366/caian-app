@@ -36,9 +36,16 @@ RSpec.describe 'Rooms Request', type: :request do
   end
 
   describe 'GET #show' do
+    subject { get room_path(Room.find(1)) }
+    let!(:user) { create(:user) }
+    let(:room_user) { create(:user) }
     context 'ログインしているとき' do
+      include_context 'login_as_user'
       context 'トークルームのユーザーが自分の場合' do
         it 'トークルーム画面に遷移できること' do
+          post rooms_path(user_ids: [user.id, room_user.id])
+          subject
+          expect(response).to be_successful
         end
       end
       context 'トークルームのユーザーが自分ではない場合' do
