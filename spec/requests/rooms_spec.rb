@@ -6,6 +6,7 @@ RSpec.describe 'Rooms Request', type: :request do
     subject { post rooms_path(user_ids: [user.id, room_user.id]) }
     let!(:user) { create(:user) }
     let(:room_user) { create(:user) }
+    # let(:other_user) { create(:user) }
     context 'ログインしているとき' do
       include_context 'login_as_user'
       context 'パラメータが正常な場合' do
@@ -14,6 +15,15 @@ RSpec.describe 'Rooms Request', type: :request do
           expect(response).to have_http_status(:redirect)
         end
       end
+      # context 'パラメータが不正な場合' do
+      #   it 'トークルームが作成できないこと' do
+      #     byebug
+      #     expect do
+      #       post rooms_path(user_ids: [other_user.id, room_user.id])
+      #     end.to change(RoomUser, :count).by(+0)
+      #     expect(response).to have_http_status(:redirect)
+      #   end
+      # end
     end
     context 'ログインしていないとき' do
       it 'トークルームが作成できないこと' do
