@@ -48,13 +48,11 @@ RSpec.describe 'Rooms Request', type: :request do
           expect(response).to be_successful
         end
       end
-      context 'トークルームのユーザーが自分ではない場合' do
-        it 'トークルーム画面に遷移できないこと' do
-        end
-      end
     end
+    let!(:room) { FactoryBot.create(:room, :with_users, users: [user]) }
     context 'ログインしていないとき' do
       it 'トークルーム画面に遷移できないこと' do
+        expect(response).not_to be_successful
       end
     end
   end
