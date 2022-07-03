@@ -1,4 +1,5 @@
 class MessagesController < ApplicationController
+
   def create
     @room = Room.find(params[:room_id])
     @message = Message.new(message_params)
@@ -6,6 +7,8 @@ class MessagesController < ApplicationController
     @message.room_id = @room.id
     if @message.save
       flash[:notice] = "投稿しました"
+      redirect_to room_path(@room.id)
+    else
       redirect_to room_path(@room.id)
     end
   end
