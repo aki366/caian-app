@@ -9,39 +9,41 @@ RSpec.describe "Messages Request", type: :request do
     end
   end
 
-  describe 'GET #edit' do
-    context 'ログインしているとき' do
-      context 'ユーザーが自分の場合' do
-        it 'メッセージの編集画面に遷移できること' do
-        end
-      end
-      context 'ユーザーが自分ではない場合' do
-        it 'メッセージの編集画面に遷移できないこと' do
-        end
-      end
-    end
-    context 'ログインしていないとき' do
-      it 'メッセージの編集画面に遷移できないこと' do
-      end
-    end
-  end
+  # 編集機能を実装した際にテスト作成
+  # describe 'GET #edit' do
+  #   context 'ログインしているとき' do
+  #     context 'ユーザーが自分の場合' do
+  #       it 'メッセージの編集画面に遷移できること' do
+  #       end
+  #     end
+  #     context 'ユーザーが自分ではない場合' do
+  #       it 'メッセージの編集画面に遷移できないこと' do
+  #       end
+  #     end
+  #   end
+  #   context 'ログインしていないとき' do
+  #     it 'メッセージの編集画面に遷移できないこと' do
+  #     end
+  #   end
+  # end
 
-  describe 'PUT #update' do
-    context 'ログインしていないとき' do
-      it 'メッセージ内容が更新されないこと' do
-      end
-    end
-    context 'ログインしているとき' do
-      context 'パラメータが正常な場合' do
-        it 'メッセージ内容が更新されること' do
-        end
-      end
-      context 'パラメータが不正な場合' do
-        it 'メッセージ内容が更新されないこと' do
-        end
-      end
-    end
-  end
+  # 編集機能を実装した際にテスト作成
+  # describe 'PUT #update' do
+  #   context 'ログインしていないとき' do
+  #     it 'メッセージ内容が更新されないこと' do
+  #     end
+  #   end
+  #   context 'ログインしているとき' do
+  #     context 'パラメータが正常な場合' do
+  #       it 'メッセージ内容が更新されること' do
+  #       end
+  #     end
+  #     context 'パラメータが不正な場合' do
+  #       it 'メッセージ内容が更新されないこと' do
+  #       end
+  #     end
+  #   end
+  # end
 
   describe 'DELETE #destroy' do
     context 'ログインしているとき' do
