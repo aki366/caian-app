@@ -3,8 +3,26 @@ require 'rails_helper'
 RSpec.describe "Messages Request", type: :request do
 
   describe 'POST #create' do
-    context 'パラメータが正常なとき' do
-      it 'メッセージを投稿できること' do
+    let!(:user) { create(:user) }
+    let(:room_user) { create(:user) }
+    context 'ログインしているとき' do
+      include_context 'login_as_user'
+      context 'パラメータが正常なとき' do
+        it 'メッセージを投稿できること' do
+          post rooms_path(user_ids: [user.id, room_user.id])
+          expect do
+            post room_messages_path(Room.find(1)), params: { message: {message_text: "メッセージを投稿しました"} }
+          end.to change(Message, :count).by(+1)
+          expect(response).to have_http_status(:redirect)
+        end
+      end
+      context 'パラメータが不正なとき' do
+        it 'メッセージを投稿できないこと' do
+        end
+      end
+    end
+    context 'ログインしていないとき' do
+      it 'メッセージを投稿できないこと' do
       end
     end
   end
