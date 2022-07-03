@@ -8,6 +8,8 @@ class MessagesController < ApplicationController
     if @message.save
       flash[:notice] = "投稿しました"
       redirect_to room_path(@room.id)
+    else
+      redirect_to room_path(@room.id)
     end
   end
 
