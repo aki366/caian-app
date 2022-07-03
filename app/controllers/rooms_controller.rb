@@ -1,4 +1,7 @@
 class RoomsController < ApplicationController
+
+  before_action :authenticate_user
+
   def create
     @room = Room.new(room_params)
     @room.save
@@ -6,17 +9,13 @@ class RoomsController < ApplicationController
   end
 
   def show
-    if @current_user == nil
-      redirect_to new_login_path
+    @room = Room.find(params[:id])
+    @message = Message.new
+    if RoomUser.where(:user_id => @current_user.id, :room_id => @room.id).present?
+      @messages = @room.room_users
+      @room_users = @room.messages.includes(:user)
     else
-      @room = Room.find(params[:id])
-      @message = Message.new
-      if RoomUser.where(:user_id => @current_user.id, :room_id => @room.id).present?
-        @messages = @room.room_users
-        @room_users = @room.messages.includes(:user)
-      else
-        redirect_back(fallback_location: root_path)
-      end
+      redirect_back(fallback_location: root_path)
     end
   end
 
