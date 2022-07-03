@@ -7,9 +7,6 @@ Rails.application.routes.draw do
 
   get "guest_login", to: "guest_user_login#create"
 
-  resources :rooms, only: %i[index new create]
-  resources :messages
-
   resources :login, only: [:new, :create], controller: :sessions  
   delete    :logout, to: "sessions#destroy"
 
@@ -27,6 +24,7 @@ Rails.application.routes.draw do
     resources :likes,    only: %i[create destroy]
   end
 
+  resources :rooms, only: %i[index new create]
   resources :rooms do
     resources :messages
   end
