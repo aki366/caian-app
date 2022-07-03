@@ -7,7 +7,7 @@ RSpec.describe 'UsersNew', type: :system do
       it 'ユーザーが作成できること' do
         # 新規ユーザー登録画面にアクセス
         visit new_user_path
-        # フォームへテキストを入力
+        # 全てのフォームへ正常な値を入力
         fill_in 'user_name',     with: 'system_山田'
         fill_in 'user_email',    with: 'system@example.com'
         fill_in 'user_password', with: 'password'
@@ -21,10 +21,20 @@ RSpec.describe 'UsersNew', type: :system do
     end
     context 'メールアドレスが未入力の場合' do
       it 'ユーザーが作成できないこと' do
+        # 新規ユーザー登録画面にアクセス
+        # メールフォームの値のみnil
+        # 新規登録ボタンをクリックしてもユーザーが作成されない
+        # 新規ユーザー登録画面にリダイレクトされる
+        # メッセージが表示される
       end
     end
     context '登録済のメールアドレスを使用した場合' do
       it 'ユーザーが作成できないこと' do
+        # 新規ユーザー登録画面にアクセス
+        # メールフォームに登録済のメールアドレスを入力
+        # 新規登録ボタンをクリックしてもユーザーが作成されない
+        # 新規ユーザー登録画面にリダイレクトされる
+        # メッセージが表示される
       end
     end
   end
