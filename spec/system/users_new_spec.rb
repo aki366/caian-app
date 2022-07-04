@@ -22,10 +22,18 @@ RSpec.describe 'UsersNew', type: :system do
     context 'メールアドレスが未入力の場合' do
       it 'ユーザーが作成できないこと' do
         # 新規ユーザー登録画面にアクセス
+        visit new_user_path
         # メールフォームの値のみnil
+        fill_in 'user_name',     with: 'system_山田'
+        fill_in 'user_email',    with: ''
+        fill_in 'user_password', with: 'password'
         # 新規登録ボタンをクリックしてもユーザーが作成されない
+        expect { click_button '新規登録' }.to change { User.count }.by(+0)
         # 新規ユーザー登録画面にリダイレクトされる
+        expect(users_path).to eq new_user_path
         # メッセージが表示される
+        expect(user.errors.full_messages).to include('Emailを入力してください')
+        # expect(page).to have_content 'Emailを入力してください'
       end
     end
     context '登録済のメールアドレスを使用した場合' do
