@@ -36,22 +36,22 @@ RSpec.describe 'Rooms Request', type: :request do
   end
 
   describe 'GET #show' do
-    subject { get room_path(Room.find(1)) }
     let!(:user) { create(:user) }
-    let(:room_user) { create(:user) }
+    let!(:other_user) { create(:user) }
     context 'ログインしているとき' do
       include_context 'login_as_user'
       context 'トークルームのユーザーが自分の場合' do
         it 'トークルーム画面に遷移できること' do
-          post rooms_path(user_ids: [user.id, room_user.id])
-          subject
+          Room.create(user_ids: [user.id, other_user.id])
+          get room_path(Room.find(Room.last.id))
           expect(response).to be_successful
         end
       end
     end
-    let!(:room) { FactoryBot.create(:room, :with_users, users: [user]) }
     context 'ログインしていないとき' do
       it 'トークルーム画面に遷移できないこと' do
+        Room.create(user_ids: [user.id, other_user.id])
+        get room_path(Room.find(Room.last.id))
         expect(response).not_to be_successful
       end
     end
