@@ -28,6 +28,11 @@ RSpec.describe "Messages Request", type: :request do
     end
     context 'ログインしていないとき' do
       it 'メッセージが投稿できないこと' do
+        Room.create(user_ids: [user.id, other_user.id])
+        expect do
+          post room_messages_path(Room.last.id), params: { message: {message_text: "メッセージを投稿しました"} }
+        end.to change(Message, :count).by(+0)
+        expect(response).to have_http_status(:redirect)
       end
     end
   end
