@@ -1,5 +1,7 @@
 class MessagesController < ApplicationController
 
+  before_action :authenticate_user
+
   def create
     @room = Room.find(params[:room_id])
     @message = Message.new(message_params)
@@ -18,6 +20,8 @@ class MessagesController < ApplicationController
     @message = @room.messages.find(params[:id])
     if @current_user.id == @message.user.id
       @message.destroy
+      redirect_to room_path(@room.id)
+    else
       redirect_to room_path(@room.id)
     end
   end

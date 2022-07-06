@@ -4,23 +4,23 @@ RSpec.describe "Messages Request", type: :request do
 
   describe 'POST #create' do
     let!(:user) { create(:user) }
-    let(:room_user) { create(:user) }
+    let!(:other_user) { create(:user) }
     context 'ログインしているとき' do
       include_context 'login_as_user'
       context 'パラメータが正常なとき' do
         it 'メッセージが投稿できること' do
-          post rooms_path(user_ids: [user.id, room_user.id])
+          Room.create(user_ids: [user.id, other_user.id])
           expect do
-            post room_messages_path(Room.find(1)), params: { message: {message_text: "メッセージを投稿しました"} }
+            post room_messages_path(Room.last.id), params: { message: {message_text: "メッセージを投稿しました"} }
           end.to change(Message, :count).by(+1)
           expect(response).to have_http_status(:redirect)
         end
       end
       context 'パラメータが不正なとき' do
         it 'メッセージが投稿できないこと' do
-          post rooms_path(user_ids: [user.id, room_user.id])
+          Room.create(user_ids: [user.id, other_user.id])
           expect do
-            post room_messages_path(Room.find(1)), params: { message: {message_text: ""} }
+            post room_messages_path(Room.last.id), params: { message: {message_text: ""} }
           end.to change(Message, :count).by(+0)
           expect(response).to have_http_status(:redirect)
         end
@@ -28,6 +28,11 @@ RSpec.describe "Messages Request", type: :request do
     end
     context 'ログインしていないとき' do
       it 'メッセージが投稿できないこと' do
+        Room.create(user_ids: [user.id, other_user.id])
+        expect do
+          post room_messages_path(Room.last.id), params: { message: {message_text: "メッセージを投稿しました"} }
+        end.to change(Message, :count).by(+0)
+        expect(response).to have_http_status(:redirect)
       end
     end
   end
@@ -69,13 +74,27 @@ RSpec.describe "Messages Request", type: :request do
   # end
 
   describe 'DELETE #destroy' do
+    subject { delete room_message_path(Room.first.id, Message.last.id) }
+    let!(:user) { create(:user) }
+    let!(:room) { create(:room, :with_users) }
     context 'ログインしているとき' do
+      include_context 'login_as_user'
+      before do
+        post room_messages_path(Room.first.id), params: { message: {message_text: "メッセージを投稿しました"} }
+      end
       context 'ユーザーが自分の場合' do
         it 'メッセージの削除ができること' do
+          expect { subject }.to change(Message, :count).by(-1)
+          expect(response).to have_http_status(:redirect)
         end
       end
       context 'ユーザーが自分ではない場合' do
+        let!(:other_user) { create(:user) }
+        include_context 'login_as_user'
         it 'メッセージの削除ができないこと' do
+          # user.id = user.id + 1
+          expect { subject }.to change(Message, :count).by(+0)
+          expect(response).to have_http_status(:redirect)
         end
       end
     end
