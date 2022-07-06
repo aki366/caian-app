@@ -74,21 +74,27 @@ RSpec.describe "Messages Request", type: :request do
   # end
 
   describe 'DELETE #destroy' do
-    subject { delete room_message_path(Room.last.id, Message.last.id) }
+    subject { delete room_message_path(Room.first.id, Message.last.id) }
     let!(:user) { create(:user) }
-    let!(:other_user) { create(:user) }
+    let!(:room) { create(:room, :with_users) }
     context 'ログインしているとき' do
       include_context 'login_as_user'
+      before do
+        post room_messages_path(Room.first.id), params: { message: {message_text: "メッセージを投稿しました"} }
+      end
       context 'ユーザーが自分の場合' do
         it 'メッセージの削除ができること' do
-          Room.create(user_ids: [user.id, other_user.id])
-          post room_messages_path(Room.last.id), params: { message: {message_text: "メッセージを投稿しました"} }
           expect { subject }.to change(Message, :count).by(-1)
           expect(response).to have_http_status(:redirect)
         end
       end
       context 'ユーザーが自分ではない場合' do
+        let!(:other_user) { create(:user) }
+        include_context 'login_as_user'
         it 'メッセージの削除ができないこと' do
+          # user.id = user.id + 1
+          expect { subject }.to change(Message, :count).by(+0)
+          expect(response).to have_http_status(:redirect)
         end
       end
     end
