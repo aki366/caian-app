@@ -98,9 +98,5 @@ RSpec.describe "Messages Request", type: :request do
         end
       end
     end
-    context 'ログインしていないとき' do
-      it 'メッセージの削除ができないこと' do
-      end
-    end
   end
 end
