@@ -27,10 +27,6 @@ RSpec.describe "Users Model", type: :model do
       it '登録が失敗すること' do
         @user.valid?
       end
-      it 'エラーメッセージが表示されること' do
-        @user.valid?
-        expect(@user.errors.full_messages).to include('Nameを入力してください')
-      end
     end
     context 'メールアドレスの大文字と小文字が違うとき' do
       it '登録が成功すること' do
