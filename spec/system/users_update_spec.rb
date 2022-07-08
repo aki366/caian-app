@@ -13,8 +13,8 @@ RSpec.describe 'Users #update system', type: :system do
         fill_in 'name', with: 'system_山田'
         # 変更ボタンをクリックするとユーザー情報が編集される
         expect { click_on '変更' }.to change { User.last.name }
-        # ユーザー詳細画面へ遷移する
-        expect(user_path(user.id)).to eq user_path(user.id)
+        # 現在のパスが指定されたパスであることを検証する
+        expect(current_path).to eq user_path(user.id)
         # メッセージが表示される
         expect(page).to have_content 'ユーザー情報を編集しました'
       end
@@ -41,8 +41,8 @@ RSpec.describe 'Users #update system', type: :system do
         fill_in 'email', with: 'system@example.com'
         # 変更ボタンをクリックするとユーザー情報が編集される
         expect { click_on '変更' }.to change { User.last.email }
-        # ユーザー詳細画面へ遷移する
-        expect(user_path(user.id)).to eq user_path(user.id)
+        # 現在のパスが指定されたパスであることを検証する
+        expect(current_path).to eq user_path(user.id)
         # メッセージが表示される
         expect(page).to have_content 'ユーザー情報を編集しました'
       end
@@ -56,8 +56,8 @@ RSpec.describe 'Users #update system', type: :system do
         # 変更ボタンをクリックするとユーザー情報が編集される
         # byebug
         expect { click_on '変更' }.to change { User.last.password_digest }
-        # ユーザー詳細画面へ遷移する
-        expect(user_path(user.id)).to eq user_path(user.id)
+        # 現在のパスが指定されたパスであることを検証する
+        expect(current_path).to eq user_path(user.id)
         # メッセージが表示される
         expect(page).to have_content 'ユーザー情報を編集しました'
       end
