@@ -51,10 +51,6 @@ RSpec.describe "Users Model", type: :model do
       it '登録が失敗すること' do
         @user.valid?
       end
-      it 'エラーメッセージが表示されること' do
-        @user.valid?
-        expect(@user.errors.full_messages).to include('Emailを入力してください')
-      end
     end
     context 'メールアドレスがすでに登録されているとき
     ' do
@@ -64,10 +60,6 @@ RSpec.describe "Users Model", type: :model do
       end
       it '登録が失敗すること' do
         @user2.valid?
-      end
-      it 'エラーメッセージが表示されること' do
-        @user2.valid?
-        expect(@user2.errors.full_messages).to include('Emailはすでに存在します')
       end
     end
     context 'メールアドレスの形が不正のとき' do
