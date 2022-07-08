@@ -8,13 +8,13 @@ RSpec.describe 'Users #create system', type: :system do
         # 新規ユーザー登録画面にアクセス
         visit new_user_path
         # 全てのフォームへ正常な値を入力
-        fill_in 'user_name',     with: 'system_山田'
+        fill_in 'user_name',     with: 'ヤマダ'
         fill_in 'user_email',    with: 'system@example.com'
         fill_in 'user_password', with: 'password'
         # 新規登録ボタンをクリックするとユーザーが作成される
         expect { click_on '新規登録' }.to change { User.count }.by(1)
-        # ユーザー詳細画面へ遷移する
-        expect(users_path).to eq users_path
+        # 現在のパスが指定されたパスであることを検証する
+        expect(current_path).to eq user_path(User.last.id)
         # メッセージが表示される
         expect(page).to have_content 'ユーザー登録が完了しました'
       end
@@ -29,10 +29,10 @@ RSpec.describe 'Users #create system', type: :system do
         fill_in 'user_password', with: 'password'
         # 新規登録ボタンをクリックしてもユーザーが作成されない
         expect { click_on '新規登録' }.to change { User.count }.by(0)
+        # 現在のパスが指定されたパスであることを検証する
+        expect(current_path).to eq "/users"
         # エラーメッセージが表示されること
         expect(page).to have_content 'Nameを入力してください'
-        # 新規ユーザー登録画面にリダイレクトされる
-        visit new_user_path
       end
     end
     context '名前が31文字以上の場合' do
@@ -45,10 +45,10 @@ RSpec.describe 'Users #create system', type: :system do
         fill_in 'user_password', with: 'password'
         # 新規登録ボタンをクリックしてもユーザーが作成されない
         expect { click_on '新規登録' }.to change { User.count }.by(0)
+        # 現在のパスが指定されたパスであることを検証する
+        expect(current_path).to eq "/users"
         # エラーメッセージが表示されること
         expect(page).to have_content 'Nameは30文字以内で入力してください'
-        # 新規ユーザー登録画面にリダイレクトされる
-        visit new_user_path
       end
     end
     context 'メールアドレスが未入力の場合' do
@@ -56,15 +56,15 @@ RSpec.describe 'Users #create system', type: :system do
         # 新規ユーザー登録画面にアクセス
         visit new_user_path
         # メールフォームの値のみnil
-        fill_in 'user_name',     with: 'system_山田'
+        fill_in 'user_name',     with: 'ヤマダ'
         fill_in 'user_email',    with: ''
         fill_in 'user_password', with: 'password'
         # 新規登録ボタンをクリックしてもユーザーが作成されない
         expect { click_on '新規登録' }.to change { User.count }.by(0)
+        # 現在のパスが指定されたパスであることを検証する
+        expect(current_path).to eq "/users"
         # エラーメッセージが表示されること
         expect(page).to have_content 'Emailを入力してください'
-        # 新規ユーザー登録画面にリダイレクトされる
-        visit new_user_path
       end
     end
     context '登録済のメールアドレスを使用した場合' do
@@ -73,15 +73,15 @@ RSpec.describe 'Users #create system', type: :system do
         # 新規ユーザー登録画面にアクセス
         visit new_user_path
         # メールフォームに登録済のメールアドレスを入力
-        fill_in 'user_name',     with: 'system_山田'
+        fill_in 'user_name',     with: 'ヤマダ'
         fill_in 'user_email',    with: user.email
         fill_in 'user_password', with: 'password'
         # 新規登録ボタンをクリックしてもユーザーが作成されない
         expect { click_on '新規登録' }.to change { User.count }.by(0)
+        # 現在のパスが指定されたパスであることを検証する
+        expect(current_path).to eq "/users"
         # エラーメッセージが表示されること
         expect(page).to have_content 'Emailはすでに存在します'
-        # 新規ユーザー登録画面にリダイレクトされる
-        visit new_user_path
       end
     end
     context 'パスワードが未入力の場合' do
@@ -89,15 +89,15 @@ RSpec.describe 'Users #create system', type: :system do
         # 新規ユーザー登録画面にアクセス
         visit new_user_path
         # メールフォームの値のみnil
-        fill_in 'user_name',     with: 'system_山田'
+        fill_in 'user_name',     with: 'ヤマダ'
         fill_in 'user_email',    with: 'system@example.com'
         fill_in 'user_password', with: ''
         # 新規登録ボタンをクリックしてもユーザーが作成されない
         expect { click_on '新規登録' }.to change { User.count }.by(0)
+        # 現在のパスが指定されたパスであることを検証する
+        expect(current_path).to eq "/users"
         # エラーメッセージが表示されること
         expect(page).to have_content 'Passwordを入力してください'
-        # 新規ユーザー登録画面にリダイレクトされる
-        visit new_user_path
       end
     end
   end
