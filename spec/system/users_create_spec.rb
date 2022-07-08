@@ -8,7 +8,7 @@ RSpec.describe 'Users #create system', type: :system do
         # 新規ユーザー登録画面にアクセス
         visit new_user_path
         # 全てのフォームへ正常な値を入力
-        fill_in 'user_name',     with: 'system_山田'
+        fill_in 'user_name',     with: 'ヤマダ'
         fill_in 'user_email',    with: 'system@example.com'
         fill_in 'user_password', with: 'password'
         # 新規登録ボタンをクリックするとユーザーが作成される
@@ -56,7 +56,7 @@ RSpec.describe 'Users #create system', type: :system do
         # 新規ユーザー登録画面にアクセス
         visit new_user_path
         # メールフォームの値のみnil
-        fill_in 'user_name',     with: 'system_山田'
+        fill_in 'user_name',     with: 'ヤマダ'
         fill_in 'user_email',    with: ''
         fill_in 'user_password', with: 'password'
         # 新規登録ボタンをクリックしてもユーザーが作成されない
@@ -73,7 +73,7 @@ RSpec.describe 'Users #create system', type: :system do
         # 新規ユーザー登録画面にアクセス
         visit new_user_path
         # メールフォームに登録済のメールアドレスを入力
-        fill_in 'user_name',     with: 'system_山田'
+        fill_in 'user_name',     with: 'ヤマダ'
         fill_in 'user_email',    with: user.email
         fill_in 'user_password', with: 'password'
         # 新規登録ボタンをクリックしてもユーザーが作成されない
@@ -89,7 +89,7 @@ RSpec.describe 'Users #create system', type: :system do
         # 新規ユーザー登録画面にアクセス
         visit new_user_path
         # メールフォームの値のみnil
-        fill_in 'user_name',     with: 'system_山田'
+        fill_in 'user_name',     with: 'ヤマダ'
         fill_in 'user_email',    with: 'system@example.com'
         fill_in 'user_password', with: ''
         # 新規登録ボタンをクリックしてもユーザーが作成されない
