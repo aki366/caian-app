@@ -19,6 +19,22 @@ RSpec.describe 'Users #create system', type: :system do
         expect(page).to have_content 'ユーザー登録が完了しました'
       end
     end
+    context '名前が31文字以上のとき' do
+      it 'ユーザーが作成できないこと' do
+        # 新規ユーザー登録画面にアクセス
+        visit new_user_path
+        # メールフォームの値のみnil
+        fill_in 'user_name',     with: 'a' * 31
+        fill_in 'user_email',    with: 'system@example.com'
+        fill_in 'user_password', with: 'password'
+        # 新規登録ボタンをクリックしてもユーザーが作成されない
+        expect { click_on '新規登録' }.to change { User.count }.by(0)
+        # エラーメッセージが表示されること
+        expect(page).to have_content 'Nameは30文字以内で入力してください'
+        # 新規ユーザー登録画面にリダイレクトされる
+        visit new_user_path
+      end
+    end
     context 'メールアドレスが未入力の場合' do
       it 'ユーザーが作成できないこと' do
         # 新規ユーザー登録画面にアクセス
