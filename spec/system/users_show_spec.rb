@@ -20,6 +20,8 @@ RSpec.describe 'Users #show system', type: :system do
       expect(page).to have_link '新規投稿'
       expect(page).to have_link '投稿'
       expect(page).to have_link 'いいね!'
+      # ユーザーイメージが表示されているか
+      expect(page).to have_selector("img[src$='guest_user_icon.png']")
       # ユーザー情報が表示されているか
       expect(page).to have_content user.name
       expect(page).to have_content user.email
