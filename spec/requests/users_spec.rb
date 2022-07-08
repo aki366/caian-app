@@ -93,11 +93,6 @@ RSpec.describe 'Users Request', type: :request do
         subject
         expect(response).to be_successful
       end
-      # system_specの内容か
-      # it 'ユーザー名が表示されること' do
-      #   subject
-      #   expect(response.body).to include 'test'
-      # end
     end
     context 'ログインしていないとき' do
       it 'ユーザーの詳細ページに遷移できないこと' do
