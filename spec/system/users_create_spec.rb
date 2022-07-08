@@ -19,6 +19,11 @@ RSpec.describe 'Users #create system', type: :system do
         expect(page).to have_content 'ユーザー登録が完了しました'
       end
     end
+    context 'ユーザーイメージを添付した場合' do
+      it 'アップロードできること' do
+        # ユーザーが添付ファイルをアップロードする
+      end
+    end
     context '名前が未入力の場合' do
       it 'ユーザーが作成できないこと' do
         # 新規ユーザー登録画面にアクセス
