@@ -47,6 +47,20 @@ RSpec.describe 'Users #update system', type: :system do
         expect(page).to have_content 'ユーザー情報を編集しました'
       end
     end
+    context 'メールアドレスが未入力の場合' do
+      it 'ユーザー情報が更新されないこと' do
+        # ユーザー情報の編集画面にアクセス
+        visit edit_user_path(user.id)
+        # フォームへ正常な値を入力
+        fill_in 'email', with: ''
+        # 変更ボタンをクリックするとユーザー情報が編集される
+        expect { click_on '変更' }.not_to change { User.last.email }
+        # 現在のパスが指定されたパスであることを検証する
+        expect(current_path).to eq "/users/#{user.id}"
+        # メッセージが表示される
+        expect(page).to have_content 'Emailを入力してください'
+      end
+    end
     context 'パスワードを変更した場合' do
       it 'ユーザー情報が更新されること' do
         # ユーザー情報の編集画面にアクセス
@@ -60,6 +74,10 @@ RSpec.describe 'Users #update system', type: :system do
         expect(current_path).to eq user_path(user.id)
         # メッセージが表示される
         expect(page).to have_content 'ユーザー情報を編集しました'
+      end
+    end
+    context 'パスワードが未入力の場合でも' do
+      it 'ユーザー情報が更新されること' do
       end
     end
   end
