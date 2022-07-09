@@ -21,8 +21,6 @@ class MessagesController < ApplicationController
     if @current_user.id == @message.user.id
       @message.destroy
       redirect_to room_path(@room.id)
-    else
-      redirect_to room_path(@room.id)
     end
   end
 
