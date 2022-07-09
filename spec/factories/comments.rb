@@ -1,6 +1,7 @@
 FactoryBot.define do
+
   factory :comment do
     association :post
-    comment_text { 'テスト投稿' }
+    comment_text { 'Commentのテスト投稿' }
   end
 end

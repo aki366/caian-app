@@ -2,12 +2,11 @@ class SessionsController < ApplicationController
 
   before_action :forbid_login_user,{only:[:new, :create]}
 
-  # def new; end
   def new
     # ログインフォームのviewで使用するため@userを定義
     @user = User.new
   end
-  
+
   def create
     @user = User.find_by(email: login_params[:email])&.authenticate(login_params[:password])
     if @user
@@ -18,7 +17,7 @@ class SessionsController < ApplicationController
       flash[:notice] = "メールアドレスまたはパスワードが間違っています"
       @email = params[:email]
       @password = params[:password]
-      redirect_to login_index_path
+      redirect_to new_login_path
     end
   end
 
