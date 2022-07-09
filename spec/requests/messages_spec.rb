@@ -12,7 +12,7 @@ RSpec.describe "Messages Request", type: :request do
           Room.create(user_ids: [user.id, other_user.id])
           expect do
             post room_messages_path(Room.last.id), params: { message: {message_text: "メッセージを投稿しました"} }
-          end.to change(Message, :count).by(+1)
+          end.to change(Message, :count).by(1)
           expect(response).to have_http_status(:redirect)
         end
       end
@@ -21,7 +21,7 @@ RSpec.describe "Messages Request", type: :request do
           Room.create(user_ids: [user.id, other_user.id])
           expect do
             post room_messages_path(Room.last.id), params: { message: {message_text: ""} }
-          end.to change(Message, :count).by(+0)
+          end.to change(Message, :count).by(0)
           expect(response).to have_http_status(:redirect)
         end
       end
@@ -31,7 +31,7 @@ RSpec.describe "Messages Request", type: :request do
         Room.create(user_ids: [user.id, other_user.id])
         expect do
           post room_messages_path(Room.last.id), params: { message: {message_text: "メッセージを投稿しました"} }
-        end.to change(Message, :count).by(+0)
+        end.to change(Message, :count).by(0)
         expect(response).to have_http_status(:redirect)
       end
     end
@@ -92,9 +92,9 @@ RSpec.describe "Messages Request", type: :request do
         let!(:other_user) { create(:user) }
         include_context 'login_as_user'
         it 'メッセージの削除ができないこと' do
-          # user.id = user.id + 1
-          expect { subject }.to change(Message, :count).by(+0)
-          expect(response).to have_http_status(:redirect)
+          create(:message, user_id: other_user.id, room_id: room.id)
+          expect { subject }.to change(Message, :count).by(0)
+          expect(response).to have_http_status(204)
         end
       end
     end
