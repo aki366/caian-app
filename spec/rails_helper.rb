@@ -75,4 +75,9 @@ require './spec/support/contexts/login_as_user'
 
 RSpec.configure do |config|
   config.example_status_persistence_file_path = "spec/examples.txt"
+
+  # テスト実行前に前回テストのscreenshotを削除する
+  config.before(:all) do
+    FileUtils.rm_rf(Dir[Rails.root.join('tmp', 'screenshots', '*')], secure: true)
+  end
 end
