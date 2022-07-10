@@ -51,6 +51,16 @@ RSpec.describe 'Posts #show system', type: :system do
     end
     context '自分の投稿ではない場合' do
       it '編集、削除ボタンが表示されていないこと' do
+        # トップ画面にアクセス
+        visit root_path
+        # 投稿一覧ボタンをクリック
+        click_on '投稿一覧'
+        # 投稿一覧の投稿内容をクリック
+        click_on 'その他のユーザーとして投稿'
+        # ページ内に特定のリンクが表示されているか
+        expect(page).not_to have_link '編集'
+        # ページ内に特定のボタンが表示されているか
+        expect(page).not_to have_button '削除'
       end
     end
   end
