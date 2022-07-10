@@ -89,10 +89,9 @@ RSpec.describe "Messages Request", type: :request do
         end
       end
       context 'ユーザーが自分ではない場合' do
-        let!(:other_user) { create(:user) }
-        include_context 'login_as_user'
         it 'メッセージの削除ができないこと' do
-          create(:message, user_id: other_user.id, room_id: room.id)
+          other_user_id = user.id + 1
+          create(:message, user_id: other_user_id, room_id: room.id)
           expect { subject }.to change(Message, :count).by(0)
           expect(response).to have_http_status(204)
         end
