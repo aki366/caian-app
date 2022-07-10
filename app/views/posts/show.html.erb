@@ -11,7 +11,12 @@
       </div>
       </p>
       <div class="post-time">
+        投稿日時
         <%= @post.created_at %>
+      </div>
+      <div class="post-time">
+        更新日時
+        <%= @post.updated_at %>
       </div>
       <% if @likes %>
         <%= link_to post_like_path(@post.id), method: :delete do %>
