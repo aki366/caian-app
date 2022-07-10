@@ -39,6 +39,18 @@ RSpec.describe 'Posts #create system', type: :system do
     end
     context '投稿内容が1001文字の場合' do
       it '投稿が作成できないこと' do
+        # トップ画面にアクセス
+        visit root_path
+        # 新規投稿をクリック
+        click_on "新規投稿"
+        # 投稿フォームの値が1001文字の場合
+        fill_in 'post_content',     with: 'a' * 1001
+        # "投稿する"をクリックしても投稿が作成されない
+        expect { click_on '投稿する' }.to change { Post.count }.by(0)
+        # 現在のパスが指定されたパスであることを検証する
+        expect(current_path).to eq "/posts"
+        # メッセージが表示される
+        expect(page).to have_content 'Contentは1000文字以内で入力してください'
       end
     end
   end
