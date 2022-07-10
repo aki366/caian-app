@@ -3,8 +3,9 @@ require 'rails_helper'
 RSpec.describe 'Posts #show system', type: :system do
 
   describe 'ログインしているとき' do
-    let!(:user) { create(:user) }
-    let!(:post) { create(:post) }
+    let(:user) { create(:user) }
+    let!(:user_post) { create(:post, user_id: user.id) }
+    let!(:other_post) { create(:post, content: "その他のユーザーとして投稿") }
     include_context 'login_as_user'
     it '投稿の一覧画面に遷移できること' do
       # トップ画面にアクセス
@@ -33,6 +34,14 @@ RSpec.describe 'Posts #show system', type: :system do
       expect(page).to have_content Post.find(1).updated_at
       # ページ内に特定のボタンが表示されているか
       expect(page).to have_button 'ログアウト'
+    end
+    context '自分の投稿の場合' do
+      it '編集、削除ボタンが表示されていること' do
+      end
+    end
+    context '自分の投稿ではない場合' do
+      it '編集、削除ボタンが表示されていないこと' do
+      end
     end
   end
 end
