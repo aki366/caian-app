@@ -28,7 +28,7 @@ RSpec.describe 'Users #create system', type: :system do
       it 'ユーザーが作成できないこと' do
         # 新規ユーザー登録画面にアクセス
         visit new_user_path
-        # メールフォームの値のみnil
+        # 名前の値のみnil
         fill_in 'user_name',     with: ''
         fill_in 'user_email',    with: 'system@example.com'
         fill_in 'user_password', with: 'password'
@@ -44,7 +44,7 @@ RSpec.describe 'Users #create system', type: :system do
       it 'ユーザーが作成できないこと' do
         # 新規ユーザー登録画面にアクセス
         visit new_user_path
-        # メールフォームの値のみnil
+        # 名前が31文字の場合
         fill_in 'user_name',     with: 'a' * 31
         fill_in 'user_email',    with: 'system@example.com'
         fill_in 'user_password', with: 'password'
@@ -93,7 +93,7 @@ RSpec.describe 'Users #create system', type: :system do
       it 'ユーザーが作成できないこと' do
         # 新規ユーザー登録画面にアクセス
         visit new_user_path
-        # メールフォームの値のみnil
+        # パスワードの値のみnil
         fill_in 'user_name',     with: 'ヤマダ'
         fill_in 'user_email',    with: 'system@example.com'
         fill_in 'user_password', with: ''
