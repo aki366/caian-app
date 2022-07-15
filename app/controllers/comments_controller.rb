@@ -27,7 +27,7 @@ class CommentsController < ApplicationController
   private
 
     def comment_params
-      # formから渡ってきたパラメーターのうちcomment_textだけを許容する
-      params.require(:comment).permit(:comment_text)
+      # formから渡ってきたパラメーターのうちtextだけを許容する
+      params.require(:comment).permit(:text)
     end
 end
