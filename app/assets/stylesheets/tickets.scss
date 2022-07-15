@@ -1,0 +1,120 @@
+// Place all the styles related to the tickets controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+/* tickets/index ================================ */
+.tickets-index-item {
+  padding: 20px 30px;
+  background-color: white;
+  overflow: hidden;
+  box-shadow: 0 2px 6px #c1ced7;
+}
+
+.ticket-left img {
+  width: 35px;
+  height: 35px;
+  border-radius: 40%;
+  box-shadow: 0 2px 6px #c1ced7;
+  object-fit: cover;
+}
+
+.ticket-user-name a {
+  font-weight: 600;
+}
+
+.ticket-user-name a:hover {
+  color: #3ecdc6;
+}
+
+.ticket-left {
+  float: left;
+  width: 10%;
+}
+
+.ticket-right {
+  float: left;
+  width: 90%;
+  // padding-left: 25px;
+  text-align: left;
+}
+
+/* tickets/show ================================ */
+.tickets-show form {
+  display: inline;
+}
+
+.tickets-show-item {
+  padding: 30px;
+  background-color: white;
+  box-shadow: 0 2px 6px #c1ced7;
+  overflow: hidden;
+}
+
+.tickets-show-item img {
+  width: 60px;
+  height: 60px;
+  border-radius: 40%;
+  box-shadow: 0 2px 6px #c1ced7;
+  vertical-align: middle;
+  object-fit: cover;
+}
+
+.tickets-show-item .ticket-user-name a {
+  vertical-align: middle;
+  font-size: 24px;
+  margin-left: 15px;
+}
+
+.tickets-show-item p {
+  font-size: 24px;
+  margin: 20px 0;
+}
+
+.ticket-time {
+  color: #8899a6;
+  margin-bottom: 10px;
+}
+
+.ticket-menus {
+  float: right;
+}
+
+.ticket-menus a, .ticket-menus input {
+  color: #8899a6;
+  text-decoration: underline;
+  font-size: 14px;
+}
+
+.unliked-btn {
+  color: #8899a6;
+}
+
+.liked-btn {
+  color: #ff2581;
+}
+
+.tickets-show-item .fa {
+  font-size: 16px;
+  margin-right: 3px;
+}
+
+.tickets-show textarea {
+  font-size: 20px;
+  padding: 10px;
+  min-height: 140px;
+  border: 1px solid rgb(216, 218, 223);
+  resize: none;
+}
+
+/* tickets/new ================================ */
+.tickets-new textarea {
+  font-size: 20px;
+  padding: 10px;
+  min-height: 140px;
+  border: 1px solid rgb(216, 218, 223);
+  resize: none;
+}
+
+.tickets-new textarea::-webkit-input-placeholder {
+  font-size: 24px;
+  opacity: 0.5;
+}

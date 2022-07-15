@@ -1,0 +1,20 @@
+<div class="main tickets-index">
+  <div class="container">
+    <h3>新規投稿一覧</h3>
+    <hr>
+    <% @tickets.each do |p| %>
+      <div class="ticket-left">
+        <img src="<%= "/user_images/#{p.user.user_image}" %>">
+      </div>
+      <div class="ticket-right">
+        <div class="ticket-user-name">
+          <%= link_to(p.user.name,"/users/#{p.user.id}") %>
+        </div>
+      </div>
+      <div class="overflow-wrap">
+        <%= link_to(p.content,"/tickets/#{p.id}") %>
+      </div>
+      <hr>
+    <% end %>
+  </div>
+</div>
