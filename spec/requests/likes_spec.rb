@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe "Likes Request", type: :request do
 
   describe 'POST #create' do
-    subject { post post_likes_path(user_post.id) }
-    let!(:user_post) { create(:post) }
+    subject { post ticket_likes_path(user_ticket.id) }
+    let!(:user_ticket) { create(:ticket) }
     let!(:user) { create(:user) }
     context 'ログインしているとき' do
       include_context 'login_as_user'
@@ -22,10 +22,10 @@ RSpec.describe "Likes Request", type: :request do
   end
 
   describe 'DELETE #destroy' do
-    subject { delete post_like_path(user_post.id, post_like.id) }
-    let!(:user_post) { create(:post) }
+    subject { delete ticket_like_path(user_ticket.id, ticket_like.id) }
+    let!(:user_ticket) { create(:ticket) }
     let!(:user) { create(:user) }
-    let!(:post_like) { create(:like, post_id: user_post.id, user_id: user.id) }
+    let!(:ticket_like) { create(:like, ticket_id: user_ticket.id, user_id: user.id) }
     let(:other_user) {create(:user)}
     context 'ログインしているとき' do
       include_context 'login_as_user'
@@ -38,14 +38,14 @@ RSpec.describe "Likes Request", type: :request do
       context 'ユーザーが自分ではない場合' do
         it 'イイね!の削除ができないこと' do
           other_user
-          expect { subject }.not_to change { post_like }
+          expect { subject }.not_to change { ticket_like }
           expect(response).to have_http_status(:redirect)
         end
       end
     end
     context 'ログインしていないとき' do
       it 'イイね!の削除ができないこと' do
-        expect { subject }.not_to change { post_like }
+        expect { subject }.not_to change { ticket_like }
         expect(response).to have_http_status(:redirect)
       end
     end
