@@ -9,7 +9,7 @@ RSpec.describe "Comments Request", type: :request do
     context 'パラメータが正常なとき' do
       it 'コメントが投稿できること' do
         expect do
-          post post_comments_path(user_post.id), params: { comment: {comment_text: "コメントを投稿しました"} }
+          post post_comments_path(user_post.id), params: { comment: {text: "コメントを投稿しました"} }
         end.to change(Comment, :count).by(+1)
         expect(response).to have_http_status(:redirect)
       end
@@ -17,7 +17,7 @@ RSpec.describe "Comments Request", type: :request do
     context 'パラメータが不正なとき' do
       it 'コメントが投稿できないこと' do
         expect do
-          post post_comments_path(user_post.id), params: { comment: {comment_text: ""} }
+          post post_comments_path(user_post.id), params: { comment: {text: ""} }
         end.to change(Comment, :count).by(+0)
         expect(response).to have_http_status(:redirect)
       end
