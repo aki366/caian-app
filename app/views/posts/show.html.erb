@@ -54,7 +54,7 @@
           </div>
         </div>
         <div class="overflow-wrap">
-          <%= c.comment_text %>
+          <%= c.text %>
           <div class="post-menus">
             <% if c.user_id == @current_user.id %>
               <%= link_to "削除", post_comment_path(@post, c), method: :delete %>
@@ -67,7 +67,7 @@
     <%= form_with(model: [@post, @comment], local: true) do |f| %>
       <div class="form">
         <div class="form-body">
-          <%= f.text_area :comment_text %>
+          <%= f.text_area :text %>
           <%= f.submit 'コメントを投稿する' %>
         </div>
       </div>
