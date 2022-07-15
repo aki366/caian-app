@@ -103,7 +103,7 @@ RSpec.describe "Posts Request", type: :request do
           expect do
             patch post_path(user_post.id), params: { post: {content: "投稿を編集しました"} }
           end.to change { Post.find(1).content }
-          expect(response).to redirect_to(posts_path)
+          expect(response).to redirect_to(post_path)
         end
       end
       context 'パラメータが不正な場合' do
