@@ -13,7 +13,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @post = @user.posts.includes(:user)
+    @ticket = @user.tickets.includes(:user)
     # 各ユーザーが持つroomのid一覧を配列で取得
     @current_user_rooms = @current_user.rooms.pluck(:id)
     @another_user_rooms = @user.rooms.pluck(:id)
@@ -95,9 +95,9 @@ class UsersController < ApplicationController
     # id:'1'を取得し、User.find(id:1)となる
     @user = User.find(params[:id])
     # @userで取得したidに関連するlikesを取得
-    # likesに紐づくpost:(関連1)を紐付け
+    # likesに紐づくticket:(関連1)を紐付け
     # 関連1に紐づく、:user(関連2)の情報を取得
-    @likes = @user.likes.includes(post: :user)
+    @likes = @user.likes.includes(ticket: :user)
   end
 
   private
@@ -118,7 +118,7 @@ class UsersController < ApplicationController
     # 対象のuser_idが一致していないとはじくメソッド
     def ensure_correct_user
       if @current_user.id != params[:id].to_i
-        redirect_to posts_path
+        redirect_to tickets_path
       end
     end
 
