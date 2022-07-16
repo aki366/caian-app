@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Posts #new system', type: :system do
+RSpec.describe 'Tickets #new system', type: :system do
 
   describe 'ログインしているとき' do
     let!(:user) { create(:user) }
@@ -11,7 +11,7 @@ RSpec.describe 'Posts #new system', type: :system do
       # 新規投稿をクリック
       click_on "新規投稿"
       # 現在のパスが指定されたパスであることを検証する
-      expect(current_path).to eq "/posts/new"
+      expect(current_path).to eq "/tickets/new"
       # ページ内に特定のリンクが表示されているか
       expect(page).to have_link 'Caian'
       expect(page).to have_link user.name

@@ -17,7 +17,7 @@
     <header>
       <div class="header-logo">
         <% if @current_user %>
-          <%= link_to "Caian", posts_path %>
+          <%= link_to "Caian", tickets_path %>
         <% else %>
           <%= link_to "Caian", top_path %>
         <% end %>
@@ -37,11 +37,11 @@
           </li>
 
           <li>
-            <%= link_to "投稿一覧", posts_path %>
+            <%= link_to "投稿一覧", tickets_path %>
           </li>
 
           <li>
-            <%= link_to "新規投稿", new_post_path %>
+            <%= link_to "新規投稿", new_ticket_path %>
           </li>
           
           <!--
