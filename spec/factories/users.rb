@@ -8,7 +8,6 @@ FactoryBot.define do
     email { Faker::Internet.email }
     password { "password" }
     profile { Faker::Hacker.say_something_smart }
-    career { Faker::Job.position }
   end
 
   factory :guest, class: User do

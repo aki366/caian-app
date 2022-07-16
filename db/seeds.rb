@@ -11,5 +11,4 @@ User.create(name: "ゲストユーザー",
   email: "guest@example.com",
   password: "password",
   profile: "ゲストユーザー専用アカウント",
-  user_image: "guest_user_icon.png",
-  career: "不明")
+  user_image: "guest_user_icon.png")
