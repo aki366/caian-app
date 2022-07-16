@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   resources :users do
     member do # idを渡す場合
-      ticket :likes
+      post :likes
       get :likes
     end
     collection do # idを渡さない場合
