@@ -16,15 +16,15 @@
     </ul>
 
     <% @likes.each do |l| %>
-      <div class="posts-index-item">
-        <div class="post-left">
-          <img src="<%= "/user_images/#{l.post.user.user_image}" %>">
+      <div class="tickets-index-item">
+        <div class="ticket-left">
+          <img src="<%= "/user_images/#{l.ticket.user.user_image}" %>">
         </div>
-        <div class="post-right">
-          <div class="post-user-name">
-            <%= link_to(l.post.user.name, "/users/#{l.post.user.id}") %>
+        <div class="ticket-right">
+          <div class="ticket-user-name">
+            <%= link_to(l.ticket.user.name, "/users/#{l.ticket.user.id}") %>
           </div>
-          <%= link_to(l.post.content, "/posts/#{l.post.id}") %>
+          <%= link_to(l.ticket.content, "/tickets/#{l.ticket.id}") %>
         </div>
       </div>
     <% end %>

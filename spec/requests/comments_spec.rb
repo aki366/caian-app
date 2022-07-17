@@ -3,13 +3,13 @@ require 'rails_helper'
 RSpec.describe "Comments Request", type: :request do
 
   describe 'POST #create' do
-    let!(:user_post) { create(:post) }
+    let!(:user_ticket) { create(:ticket) }
     let!(:user) { create(:user) }
     include_context 'login_as_user'
     context 'パラメータが正常なとき' do
       it 'コメントが投稿できること' do
         expect do
-          post post_comments_path(user_post.id), params: { comment: {comment_text: "コメントを投稿しました"} }
+          post ticket_comments_path(user_ticket.id), params: { comment: {text: "コメントを投稿しました"} }
         end.to change(Comment, :count).by(+1)
         expect(response).to have_http_status(:redirect)
       end
@@ -17,7 +17,7 @@ RSpec.describe "Comments Request", type: :request do
     context 'パラメータが不正なとき' do
       it 'コメントが投稿できないこと' do
         expect do
-          post post_comments_path(user_post.id), params: { comment: {comment_text: ""} }
+          post ticket_comments_path(user_ticket.id), params: { comment: {text: ""} }
         end.to change(Comment, :count).by(+0)
         expect(response).to have_http_status(:redirect)
       end
@@ -60,12 +60,12 @@ RSpec.describe "Comments Request", type: :request do
   # end
 
   describe 'DELETE #destroy' do
-    subject { delete post_comment_path(user_post.id, post_comment.id) }
+    subject { delete ticket_comment_path(user_ticket.id, ticket_comment.id) }
     # テスト条件
     # user.id(1)の投稿に対して、user.id(2)がコメントを投稿した状態
-    let!(:user_post) { create(:post) }
+    let!(:user_ticket) { create(:ticket) }
     let!(:user) { create(:user) }
-    let!(:post_comment) { create(:comment, post_id: user_post.id, user_id: user.id) }
+    let!(:ticket_comment) { create(:comment, ticket_id: user_ticket.id, user_id: user.id) }
     let(:other_user) { create(:user) }
     context 'ログインしているとき' do
       include_context 'login_as_user'
@@ -78,14 +78,14 @@ RSpec.describe "Comments Request", type: :request do
       context 'ユーザーが自分ではない場合' do
         it 'コメントの削除ができないこと' do
           other_user
-          expect { subject }.not_to change { post_comment }
+          expect { subject }.not_to change { ticket_comment }
           expect(response).to have_http_status(:redirect)
         end
       end
     end
     context 'ログインしていないとき' do
       it 'コメントの削除ができないこと' do
-        expect { subject }.not_to change { post_comment }
+        expect { subject }.not_to change { ticket_comment }
         expect(response).to have_http_status(:redirect)
       end
     end

@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe 'Posts #index system', type: :system do
+RSpec.describe 'Tickets #index system', type: :system do
 
   describe 'ログインしているとき' do
     let!(:user) { create(:user) }
-    let!(:post) { create(:post) }
-    let!(:other_post) { create(:post) }
+    let!(:ticket) { create(:ticket) }
+    let!(:other_ticket) { create(:ticket) }
     include_context 'login_as_user'
     it '投稿の一覧画面に遷移できること' do
       # トップ画面にアクセス
@@ -13,7 +13,7 @@ RSpec.describe 'Posts #index system', type: :system do
       # 投稿一覧ボタンをクリック
       click_on '投稿一覧'
       # 現在のパスが指定されたパスであることを検証する
-      expect(current_path).to eq "/posts"
+      expect(current_path).to eq "/tickets"
       # ページ内に特定のリンクが表示されているか
       expect(page).to have_link 'Caian'
       expect(page).to have_link user.name
@@ -23,11 +23,11 @@ RSpec.describe 'Posts #index system', type: :system do
       # 各ユーザーのイメージが表示されているか
       expect(page).to have_selector("img[src$='guest_user_icon.png']")
       # 各ユーザーの名前が表示されているか
-      expect(page).to have_content Post.find(1).user.name
-      expect(page).to have_content Post.find(2).user.name
+      expect(page).to have_content Ticket.find(1).user.name
+      expect(page).to have_content Ticket.find(2).user.name
       # 各ユーザーの投稿が表示されているか
-      expect(page).to have_content Post.find(1).content
-      expect(page).to have_content Post.find(2).content
+      expect(page).to have_content Ticket.find(1).content
+      expect(page).to have_content Ticket.find(2).content
       # ページ内に特定のボタンが表示されているか
       expect(page).to have_button 'ログアウト'
     end
