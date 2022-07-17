@@ -103,6 +103,7 @@ ActiveRecord::Schema.define(version: 2022_07_17_155110) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id"
     t.string "subject"
+    t.integer "room_id"
     t.integer "team_id"
   end
 
