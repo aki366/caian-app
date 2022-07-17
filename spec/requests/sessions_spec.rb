@@ -9,7 +9,7 @@ RSpec.describe 'Sessions Request', type: :request do
       include_context 'login_as_user'
       it 'ログイン画面に遷移でないこと' do
         subject
-        expect(response).to redirect_to(posts_path)
+        expect(response).to redirect_to(tickets_path)
       end
     end
     # ApplicationControllerのテストだが
@@ -27,7 +27,7 @@ RSpec.describe 'Sessions Request', type: :request do
     context 'パラメータが正常なとき' do
       it 'ユーザーのログインができること' do
         post login_index_path, params: { user: {email: user.email, password: user.password} }
-        expect(response).to redirect_to(posts_path)
+        expect(response).to redirect_to(tickets_path)
       end
     end
     context 'パラメータが正常なとき' do

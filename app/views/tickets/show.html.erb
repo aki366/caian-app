@@ -1,73 +1,73 @@
-<div class="main posts-show">
+<div class="main tickets-show">
   <div class="container">
-    <div class="posts-show-item">
-      <div class="post-user-name">
+    <div class="tickets-show-item">
+      <div class="ticket-user-name">
         <img src="<%= "/user_images/#{@user.user_image}" %>">
         <%= link_to(@user.name, "/users/#{@user.id}") %>
       </div>
       <p>
       <div class="overflow-wrap">
-        <%= @post.content %>
+        <%= @ticket.content %>
       </div>
       </p>
-      <div class="post-time">
+      <div class="ticket-time">
         投稿日時
-        <%= @post.created_at %>
+        <%= @ticket.created_at %>
       </div>
-      <div class="post-time">
+      <div class="ticket-time">
         更新日時
-        <%= @post.updated_at %>
+        <%= @ticket.updated_at %>
       </div>
       <% if @likes %>
-        <%= link_to post_like_path(@post.id), method: :delete do %>
+        <%= link_to ticket_like_path(@ticket.id), method: :delete do %>
           <span class="fa fa-heart liked-btn"></span>
         <% end %>
       <% else %>
-        <%= link_to post_likes_path(@post.id), method: :post do %>
+        <%= link_to ticket_likes_path(@ticket.id), method: :ticket do %>
           <span class="fa fa-heart unliked-btn"></span>
         <% end %>
       <% end %>
 
       <%= @likes_count %>
 
-      <% if @post.user_id == @current_user.id %>
-        <div class="post-menus">
-          <%= link_to "編集", edit_post_path(@post.id) %>
+      <% if @ticket.user_id == @current_user.id %>
+        <div class="ticket-menus">
+          <%= link_to "編集", edit_ticket_path(@ticket.id) %>
           <% # deleteの場合はlink_toが使えないため、button_toにする %>
-          <%= button_to "削除", post_path(@post.id),method: "delete" %>
+          <%= button_to "削除", ticket_path(@ticket.id),method: "delete" %>
         </div>
       <% end %>
     </div>
 
     <div>
-      <%= image_tag @post.image.variant(resize: "570x570") if @post.image.attached? %>
+      <%= image_tag @ticket.image.variant(resize: "570x570") if @ticket.image.attached? %>
     </div>
 
     <% @comments.each do |c| %>
-      <div class="posts-index-item">
-        <div class="post-left">
+      <div class="tickets-index-item">
+        <div class="ticket-left">
           <img src='<%= "/user_images/#{c.user.user_image}" %>'>
         </div>
-        <div class="post-right">
-          <div class="post-user-name">
+        <div class="ticket-right">
+          <div class="ticket-user-name">
             <%= link_to(c.user.name, "/users/#{c.user.id}") %>
           </div>
         </div>
         <div class="overflow-wrap">
-          <%= c.comment_text %>
-          <div class="post-menus">
+          <%= c.text %>
+          <div class="ticket-menus">
             <% if c.user_id == @current_user.id %>
-              <%= link_to "削除", post_comment_path(@post, c), method: :delete %>
+              <%= link_to "削除", ticket_comment_path(@ticket, c), method: :delete %>
             <% end %>
           </div>
         </div>
       </div>
     <% end %>
 
-    <%= form_with(model: [@post, @comment], local: true) do |f| %>
+    <%= form_with(model: [@ticket, @comment], local: true) do |f| %>
       <div class="form">
         <div class="form-body">
-          <%= f.text_area :comment_text %>
+          <%= f.text_area :text %>
           <%= f.submit 'コメントを投稿する' %>
         </div>
       </div>

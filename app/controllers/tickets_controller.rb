@@ -1,9 +1,9 @@
-class PostsController < ApplicationController
+class TicketsController < ApplicationController
 
   before_action :authenticate_user,{only:[:new, :show, :edit, :update, :destroy]}
   before_action :ensure_correct_user,{only:[:edit, :update, :destroy]}
 
-  # postのみ404エラ−に検索機能を実装する際に使用
+  # ticketのみ404エラ−に検索機能を実装する際に使用
   # rescue_from ActiveRecord::RecordNotFound,   with: :render_404
   # rescue_from ActionController::RoutingError, with: :render_404
 
@@ -11,63 +11,63 @@ class PostsController < ApplicationController
     if @current_user == nil
       redirect_to new_login_path
     else
-      @posts = Post.all.includes(:user).order(created_at: :desc)
+      @tickets = Ticket.all.includes(:user).order(created_at: :desc)
     end
   end
 
   def show
     @comment = Comment.new
-    @post = Post.find(params[:id])
-    @user = @post.user
-    @likes_count = Like.where(post_id: @post.id).count
-    @comments = @post.comments.includes(:user)
-    @likes = Like.find_by(user_id: @current_user.id, post_id: @post.id)
+    @ticket = Ticket.find(params[:id])
+    @user = @ticket.user
+    @likes_count = Like.where(ticket_id: @ticket.id).count
+    @comments = @ticket.comments.includes(:user)
+    @likes = Like.find_by(user_id: @current_user.id, ticket_id: @ticket.id)
   end
 
   def new
-    @post = Post.new
+    @ticket = Ticket.new
   end
 
   def create
     # Userモデルとのアソシエーション
-    # あらかじめuser_idが入った状態でPostモデルがnewされる
-    # Post.new
+    # あらかじめuser_idが入った状態でTicketモデルがnewされる
+    # Ticket.new
     # => id: nil, content: nil, created_at: nil, updated_at: nil, user_id: nil>
-    # User.find(1).posts.new
+    # User.find(1).tickets.new
     # => <id: nil, content: nil, created_at: nil, updated_at: nil, user_id: 1>
-    @post = @current_user.posts.new(post_params)
-    if @post.save
+    @ticket = @current_user.tickets.new(ticket_params)
+    if @ticket.save
       flash[:notice] = "投稿を作成しました"
-      redirect_to posts_path
+      redirect_to tickets_path
     else
       render :new
     end
   end
 
   def edit
-    @post = Post.find(params[:id])
+    @ticket = Ticket.find(params[:id])
   end
 
   def update
-    @post = Post.find(params[:id])
-    if @post.update(post_params)
+    @ticket = Ticket.find(params[:id])
+    if @ticket.update(ticket_params)
       flash[:notice] = "投稿を編集しました"
-      redirect_to posts_path
+      redirect_to ticket_path
     else
       render :edit
     end
   end
 
   def destroy
-    @post = Post.find(params[:id])
-    @post.destroy
+    @ticket = Ticket.find(params[:id])
+    @ticket.destroy
     flash[:notice] = "投稿を削除しました"
-    redirect_to posts_path
+    redirect_to tickets_path
   end
 
   private
 
-    # postのみ404エラ−に検索機能を実装する際に使用
+    # ticketのみ404エラ−に検索機能を実装する際に使用
     # def render_404
     #   respond_to do |format|
     #     # defaultの404ページを表示させる場合↓
@@ -79,14 +79,14 @@ class PostsController < ApplicationController
     # end
 
     def ensure_correct_user
-      @post = Post.find(params[:id])
-      if @post.user_id != @current_user.id
-        redirect_to posts_path
+      @ticket = Ticket.find(params[:id])
+      if @ticket.user_id != @current_user.id
+        redirect_to tickets_path
       end
     end
 
-    def post_params
+    def ticket_params
       # formから渡ってきたパラメーターのうち下記２つだけを許容する
-      params.require(:post).permit(:content, :image)
+      params.require(:ticket).permit(:content, :image)
     end
 end

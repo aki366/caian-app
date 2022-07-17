@@ -27,7 +27,7 @@ class MessagesController < ApplicationController
   private
 
     def message_params
-      # formから渡ってきたパラメーターのうちmessage_textだけを許容する
-      params.require(:message).permit(:message_text)
+      # formから渡ってきたパラメーターのうちtextだけを許容する
+      params.require(:message).permit(:text)
     end
 end

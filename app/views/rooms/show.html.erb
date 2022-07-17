@@ -14,7 +14,7 @@
           </div>
         </div> 
         <div class="overflow-wrap">
-          <%= r.message_text %>
+          <%= r.text %>
           <div class="room-menus">
             <% if r.user_id == @current_user.id %>
               <%= link_to "削除", room_message_path(@room, r), method: :delete %>
@@ -30,7 +30,7 @@
     <%= form_with(model: [@room,  @message], local: true) do |f| %>
       <div class="form">
         <div class="form-body">
-          <%= f.text_field :message_text, :placeholder => "メッセージを入力して下さい" , :size => 70 %>
+          <%= f.text_field :text, :placeholder => "メッセージを入力して下さい" , :size => 70 %>
           <%= f.hidden_field :room_id, :value => @room.id %>
           <br>
           <%= f.submit "投稿する" %>

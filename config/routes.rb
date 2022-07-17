@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :posts do
+  resources :tickets do
     resources :comments, only: %i[create destroy]
     resources :likes,    only: %i[create destroy]
   end

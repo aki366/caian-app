@@ -18,7 +18,7 @@
         <p><a href="/rooms/<%= @roomId %>">チャットへ</a>
       <% else %>
         <div class="chat-wrapper">
-          <%= link_to(rooms_path(user_ids: [@current_user.id, @user.id]), method: :post) do %>
+          <%= link_to(rooms_path(user_ids: [@current_user.id, @user.id]), method: :ticket) do %>
             <div class="chat-btn">
               <div class="chat-p">チャットを始める</div>
             </div>
@@ -32,17 +32,17 @@
       <li><%= link_to("いいね!", "/users/#{@user.id}/likes") %></li>
     </ul>
 
-    <% @post.each do |p| %>
-      <div class="posts-index-item">
-        <div class="post-left">
+    <% @ticket.each do |p| %>
+      <div class="tickets-index-item">
+        <div class="ticket-left">
           <img src='<%= "/user_images/#{p.user.user_image}" %>'>
         </div>
-        <div class="post-right">
-          <div class="post-user-name">
+        <div class="ticket-right">
+          <div class="ticket-user-name">
             <%= link_to(p.user.name, "/users/#{p.user.id}") %>
           </div>
           <div class="user-show-overflow-wrap">
-            <%= link_to(p.content, "/posts/#{p.id}") %>
+            <%= link_to(p.content, "/tickets/#{p.id}") %>
           </div>
         </div>
       </div>

@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
     if @user
       session[:user_id] = @user.id
       flash[:notice] = "ログインしました"
-      redirect_to posts_path
+      redirect_to tickets_path
     else
       flash[:notice] = "メールアドレスまたはパスワードが間違っています"
       @email = params[:email]

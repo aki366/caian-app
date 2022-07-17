@@ -4,6 +4,6 @@ class GuestUserLoginController < UsersController
     guest = User.find_by(email: 'guest@example.com')&.authenticate('password')
     session[:user_id] = guest.id
     flash[:notice] = "ゲストユーザーとしてログインしました"
-    redirect_to posts_path
+    redirect_to tickets_path
   end
 end

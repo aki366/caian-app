@@ -65,7 +65,7 @@ RSpec.describe 'Users Request', type: :request do
         it 'ユーザーの編集画面に遷移できないこと' do
           other_user_id = user.id + 1
           get edit_user_path(other_user_id)
-          expect(response).to redirect_to(posts_path)
+          expect(response).to redirect_to(tickets_path)
         end
       end
     end
