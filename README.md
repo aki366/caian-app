@@ -9,7 +9,11 @@
 # 設計
 
 ## ER図
+<details>
+<summary>画面遷移図（表示）</summary>
+
 ![figure of ER](app/assets/images/ER図.png)
+</details>
 
 ## インフラ構成図
 
@@ -18,8 +22,9 @@
 
 ## 画面遷移図
 <details>
-<summary>画面遷移図（表示）</summary>小泉　花陽[^かよちん]
-![](app/assets/images/画面遷移図.png "画面遷移図")
+<summary>画面遷移図（表示）</summary>
+
+![画面遷移図](app/assets/images/画面遷移図.png)
 </details>
 
 <br>
