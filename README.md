@@ -17,7 +17,10 @@
 [figma:画面設計図](https://www.figma.com/file/89WqHwRatfXBjokkGxmqq4/original?node-id=0%3A1)
 
 ## 画面遷移図
-![figure of ER](app/assets/images/画面遷移図.png "画面遷移図")
+<details>
+<summary>画面遷移図（表示）</summary>小泉　花陽[^かよちん]
+![](app/assets/images/画面遷移図.png "画面遷移図")
+</details>
 
 <br>
 
