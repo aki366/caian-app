@@ -6,21 +6,21 @@
 [![trophy](https://github-profile-trophy.vercel.app/?username=aki366&theme=onedark&column=7
 )](https://github.com/ryo-ma/github-profile-trophy)
 
-# 設計
+## 設計
 
-## ER図
+### ER図
 <details>
-<summary>画面遷移図（表示）</summary>
+<summary>ER図（表示）</summary>
 
 ![figure of ER](app/assets/images/ER図.png)
 </details>
 
-## インフラ構成図
+### インフラ構成図
 
-## 画面設計図
+### 画面設計図
 [figma:画面設計図](https://www.figma.com/file/89WqHwRatfXBjokkGxmqq4/original?node-id=0%3A1)
 
-## 画面遷移図
+### 画面遷移図
 <details>
 <summary>画面遷移図（表示）</summary>
 
