@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     member do # idを渡す場合
       post :likes
       get :likes
+      post :members
+      get :members
     end
     collection do # idを渡さない場合
     end
@@ -22,6 +24,11 @@ Rails.application.routes.draw do
   resources :tickets do
     resources :comments, only: %i[create destroy]
     resources :likes,    only: %i[create destroy]
+  end
+
+  resources :teams do
+    # resources :tickets, only: %i[create destroy]
+    resources :members, only: %i[create destroy]
   end
 
   resources :rooms, only: %i[index new create]
