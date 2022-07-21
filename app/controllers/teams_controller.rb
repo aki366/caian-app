@@ -2,6 +2,10 @@ class TeamsController < ApplicationController
 
   before_action :authenticate_user
 
+  def new
+    @team = Team.new
+  end
+
   def create
     @team = Team.new(team_params)
     if @team.save
@@ -22,10 +26,6 @@ class TeamsController < ApplicationController
   #     redirect_back(fallback_location: root_path)
   #   end
   # end
-
-  def new
-    @team = Team.new
-  end
 
   private
 
