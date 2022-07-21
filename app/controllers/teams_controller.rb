@@ -9,6 +9,11 @@ class TeamsController < ApplicationController
   def create
     @team = Team.new(team_params)
     if @team.save
+      @member = Member.new(
+        user_id: @current_user.id,
+        team_id: @team.id
+      )
+      @member.save
       flash[:notice] = "チームを作成しました"
       redirect_to new_team_path
     else
