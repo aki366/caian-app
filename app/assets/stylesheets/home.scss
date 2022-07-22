@@ -38,7 +38,7 @@ form input[type="submit"] {
 /* 共通レイアウト ================================ */
 body {
   color: #2d3133;
-  background-color: #12835f;
+  background-color: #f5f8fa;
   margin: 0;
   min-height: 1vh;
   position: absolute;
@@ -86,14 +86,14 @@ body {
 
 /* ヘッダー ================================ */
 header {
-  height: 64px;
-  position: absolute;
+  position: fixed;
+  background-color: #12835f;
+  height: 12vh;
   z-index: 10;
   width: 100%;
   display: flex;
-  padding: 20px;
+  padding: 10px;
   align-items: center;
-  min-height: 8vh;
 }
 
 .header-logo {
@@ -152,37 +152,12 @@ header {
 }
 
 /* サイドバー ================================ */
-$white: #fff;
-
-:root {
-  --column-bg: #0f9e71;
-  // --menu-bg-hover: #680001;
-  // --active-item: #D3A625;
-  // --active-item-text: #680001;
-  // --hover-item: #BE0002;
-  // --text-color: #FFFFFF;
-  // --active-presence: #00FFBA;
-  // --mention-badge: #DE4C0D;
-}
 
 html,
 body {
   position: relative;
   width: 100%;
   height: 100%;
-  // color: #555459;
-}
-
-.side {
-  width: 100%;
-  height: 100%;
-  display: flex;
-
-  // @supports (display: grid) {
-  //   display: grid;
-  //   grid-template-columns: 75px 250px 1fr;
-  //   grid-template-rows: 1fr;
-  // }
 }
 
 .sidebar a {
@@ -195,14 +170,17 @@ body {
 }
 
 .sidebar {
-  position: relative;
+  position: fixed;
+  left: 0;
+  top: 12vh;
+  height: 88vh;
   z-index: 30;
-  margin: 64px 0px 0px 0px;
+  margin: 0x 0px 0px 0px;
   width: 250px;
   height: 100%;
   flex-direction: column;
-  background: var(--column-bg, #ae0001);
-  // color: var(--text-color, $white);
+  background: var(--column-bg, #0f9e71);
+  transform: translateX(0%);
 }
 
 /* top ================================ */
