@@ -15,6 +15,12 @@
 
   <body>
     <header>
+      <div class="sidebartag">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+      </div>
+
       <div class="header-logo">
         <% if @current_user %>
           <%= link_to "Caian", tickets_path %>
@@ -22,77 +28,25 @@
           <%= link_to "Caian", top_path %>
         <% end %>
       </div>
-
-      <ul class="header-menus">
-        <% current_user = User.find_by(id: session[:user_id]) %>
-
-        <% if @current_user %>
-
-          <li>
-            <%= link_to @current_user.name, user_path(@current_user.id) %>
-          </li>
-
-          <li>
-            <%= link_to "チームを作成", new_team_path %>
-          </li>
-
-          <li>
-            <%= link_to "ユーザー一覧", users_path %>
-          </li>
-
-          <li>
-            <%= link_to "投稿一覧", tickets_path %>
-          </li>
-
-          <li>
-            <%= link_to "新規投稿", new_ticket_path %>
-          </li>
-          
-          <!--
-          <li>
-            <%= link_to "チャート", top_path %>
-          </li>
-          -->
-          
-          <!--
-          <li>
-            <%= link_to "マイページ", top_path %>
-          </li>
-          -->
-          
-          <!--
-          <li>
-            <%= link_to "お気に入り", top_path %>
-          </li>
-          -->
-
-          <!--
-          <li>
-            <%= link_to "設定", top_path %>
-          </li>
-          -->
-
-          <li>
-            <%= button_to 'ログアウト', logout_path, method: :delete %>
-          </li>
-
-        <% else %>
-          <li>
-            <%= link_to "Caianとは", about_path %>
-          </li>
-
-          <li>
-            <%= link_to "ユーザー登録", new_user_path %>
-          </li>
-
-          <li>
-            <%=  link_to "ログイン", new_login_path %>
-          </li>
-
-        <% end %>
-
-      </ul>
     </header>
+
+    <div class="side">
+      <div class="sidebar">
+        <% current_user = User.find_by(id: session[:user_id]) %>
+        <% if @current_user %>
+          <li><%= link_to @current_user.name, user_path(@current_user.id) %></li>
+          <li><%= link_to "チームを作成", new_team_path %></li>
+          <li><%= link_to "ユーザー一覧", users_path %></li>
+          <li><%= link_to "投稿一覧", tickets_path %></li>
+          <li><%= link_to "新規投稿", new_ticket_path %></li>
+          <li><%= link_to "ログアウト", logout_path, method: :delete %></li>
+        <% else %>
+          <li><%= link_to "Caianとは", about_path %></li>
+          <li><%= link_to "ユーザー登録", new_user_path %></li>
+          <li><%= link_to "ログイン", new_login_path %></li>
+        <% end %>
+      </div>
+    </div>
 
     <% if flash[:notice]%>
       <div class="flash">
