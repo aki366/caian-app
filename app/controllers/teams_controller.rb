@@ -33,6 +33,7 @@ class TeamsController < ApplicationController
     if @current_user == nil
       redirect_to new_login_path
     else
+      @team = Team.find(params[:id])
     end
   end
 
