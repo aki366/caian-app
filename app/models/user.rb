@@ -17,6 +17,7 @@ class User < ApplicationRecord
 
   # throughは、特定のユーザー何と紐づいているか一発で引くことができる
   # roomsとroom_usersが紐づいて、複数のroom_usersとuserが紐づくイメージ
+  has_many :members
   has_many :rooms, through: :room_users
   has_many :teams, through: :members
 
