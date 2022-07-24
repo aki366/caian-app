@@ -21,16 +21,20 @@ class TeamsController < ApplicationController
     end
   end
 
-  # def show
-  #   @team = Team.find(params[:id])
-  #   @message = Message.new
-  #   if Member.where(:user_id => @current_user.id, :team_id => @team.id).present?
-  #     @messages = @team.team_users
-  #     @team_users = @team.messages.includes(:user)
-  #   else
-  #     redirect_back(fallback_location: root_path)
-  #   end
-  # end
+  def index
+    if @current_user == nil
+      redirect_to new_login_path
+    else
+      @teams = Team.includes(:users)
+    end
+  end
+
+  def show
+    if @current_user == nil
+      redirect_to new_login_path
+    else
+    end
+  end
 
   private
 
