@@ -1,6 +1,12 @@
-<div class="main user-show">
+<div class="main teams-index">
   <div class="container">
-
-
+    <h3><%= @team.name %></h3>
+    <div class="team-create">
+      <li><%= link_to "メンバーを招待" %></li>
+    </div>
+    <br>
+    <div class="team-create">
+      <li><%= link_to "チームを作成", new_team_path %></li>
+    </div>
   </div>
 </div>
