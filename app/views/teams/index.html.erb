@@ -1,0 +1,9 @@
+<div class="main tickets-index">
+  <div class="container">
+  
+    <% @teams.each do |t| %>
+      <li><%= link_to(t.name,"/teams/#{t.id}") %></li>
+    <% end %>
+
+  </div>
+</div>
