@@ -35,6 +35,7 @@
       <% if @current_user %>
         <li><%= link_to @current_user.name, user_path(@current_user.id) %></li>
         <li><%= link_to "チームを作成", new_team_path %></li>
+        <li><%= link_to "チーム", teams_path %></li>
         <li><%= link_to "ユーザー一覧", users_path %></li>
         <li><%= link_to "投稿一覧", tickets_path %></li>
         <li><%= link_to "新規投稿", new_ticket_path %></li>
