@@ -21,19 +21,12 @@ class TeamsController < ApplicationController
     end
   end
 
-  def index
-    if @current_user == nil
-      redirect_to new_login_path
-    else
-      @teams = Team.includes(:users)
-    end
-  end
-
   def show
     if @current_user == nil
       redirect_to new_login_path
     else
       @team = Team.find(params[:id])
+      @members = @team.members.includes(:user)
     end
   end
 
