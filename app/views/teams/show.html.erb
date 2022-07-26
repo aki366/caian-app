@@ -8,5 +8,17 @@
     <div class="team-create">
       <li><%= link_to "チームを作成", new_team_path %></li>
     </div>
+    <% @members.each do |m| %>
+      <div class="tickets-index-item">
+        <div class="ticket-left">
+          <img src='<%= "/user_images/#{m.user.user_image}" %>'>
+        </div>
+        <div class="ticket-right">
+          <div class="ticket-user-name">
+            <li><%= link_to(m.user.name, "/users/#{m.user.id}") %></li>
+          </div>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
