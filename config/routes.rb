@@ -14,8 +14,8 @@ Rails.application.routes.draw do
     member do # idを渡す場合
       post :likes
       get :likes
-      post :members
-      get :members
+      post :teams
+      get :teams
     end
     collection do # idを渡さない場合
     end
