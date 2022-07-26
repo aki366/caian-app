@@ -100,6 +100,11 @@ class UsersController < ApplicationController
     @likes = @user.likes.includes(ticket: :user)
   end
 
+  def teams
+    @user = User.find(params[:id])
+    @teams = @user.members.includes(:team)
+  end
+
   private
 
     def set_user
