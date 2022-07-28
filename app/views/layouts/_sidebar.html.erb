@@ -6,11 +6,15 @@
   <li><%= link_to("チーム", "/users/#{@current_user.id}/teams") %></li>
 
   <!-- エラーになるので、コメントアウトしています -->
-  <!--
+<%
+=begin
+%>
   <% teams.each do |t| %>
     <li><%= link_to(t.team.name, "/teams/#{t.team.id}") %></li>
   <% end %>
-  -->
+<%
+=end
+%>
 
   <br>
   <li><%= link_to "ユーザー一覧", users_path %></li>
