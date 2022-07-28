@@ -31,21 +31,15 @@
     </header>
 
     <div class="sidebar">
-      <% current_user = User.find_by(id: session[:user_id]) %>
-      <% if @current_user %>
-        <li><%= link_to @current_user.name, user_path(@current_user.id) %></li>
-        <li><%= link_to "チームを作成", new_team_path %></li>
-        <li><%= link_to("チーム", "/users/#{@current_user.id}/teams") %></li>
-        <li><%= link_to "ユーザー一覧", users_path %></li>
-        <li><%= link_to "投稿一覧", tickets_path %></li>
-        <li><%= link_to "新規投稿", new_ticket_path %></li>
-        <li><%= link_to "ログアウト", logout_path, method: :delete %></li>
-      <% else %>
-        <li><%= link_to "Caianとは", about_path %></li>
-        <li><%= link_to "ユーザー登録", new_user_path %></li>
-        <li><%= link_to "ログイン", new_login_path %></li>
-      <% end %>
+      <%= render partial: 'layouts/sidebar' %>
     </div>
+
+    <!-- エラーになるので、コメントアウトしています -->
+    <!--
+    <div class="sidebar">
+      <%= render partial: 'layouts/sidebar', locals: { teams: @teams }%>
+    </div>
+    -->
 
     <% if flash[:notice]%>
       <div class="flash">
