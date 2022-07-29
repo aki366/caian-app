@@ -2,6 +2,7 @@
 
 <% if @current_user %>
   <li><%= link_to @current_user.name, user_path(@current_user.id) %></li>
+  <br>
   <li><%= link_to "チームを作成", new_team_path %></li>
   <li><%= link_to("チーム", "/users/#{@current_user.id}/teams") %></li>
 
@@ -15,12 +16,20 @@
 <%
 =end
 %>
-
+  <div class="subtitle">
+    <li><%= link_to "#チームA" %></li>
+    <li><%= link_to "#チームB" %></li>
+  </div>
+  <li><%= link_to "ルーム" %></li>
+  <div class="subtitle">
+    <li><%= link_to "#ALL" %></li>
+    <li><%= link_to "#ユーザー○○" %></li>
+    <li><%= link_to "#ユーザー○○" %></li>
+  </div>
   <br>
   <li><%= link_to "ユーザー一覧", users_path %></li>
   <li><%= link_to "投稿一覧", tickets_path %></li>
   <li><%= link_to "新規投稿", new_ticket_path %></li>
-  <li><%= link_to "ログアウト", logout_path, method: :delete %></li>
 <% else %>
   <li><%= link_to "Caianとは", about_path %></li>
   <li><%= link_to "ユーザー登録", new_user_path %></li>
