@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
 
   before_action :set_current_user
+  before_action :fetch_team_members
 
   rescue_from Exception,                      with: :render_500
   rescue_from ActiveRecord::RecordNotFound,   with: :render_404
@@ -8,6 +9,11 @@ class ApplicationController < ActionController::Base
 
   def set_current_user
     @current_user = User.find_by(id: session[:user_id])
+  end
+
+  # sidebar.html.erbで所属チーム一覧を表示
+  def fetch_team_members
+    @teams = @current_user.members.includes(:team)
   end
 
   def authenticate_user
