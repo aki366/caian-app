@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
 
   before_action :set_current_user
-  before_action :fetch_team_members
+  before_action :fetch_the_teams
 
   rescue_from Exception,                      with: :render_500
   rescue_from ActiveRecord::RecordNotFound,   with: :render_404
@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   end
 
   # sidebar.html.erbで所属チーム一覧を表示
-  def fetch_team_members
+  def fetch_the_teams
     @teams = @current_user.members.includes(:team)
   end
 
