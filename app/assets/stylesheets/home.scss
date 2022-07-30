@@ -178,12 +178,12 @@ body {
   height: 100%;
 }
 
-.sidebar a {
+.menu a {
   padding: 15px;
   color: #FFFFFF;
 }
 
-.sidebar li {
+.menu li {
   padding: 5px;
 }
 
@@ -197,7 +197,7 @@ body {
   color: #FFFFFF;
 }
 
-.sidebar {
+.menu {
   position: fixed;
   left: 0;
   top: 36px;
@@ -209,6 +209,14 @@ body {
   flex-direction: column;
   background: var(--column-bg, #0f9e71);
   transform: translateX(0%);
+}
+
+.menuline div {
+  margin: 10;
+  width: auto;
+  height: 1px;
+  background-color: #6bbda3;
+  margin: 5px;
 }
 
 /* top ================================ */
