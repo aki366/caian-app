@@ -35,16 +35,7 @@
       <% end %>
     </header>
 
-    <div class="sidebar">
-      <%= render partial: 'layouts/sidebar' %>
-    </div>
-
-    <!-- エラーになるので、コメントアウトしています -->
-    <!--
-    <div class="sidebar">
-      <%= render partial: 'layouts/sidebar', locals: { teams: @teams }%>
-    </div>
-    -->
+    <%= render partial: 'layouts/sidebar', locals: { teams: @teams } %>
 
     <% if flash[:notice]%>
       <div class="flash">
