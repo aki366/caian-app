@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::Base
 
   before_action :set_current_user
-  before_action :fetch_the_teams
+  before_action :fetch_the_teams, except: [:top, :about]
+  # before_action :fetch_the_rooms, except: [:top, :about]
 
   rescue_from Exception,                      with: :render_500
   rescue_from ActiveRecord::RecordNotFound,   with: :render_404
@@ -13,8 +14,13 @@ class ApplicationController < ActionController::Base
 
   # sidebar.html.erbで所属チーム一覧を表示
   def fetch_the_teams
-    @teams = @current_user.members.includes(:team)
+    @teams = @current_user.members.includes(:team) if @current_user
   end
+
+  # sidebar.html.erbでトークルーム一覧を表示
+  # def fetch_the_rooms
+  #   @rooms = @current_user.room_users.includes(:room) if @current_user
+  # end
 
   def authenticate_user
     if @current_user == nil
