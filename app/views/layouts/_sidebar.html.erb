@@ -8,7 +8,7 @@
 
       <p><a>▼ チーム</a></p>
       <div class="subtitle">
-        <% @teams.each do |t| %>
+        <% teams.each do |t| %>
           <li><%= link_to(t.team.name, "/teams/#{t.team.id}") %></li>
         <% end %>
       </div>
@@ -19,10 +19,10 @@
 
       <p><a>▼ トークルーム</a></p>
       <div class="subtitle">
-        <% @teams.each do |t| %>
+        <% teams.each do |t| %>
           <li><%= link_to(t.team.name, "/rooms/#{t.team.room_id}") %></li>
         <% end %>
-        <% @not_team_members.each do |r| %>
+        <% not_team_members.each do |r| %>
           <li><%= link_to(r.user.name, "/rooms/#{r.room.id}") %></li>
         <% end %>
       </div>
