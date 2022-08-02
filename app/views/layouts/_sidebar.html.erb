@@ -1,28 +1,39 @@
 
+<nav class="menu">
+  <ul>
+    <% if @current_user %>
+      <li><%= link_to @current_user.name, user_path(@current_user.id) %></li>
+      <li><%= link_to "チームを作成", new_team_path %></li>
+      <%# link_to("チーム", "/users/#{@current_user.id}/teams") %>
 
-<% if @current_user %>
-  <li><%= link_to @current_user.name, user_path(@current_user.id) %></li>
-  <li><%= link_to "チームを作成", new_team_path %></li>
-  <li><%= link_to("チーム", "/users/#{@current_user.id}/teams") %></li>
+      <p><a>▼ チーム</a></p>
+      <div class="subtitle">
+        <% @teams.each do |t| %>
+          <li><%= link_to(t.team.name, "/teams/#{t.team.id}") %></li>
+        <% end %>
+      </div>
 
-  <!-- エラーになるので、コメントアウトしています -->
-<%
-=begin
-%>
-  <% teams.each do |t| %>
-    <li><%= link_to(t.team.name, "/teams/#{t.team.id}") %></li>
-  <% end %>
-<%
-=end
-%>
+      <div class="menuline">
+        <div class="line1"></div>
+      </div>
 
-  <br>
-  <li><%= link_to "ユーザー一覧", users_path %></li>
-  <li><%= link_to "投稿一覧", tickets_path %></li>
-  <li><%= link_to "新規投稿", new_ticket_path %></li>
-  <li><%= link_to "ログアウト", logout_path, method: :delete %></li>
-<% else %>
-  <li><%= link_to "Caianとは", about_path %></li>
-  <li><%= link_to "ユーザー登録", new_user_path %></li>
-  <li><%= link_to "ログイン", new_login_path %></li>
-<% end %>
+      <p><a>▼ トークルーム</a></p>
+      <div class="subtitle">
+        <% @teams.each do |t| %>
+          <li><%= link_to(t.team.name, "/rooms/#{t.team.room_id}") %></li>
+        <% end %>
+        <% @not_team_members.each do |r| %>
+          <li><%= link_to(r.user.name, "/rooms/#{r.room.id}") %></li>
+        <% end %>
+      </div>
+      <br>
+      <li><%= link_to "ユーザー一覧", users_path %></li>
+      <li><%= link_to "投稿一覧", tickets_path %></li>
+      <li><%= link_to "新規投稿", new_ticket_path %></li>
+    <% else %>
+      <li><%= link_to "Caianとは", about_path %></li>
+      <li><%= link_to "ユーザー登録", new_user_path %></li>
+      <li><%= link_to "ログイン", new_login_path %></li>
+    <% end %>
+  </ul>
+</nav>

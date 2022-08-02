@@ -28,18 +28,17 @@
           <%= link_to "Caian", top_path %>
         <% end %>
       </div>
+      <% if @current_user %>
+        <div class="header-logout">
+          <li><%= link_to "ログアウト", logout_path, method: :delete %></li>
+        </div>
+      <% end %>
     </header>
 
-    <div class="sidebar">
-      <%= render partial: 'layouts/sidebar' %>
-    </div>
-
-    <!-- エラーになるので、コメントアウトしています -->
-    <!--
-    <div class="sidebar">
-      <%= render partial: 'layouts/sidebar', locals: { teams: @teams }%>
-    </div>
-    -->
+    <%= render partial: 'layouts/sidebar', locals: {
+      teams: @teams,
+      # rooms: @users
+      } %>
 
     <% if flash[:notice]%>
       <div class="flash">
