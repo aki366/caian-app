@@ -28,17 +28,26 @@
           <%= link_to "Caian", top_path %>
         <% end %>
       </div>
+
       <% if @current_user %>
         <div class="header-logout">
           <li><%= link_to "ログアウト", logout_path, method: :delete %></li>
         </div>
+      <% else %>
+        <li><%= link_to "Caianとは", about_path %></li>
+        <li><%= link_to "ユーザー登録", new_user_path %></li>
+        <div class="header-logout">
+          <li><%= link_to "ログイン", new_login_path %></li>
+        </div>
       <% end %>
     </header>
 
-    <%= render 'layouts/sidebar', {
-      teams: @teams,
-      not_team_members: @not_team_members
-      } %>
+    <% if @current_user %>
+      <%= render 'layouts/sidebar', {
+        teams: @teams,
+        not_team_members: @not_team_members
+        } %>
+    <% end %>
 
     <% if flash[:notice]%>
       <div class="flash">
