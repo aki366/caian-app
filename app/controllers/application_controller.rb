@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
 
   before_action :set_current_user
   before_action :fetch_the_teams, except: [:top, :about]
-  # before_action :fetch_the_rooms, except: [:top, :about]
+  before_action :fetch_the_rooms, except: [:top, :about]
 
   rescue_from Exception,                      with: :render_500
   rescue_from ActiveRecord::RecordNotFound,   with: :render_404
@@ -18,9 +18,21 @@ class ApplicationController < ActionController::Base
   end
 
   # sidebar.html.erbでトークルーム一覧を表示
-  # def fetch_the_rooms
-  #   @rooms = @current_user.room_users.includes(:room) if @current_user
-  # end
+  def fetch_the_rooms
+    @rooms = @current_user.room_users.includes(:room) if @current_user
+    @rooms_id = @rooms.pluck(:room_id) if @current_user
+
+    # N＋1にならないように includes を使用
+	  # where.not で、自分のレコードは除外されるように設定
+    @room_user = RoomUser.includes(:room).where.not(user_id: @current_user.id).where(room_id: @rooms_id).select(:user_id, :room_id) if @current_user
+
+    # fetch_the_teamsメソッドで設定した@teamsのteam_idに
+	  # 該当するレコードからroom_idを切り出し(重複させたくないルーム)
+    @belong_team = Team.where(id: @teams.pluck(:team_id)).pluck(:room_id) if @current_user
+
+    # where.notで、@belong_teamで取得した除外したいルームを設定
+    @not_team_members = @room_user.where.not(room_id: @belong_team) if @current_user
+  end
 
   def authenticate_user
     if @current_user == nil
