@@ -22,6 +22,9 @@
         <% @teams.each do |t| %>
           <li><%= link_to(t.team.name, "/rooms/#{t.team.room_id}") %></li>
         <% end %>
+        <% @not_team_members.each do |r| %>
+          <li><%= link_to(r.user.name, "/rooms/#{r.room.id}") %></li>
+        <% end %>
       </div>
       <br>
       <li><%= link_to "ユーザー一覧", users_path %></li>
