@@ -35,9 +35,9 @@
       <% end %>
     </header>
 
-    <%= render partial: 'layouts/sidebar', locals: {
+    <%= render 'layouts/sidebar', {
       teams: @teams,
-      # rooms: @users
+      not_team_members: @not_team_members
       } %>
 
     <% if flash[:notice]%>
