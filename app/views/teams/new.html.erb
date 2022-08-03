@@ -5,16 +5,15 @@
     <div class="form users-form">
       <div class="form-body">
 
-        <% @team.errors.full_messages.each do |u| %>
+        <% @team.errors.full_messages.each do |t| %>
           <div class="form-error">
-            <%= u %>
+            <%= t %>
           </div>
         <% end %>
 
         <%= form_with model: @team, local: true do |f| %>
           <%= f.label "チーム名" %>
           <%= f.text_field :name %>
-
           <%= f.submit "新規登録" %>
         <% end %>
       </div>

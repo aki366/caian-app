@@ -7,17 +7,24 @@ class TeamsController < ApplicationController
   end
 
   def create
-    @team = Team.new(team_params)
-    if @team.save
-      @member = Member.new(
-        user_id: @current_user.id,
-        team_id: @team.id
-      )
-      @member.save
-      flash[:notice] = "チームを作成しました"
-      redirect_to new_team_path
-    else
+    room_id = Room.last.id + 1
+    @room = Room.new(id: room_id)
+    @team = Team.new(name: team_params[:name], room_id: @room.id)
+    if team_params[:name] == ""
       render :new
+    else
+      if @room.save
+        @team.save
+        @room_user = @room.room_users.create(
+          user_id: @current_user.id
+        )
+        @member = @team.members.create(
+          user_id: @current_user.id,
+          team_id: @team.id
+        )
+        flash[:notice] = "チームを作成しました"
+        redirect_to "/teams/#{@team.id}"
+      end
     end
   end
 
