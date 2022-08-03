@@ -11,11 +11,10 @@
           </div>
         <% end %>
 
-        <%= form_with model: @team, local: true do |t| %>
-          <%= t.label "チーム名" %>
-          <%= t.text_field :name %>
-
-          <%= t.submit "新規登録" %>
+        <%= form_with model: @team, local: true do |f| %>
+          <%= f.label "チーム名" %>
+          <%= f.text_field :name %>
+          <%= f.submit "新規登録" %>
         <% end %>
       </div>
     </div>
