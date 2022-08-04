@@ -185,6 +185,10 @@ body {
 
 .menu li {
   padding: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #FFFFFF;
 }
 
 .subtitle {
@@ -209,6 +213,7 @@ body {
   flex-direction: column;
   background: var(--column-bg, #0f9e71);
   transform: translateX(0%);
+  overflow-y: scroll;
 }
 
 .menuline div {
