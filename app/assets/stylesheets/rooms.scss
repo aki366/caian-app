@@ -7,9 +7,6 @@
 }
 
 // c = content
-.room-c {
-}
-
 .room-c-user img {
   float: left;
   width: 35px;
@@ -121,4 +118,12 @@
   min-height: 140px;
   border: 1px solid rgb(216, 218, 223);
   resize: none;
+}
+
+.room-show-line div {
+  margin: 0;
+  width: auto;
+  height: 1px;
+  background-color: #d4d8d6;
+  margin: 5px;
 }
