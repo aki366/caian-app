@@ -57,6 +57,14 @@
 }
 
 /* rooms/show ================================ */
+.room-container {
+  position: relative;
+  // width: auto;
+  padding-left: 5px;
+  margin: 20px 10px 160px 250px;
+  clear: both;
+}
+
 .rooms-show form {
   display: inline;
 }
@@ -129,17 +137,15 @@
 }
 
 .c-form {
-  margin: 20px 0px 0px 0px;
-  max-width: auto;
-  // margin: 0 auto;
   background-color: white;
-  // box-shadow: 0 2px 6px #c1ced7;
   border: 1px solid;
   border-color: #c1c4c4;
   border-radius: 8px;
-}
-
-.c-form-body {
+  position: fixed;
+  bottom: 0;
+  left: 250px;
+  right: 0;
+  width: auto;
   padding: 40px 10px 10px 10px;
   color: #69a391;
 }
@@ -154,35 +160,11 @@
   border-radius: 2px;
 }
 
-.c-form textarea {
-  width: 100%;
-  min-height: 110px;
-  font-size: 16px;
-  letter-spacing: 2px;
-}
-
 .c-form input[type="submit"] {
   background-color: #0f9e71;
   color: white;
-  cursor: pointer;
-  font-weight: 300;
-  // width: 120px;
   border-radius: 2px;
   margin-top: 8px;
   margin-bottom: 0;
-  float: right;
   border-radius: 5px;
-}
-
-.c-form-body:after {
-  content: '';
-  display: table;
-  clear: both;
-}
-
-.form-footer {
-  position: sticky;
-  top: 100vh;
-  width: 100%;
-  z-index: 10;
 }

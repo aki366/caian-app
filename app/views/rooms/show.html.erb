@@ -1,5 +1,5 @@
 <div class="main room-show">
-  <div class="container">
+  <div class="room-container">
     <h3>ダイレクトメッセージ</h3>
     <% if @messages.present? %>
       <% @room_users.each do |r| %>
@@ -30,12 +30,9 @@
     <% end %>
     <%= form_with(model: [@room,  @message], local: true) do |f| %>
       <div class="c-form">
-        <div class="c-form-body">
-          <%= f.text_field :text, :placeholder => "メッセージを入力して下さい" , :size => 70 %>
-          <%= f.hidden_field :room_id, :value => @room.id %>
-          <br>
-          <%= f.submit "投稿する" %>
-        </div>
+        <%= f.text_field :text, :placeholder => "メッセージを入力して下さい" , :size => 70 %>
+        <%= f.hidden_field :room_id, :value => @room.id %>
+        <%= f.submit "投稿する" %>
       </div>
     <% end %>
   </div>
