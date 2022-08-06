@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
 
   before_action :set_current_user
-  before_action :fetch_the_teams, except: [:top, :about]
+  before_action :fetch_the_my_teams, except: [:top, :about]
   before_action :fetch_the_rooms, except: [:top, :about]
 
   rescue_from Exception,                      with: :render_500
@@ -13,8 +13,8 @@ class ApplicationController < ActionController::Base
   end
 
   # sidebar.html.erbで所属チーム一覧を表示
-  def fetch_the_teams
-    @teams = @current_user.members.includes(:team) if @current_user
+  def fetch_the_my_teams
+    @members = @current_user.members.includes(:team) if @current_user
   end
 
   # sidebar.html.erbでトークルーム一覧を表示
@@ -27,9 +27,9 @@ class ApplicationController < ActionController::Base
       # where.not で、自分のレコードは除外されるように設定
       @room_user = RoomUser.includes(:room).where.not(user_id: @current_user.id).where(room_id: @rooms_id).select(:user_id, :room_id)
 
-      # fetch_the_teamsメソッドで設定した@teamsのteam_idに
+      # fetch_the_my_teamsメソッドで設定した@membersのteam_idに
       # 該当するレコードからroom_idを切り出し(重複させたくないルーム)
-      @belong_team = Team.where(id: @teams.pluck(:team_id)).pluck(:room_id)
+      @belong_team = Team.where(id: @members.pluck(:team_id)).pluck(:room_id)
 
       # where.notで、@belong_teamで取得した除外したいルームを設定
       @not_team_members = @room_user.where.not(room_id: @belong_team)
