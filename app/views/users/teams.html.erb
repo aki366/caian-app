@@ -1,0 +1,7 @@
+<div class="main user-show">
+  <div class="container">
+    <% @teams.each do |t| %>
+      <li><%= link_to(t.team.name, "/teams/#{t.team.id}") %></li>
+    <% end %>
+  </div>
+</div>
