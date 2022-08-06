@@ -15,6 +15,12 @@
 
   <body>
     <header>
+      <div class="sidebartag">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+      </div>
+
       <div class="header-logo">
         <% if @current_user %>
           <%= link_to "Caian", tickets_path %>
@@ -23,72 +29,27 @@
         <% end %>
       </div>
 
-      <ul class="header-menus">
-        <% current_user = User.find_by(id: session[:user_id]) %>
-
-        <% if @current_user %>
-
-          <li>
-            <%= link_to @current_user.name, user_path(@current_user.id) %>
-          </li>
-
-          <li>
-            <%= link_to "ユーザー一覧", users_path %>
-          </li>
-
-          <li>
-            <%= link_to "投稿一覧", tickets_path %>
-          </li>
-
-          <li>
-            <%= link_to "新規投稿", new_ticket_path %>
-          </li>
-          
-          <!--
-          <li>
-            <%= link_to "チャート", top_path %>
-          </li>
-          -->
-          
-          <!--
-          <li>
-            <%= link_to "マイページ", top_path %>
-          </li>
-          -->
-          
-          <!--
-          <li>
-            <%= link_to "お気に入り", top_path %>
-          </li>
-          -->
-
-          <!--
-          <li>
-            <%= link_to "設定", top_path %>
-          </li>
-          -->
-
-          <li>
-            <%= button_to 'ログアウト', logout_path, method: :delete %>
-          </li>
-
-        <% else %>
-          <li>
-            <%= link_to "Caianとは", about_path %>
-          </li>
-
-          <li>
-            <%= link_to "ユーザー登録", new_user_path %>
-          </li>
-
-          <li>
-            <%=  link_to "ログイン", new_login_path %>
-          </li>
-
-        <% end %>
-
-      </ul>
+      <% if @current_user %>
+        <ul class="header-loginout">
+          <li><%= link_to "ログアウト", logout_path, method: :delete %></li>
+        </ul>
+      <% else %>
+        <ul class="header-menus">
+          <li><%= link_to "Caianとは", about_path %></li>
+          <li><%= link_to "ユーザー登録", new_user_path %></li>
+        </ul>
+        <ul class="header-loginout">
+          <li><%= link_to "ログイン", new_login_path %></li>
+        </ul>
+      <% end %>
     </header>
+
+    <% if @current_user %>
+      <%= render 'layouts/sidebar', {
+        teams: @teams,
+        not_team_members: @not_team_members
+        } %>
+    <% end %>
 
     <% if flash[:notice]%>
       <div class="flash">
