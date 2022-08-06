@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
       @belong_team = Team.where(id: @members.pluck(:team_id)).pluck(:room_id)
 
       # where.notで、@belong_teamで取得した除外したいルームを設定
-      @not_team_members = @room_user.where.not(room_id: @belong_team)
+      @private_room_users = @room_user.where.not(room_id: @belong_team)
     end
   end
 

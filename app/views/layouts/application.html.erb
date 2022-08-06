@@ -47,7 +47,7 @@
     <% if @current_user %>
       <%= render 'layouts/sidebar', {
         members: @members,
-        not_team_members: @not_team_members
+        private_room_users: @private_room_users
         } %>
     <% end %>
 
