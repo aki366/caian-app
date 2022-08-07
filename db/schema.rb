@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_28_122454) do
+ActiveRecord::Schema.define(version: 2022_08_07_124115) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -100,6 +100,16 @@ ActiveRecord::Schema.define(version: 2022_07_28_122454) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "team_messages", force: :cascade do |t|
+    t.text "text"
+    t.integer "user_id"
+    t.integer "team_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["team_id"], name: "index_team_messages_on_team_id"
+    t.index ["user_id"], name: "index_team_messages_on_user_id"
+  end
+
   create_table "teams", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -141,5 +151,7 @@ ActiveRecord::Schema.define(version: 2022_07_28_122454) do
   add_foreign_key "messages", "users"
   add_foreign_key "room_users", "rooms"
   add_foreign_key "room_users", "users"
+  add_foreign_key "team_messages", "teams"
+  add_foreign_key "team_messages", "users"
   add_foreign_key "teams", "rooms"
 end
