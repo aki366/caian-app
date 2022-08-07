@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
 
   # sidebar.html.erbで所属チーム一覧を表示
   def fetch_the_my_teams
-    @members = @current_user.members.includes(:team) if @current_user
+    @teams = @current_user.members.includes(:team) if @current_user
   end
 
   # sidebar.html.erbでトークルーム一覧を表示
@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
 
       # fetch_the_my_teamsメソッドで設定した@membersのteam_idに
       # 該当するレコードからroom_idを切り出し(重複させたくないルーム)
-      @belong_team = Team.where(id: @members.pluck(:team_id)).pluck(:room_id)
+      @belong_team = Team.where(id: @teams.pluck(:team_id)).pluck(:room_id)
 
       # where.notで、@belong_teamで取得した除外したいルームを設定
       @private_room_users = @room_user.where.not(room_id: @belong_team)

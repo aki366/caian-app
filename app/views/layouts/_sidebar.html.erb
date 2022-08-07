@@ -7,7 +7,7 @@
 
     <p><a>▼ チーム</a></p>
     <div class="subtitle">
-      <% members.each do |my_team| %>
+      <% teams.each do |my_team| %>
         <li><%= link_to(my_team.team.name, "/teams/#{my_team.team.id}") %></li>
       <% end %>
     </div>
@@ -18,7 +18,7 @@
 
     <p><a>▼ トークルーム</a></p>
     <div class="subtitle">
-      <% members.each do |my_team| %>
+      <% teams.each do |my_team| %>
         <li><%= link_to(my_team.team.name, "/rooms/#{my_team.team.room_id}") %></li>
       <% end %>
       <% private_room_users.each do |private_room| %>
