@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_many :room_users, dependent: :destroy
   has_many :members, dependent: :destroy
   has_many :messages, dependent: :destroy
+  has_many :team_messages, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_secure_password
 

@@ -4,6 +4,7 @@ class Team < ApplicationRecord
 
   has_many :members, dependent: :destroy
   has_many :tickets, dependent: :destroy
+  has_many :team_messages, dependent: :destroy
   has_many :users, through: :members, dependent: :destroy
 
   has_many :members
