@@ -16,8 +16,11 @@ class RoomsController < ApplicationController
       :room_id => @room.id
     ).present?
       @room_user = @room.room_users
-      @users = @room.messages.includes(:user)
-      @not_current_room_user = @room_user.where.not(user: @current_user)
+      @message_users = @room.messages.includes(:user)
+
+      # rooms/showでDMの相手userを表示
+      @room_users = @room.room_users.includes(:user)
+      @not_current_room_user = @room_users.where.not(user: @current_user)
     else
       redirect_back(fallback_location: root_path)
     end
