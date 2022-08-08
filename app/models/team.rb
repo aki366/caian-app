@@ -7,8 +7,4 @@ class Team < ApplicationRecord
   has_many :team_messages, dependent: :destroy
   has_many :users, through: :members, dependent: :destroy
 
-  has_many :members
-  has_many :users, through: :members
-
-  belongs_to :room
 end
