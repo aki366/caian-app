@@ -1,7 +1,14 @@
 <div class="main room-show">
   <div class="room-container">
-    <h3>チームトーク</h3>
     <h3><%= @team.name %></h3>
+    <h3>
+      <% @not_current_member.each do |member| %>
+        <div class="room-c-user-name">
+          <%= link_to(member.user.name, "/users/#{member.user.id}") %>
+        </div>
+      <% end %>
+    </h3>
+    <br>
     <% if @members.present? %>
       <% @team_messages.each do |team| %>
         <div class="room-show-line">
