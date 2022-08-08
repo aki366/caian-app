@@ -1,0 +1,47 @@
+<div class="main room-show">
+  <div class="container">
+    <h3><%= @team.name %></h3>
+    <h3>
+      <% @not_current_member.each do |member| %>
+        <div class="room-c-user-name">
+          <%= link_to(member.user.name, "/users/#{member.user.id}") %>
+        </div>
+      <% end %>
+    </h3>
+    <br>
+    <% if @members.present? %>
+      <% @team_messages.each do |team| %>
+        <div class="room-show-line">
+          <div class="line1"></div>
+        </div>
+        <div class="room-c-user">
+          <img src='<%= "/user_images/#{team.user.user_image}" %>'>
+        </div>
+        <div class="room-c-user-name">
+          <%= link_to(team.user.name, "/users/#{team.user.id}") %>
+        </div>
+        <div class="room-c-timestamp">
+          <a data-stringify-type= r.created_at %>
+          <%= team.created_at.strftime("%Y-%m-%d %H:%M") %>
+        </div>
+        <div class="overflow-wrap">
+          <%= team.text %>
+          <div class="room-c-menus">
+            <% if team.user_id == @current_user.id %>
+              <%= link_to "削除", team_team_message_path(@team, team), method: :delete %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <h3 class="text-center">メッセージはまだありません</h3>
+    <% end %>
+    <%= form_with(model: [@team,  @team_message], local: true) do |f| %>
+      <div class="c-form">
+        <%= f.text_field :text, :placeholder => "メッセージを入力して下さい" , :size => 70 %>
+        <%= f.hidden_field :team_id, :value => @team.id %>
+        <%= f.submit "投稿する" %>
+      </div>
+    <% end %>
+  </div>
+</div>
