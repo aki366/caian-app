@@ -46,7 +46,10 @@ class TeamsController < ApplicationController
     ).present?
       @members = @team.members
       @team_messages = @team.team_messages.includes(:user)
-      @not_current_member = @team_messages.where.not(user: @current_user)
+
+      # teams/roomでMemberを表示
+      @team_users = @team.members.includes(:user)
+      @not_current_member = @team_users.where.not(user: @current_user)
     else
       redirect_back(fallback_location: root_path)
     end
