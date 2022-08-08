@@ -7,7 +7,7 @@
 
     <p><a>▼ チーム</a></p>
     <div class="subtitle">
-      <% members.each do |my_team| %>
+      <% teams.each do |my_team| %>
         <li><%= link_to(my_team.team.name, "/teams/#{my_team.team.id}") %></li>
       <% end %>
     </div>
@@ -16,16 +16,22 @@
       <div class="line1"></div>
     </div>
 
-    <p><a>▼ トークルーム</a></p>
+    <p><a>▼ チームトーク</a></p>
     <div class="subtitle">
-      <% members.each do |my_team| %>
-        <li><%= link_to(my_team.team.name, "/rooms/#{my_team.team.room_id}") %></li>
+      <% teams.each do |my_team| %>
+        <li><%= link_to(my_team.team.name, "/teams/#{my_team.team.id}/room") %></li>
       <% end %>
+    </div>
+
+    <p><a>▼ ダイレクトメッセージ</a></p>
+    <div class="subtitle">
       <% private_room_users.each do |private_room| %>
         <li><%= link_to(private_room.user.name, "/rooms/#{private_room.room.id}") %></li>
       <% end %>
     </div>
+
     <br>
+    <p><a>▼ 作業用リンク ▼</a></p>
     <li><%= link_to "ユーザー一覧", users_path %></li>
     <li><%= link_to "投稿一覧", tickets_path %></li>
     <li><%= link_to "新規投稿", new_ticket_path %></li>

@@ -1,26 +1,33 @@
 <div class="main room-show">
-  <div class="room-container">
-    <h3>ダイレクトメッセージ</h3>
-    <% if @messages.present? %>
-      <% @room_users.each do |r| %>
+  <div class="container">
+    <h3>
+      <% @not_current_room_user.each do |not_current| %>
+        <div class="room-c-user-name">
+          <%= link_to(not_current.user.name, "/users/#{not_current.user.id}") %>
+        </div>
+      <% end %>
+    </h3>
+    <br>
+    <% if @room_user.present? %>
+      <% @message_users.each do |m_user| %>
       <div class="room-show-line">
         <div class="line1"></div>
       </div>
       <div class="room-c-user">
-        <img src='<%= "/user_images/#{r.user.user_image}" %>'>
+        <img src='<%= "/user_images/#{m_user.user.user_image}" %>'>
       </div>
       <div class="room-c-user-name">
-        <%= link_to(r.user.name, "/users/#{r.user.id}") %>
+        <%= link_to(m_user.user.name, "/users/#{m_user.user.id}") %>
       </div>
       <div class="room-c-timestamp">
         <a data-stringify-type= r.created_at %>
-        <%= r.created_at.strftime("%Y-%m-%d %H:%M") %>
+        <%= m_user.created_at.strftime("%Y-%m-%d %H:%M") %>
       </div>
       <div class="overflow-wrap">
-        <%= r.text %>
+        <%= m_user.text %>
         <div class="room-c-menus">
-          <% if r.user_id == @current_user.id %>
-            <%= link_to "削除", room_message_path(@room, r), method: :delete %>
+          <% if m_user.user_id == @current_user.id %>
+            <%= link_to "削除", room_message_path(@room, m_user), method: :delete %>
           <% end %>
         </div>
       </div>
