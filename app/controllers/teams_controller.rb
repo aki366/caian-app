@@ -37,6 +37,20 @@ class TeamsController < ApplicationController
     end
   end
 
+  def room
+    @team = Team.find(params[:id])
+    @team_message = TeamMessage.new
+    if Member.where(
+      :user_id => @current_user.id,
+      :team_id => @team.id
+    ).present?
+      @members = @team.members
+      @team_messages = @team.team_messages.includes(:user)
+    else
+      redirect_back(fallback_location: root_path)
+    end
+  end
+
   private
 
     def team_params
