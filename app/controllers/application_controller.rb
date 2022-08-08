@@ -22,17 +22,10 @@ class ApplicationController < ActionController::Base
     if @current_user
       @rooms = @current_user.room_users.includes(:room)
       @rooms_id = @rooms.pluck(:room_id)
-
-      # N＋1にならないように includes を使用
-      # where.not で、自分のレコードは除外されるように設定
-      @room_user = RoomUser.includes(:room).where.not(user_id: @current_user.id).where(room_id: @rooms_id).select(:user_id, :room_id)
-
-      # fetch_the_my_teamsメソッドで設定した@membersのteam_idに
-      # 該当するレコードからroom_idを切り出し(重複させたくないルーム)
-      @belong_team = Team.where(id: @teams.pluck(:team_id)).pluck(:room_id)
-
-      # where.notで、@belong_teamで取得した除外したいルームを設定
-      @private_room_users = @room_user.where.not(room_id: @belong_team)
+      @room_all = RoomUser.includes(:room)
+      @not_current_rooms = @room_all.where.not(user_id: @current_user.id)
+      @private_room_id = @not_current_rooms.where(room_id: @rooms_id)
+      @private_room_users = @private_room_id.select(:user_id, :room_id)
     end
   end
 
