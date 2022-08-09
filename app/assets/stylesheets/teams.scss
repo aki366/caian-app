@@ -28,52 +28,93 @@
 
 /* teams/room ================================ */
 
-.team-ticket-form {
+.ticket-form {
   background-color: #d0e3dd;
   border: 1px solid;
   border-color: #c1c4c4;
   border-radius: 8px;
   position: fixed;
-  bottom: 0;
+  bottom: 10px;
   left: 250px;
   right: 0;
+  padding: 10px;
+  height: 200px;
+  // margin: 0px 0px 10px 0px;
+}
+
+.ticket-form-taitl {
+  background-color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: auto;
-  padding: 40px 10px 10px 10px;
-  margin: 0px 0px 10px 0px;
+  padding: 10px;
   color: #69a391;
 }
 
-.team-ticket-form input {
-  width: 100%;
-  border: 1px solid #d8dadf;
+.ticket-form-content {
+  background-color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: auto;
   padding: 10px;
-  color: #57575f;
-  font-size: 16px;
-  letter-spacing: 2px;
-  border-radius: 2px;
+  color: #69a391;
 }
 
-.team-ticket-form textarea {
+.ticket-form-image {
+  background-color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: auto;
+  padding: 10px;
+  color: #69a391;
+}
+
+.form-switch input {
+  color: white;
+  border: 1px solid #d8dadf;
+  position: absolute;
+  margin: 5px;
+  padding: 5px 15px;
+  top: 0px;
+  right: 0px;
+  width: auto;
+  background-color: #0f9e71;
+  font-size: 16px;
+  border-radius: 17px;
+}
+
+.ticket-post input {
+  color: white;
+  border: 1px solid #d8dadf;
+  position: absolute;
+  margin: 5px;
+  padding: 5px 15px;
+  right: 0px;
+  bottom: 0px;
+  width: auto;
+  background-color: #0f9e71;
+  font-size: 16px;
+  border-radius: 17px;
+}
+
+.ticket-form textarea {
   width:100%;
   height: auto;
   font-size: 16px;
-}
-
-.team-ticket-form input[type="submit"] {
-  background-color: #0f9e71;
-  color: white;
-  border-radius: 2px;
-  margin-top: 8px;
-  margin-bottom: 0;
-  border-radius: 5px;
 }
 
 .form-switch {
   background-color: #0f9e71;
   color: white;
   width: auto;
+  position: absolute;
+  top: 0;
+  right: 0;
   border-radius: 2px;
   margin-top: 8px;
-  margin-bottom: 0;
+  margin-top: 0;
   border-radius: 10px;
 }

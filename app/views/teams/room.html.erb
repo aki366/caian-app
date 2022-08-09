@@ -38,7 +38,7 @@
     <% end %>
 
     <% if @form_switch == "ticket" %>
-      <div class="team-ticket-form">
+      <div class="ticket-form">
         <div class="form-switch">
           <%= button_to "メッセージ",
             {controller: 'teams', action: 'room'},
@@ -47,10 +47,18 @@
         </div>
 
         <%= form_with model: @ticket, local: true do |f| %>
-          <%= f.text_field :subject, :placeholder => "タイトル" %>
-          <%= f.text_area :content, :placeholder => "本文" %>
-          <%= f.file_field :image %>
-          <%= f.submit '投稿する' %>
+          <div class="ticket-form-taitl">
+            <%= f.text_field :subject, :placeholder => "タイトル" %>
+          </div>
+          <div class="ticket-form-content">
+            <%= f.text_area :content, :placeholder => "本文" %>
+          </div>
+          <div class="ticket-form-image">
+            <%= f.file_field :image %>
+          </div>
+          <div class="ticket-post">
+            <%= f.submit '投稿する' %>
+          </div>
         <% end %>
       </div>
 
