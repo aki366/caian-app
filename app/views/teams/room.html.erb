@@ -37,27 +37,39 @@
       <h3 class="text-center">メッセージはまだありません</h3>
     <% end %>
 
-    <form>
-      <button type="submit" name="button" value="btn1">ボタン</button>
-      <button type="submit" name="button" value="btn2">ボタン</button>
-    </form>
-    <% if @current_user.id == 8 %>
-      <%= form_with model: @ticket, local: true do |f| %>
-        <div class="c-form">
-          <%= f.text_field :subject, :placeholder => "タイトル" , :size => 70 %>
-          <%= f.text_area :content, :placeholder => "本文" , :size => 70 %>
+    <% if @form_switch == "ticket" %>
+      <div class="team-ticket-form">
+        <div class="form-switch">
+          <%= button_to "メッセージ",
+            {controller: 'teams', action: 'room'},
+            {method: :post, params: {form_switch: 'message'}}
+          %>
+        </div>
+
+        <%= form_with model: @ticket, local: true do |f| %>
+          <%= f.text_field :subject, :placeholder => "タイトル" %>
+          <%= f.text_area :content, :placeholder => "本文" %>
           <%= f.file_field :image %>
           <%= f.submit '投稿する' %>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
+
     <% else %>
-      <%= form_with(model: [@team,  @team_message], local: true) do |f| %>
-        <div class="c-form">
+
+      <div class="c-form">
+        <div class="form-switch">
+          <%= button_to "チケット",
+            {controller: 'teams', action: 'room'},
+            {method: :post, params: {form_switch: 'ticket'}}
+          %>
+        </div>
+
+        <%= form_with(model: [@team,  @team_message], local: true) do |f| %>
           <%= f.text_area :text %>
           <%= f.hidden_field :team_id, :value => @team.id %>
           <%= f.submit "投稿する" %>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     <% end %>
   </div>
 </div>

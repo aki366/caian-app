@@ -1,5 +1,4 @@
 
-
 /* tickets/index ================================ */
 .teams-index-item {
   padding: 20px 30px;
@@ -25,4 +24,56 @@
 .team-create a {
   padding: 15px;
   color: #FFFFFF;
+}
+
+/* teams/room ================================ */
+
+.team-ticket-form {
+  background-color: #d0e3dd;
+  border: 1px solid;
+  border-color: #c1c4c4;
+  border-radius: 8px;
+  position: fixed;
+  bottom: 0;
+  left: 250px;
+  right: 0;
+  width: auto;
+  padding: 40px 10px 10px 10px;
+  margin: 0px 0px 10px 0px;
+  color: #69a391;
+}
+
+.team-ticket-form input {
+  width: 100%;
+  border: 1px solid #d8dadf;
+  padding: 10px;
+  color: #57575f;
+  font-size: 16px;
+  letter-spacing: 2px;
+  border-radius: 2px;
+}
+
+.team-ticket-form textarea {
+  width:100%;
+  height: auto;
+  font-size: 16px;
+}
+
+.team-ticket-form input[type="submit"] {
+  background-color: #0f9e71;
+  color: white;
+  border-radius: 2px;
+  margin-top: 8px;
+  margin-bottom: 0;
+  border-radius: 5px;
+}
+
+.form-switch {
+  background-color: #0f9e71;
+  color: white;
+  width: auto;
+  border-radius: 2px;
+  margin-top: 8px;
+  margin-bottom: 0;
+  border-radius: 10px;
 }

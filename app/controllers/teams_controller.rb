@@ -40,18 +40,26 @@ class TeamsController < ApplicationController
     ).present?
       @members = @team.members
       @team_messages = @team.team_messages.includes(:user)
-
-      # teams/roomでMemberを表示
-      @team_users = @team.members.includes(:user)
-      @not_current_member = @team_users.where.not(user: @current_user)
     else
       redirect_back(fallback_location: root_path)
     end
+
+    # teams/roomでMemberを表示
+    @team_users = @team.members.includes(:user)
+    @not_current_member = @team_users.where.not(user: @current_user)
+
+    # 投稿フォーム切替用
+    @form_switch = form_params
   end
 
   private
 
     def team_params
       params.require(:team).permit(:name)
+    end
+
+    # 投稿フォーム切替用
+    def form_params
+      params[:form_switch]
     end
 end
