@@ -136,41 +136,44 @@
   margin: 5px;
 }
 
-.c-form {
+.message-form {
   background-color: white;
   border: 1px solid;
   border-color: #c1c4c4;
   border-radius: 8px;
   position: fixed;
-  bottom: 0;
+  bottom: 10px;
   left: 250px;
   right: 0;
-  width: auto;
-  padding: 40px 10px 10px 10px;
-  color: #69a391;
+  padding: 6px;
 }
 
-.c-form input {
-  width: 100%;
-  border: 1px solid #d8dadf;
-  padding: 10px;
-  color: #57575f;
-  font-size: 16px;
-  letter-spacing: 2px;
-  border-radius: 2px;
+.message-form-text {
+  margin: 42px 0px 34px 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
 }
 
-.c-form textarea {
+.message-form-text textarea {
+  border-color: #c1c4c4;
   width:100%;
   height: auto;
   font-size: 16px;
+  min-height: 100px;
+  border-radius: 4px;
 }
 
-.c-form input[type="submit"] {
-  background-color: #0f9e71;
+.message-form-post input {
   color: white;
-  border-radius: 2px;
-  margin-top: 8px;
-  margin-bottom: 0;
-  border-radius: 5px;
+  border: 1px solid #d8dadf;
+  position: absolute;
+  margin: 6px;
+  padding: 6px 16px;
+  right: 0px;
+  bottom: 0px;
+  width: auto;
+  background-color: #0f9e71;
+  font-size: 16px;
+  border-radius: 18px;
 }

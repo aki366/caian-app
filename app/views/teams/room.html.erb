@@ -64,8 +64,8 @@
 
     <% else %>
 
-      <div class="c-form">
-        <div class="form-switch">
+      <div class="message-form">
+        <div class="ticket-form-switch">
           <%= button_to "チケット",
             {controller: 'teams', action: 'room'},
             {method: :post, params: {form_switch: 'ticket'}}
@@ -73,9 +73,13 @@
         </div>
 
         <%= form_with(model: [@team,  @team_message], local: true) do |f| %>
-          <%= f.text_area :text %>
+          <div class="message-form-text">
+            <%= f.text_area :text %>
+          </div>
           <%= f.hidden_field :team_id, :value => @team.id %>
-          <%= f.submit "投稿する" %>
+          <div class="message-form-post">
+            <%= f.submit "投稿する" %>
+          </div>
         <% end %>
       </div>
     <% end %>
