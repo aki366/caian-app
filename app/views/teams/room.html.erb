@@ -46,7 +46,7 @@
           %>
         </div>
 
-        <%= form_with model: @ticket, local: true do |f| %>
+        <%= form_with(model: [@team,  @ticket], local: true) do |f| %>
           <div class="ticket-form-taitl">
             <%= f.text_field :subject, :placeholder => "タイトル" %>
           </div>
@@ -56,6 +56,7 @@
           <div class="ticket-form-image">
             <%= f.file_field :image %>
           </div>
+          <%= f.hidden_field :team_id, :value => @team.id %>
           <div class="ticket-form-post">
             <%= f.submit '投稿する' %>
           </div>
