@@ -34,6 +34,7 @@ class TeamsController < ApplicationController
   def room
     @team = Team.find(params[:id])
     @team_message = TeamMessage.new
+    @ticket = Ticket.new
     if Member.where(
       :user_id => @current_user.id,
       :team_id => @team.id

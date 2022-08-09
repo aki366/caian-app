@@ -25,22 +25,15 @@ class TicketsController < ApplicationController
   end
 
   def new
-    @ticket = Ticket.new
   end
 
   def create
-    # Userモデルとのアソシエーション
-    # あらかじめuser_idが入った状態でTicketモデルがnewされる
-    # Ticket.new
-    # => id: nil, content: nil, created_at: nil, updated_at: nil, user_id: nil>
-    # User.find(1).tickets.new
-    # => <id: nil, content: nil, created_at: nil, updated_at: nil, user_id: 1>
     @ticket = @current_user.tickets.new(ticket_params)
     if @ticket.save
       flash[:notice] = "投稿を作成しました"
-      redirect_to tickets_path
+      redirect_to "/teams/#{@team.id}"
     else
-      render :new
+      redirect_to "/teams/#{@team.id}"
     end
   end
 
@@ -52,7 +45,7 @@ class TicketsController < ApplicationController
     @ticket = Ticket.find(params[:id])
     if @ticket.update(ticket_params)
       flash[:notice] = "投稿を編集しました"
-      redirect_to ticket_path
+      redirect_to "/teams/#{@team.id}"
     else
       render :edit
     end
@@ -62,7 +55,7 @@ class TicketsController < ApplicationController
     @ticket = Ticket.find(params[:id])
     @ticket.destroy
     flash[:notice] = "投稿を削除しました"
-    redirect_to tickets_path
+    redirect_to "/teams/#{@team.id}"
   end
 
   private
@@ -81,12 +74,16 @@ class TicketsController < ApplicationController
     def ensure_correct_user
       @ticket = Ticket.find(params[:id])
       if @ticket.user_id != @current_user.id
-        redirect_to tickets_path
+        redirect_to "/teams/#{@team.id}"
       end
     end
 
     def ticket_params
-      # formから渡ってきたパラメーターのうち下記２つだけを許容する
-      params.require(:ticket).permit(:content, :image)
+      params.require(:ticket).permit(
+        :subject,
+        :content,
+        :team_id,
+        :image,
+      )
     end
 end
