@@ -38,7 +38,7 @@
     <% end %>
     <%= form_with(model: [@team,  @team_message], local: true) do |f| %>
       <div class="c-form">
-        <%= f.text_field :text, :placeholder => "メッセージを入力して下さい" , :size => 70 %>
+        <%= f.text_area :text %>
         <%= f.hidden_field :team_id, :value => @team.id %>
         <%= f.submit "投稿する" %>
       </div>

@@ -10,7 +10,7 @@
             </div>
           <% end %>
           <%= form_with model: @ticket, local: true do |f| %>
-            <%= f.label "新規投稿" %>
+
             <%= f.text_area :content %>
             <%= f.file_field :image %> 
             <%= f.submit '投稿する' %>

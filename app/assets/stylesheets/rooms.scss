@@ -160,6 +160,12 @@
   border-radius: 2px;
 }
 
+.c-form textarea {
+  width:100%;
+  height: auto;
+  font-size: 16px;
+}
+
 .c-form input[type="submit"] {
   background-color: #0f9e71;
   color: white;
