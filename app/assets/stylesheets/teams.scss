@@ -53,13 +53,15 @@
 }
 
 .ticket-form-content {
-  background-color: white;
   position: absolute;
-  top: 0;
-  left: 0;
-  width: auto;
-  padding: 10px;
-  color: #69a391;
+  margin: 0px 5px 45px 5px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+}
+
+.ticket-form-content textarea {
+  border-color: #c1c4c4;
 }
 
 .ticket-form-image {
