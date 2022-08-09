@@ -39,7 +39,7 @@
 
     <% if @form_switch == "ticket" %>
       <div class="ticket-form">
-        <div class="form-switch">
+        <div class="ticket-form-switch">
           <%= button_to "メッセージ",
             {controller: 'teams', action: 'room'},
             {method: :post, params: {form_switch: 'message'}}
@@ -51,12 +51,12 @@
             <%= f.text_field :subject, :placeholder => "タイトル" %>
           </div>
           <div class="ticket-form-content">
-            <%= f.text_area :content, :placeholder => "本文" %>
+            <%= f.text_area :content, :placeholder => "" %>
           </div>
           <div class="ticket-form-image">
             <%= f.file_field :image %>
           </div>
-          <div class="ticket-post">
+          <div class="ticket-form-post">
             <%= f.submit '投稿する' %>
           </div>
         <% end %>
