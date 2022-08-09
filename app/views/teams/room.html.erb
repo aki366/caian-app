@@ -1,5 +1,5 @@
 <div class="main room-show">
-  <div class="container">
+  <div class="team-room-container">
     <h3><%= @team.name %></h3>
     <h3>
       <% @not_current_member.each do |member| %>
@@ -36,12 +36,28 @@
     <% else %>
       <h3 class="text-center">メッセージはまだありません</h3>
     <% end %>
-    <%= form_with(model: [@team,  @team_message], local: true) do |f| %>
-      <div class="c-form">
-        <%= f.text_area :text %>
-        <%= f.hidden_field :team_id, :value => @team.id %>
-        <%= f.submit "投稿する" %>
-      </div>
+
+    <form>
+      <button type="submit" name="button" value="btn1">ボタン</button>
+      <button type="submit" name="button" value="btn2">ボタン</button>
+    </form>
+    <% if @current_user.id == 8 %>
+      <%= form_with model: @ticket, local: true do |f| %>
+        <div class="c-form">
+          <%= f.text_field :subject, :placeholder => "タイトル" , :size => 70 %>
+          <%= f.text_area :content, :placeholder => "本文" , :size => 70 %>
+          <%= f.file_field :image %>
+          <%= f.submit '投稿する' %>
+        </div>
+      <% end %>
+    <% else %>
+      <%= form_with(model: [@team,  @team_message], local: true) do |f| %>
+        <div class="c-form">
+          <%= f.text_area :text %>
+          <%= f.hidden_field :team_id, :value => @team.id %>
+          <%= f.submit "投稿する" %>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </div>
