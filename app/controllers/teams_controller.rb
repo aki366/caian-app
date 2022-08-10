@@ -41,6 +41,9 @@ class TeamsController < ApplicationController
     ).present?
       @members = @team.members
       @team_messages = @team.team_messages.includes(:user)
+      @tickets = @team.tickets.includes(:user)
+      @team_contents = @team_messages | @tickets
+      @team_contents.sort!{ |a, b| a.created_at <=> b.created_at }
     else
       redirect_back(fallback_location: root_path)
     end
