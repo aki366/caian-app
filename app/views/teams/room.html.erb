@@ -46,50 +46,53 @@
 		      <div class="room-show-line">
             <div class="line1"></div>
           </div>
-          <div class="room-c-user">
-            <img src='<%= "/user_images/#{
-              team_contents.user.user_image
-              }" %>'>
-          </div>
-          <div class="room-c-user-name">
-            <%= link_to(
-              team_contents.user.name,
-              "/users/#{team_contents.user.id}"
-              ) %>
-          </div>
-          <div class="room-c-timestamp">
-            <a data-stringify-type= r.created_at %>
-            <%= team_contents.created_at.strftime("%Y-%m-%d %H:%M") %>
-          </div>
-          <div class="overflow-wrap">
-            <%= team_contents.subject %>
-            <br>
-            <%= team_contents.content %>
 
-            <% if team_contents.likes.count == 1 %>
-              <%= link_to ticket_like_path(
-                ticket_id: team_contents.id,
-                id: @team.id,
-                ), method: :delete do %>
-              <span class="fa fa-heart liked-btn"></span>
-              <% end %>
-            <% else %>
-              <%= link_to ticket_likes_path(
-                ticket_id: team_contents.id,
-                id: @team.id,
-                ), method: :post do %>
-              <span class="fa fa-heart unliked-btn"></span>
-              <% end %>
-            <% end %>
+          <div class="team-rooms-tickets">
+            <div class="room-c-user">
+              <img src='<%= "/user_images/#{
+                team_contents.user.user_image
+                }" %>'>
+            </div>
+            <div class="room-c-user-name">
+              <%= link_to(
+                team_contents.user.name,
+                "/users/#{team_contents.user.id}"
+                ) %>
+            </div>
+            <div class="room-c-timestamp">
+              <a data-stringify-type= r.created_at %>
+              <%= team_contents.created_at.strftime("%Y-%m-%d %H:%M") %>
+            </div>
+            <div class="overflow-wrap">
+              <%= team_contents.subject %>
+              <br>
+              <%= team_contents.content %>
 
-            <%= team_contents.likes.count %>
-
-            <div class="room-c-menus">
-              <% if team_contents.user_id == @current_user.id %>
-                <%= link_to "削除", team_ticket_path(
-                  @team, team_contents
-                  ), method: :delete %>
+              <% if team_contents.likes.count == 1 %>
+                <%= link_to ticket_like_path(
+                  ticket_id: team_contents.id,
+                  id: @team.id,
+                  ), method: :delete do %>
+                <span class="fa fa-heart liked-btn"></span>
+                <% end %>
+              <% else %>
+                <%= link_to ticket_likes_path(
+                  ticket_id: team_contents.id,
+                  id: @team.id,
+                  ), method: :post do %>
+                <span class="fa fa-heart unliked-btn"></span>
+                <% end %>
               <% end %>
+
+              <%= team_contents.likes.count %>
+
+              <div class="room-c-menus">
+                <% if team_contents.user_id == @current_user.id %>
+                  <%= link_to "削除", team_ticket_path(
+                    @team, team_contents
+                    ), method: :delete %>
+                <% end %>
+              </div>
             </div>
           </div>
         <% end %>
