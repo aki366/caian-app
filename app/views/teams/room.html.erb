@@ -53,6 +53,25 @@
             <%= team.subject %>
             <br>
             <%= team.content %>
+
+            <% if team.likes.count == 1 %>
+              <%= link_to ticket_like_path(
+                ticket_id: team.id,
+                id: @team.id,
+                ), method: :delete do %>
+              <span class="fa fa-heart liked-btn"></span>
+              <% end %>
+            <% else %>
+              <%= link_to ticket_likes_path(
+                ticket_id: team.id,
+                id: @team.id,
+                ), method: :post do %>
+              <span class="fa fa-heart unliked-btn"></span>
+              <% end %>
+            <% end %>
+
+            <%= team.likes.count %>
+
             <div class="room-c-menus">
               <% if team.user_id == @current_user.id %>
                 <%= link_to "削除", team_ticket_path(@team, team), method: :delete %>
