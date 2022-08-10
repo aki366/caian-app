@@ -28,6 +28,7 @@ class TicketsController < ApplicationController
   end
 
   def create
+    @team = Team.find(params[:team_id])
     @ticket = @current_user.tickets.new(ticket_params)
     if @ticket.save
       flash[:notice] = "投稿を作成しました"
