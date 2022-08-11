@@ -35,12 +35,17 @@
     <% else %>
       <h3 class="text-center">メッセージはまだありません</h3>
     <% end %>
-    <%= form_with(model: [@room,  @message], local: true) do |f| %>
-      <div class="c-form">
-        <%= f.text_field :text, :placeholder => "メッセージを入力して下さい" , :size => 70 %>
+
+    <div class="message-form">
+      <%= form_with(model: [@room,  @message], local: true) do |f| %>
+        <div class="message-form-text">
+          <%= f.text_area :text %>
+        </div>
         <%= f.hidden_field :room_id, :value => @room.id %>
-        <%= f.submit "投稿する" %>
-      </div>
-    <% end %>
+        <div class="message-form-post">
+          <%= f.submit "投稿する" %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

@@ -20,6 +20,7 @@ class TeamMessagesController < ApplicationController
     @team_message = @team.team_messages.find(params[:id])
     if @current_user.id == @team_message.user.id
       @team_message.destroy
+      flash[:notice] = "メッセージを削除しました"
       redirect_to room_team_path(@team.id)
     end
   end

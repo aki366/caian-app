@@ -23,7 +23,7 @@
           <span class="fa fa-heart liked-btn"></span>
         <% end %>
       <% else %>
-        <%= link_to ticket_likes_path(@ticket.id), method: :ticket do %>
+        <%= link_to ticket_likes_path(@ticket.id), method: :post do %>
           <span class="fa fa-heart unliked-btn"></span>
         <% end %>
       <% end %>
