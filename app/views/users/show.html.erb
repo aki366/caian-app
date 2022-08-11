@@ -10,9 +10,12 @@
       </div>
 
       <% if @user.id == @current_user.id && !@user.guest? %>
-        <%= link_to("編集", "/users/#{@user.id}/edit") %>
-
+        <div class="user-show-edit">
+          <%= link_to("編集", "/users/#{@user.id}/edit") %>
+        </div>
+        <div class="user-show-delete">
         <%= link_to "アカウント削除", @user, method: :delete, data: { confirm: 'このアカウントを削除します。この操作は取り消せません。よろしいですか？' }, class: "btn-red inline-block py-2 px-4" %>
+        </div>
       <% end %>
     </div>
 
