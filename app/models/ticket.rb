@@ -1,5 +1,6 @@
 class Ticket < ApplicationRecord
   validates :content, {presence: true, length: {maximum: 1000}}
+  validates :subject, {presence: true, length: {maximum: 100}}
   validates :user_id, {presence: true}
 
   # ActiveStorage用のカラムをticketモデルに追加する
