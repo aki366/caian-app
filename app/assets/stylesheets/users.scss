@@ -97,6 +97,24 @@
   font-size: 15px;
 }
 
+.user-sho-total-point {
+  position: absolute;
+  left: 200px;
+  top: 8px;
+  width: 130px;
+  height: 25px;
+  text-align: center;
+  background-color: #a81112;
+  overflow: hidden;
+  border-radius: 25px;
+}
+
+.user-sho-total-point a {
+  color: white;
+  font-size: 17px;
+  font-weight: bold;
+}
+
 .user-show-profile {
   overflow-wrap: break-word;
   clear: both;
