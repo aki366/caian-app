@@ -24,17 +24,19 @@
 
     <% if @user.id == @current_user.id %>
     <% else %>
-      <% if @isRoom == true %>
-        <p><a href="/rooms/<%= @roomId %>">チャットへ</a>
-      <% else %>
-        <div class="chat-wrapper">
-          <%= link_to(rooms_path(user_ids: [@current_user.id, @user.id]), method: :ticket) do %>
-            <div class="chat-btn">
-              <div class="chat-p">チャットを始める</div>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
+      <div class="user-show-dm">
+        <% if @isRoom == true %>
+          <a href="/rooms/<%= @roomId %>">チャットへ</a>
+        <% else %>
+          <div class="chat-wrapper">
+            <%= link_to(rooms_path(user_ids: [@current_user.id, @user.id]), method: :ticket) do %>
+              <div class="chat-btn">
+                <a class="chat-p">チャットを始める</a>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
     <% end %>
 
     <ul class="user-tabs">
