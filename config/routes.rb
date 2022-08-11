@@ -28,11 +28,11 @@ Rails.application.routes.draw do
 
   resources :teams do
     resources :team_messages
+    resources :tickets
     member do
       post :room
       get :room
     end
-    # resources :tickets, only: %i[create destroy]
     resources :members, only: %i[create destroy]
   end
 

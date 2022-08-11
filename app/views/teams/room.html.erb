@@ -1,5 +1,5 @@
 <div class="main room-show">
-  <div class="container">
+  <div class="team-room-container">
     <h3><%= @team.name %></h3>
     <h3>
       <% @not_current_member.each do |member| %>
@@ -10,37 +10,142 @@
     </h3>
     <br>
     <% if @members.present? %>
-      <% @team_messages.each do |team| %>
-        <div class="room-show-line">
-          <div class="line1"></div>
-        </div>
-        <div class="room-c-user">
-          <img src='<%= "/user_images/#{team.user.user_image}" %>'>
-        </div>
-        <div class="room-c-user-name">
-          <%= link_to(team.user.name, "/users/#{team.user.id}") %>
-        </div>
-        <div class="room-c-timestamp">
-          <a data-stringify-type= r.created_at %>
-          <%= team.created_at.strftime("%Y-%m-%d %H:%M") %>
-        </div>
-        <div class="overflow-wrap">
-          <%= team.text %>
-          <div class="room-c-menus">
-            <% if team.user_id == @current_user.id %>
-              <%= link_to "削除", team_team_message_path(@team, team), method: :delete %>
-            <% end %>
+      <% @team_contents.each do |team_contents| %>
+        <% if team_contents.class == TeamMessage %>
+          <div class="room-show-line">
+            <div class="line1"></div>
           </div>
-        </div>
+          <div class="room-c-user">
+            <img src='<%= "/user_images/#{
+              team_contents.user.user_image
+              }" %>'>
+          </div>
+          <div class="room-c-user-name">
+            <%= link_to(
+              team_contents.user.name,
+              "/users/#{team_contents.user.id}"
+              ) %>
+          </div>
+          <div class="room-c-timestamp">
+            <a data-stringify-type= r.created_at %>
+            <%= team_contents.created_at.strftime("%Y-%m-%d %H:%M") %>
+          </div>
+          <div class="overflow-wrap">
+            <%= team_contents.text %>
+            <div class="room-c-menus">
+              <% if team_contents.user_id == @current_user.id %>
+                <%= link_to "削除", team_team_message_path(
+                  @team, team_contents
+                  ), method: :delete %>
+              <% end %>
+            </div>
+          </div>
+
+        <% else %>
+
+		      <div class="room-show-line">
+            <div class="line1"></div>
+          </div>
+
+          <div class="team-rooms-tickets">
+            <div class="room-c-user">
+              <img src='<%= "/user_images/#{
+                team_contents.user.user_image
+                }" %>'>
+            </div>
+            <div class="room-c-user-name">
+              <%= link_to(
+                team_contents.user.name,
+                "/users/#{team_contents.user.id}"
+                ) %>
+            </div>
+            <div class="room-c-timestamp">
+              <a data-stringify-type= r.created_at %>
+              <%= team_contents.created_at.strftime("%Y-%m-%d %H:%M") %>
+            </div>
+            <div class="overflow-wrap">
+              <%= team_contents.subject %>
+              <br>
+              <%= team_contents.content %>
+
+              <% if team_contents.likes.count == 1 %>
+                <%= link_to ticket_like_path(
+                  ticket_id: team_contents.id,
+                  id: @team.id,
+                  ), method: :delete do %>
+                <span class="fa fa-heart liked-btn"></span>
+                <% end %>
+              <% else %>
+                <%= link_to ticket_likes_path(
+                  ticket_id: team_contents.id,
+                  id: @team.id,
+                  ), method: :post do %>
+                <span class="fa fa-heart unliked-btn"></span>
+                <% end %>
+              <% end %>
+
+              <%= team_contents.likes.count %>
+
+              <div class="room-c-menus">
+                <% if team_contents.user_id == @current_user.id %>
+                  <%= link_to "削除", team_ticket_path(
+                    @team, team_contents
+                    ), method: :delete %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
       <% end %>
     <% else %>
       <h3 class="text-center">メッセージはまだありません</h3>
     <% end %>
-    <%= form_with(model: [@team,  @team_message], local: true) do |f| %>
-      <div class="c-form">
-        <%= f.text_field :text, :placeholder => "メッセージを入力して下さい" , :size => 70 %>
-        <%= f.hidden_field :team_id, :value => @team.id %>
-        <%= f.submit "投稿する" %>
+
+    <% if @form_switch == "ticket" %>
+      <div class="ticket-form">
+        <div class="ticket-form-switch">
+          <%= button_to "メッセージ",
+            {controller: 'teams', action: 'room'},
+            {method: :post, params: {form_switch: 'message'}}
+          %>
+        </div>
+
+        <%= form_with(model: [@team,  @ticket], local: true) do |f| %>
+          <div class="ticket-form-taitl">
+            <%= f.text_field :subject, :placeholder => "タイトル" %>
+          </div>
+          <div class="ticket-form-content">
+            <%= f.text_area :content, :placeholder => "" %>
+          </div>
+          <div class="ticket-form-image">
+            <%= f.file_field :image %>
+          </div>
+          <%= f.hidden_field :team_id, :value => @team.id %>
+          <div class="ticket-form-post">
+            <%= f.submit '投稿する' %>
+          </div>
+        <% end %>
+      </div>
+
+    <% else %>
+
+      <div class="message-form">
+        <div class="ticket-form-switch">
+          <%= button_to "チケット",
+            {controller: 'teams', action: 'room'},
+            {method: :post, params: {form_switch: 'ticket'}}
+          %>
+        </div>
+
+        <%= form_with(model: [@team,  @team_message], local: true) do |f| %>
+          <div class="message-form-text">
+            <%= f.text_area :text %>
+          </div>
+          <%= f.hidden_field :team_id, :value => @team.id %>
+          <div class="message-form-post">
+            <%= f.submit "投稿する" %>
+          </div>
+        <% end %>
       </div>
     <% end %>
   </div>

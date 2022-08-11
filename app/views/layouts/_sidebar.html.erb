@@ -1,6 +1,7 @@
 
 <nav class="menu">
   <ul>
+    <br>
     <li><%= link_to @current_user.name, user_path(@current_user.id) %></li>
     <li><%= link_to "チームを作成", new_team_path %></li>
     <%# link_to("チーム", "/users/#{@current_user.id}/teams") %>
