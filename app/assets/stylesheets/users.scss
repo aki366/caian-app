@@ -50,10 +50,9 @@
   padding: 5px;
   height: 100px;
   flex-direction: column;
-
   p {
     font-size: 13px;
-    margin: 10px;
+    margin: 0px 5px 10px 10px;
     color: #54baff;
     background-color: #ffff;
     width: 110px;
@@ -61,10 +60,33 @@
     text-align: center;
     overflow: hidden;
     border-radius: 25px;
-    border-style:solid;
-    border-width:1px;
+    border-style: solid;
+    border-width: 1px;
     border-color: #54baff;
-
+  }
+  ul {
+    font-size: 13px;
+    height: auto;
+    margin: 0px 10px 0px 10px;
+    color: #54baff;
+    width: auto;
+    padding: 3px;
+    text-align: center;
+    overflow: hidden;
+    border-radius: 25px;
+  }
+  li {
+    font-size: 13px;
+    margin: 0px 3px 12px 3px;
+    color: #54baff;
+    background-color: #ffff;
+    width: 60px;
+    padding: 3px;
+    text-align: center;
+    overflow: hidden;
+    border-radius: 25px;
+    border-width: 1px;
+    border-color: #54baff;
   }
 }
 
@@ -222,6 +244,13 @@
     margin: 5px;
 }
 
+.member-achievement {
+  left: 0px;
+  height: auto;
+  display: flex;
+  width: auto;
+}
+
 .ticket-categorie div {
   position: absolute;
   left: 15px;
@@ -232,17 +261,7 @@
   background-color: #ffffff;
   overflow: hidden;
   border-radius: 25px
-
-  p {
-    color: rgb(37, 86, 198);
-    font-size: 14px;
-  }
 }
-
-// .ticket-categorie p {
-//   color: rgb(37, 86, 198);
-//   font-size: 14px;
-// }
 
 /* users/new, users/edit ================================ */
 .users-form input {
