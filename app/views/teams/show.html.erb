@@ -1,23 +1,21 @@
 <div class="main teams-index">
   <div class="container">
-    <h3><%= @team.name %></h3>
-    <div class="team-create">
-      <li><%= link_to "メンバーを招待" %></li>
+    <div class="teams-show-title">
+      <li><%= @team.name %></li>
+      <div class="teams-show-change">
+        <div class="teams-show-change-box">
+          <%= link_to "メンバーを招待" %>
+        </div>
+        <div class="teams-show-change-box">
+          <%= link_to "チームを作成", new_team_path %>
+        </div>
+      </div>
     </div>
-    <br>
-    <div class="team-create">
-      <li><%= link_to "チームを作成", new_team_path %></li>
-    </div>
+
     <% @members.each do |m| %>
-      <div class="tickets-index-item">
-        <div class="ticket-left">
-          <img src='<%= "/user_images/#{m.user.user_image}" %>'>
-        </div>
-        <div class="ticket-right">
-          <div class="ticket-user-name">
-            <li><%= link_to(m.user.name, "/users/#{m.user.id}") %></li>
-          </div>
-        </div>
+      <div class="teams-show-members">
+        <img src='<%= "/user_images/#{m.user.user_image}" %>'>
+        <li><%= link_to(m.user.name, "/users/#{m.user.id}") %></li>
       </div>
     <% end %>
   </div>
