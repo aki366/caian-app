@@ -45,13 +45,16 @@
 }
 
 /* users/show ================================ */
-.user-show {
-  text-align: center;
-}
 
 .user-show {
   padding: 5px;
-  height: 60px;
+  height: 100px;
+  flex-direction: column;
+
+  p {
+    font-size: 13px;
+    margin-bottom: 15px;
+  }
 }
 
 .user-show img {
@@ -70,11 +73,6 @@
   font-size: 20px;
   font-weight: 600;
   line-height: 1.2;
-}
-
-.user-show p {
-  font-size: 13px;
-  margin-bottom: 15px;
 }
 
 .user-show a {
@@ -178,7 +176,7 @@
 }
 
 .user-tabs {
-  margin-top: 350px;
+  margin-top: 10px;
   background-color: white;
   overflow: hidden;
   box-shadow: 0 2px 6px #c1ced7;
@@ -203,18 +201,37 @@
 }
 
 .user-show-line div {
-  position: absolute;
-  left: 10px;
-  top: 100px;
-  margin: 10;
-  max-width: 700px;
-  width: 100%;
-  left: 0px;
-  height: 1px;
-  background-color: #cecece;
-  margin: 5px;
+    left: 10px;
+    margin: 10;
+    max-width: 700px;
+    width: 100%;
+    left: 0px;
+    height: 1px;
+    background-color: #cecece;
+    margin: 5px;
 }
 
+.ticket-categorie div {
+  position: absolute;
+  left: 15px;
+  top: 150px;
+  width: 130px;
+  height: 25px;
+  text-align: center;
+  background-color: #ffffff;
+  overflow: hidden;
+  border-radius: 25px
+
+  p {
+    color: rgb(37, 86, 198);
+    font-size: 14px;
+  }
+}
+
+// .ticket-categorie p {
+//   color: rgb(37, 86, 198);
+//   font-size: 14px;
+// }
 
 /* users/new, users/edit ================================ */
 .users-form input {

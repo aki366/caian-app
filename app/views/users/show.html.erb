@@ -20,27 +20,37 @@
         <%= link_to "アカウント削除", @user, method: :delete, data: { confirm: 'このアカウントを削除します。この操作は取り消せません。よろしいですか？' }, class: "btn-red inline-block py-2 px-4" %>
         </div>
       <% end %>
-    </div>
 
-    <% if @user.id == @current_user.id %>
-    <% else %>
-      <div class="user-show-dm">
-        <% if @isRoom == true %>
-          <a href="/rooms/<%= @roomId %>">チャットへ</a>
-        <% else %>
-          <div class="chat-wrapper">
-            <%= link_to(rooms_path(user_ids: [@current_user.id, @user.id]), method: :ticket) do %>
-              <div class="chat-btn">
-                <a class="chat-p">チャットを始める</a>
-              </div>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
+      <% if @user.id == @current_user.id %>
+      <% else %>
+        <div class="user-show-dm">
+          <% if @isRoom == true %>
+            <a href="/rooms/<%= @roomId %>">チャットへ</a>
+          <% else %>
+            <div class="chat-wrapper">
+              <%= link_to(rooms_path(user_ids: [@current_user.id, @user.id]), method: :ticket) do %>
+                <div class="chat-btn">
+                  <a class="chat-p">チャットを始める</a>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
 
     <div class="user-show-line">
       <div class="line1"></div>
+    </div>
+
+    <div class="ticket-categorie">
+      <p>共通</p>
+      <p>環境・設備</p>
+      <p>組織</p>
+      <p>案件</p>
+      <p>手順・ナレッジ</p>
+      <p>働き方</p>
+      <p>教育</p>
     </div>
 
     <ul class="user-tabs">
