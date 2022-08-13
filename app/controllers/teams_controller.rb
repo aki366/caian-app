@@ -28,6 +28,7 @@ class TeamsController < ApplicationController
     else
       @team = Team.find(params[:id])
       @members = @team.members.includes(:user)
+      @tickets = @team.tickets.includes(:user)
     end
   end
 
