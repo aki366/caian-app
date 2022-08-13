@@ -1,0 +1,2 @@
+class Categorle < ApplicationRecord
+end
