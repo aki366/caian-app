@@ -1,25 +1,24 @@
 <div class="main user-show">
   <div class="container">
-    <div class="user-show">
+    <div class="user-show-profile">
       <img src= '<%= "/user_images/#{@user.user_image}" %>'>
-      <div class="user-show-name">
-        <%= @user.name %>
-      </div>
-      <div class="user-sho-total-point">
-        <a><%= "70P" %></a>
-      </div>
-      <div class="user-show-profile">
-        <%= @user.profile %>
-      </div>
+      <ul>
+        <li><%= @user.name %></li>
+        <li><%= @user.profile %></li>
+      </ul>
+    </div>
 
+    <div class="user-show-action">
       <% if @user.id == @current_user.id && !@user.guest? %>
-        <div class="user-show-edit">
+        <li>
           <%= link_to("編集", "/users/#{@user.id}/edit") %>
-        </div>
-        <div class="user-show-delete">
-        <%= link_to "アカウント削除", @user, method: :delete, data: { confirm: 'このアカウントを削除します。この操作は取り消せません。よろしいですか？' }, class: "btn-red inline-block py-2 px-4" %>
-        </div>
+        </li>
+        <li>
+          <%= link_to "アカウント削除", @user, method: :delete, data: { confirm: 'このアカウントを削除します。この操作は取り消せません。よろしいですか？' }, class: "btn-red inline-block py-2 px-4" %>
+        </li>
       <% end %>
+
+      <p><%= "70P" %></p>
 
       <% if @user.id == @current_user.id %>
       <% else %>
