@@ -148,26 +148,28 @@
 //   font-size: 14px;
 // }
 
-.user-tabs {
+.users-show-ticket {
   margin-top: 10px;
   background-color: white;
   overflow: hidden;
   box-shadow: 0 2px 6px #c1ced7;
+  ul {
+  }
 }
 
-.user-tabs li {
+.users-show-ticket li {
   float: left;
 }
 
-.user-tabs li.active {
+.users-show-ticket li.active {
   border-bottom: 2px solid #3ecdc6;
 }
 
-.user-tabs li.active a {
+.users-show-ticket li.active a {
   color: #57575f;
 }
 
-.user-tabs {
+.users-show-ticket {
   a {
   display: inline-block;
   padding: 16px 30px;

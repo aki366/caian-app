@@ -88,10 +88,15 @@
       </div>
     </div>
 
-    <ul class="user-tabs">
-      <li class="active"><%= link_to("投稿", "/users/#{@user.id}") %></li>
-      <li><%= link_to("いいね!", "/users/#{@user.id}/likes") %></li>
-    </ul>
+    <div class="users-show-ticket">
+      <ul>
+        <li>No.</li>
+        <li>カテゴリ</li>
+        <li>タイトル</li>
+        <li>ステータス</li>
+        <li>更新日</li>
+      </ul>
+    </div>
 
     <% @ticket.each do |p| %>
       <div class="tickets-index-item">
