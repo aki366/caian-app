@@ -95,19 +95,10 @@
       </ul>
     </div>
 
-    <% @ticket.each do |p| %>
+    <% @ticket.each do |ticket| %>
       <div class="tickets-index-item">
-        <div class="ticket-left">
-          <img src='<%= "/user_images/#{p.user.user_image}" %>'>
-        </div>
-        <div class="ticket-right">
-          <div class="ticket-user-name">
-            <%= link_to(p.user.name, "/users/#{p.user.id}") %>
-          </div>
-          <div class="user-show-overflow-wrap">
-            <%= link_to(p.content, "/tickets/#{p.id}") %>
-          </div>
-        </div>
+        <li><%= link_to(ticket.user.name, "/users/#{ticket.user.id}") %></li>
+        <li><%= link_to(ticket.subject, "/tickets/#{ticket.id}") %></li>
       </div>
     <% end %>
   </div>
