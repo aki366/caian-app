@@ -1,7 +1,9 @@
 # Caian
 ※現在開発中の為、サービスを公開しておりません。
 
-<br>
+## 開発実績
+- 2022/02/01 開発開始
+- 2022/08/13 時点(total：964.0h)
 
 <p align="left"> 
   <img alt="Top Langs" height="150px" src="https://github-readme-stats.vercel.app/api/top-langs/?username=aki366&layout=compact&show_icons=true&theme=onedark" />
@@ -23,7 +25,28 @@
 ### インフラ構成図
 
 ### 画面設計図
+
 [figma:画面設計図](https://www.figma.com/file/89WqHwRatfXBjokkGxmqq4/original?node-id=0%3A1)
+
+<details>
+<summary>ユーザー詳細画面（表示）</summary>
+
+![figure of ER](app/assets/images/ユーザー詳細画面.png)
+</details>
+
+<details>
+<summary>チーム管理画面（表示）</summary>
+
+![figure of ER](app/assets/images/チーム管理画面.png
+)
+</details>
+
+<details>
+<summary>チケット一覧画面（表示）</summary>
+
+![figure of ER](app/assets/images/チケット一覧画面.png
+)
+</details>
 
 ### 画面遷移図
 <details>
@@ -138,13 +161,14 @@
 <br>
 
 ## 使用技術
+※1　実装予定
 ### フロントエンド
 - HTML/CSS
 - JavaScript
-- chart.js(第2段階で実装予定)
-- Vue.js(第3段階で実装予定)
-- Vuetify(第3段階で実装予定)
-- Nuxt.js(+αで実装予定)
+- chart.js　※1
+- Vue.js　※1
+- Vuetify　※1
+- Nuxt.js　※1
 
 ### バックエンド
 - Ruby 3.0.3
@@ -153,16 +177,16 @@
 
 ### インフラ
 - Heroku
-- Nginx/Puma（将来の大量同時アクセスを想定）
-- AWS(VPC/EC2/RDS/ALB/S3/ACM/Route53/ECS)(第3段階で実装予定)
-- ECS（Fargate）(第3段階で実装予定)
+- Nginx/Puma
+- AWS(VPC/EC2/RDS/ALB/S3/ACM/Route53)　※1
+- ECS（Fargate）　※1
 
 ### テスト
 - RSpec
 - Jest
 
 ### 解析ツール
-- RuboCop（第１段階）
+- RuboCop
 
 ### CI/CD
 - CircleCI
