@@ -74,13 +74,13 @@
   }
 }
 
-.team-show-line div {
-  margin: 10;
-  width: 100%;
+.team-show-line {
+ div {
+  margin: 10px;
   left: 0px;
   height: 1px;
   background-color: #cecece;
-  margin: 5px;
+ }
 }
 
 .teams-show-members {
