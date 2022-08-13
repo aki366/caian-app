@@ -114,39 +114,24 @@
   }
 }
 
-// .user-show-delete {
-//   position: absolute;
-//   left: 90px;
-//   top: 68px;
-//   width: 130px;
-//   height: 25px;
-//   text-align: center;
-//   background-color: #0f9e71;
-//   overflow: hidden;
-//   border-radius: 25px
-// }
-
-// .user-show-delete a {
-//   color: white;
-//   font-size: 14px;
-// }
-
-// .user-show-dm {
-//   position: absolute;
-//   left: 15px;
-//   top: 68px;
-//   width: 130px;
-//   height: 25px;
-//   text-align: center;
-//   background-color: #0f9e71;
-//   overflow: hidden;
-//   border-radius: 25px
-// }
-
-// .user-show-dm a {
-//   color: white;
-//   font-size: 14px;
-// }
+.user-show-dm {
+  margin: 0px 5px;
+  padding: 3px 20px;
+  width: auto;
+  height: 30px;
+  text-align: center;
+  background-color: #0f9e71;
+  overflow: hidden;
+  border-radius: 30px;
+  a {
+    color: white;
+    font-size: 14px;
+  }
+  div {
+    color: white;
+    font-size: 14px;
+  }
+}
 
 .users-show-ticket {
   margin-top: 10px;

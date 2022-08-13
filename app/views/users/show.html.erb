@@ -18,24 +18,21 @@
         </li>
       <% end %>
 
-      <p><%= "70P" %></p>
-
       <% if @user.id == @current_user.id %>
       <% else %>
         <div class="user-show-dm">
           <% if @isRoom == true %>
             <a href="/rooms/<%= @roomId %>">チャットへ</a>
           <% else %>
-            <div class="chat-wrapper">
-              <%= link_to(rooms_path(user_ids: [@current_user.id, @user.id]), method: :ticket) do %>
-                <div class="chat-btn">
-                  <a class="chat-p">チャットを始める</a>
-                </div>
-              <% end %>
-            </div>
+            <%= link_to(rooms_path(user_ids: [@current_user.id, @user.id]), method: :post) do %>
+              <div>チャットを始める</div>
+            <% end %>
           <% end %>
         </div>
       <% end %>
+
+      <p><%= "10P" %></p>
+
     </div>
 
     <div class="user-show-line">
