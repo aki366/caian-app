@@ -1,49 +1,125 @@
 <div class="main user-show">
   <div class="container">
-    <div class="user">
-      <img src= '<%= "/user_images/#{@user.user_image}" %>'> 
-
-      <h2><%= @user.name %></h2>
-      <p><%= @user.email %></p>
-      <% if @user.id == @current_user.id && !@user.guest? %>
-        <%= link_to("編集", "/users/#{@user.id}/edit") %>
-
-        <%= link_to "アカウント削除", @user, method: :delete, data: { confirm: 'このアカウントを削除します。この操作は取り消せません。よろしいですか？' }, class: "btn-red inline-block py-2 px-4" %>
-      <% end %>
+    <div class="user-show-profile">
+      <img src= '<%= "/user_images/#{@user.user_image}" %>'>
+      <ul>
+        <li><%= @user.name %></li>
+        <li><%= @user.profile %></li>
+      </ul>
     </div>
 
-    <% if @user.id == @current_user.id %>
-    <% else %>
-      <% if @isRoom == true %>
-        <p><a href="/rooms/<%= @roomId %>">チャットへ</a>
+    <div class="user-show-action">
+      <% if @user.id == @current_user.id && !@user.guest? %>
+        <li>
+          <%= link_to("編集", "/users/#{@user.id}/edit") %>
+        </li>
+        <li>
+          <%= link_to "アカウント削除", @user, method: :delete, data: { confirm: 'このアカウントを削除します。この操作は取り消せません。よろしいですか？' }, class: "btn-red inline-block py-2 px-4" %>
+        </li>
+      <% end %>
+
+      <% if @user.id == @current_user.id %>
       <% else %>
-        <div class="chat-wrapper">
-          <%= link_to(rooms_path(user_ids: [@current_user.id, @user.id]), method: :ticket) do %>
-            <div class="chat-btn">
-              <div class="chat-p">チャットを始める</div>
-            </div>
+        <div class="user-show-dm">
+          <% if @isRoom == true %>
+            <a href="/rooms/<%= @roomId %>">チャットへ</a>
+          <% else %>
+            <%= link_to(rooms_path(user_ids: [@current_user.id, @user.id]), method: :post) do %>
+              <div>チャットを始める</div>
+            <% end %>
           <% end %>
         </div>
       <% end %>
-    <% end %>
 
-    <ul class="user-tabs">
-      <li class="active"><%= link_to("投稿", "/users/#{@user.id}") %></li>
-      <li><%= link_to("いいね!", "/users/#{@user.id}/likes") %></li>
-    </ul>
+      <p><%= "10P" %></p>
 
-    <% @ticket.each do |p| %>
-      <div class="tickets-index-item">
-        <div class="ticket-left">
-          <img src='<%= "/user_images/#{p.user.user_image}" %>'>
+    </div>
+
+    <div class="user-show-line-middle">
+      <div class="line1"></div>
+    </div>
+
+    <div class="member-achievement">
+      <div class="ticket-categorie">
+        <ul>カテゴリ</ul>
+        <p>共通</p>
+        <p>環境・設備</p>
+        <p>組織</p>
+        <p>案件</p>
+        <p>手順・ナレッジ</p>
+        <p>働き方</p>
+        <p>教育</p>
+      </div>
+
+      <div class="ticket-categorie">
+        <ul>件数</ul>
+        <li>1</li>
+        <li>2</li>
+        <li>2</li>
+        <li>4</li>
+        <li>1</li>
+        <li>5</li>
+        <li>1</li>
+      </div>
+
+      <div class="ticket-categorie">
+        <ul>ポイント</ul>
+        <li>2</li>
+        <li>4</li>
+        <li>3</li>
+        <li>4</li>
+        <li>2</li>
+        <li>6</li>
+        <li>3</li>
+      </div>
+
+      <div class="ticket-categorie">
+        <ul>トータル</ul>
+        <li>2</li>
+        <li>4</li>
+        <li>3</li>
+        <li>4</li>
+        <li>2</li>
+        <li>6</li>
+        <li>3</li>
+      </div>
+    </div>
+
+    <div class="user-show-line-long">
+      <div class="line"></div>
+    </div>
+
+    <div class="users-show-ticket">
+      <div class="users-show-ticket-no">No.</div>
+      <div class="users-show-ticket-category">カテゴリ</div>
+      <div class="users-show-ticket-subject">タイトル</div>
+      <div class="users-show-ticket-name">作成者</div>
+      <%# <div class="users-show-ticket-status">ステータス</div> %>
+      <div class="users-show-ticket-updated">更新日</div>
+    </div>
+
+    <% @ticket.each do |ticket| %>
+      <div class="users-show-ticket">
+        <div class="users-show-ticket-no">
+        <%= ticket.id %>
         </div>
-        <div class="ticket-right">
-          <div class="ticket-user-name">
-            <%= link_to(p.user.name, "/users/#{p.user.id}") %>
-          </div>
-          <div class="user-show-overflow-wrap">
-            <%= link_to(p.content, "/tickets/#{p.id}") %>
-          </div>
+
+        <div class="users-show-ticket-category">
+        </div>
+
+        <div class="users-show-ticket-subject">
+          <%= link_to(ticket.subject, "/tickets/#{ticket.id}") %>
+        </div>
+
+        <div class="users-show-ticket-name">
+          <%= ticket.user.name %>
+        </div>
+
+        <%# <div class="users-show-ticket-status">
+        </div> %>
+
+        <div class="users-show-ticket-updated">
+          <%= ticket.updated_at %>
         </div>
       </div>
     <% end %>
