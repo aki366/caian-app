@@ -86,19 +86,37 @@
     </div>
 
     <div class="users-show-ticket">
-      <ul>
-        <li>No.</li>
-        <li>カテゴリ</li>
-        <li>タイトル</li>
-        <li>ステータス</li>
-        <li>更新日</li>
-      </ul>
+      <div class="users-show-ticket-no">No.</div>
+      <div class="users-show-ticket-category">カテゴリ</div>
+      <div class="users-show-ticket-subject">タイトル</div>
+      <div class="users-show-ticket-name">作成者</div>
+      <%# <div class="users-show-ticket-status">ステータス</div> %>
+      <div class="users-show-ticket-updated">更新日</div>
     </div>
 
     <% @ticket.each do |ticket| %>
-      <div class="tickets-index-item">
-        <li><%= link_to(ticket.user.name, "/users/#{ticket.user.id}") %></li>
-        <li><%= link_to(ticket.subject, "/tickets/#{ticket.id}") %></li>
+      <div class="users-show-ticket">
+        <div class="users-show-ticket-no">
+        <%= ticket.id %>
+        </div>
+
+        <div class="users-show-ticket-category">
+        </div>
+
+        <div class="users-show-ticket-subject">
+          <%= link_to(ticket.subject, "/tickets/#{ticket.id}") %>
+        </div>
+
+        <div class="users-show-ticket-name">
+          <%= ticket.user.name %>
+        </div>
+
+        <%# <div class="users-show-ticket-status">
+        </div> %>
+
+        <div class="users-show-ticket-updated">
+          <%= ticket.updated_at %>
+        </div>
       </div>
     <% end %>
   </div>

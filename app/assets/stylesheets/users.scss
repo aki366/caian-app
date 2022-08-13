@@ -133,35 +133,6 @@
   }
 }
 
-.users-show-ticket {
-  margin-top: 10px;
-  background-color: white;
-  overflow: hidden;
-  box-shadow: 0 2px 6px #c1ced7;
-  ul {
-  }
-}
-
-.users-show-ticket li {
-  float: left;
-}
-
-.users-show-ticket li.active {
-  border-bottom: 2px solid #3ecdc6;
-}
-
-.users-show-ticket li.active a {
-  color: #57575f;
-}
-
-.users-show-ticket {
-  a {
-  display: inline-block;
-  padding: 16px 30px;
-  color: #afb6bf;
-  }
-}
-
 .user-show-line {
   div {
     left: 10px;
@@ -180,6 +151,7 @@
   height: auto;
   display: flex;
   width: auto;
+  padding-bottom: 10px;
 }
 
 .ticket-categorie {
@@ -233,6 +205,57 @@
     border-color: #54baff;
   }
 }
+
+.users-show-ticket {
+  width: auto;
+  display: flex;
+  div {
+    font-size: 14px;
+    margin-left: 10px;
+  }
+}
+
+.users-show-ticket-no {
+  width: 60px;
+}
+
+.users-show-ticket-category {
+  width: 120px;
+}
+
+.users-show-ticket-subject {
+  width: 300px;
+}
+
+.users-show-ticket-name {
+  width: 200px;
+}
+
+.users-show-ticket-status {
+  width: 200px;
+}
+
+.users-show-ticket-updated {
+  width: 200px;
+}
+
+.tickets-index-item {
+  background-color: white;
+  overflow: hidden;
+  box-shadow: 0 2px 6px #c1ced7;
+  div {
+    display: flex;
+  }
+  li {
+    margin: 5px;
+    color: #2d3133;
+    font-size: 15px;
+  }
+}
+
+tickets-index-item
+
+
 
 /* users/new, users/edit ================================ */
 .users-form input {
