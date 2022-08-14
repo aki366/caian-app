@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_14_052629) do
+ActiveRecord::Schema.define(version: 2022_08_14_053522) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -127,6 +127,8 @@ ActiveRecord::Schema.define(version: 2022_08_14_052629) do
     t.integer "categorle_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["categorle_id"], name: "index_ticket_categorles_on_categorle_id"
+    t.index ["ticket_id"], name: "index_ticket_categorles_on_ticket_id"
   end
 
   create_table "tickets", force: :cascade do |t|
@@ -163,4 +165,6 @@ ActiveRecord::Schema.define(version: 2022_08_14_052629) do
   add_foreign_key "room_users", "users"
   add_foreign_key "team_messages", "teams"
   add_foreign_key "team_messages", "users"
+  add_foreign_key "ticket_categorles", "categorles"
+  add_foreign_key "ticket_categorles", "tickets"
 end
