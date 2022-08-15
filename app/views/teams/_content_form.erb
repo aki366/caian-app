@@ -20,7 +20,40 @@
       </div>
       <%= f.hidden_field :team_id, :value => team.id %>
       <div class="ticket-form-header">
-        <%= f.submit '投稿する' %>
+
+        <fieldset>
+          <input id="item-1" class="radio-inline__input" type="radio" name="accessible-radio" value="item-1" checked="checked"/>
+          <label class="radio-inline__label" for="item-1">
+              共通
+          </label>
+          <input id="item-2" class="radio-inline__input" type="radio" name="accessible-radio" value="item-2"/>
+          <label class="radio-inline__label" for="item-2">
+              教育
+          </label>
+          <input id="item-3" class="radio-inline__input" type="radio" name="accessible-radio" value="item-3"/>
+          <label class="radio-inline__label" for="item-3">
+              効率化
+          </label>
+          <input id="item-4" class="radio-inline__input" type="radio" name="accessible-radio" value="item-4"/>
+          <label class="radio-inline__label" for="item-4">
+              手順・ナレッジ
+          </label>
+          <input id="item-5" class="radio-inline__input" type="radio" name="accessible-radio" value="item-5"/>
+          <label class="radio-inline__label" for="item-5">
+              案件
+          </label>
+          <input id="item-6" class="radio-inline__input" type="radio" name="accessible-radio" value="item-6"/>
+          <label class="radio-inline__label" for="item-6">
+              環境・設備
+          </label>
+          <input id="item-7" class="radio-inline__input" type="radio" name="accessible-radio" value="item-7"/>
+          <label class="radio-inline__label" for="item-7">
+              その他
+          </label>
+          <div class="radio-inline_post">
+            <%= f.submit '投稿する' %>
+          </div>
+        </fieldset>
       </div>
     <% end %>
   </div>
