@@ -1,0 +1,82 @@
+
+<% if form_switch == "ticket" %>
+  <div class="ticket-form">
+    <div class="ticket-form-switch">
+      <%= button_to "メッセージ",
+        {controller: 'teams', action: 'room'},
+        {method: :post, params: {form_switch: 'message'}}
+      %>
+    </div>
+
+    <%= form_with(model: [team,  ticket], local: true) do |f| %>
+      <div class="ticket-form-taitl">
+        <%= f.text_field :subject, :placeholder => "タイトル" %>
+      </div>
+      <div class="ticket-form-content">
+        <%= f.text_area :content, :placeholder => "" %>
+      </div>
+      <div class="ticket-form-image">
+        <%= f.file_field :image %>
+      </div>
+      <%= f.hidden_field :team_id, :value => team.id %>
+      <div class="ticket-form-header">
+
+        <fieldset>
+          <input id="item-1" class="radio-inline__input" type="radio" name="accessible-radio" value="item-1" checked="checked"/>
+          <label class="radio-inline__label" for="item-1">
+              共通
+          </label>
+          <input id="item-2" class="radio-inline__input" type="radio" name="accessible-radio" value="item-2"/>
+          <label class="radio-inline__label" for="item-2">
+              教育
+          </label>
+          <input id="item-3" class="radio-inline__input" type="radio" name="accessible-radio" value="item-3"/>
+          <label class="radio-inline__label" for="item-3">
+              効率化
+          </label>
+          <input id="item-4" class="radio-inline__input" type="radio" name="accessible-radio" value="item-4"/>
+          <label class="radio-inline__label" for="item-4">
+              手順・ナレッジ
+          </label>
+          <input id="item-5" class="radio-inline__input" type="radio" name="accessible-radio" value="item-5"/>
+          <label class="radio-inline__label" for="item-5">
+              案件
+          </label>
+          <input id="item-6" class="radio-inline__input" type="radio" name="accessible-radio" value="item-6"/>
+          <label class="radio-inline__label" for="item-6">
+              環境・設備
+          </label>
+          <input id="item-7" class="radio-inline__input" type="radio" name="accessible-radio" value="item-7"/>
+          <label class="radio-inline__label" for="item-7">
+              その他
+          </label>
+          <div class="radio-inline_post">
+            <%= f.submit '投稿する' %>
+          </div>
+        </fieldset>
+      </div>
+    <% end %>
+  </div>
+
+<% else %>
+
+  <div class="message-form">
+    <div class="ticket-form-switch">
+      <%= button_to "チケット",
+        {controller: 'teams', action: 'room'},
+        {method: :post, params: {form_switch: 'ticket'}}
+      %>
+    </div>
+
+    <%= form_with(model: [team,  team_message], local: true) do |f| %>
+      <div class="message-form-text">
+        <%= f.text_area :text %>
+      </div>
+      <%= f.hidden_field :team_id, :value => team.id %>
+      <div class="message-form-post">
+        <%= f.submit "投稿する" %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+  
