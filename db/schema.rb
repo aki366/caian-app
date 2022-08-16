@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_08_120105) do
+ActiveRecord::Schema.define(version: 2022_08_14_053522) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -38,6 +38,12 @@ ActiveRecord::Schema.define(version: 2022_08_08_120105) do
     t.integer "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "categorles", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "comments", force: :cascade do |t|
@@ -116,6 +122,15 @@ ActiveRecord::Schema.define(version: 2022_08_08_120105) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "ticket_categorles", force: :cascade do |t|
+    t.integer "ticket_id"
+    t.integer "categorle_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["categorle_id"], name: "index_ticket_categorles_on_categorle_id"
+    t.index ["ticket_id"], name: "index_ticket_categorles_on_ticket_id"
+  end
+
   create_table "tickets", force: :cascade do |t|
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
@@ -150,4 +165,6 @@ ActiveRecord::Schema.define(version: 2022_08_08_120105) do
   add_foreign_key "room_users", "users"
   add_foreign_key "team_messages", "teams"
   add_foreign_key "team_messages", "users"
+  add_foreign_key "ticket_categorles", "categorles"
+  add_foreign_key "ticket_categorles", "tickets"
 end

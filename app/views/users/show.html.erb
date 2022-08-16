@@ -35,31 +35,35 @@
 
     </div>
 
-    <div class="user-show-line-middle">
+    <div class="user-show-line-long">
       <div class="line1"></div>
     </div>
 
     <div class="member-achievement">
       <div class="ticket-categorie">
         <ul>カテゴリ</ul>
-        <p>共通</p>
-        <p>環境・設備</p>
-        <p>組織</p>
-        <p>案件</p>
-        <p>手順・ナレッジ</p>
-        <p>働き方</p>
-        <p>教育</p>
+        <%# 一旦コメントアウト>
+        <%# @categorles.each do |categorle| %>
+          <%#= categorle.name %>
+        <%# end %>
+          <p>共通</p>
+          <p>教育</p>
+          <p>効率化</p>
+          <p>手順・ナレッジ</p>
+          <p>案件</p>
+          <p>環境・設備</p>
+          <p>その他</p>
       </div>
 
       <div class="ticket-categorie">
         <ul>件数</ul>
-        <li>1</li>
-        <li>2</li>
         <li>2</li>
         <li>4</li>
-        <li>1</li>
-        <li>5</li>
-        <li>1</li>
+        <li>3</li>
+        <li>4</li>
+        <li>2</li>
+        <li>6</li>
+        <li>3</li>
       </div>
 
       <div class="ticket-categorie">
@@ -91,10 +95,9 @@
 
     <div class="users-show-ticket">
       <div class="users-show-ticket-no">No.</div>
-      <div class="users-show-ticket-category">カテゴリ</div>
       <div class="users-show-ticket-subject">タイトル</div>
       <div class="users-show-ticket-name">作成者</div>
-      <%# <div class="users-show-ticket-status">ステータス</div> %>
+      <div class="users-show-ticket-created">作成日</div>
       <div class="users-show-ticket-updated">更新日</div>
     </div>
 
@@ -102,9 +105,6 @@
       <div class="users-show-ticket">
         <div class="users-show-ticket-no">
         <%= ticket.id %>
-        </div>
-
-        <div class="users-show-ticket-category">
         </div>
 
         <div class="users-show-ticket-subject">
@@ -115,8 +115,9 @@
           <%= ticket.user.name %>
         </div>
 
-        <%# <div class="users-show-ticket-status">
-        </div> %>
+        <div class="users-show-ticket-created">
+          <%= ticket.created_at.strftime("%Y-%m-%d %H:%M") %>
+        </div>
 
         <div class="users-show-ticket-updated">
           <%= ticket.updated_at %>
