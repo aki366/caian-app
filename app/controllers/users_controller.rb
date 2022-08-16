@@ -14,6 +14,10 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @ticket = @user.tickets
+
+    # 実績
+    @categorles = Categorle.all
+
     # 各ユーザーが持つroomのid一覧を配列で取得
     @current_user_rooms = @current_user.rooms.pluck(:id)
     @another_user_rooms = @user.rooms.pluck(:id)

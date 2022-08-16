@@ -3,19 +3,16 @@ class Ticket < ApplicationRecord
   validates :subject, {presence: true, length: {maximum: 100}}
   validates :user_id, {presence: true}
 
-  # ActiveStorage用のカラムをticketモデルに追加する
-  # この記述で、@ticket.imageで画像を呼び出すことができる
-  has_one_attached :image
-  # 複数形の場合 has_many_attached :images
+  has_many :likes, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :ticket_categorles, dependent: :destroy
 
-  # Userモデルとのアソシエーションを作成
-  # Ticketモデルのインスタンスがuserメソッドを使えるようになる
-  # @Ticket.user
+  has_many :categorles, through: :ticket_categorles
+
   belongs_to :user
 
-  # ticketが複数のlikeを所有している関係
-  has_many :likes, dependent: :destroy
-
-  has_many :comments, dependent: :destroy
+  # ActiveStorage用のカラム
+  # 複数形の場合 has_many_attached :images
+  has_one_attached :image
 
 end

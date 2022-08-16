@@ -29,10 +29,9 @@
 
     <div class="users-show-ticket">
       <div class="users-show-ticket-no">No.</div>
-      <div class="users-show-ticket-category">カテゴリ</div>
       <div class="users-show-ticket-subject">タイトル</div>
       <div class="users-show-ticket-name">作成者</div>
-      <%# <div class="users-show-ticket-status">ステータス</div> %>
+      <div class="users-show-ticket-created">作成日</div>
       <div class="users-show-ticket-updated">更新日</div>
     </div>
 
@@ -40,9 +39,6 @@
       <div class="users-show-ticket">
         <div class="users-show-ticket-no">
         <%= ticket.id %>
-        </div>
-
-        <div class="users-show-ticket-category">
         </div>
 
         <div class="users-show-ticket-subject">
@@ -53,11 +49,12 @@
           <%= link_to(ticket.user.name, "/users/#{ticket.user.id}") %>
         </div>
 
-        <%# <div class="users-show-ticket-status">
-        </div> %>
+        <div class="users-show-ticket-created">
+          <%= ticket.created_at.strftime("%Y-%m-%d %H:%M") %>
+        </div>
 
         <div class="users-show-ticket-updated">
-          <%= ticket.updated_at %>
+          <%= ticket.updated_at.strftime("%Y-%m-%d %H:%M") %>
         </div>
       </div>
     <% end %>
