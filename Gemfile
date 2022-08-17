@@ -19,7 +19,7 @@ gem 'mini_magick'
 
 group :development, :test do
   gem 'rspec-rails', '~> 5.0.0'
-  # gem 'sqlite3', '~> 1.4'
+  # gem 'mysql2', '~> 1.4'
   gem 'mysql2'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 
@@ -51,7 +51,7 @@ group :test do
 end
 
 group :production do
-  gem 'pg'
+  gem 'mysql2'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
