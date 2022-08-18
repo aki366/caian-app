@@ -1,8 +1,8 @@
 class CreateTicketCategorle < ActiveRecord::Migration[6.1]
   def change
     create_table :ticket_categorles do |t|
-      t.bigint :ticket_id
-      t.bigint :categorle_id
+      t.references :categorle, foreign_key: true
+      t.references :ticket, foreign_key: true
 
       t.timestamps
     end
