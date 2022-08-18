@@ -16,10 +16,10 @@ gem 'jquery-rails'
 gem 'bcrypt'
 gem "image_processing", ">= 1.2"
 gem 'mini_magick'
+gem 'dotenv-rails'
 
 group :development, :test do
   gem 'rspec-rails', '~> 5.0.0'
-  # gem 'mysql2', '~> 1.4'
   gem 'mysql2'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 
