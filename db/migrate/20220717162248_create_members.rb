@@ -1,8 +1,8 @@
 class CreateMembers < ActiveRecord::Migration[6.1]
   def change
     create_table :members do |t|
-      t.bigint :team_id
-      t.bigint :user_id
+      t.references :user, foreign_key: true
+      t.references :team, foreign_key: true
 
       t.timestamps
     end
