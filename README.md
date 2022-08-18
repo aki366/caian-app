@@ -1,5 +1,6 @@
 # Caian
 ![figure of ER](app/assets/images/top.png)
+<br>
 ※現在開発中の為、サービスを公開しておりません。
 
 ## 開発実績
