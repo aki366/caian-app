@@ -1,19 +1,28 @@
-# ベースとなるイメージの指定（rubyのバージョン3.0.3を指定）
 FROM ruby:3.0.3
- 
-# ビルド時に実行するコマンドの指定
-# インストール可能なパッケージの一覧の更新
-RUN apt-get update -qq \
-# パッケージのインストール（nodejs、postgresql-client、npmを指定）
-&& apt-get install -y nodejs postgresql-client npm \
-&& rm -rf /var/lib/apt/lists/* \
-&& npm install --global yarn
- 
-# 作業ディレクトリの指定
+
+RUN apt-get update -qq && apt-get install -y \
+    build-essential \
+    libpq-dev \
+    nodejs \
+    default-mysql-client \
+    yarn
+
+RUN mkdir /Caian_app
 WORKDIR /Caian_app
+
 COPY Gemfile /Caian_app/Gemfile
 COPY Gemfile.lock /Caian_app/Gemfile.lock
 RUN bundle install
+RUN gem update --system
+
+COPY . /Caian_app
+
+RUN mkdir -p tmp/sockets
+RUN mkdir -p tmp/pids
+
+VOLUME /Caian_app/public
+VOLUME /Caian_app/tmp
+
 # Add a script to be executed every time the container starts.
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
