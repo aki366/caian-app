@@ -175,7 +175,7 @@
 ### バックエンド
 - Ruby 3.0.3
 - Ruby on Rails 6.1.4.3
-- MySQL 8.0.27
+- MySQL 8.0.30
 
 ### インフラ
 - Heroku

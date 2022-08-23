@@ -17,16 +17,16 @@ RUN gem update --system
 
 COPY . /Caian_app
 
-RUN mkdir -p tmp/sockets
-RUN mkdir -p tmp/pids
+# RUN mkdir -p /tmp/mysql.sock
+# RUN mkdir -p tmp/pids
 
-VOLUME /Caian_app/public
-VOLUME /Caian_app/tmp
+# VOLUME /Caian_app/public
+# VOLUME /Caian_app/tmp
 
 # Add a script to be executed every time the container starts.
-COPY entrypoint.sh /usr/bin/
-RUN chmod +x /usr/bin/entrypoint.sh
-ENTRYPOINT ["entrypoint.sh"]
-EXPOSE 3000
+# COPY entrypoint.sh /usr/bin/
+# RUN chmod +x /usr/bin/entrypoint.sh
+# ENTRYPOINT ["entrypoint.sh"]
+# EXPOSE 3000
 # Configure the main process to run when running the image
-CMD ["rails", "server", "-b", "0.0.0.0"]
+# CMD ["rails", "server", "-b", "0.0.0.0"]

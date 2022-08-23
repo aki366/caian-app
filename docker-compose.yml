@@ -7,18 +7,18 @@ services:
     container_name: caian_web
     # Dockerfile のあるディレクトリのパスを指定「.」で同じフォルダ内
     build: .
-    # ポートの指定（外部からのアクセス時のポート：Dockerコンテナからアクセス時のポート）
-    ports:
-      - "3000:3000"
+    # # デフォルトのコマンド指定（Rails特有の問題解消とRails立ち上げを指定している）
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
     # データの参照先（ホスト側のカレントディレクトリにマウントする）
     volumes:
       - .:/caian_app
+    # ポートの指定（外部からのアクセス時のポート：Dockerコンテナからアクセス時のポート）
+    ports:
+      - "3000:3000"
     # 出力結果を見やすくする
     tty: true
     # 入力を可能にする
     stdin_open: true
-    # # デフォルトのコマンド指定（Rails特有の問題解消とRails立ち上げを指定している）
-    # command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     # 依存関係の指定（dbが起動した後に、webが起動するようになる）
     depends_on:
       - db
@@ -28,7 +28,7 @@ services:
     # コンテナ名の指定
     container_name: caian_db
     # イメージの指定
-    image: mysql:5.7.39
+    image: mysql:8.0.30
     # ポートの指定（外部からのアクセス時のポート：Dockerコンテナからアクセス時のポート）
     ports:
       - "3060:3060"
@@ -38,4 +38,5 @@ services:
       - data:/var/lib/mysql
     # 環境変数の指定（初期設定値）
     environment:
+      MYSQL_ROOT_HOST: localhost
       MYSQL_ROOT_PASSWORD: <%= ENV['DB_PASSWORD'] %>
