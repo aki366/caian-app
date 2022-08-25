@@ -1,4 +1,6 @@
 # Caian
+![figure of ER](app/assets/images/top.png)
+<br>
 ※現在開発中の為、サービスを公開しておりません。
 
 ## 開発実績
@@ -29,22 +31,22 @@
 [figma:画面設計図](https://www.figma.com/file/89WqHwRatfXBjokkGxmqq4/original?node-id=0%3A1)
 
 <details>
-<summary>ユーザー詳細画面（表示）</summary>
+<summary>ユーザー詳細（表示）</summary>
 
-![figure of ER](app/assets/images/ユーザー詳細画面.png)
+![figure of ER](app/assets/images/ユーザー詳細.png)
 </details>
 
 <details>
-<summary>チーム管理画面（表示）</summary>
+<summary>チーム管理（表示）</summary>
 
-![figure of ER](app/assets/images/チーム管理画面.png
+![figure of ER](app/assets/images/チーム管理.png
 )
 </details>
 
 <details>
-<summary>チケット一覧画面（表示）</summary>
+<summary>チームトーク（表示）</summary>
 
-![figure of ER](app/assets/images/チケット一覧画面.png
+![figure of ER](app/assets/images/チームトーク.png
 )
 </details>
 
@@ -173,7 +175,7 @@
 ### バックエンド
 - Ruby 3.0.3
 - Ruby on Rails 6.1.4.3
-- MySQL 8.0.27
+- MySQL 8.0.30
 
 ### インフラ
 - Heroku

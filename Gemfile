@@ -16,10 +16,11 @@ gem 'jquery-rails'
 gem 'bcrypt'
 gem "image_processing", ">= 1.2"
 gem 'mini_magick'
+gem 'dotenv-rails'
 
 group :development, :test do
   gem 'rspec-rails', '~> 5.0.0'
-  gem 'sqlite3', '~> 1.4'
+  gem 'mysql2'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 
   # see: https://github.com/faker-ruby/faker
@@ -50,7 +51,7 @@ group :test do
 end
 
 group :production do
-  gem 'pg'
+  gem 'mysql2'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
