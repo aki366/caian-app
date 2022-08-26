@@ -11,8 +11,8 @@ services:
     command: bundle exec rails s -p 3000 -b '0.0.0.0'
     # データの参照先（ホスト側のカレントディレクトリにマウントする）
     volumes:
-      # - .:/caian_app
-      - ./Caian_app:/code
+      - .:/caian_app
+      # - ./Caian_app:/code
     # ポートの指定（外部からのアクセス時のポート：Dockerコンテナからアクセス時のポート）
     ports:
       - "3000:3000"
