@@ -7,12 +7,19 @@ RUN apt-get update -qq && apt-get install -y \
     default-mysql-client \
     yarn
 
-RUN mkdir /Caian_app
-WORKDIR /Caian_app
+# RUN mkdir /Caian_app
+# WORKDIR /Caian_app
+RUN mkdir /code
+WORKDIR /code
 
-COPY Gemfile /Caian_app/Gemfile
-COPY Gemfile.lock /Caian_app/Gemfile.lock
+# COPY ["<ソース>",... "<送信先>"]
+# COPY Gemfile /Caian_app/Gemfile
+# COPY Gemfile.lock /Caian_app/Gemfile.lock
+COPY Gemfile /code/Gemfile
+COPY Gemfile.lock /code/Gemfile.lock
 RUN bundle install
 RUN gem update --system
 
-COPY . /Caian_app
+# COPY . /Caian_app
+COPY docker-compose.yml /code/docker-compose.yml
+COPY Dockerfile /code/Dockerfile
