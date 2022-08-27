@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2022_08_18_201133) do
 
-  create_table "active_storage_attachments", charset: "utf8", force: :cascade do |t|
+  create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
     t.bigint "record_id", null: false
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2022_08_18_201133) do
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table "active_storage_blobs", charset: "utf8", force: :cascade do |t|
+  create_table "active_storage_blobs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "key", null: false
     t.string "filename", null: false
     t.string "content_type"
@@ -34,19 +34,19 @@ ActiveRecord::Schema.define(version: 2022_08_18_201133) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "active_storage_variant_records", charset: "utf8", force: :cascade do |t|
+  create_table "active_storage_variant_records", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "categorles", charset: "utf8", force: :cascade do |t|
+  create_table "categorles", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "comments", charset: "utf8", force: :cascade do |t|
+  create_table "comments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "text"
     t.bigint "user_id", null: false
     t.bigint "ticket_id", null: false
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 2022_08_18_201133) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "images", charset: "utf8", force: :cascade do |t|
+  create_table "images", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "ticket_id"
     t.string "title"
     t.bigint "image_id"
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 2022_08_18_201133) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "likes", charset: "utf8", force: :cascade do |t|
+  create_table "likes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "ticket_id"
     t.datetime "created_at", precision: 6, null: false
@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(version: 2022_08_18_201133) do
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
-  create_table "members", charset: "utf8", force: :cascade do |t|
+  create_table "members", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "team_id"
     t.datetime "created_at", precision: 6, null: false
@@ -82,7 +82,7 @@ ActiveRecord::Schema.define(version: 2022_08_18_201133) do
     t.index ["user_id"], name: "index_members_on_user_id"
   end
 
-  create_table "messages", charset: "utf8", force: :cascade do |t|
+  create_table "messages", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "text"
     t.bigint "user_id"
     t.bigint "room_id"
@@ -92,7 +92,7 @@ ActiveRecord::Schema.define(version: 2022_08_18_201133) do
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
-  create_table "room_users", charset: "utf8", force: :cascade do |t|
+  create_table "room_users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "room_id"
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
@@ -101,12 +101,12 @@ ActiveRecord::Schema.define(version: 2022_08_18_201133) do
     t.index ["user_id"], name: "index_room_users_on_user_id"
   end
 
-  create_table "rooms", charset: "utf8", force: :cascade do |t|
+  create_table "rooms", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "team_messages", charset: "utf8", force: :cascade do |t|
+  create_table "team_messages", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "text"
     t.bigint "user_id"
     t.bigint "team_id"
@@ -116,13 +116,13 @@ ActiveRecord::Schema.define(version: 2022_08_18_201133) do
     t.index ["user_id"], name: "index_team_messages_on_user_id"
   end
 
-  create_table "teams", charset: "utf8", force: :cascade do |t|
+  create_table "teams", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "ticket_categorles", charset: "utf8", force: :cascade do |t|
+  create_table "ticket_categorles", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "categorle_id"
     t.bigint "ticket_id"
     t.datetime "created_at", precision: 6, null: false
@@ -131,7 +131,7 @@ ActiveRecord::Schema.define(version: 2022_08_18_201133) do
     t.index ["ticket_id"], name: "index_ticket_categorles_on_ticket_id"
   end
 
-  create_table "tickets", charset: "utf8", force: :cascade do |t|
+  create_table "tickets", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "content"
     t.string "subject"
     t.integer "team_id"
@@ -140,7 +140,7 @@ ActiveRecord::Schema.define(version: 2022_08_18_201133) do
     t.integer "user_id"
   end
 
-  create_table "users", charset: "utf8", force: :cascade do |t|
+  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "password_digest"
