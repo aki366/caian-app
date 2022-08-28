@@ -7,12 +7,7 @@ RUN apt-get update -qq && apt-get install -y \
     default-mysql-client \
     yarn
 
-RUN mkdir /Caian_app
-WORKDIR /Caian_app
-
-COPY Gemfile /Caian_app/Gemfile
-COPY Gemfile.lock /Caian_app/Gemfile.lock
-RUN bundle install
-RUN gem update --system
-
-COPY . /Caian_app
+# コンテナ立上げ後に自動で実施できれば効率的
+# WORKDIR /code
+# RUN bundle install
+# RUN gem update --system
