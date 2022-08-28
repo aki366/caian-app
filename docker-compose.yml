@@ -7,11 +7,11 @@ services:
     container_name: caian_web
     # Dockerfile のあるディレクトリのパスを指定「.」で同じフォルダ内
     build: .
-    # # デフォルトのコマンド指定（Rails特有の問題解消とRails立ち上げを指定している）
-    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    # デフォルトのコマンド指定（Rails特有の問題解消とRails立ち上げを指定している）
+    # command: bundle exec rails s -p 3000 -b '0.0.0.0'
     # データの参照先（ホスト側のカレントディレクトリにマウントする）
     volumes:
-      - .:/caian_app
+      - .:/code
     # ポートの指定（外部からのアクセス時のポート：Dockerコンテナからアクセス時のポート）
     ports:
       - "3000:3000"
