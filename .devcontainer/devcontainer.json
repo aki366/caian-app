@@ -21,7 +21,12 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"MS-CEINTL.vscode-language-pack-ja"
+				"MS-CEINTL.vscode-language-pack-ja",
+				"wingrunr21.vscode-ruby",
+				"GitHub.copilot-labs",
+				"formulahendry.vscode-mysql",
+				"rebornix.ruby",
+				"formulahendry.auto-rename-tag"
 			]
 		}
 	}
