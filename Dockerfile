@@ -7,6 +7,8 @@ RUN apt-get update -qq && apt-get install -y \
     default-mysql-client \
     yarn
 
+CMD ["rails", "server", "-b", "0.0.0.0"]
+
 # コンテナ立上げ後に自動で実施できれば効率的
 # WORKDIR /code
 # RUN bundle install
