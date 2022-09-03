@@ -33,9 +33,8 @@ services:
     ports:
       - "3060:3060"
     # ボリュームとは、データを永続化できる場所のこと
-    # コンテナ内部にデータ(ファイル)を保存しても、コンテナ破棄すると消える
     volumes:
-      - data:/var/lib/mysql
+      - ./mysql:/var/lib/mysql
     # 環境変数の指定（初期設定値）
     environment:
       MYSQL_ROOT_HOST: localhost
