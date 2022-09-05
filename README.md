@@ -25,6 +25,11 @@
 </details>
 
 ### インフラ構成図
+<details>
+<summary>インフラ構成図（表示）</summary>
+
+![figure of ER](app/assets/images/インフラ構成図.png)
+</details>
 
 ### 画面設計図
 
