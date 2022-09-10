@@ -11,7 +11,7 @@ services:
     # データの参照先（ホスト側のカレントディレクトリにマウントする）
     volumes:
       # Docker.fileのCOPY . /caian_appですでに実行されているのでコメントアウト
-      # - .:/caian_app
+      - .:/caian_app
       - public-data:/caian_app/public
       - tmp-data:/caian_app/tmp
     # 出力結果を見やすくする
