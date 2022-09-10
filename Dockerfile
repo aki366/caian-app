@@ -30,4 +30,4 @@ RUN bundle install
 # RUN mkdir -p tmp/sockets
 # RUN mkdir -p tmp/pids
 
-COPY . /caian_app
+# COPY . /caian_app
