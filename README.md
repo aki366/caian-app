@@ -5,15 +5,12 @@
 
 ## 開発実績
 - 2022/02/01 開発開始
-- 2022/08/13 時点(total：964.0h)
+- 2022/09/06 時点(total：1097.5h)
 
 <p align="left"> 
   <img alt="Top Langs" height="150px" src="https://github-readme-stats.vercel.app/api/top-langs/?username=aki366&layout=compact&show_icons=true&theme=onedark" />
   <img alt="github stats" height="150px" src="https://github-readme-stats.vercel.app/api?username=aki366&theme=onedark&show_icons=ture" />
 </p>
-
-[![trophy](https://github-profile-trophy.vercel.app/?username=aki366&theme=onedark&column=7
-)](https://github.com/ryo-ma/github-profile-trophy)
 
 ## 設計
 
@@ -168,25 +165,24 @@
 <br>
 
 ## 使用技術
-※1　実装予定
+※1  実装予定
 ### フロントエンド
 - HTML/CSS
 - JavaScript
-- chart.js　※1
-- Vue.js　※1
-- Vuetify　※1
-- Nuxt.js　※1
+- chart.js  ※1
+- Vue.js  ※1
+- Vuetify  ※1
+- Nuxt.js  ※1
 
 ### バックエンド
-- Ruby 3.0.3
-- Ruby on Rails 6.1.4.3
-- MySQL 8.0.30
+- Ruby (3.0.3)
+- Ruby on Rails (6.1.4.3)
+- MySQL (8.0.30)
 
 ### インフラ
-- Heroku
-- Nginx/Puma
-- AWS(VPC/EC2/RDS/ALB/S3/ACM/Route53)　※1
-- ECS（Fargate）　※1
+- Nginx (1.23.1) / Puma (5.6.2)
+- AWS : VPC / EC2 / RDS / ALB / S3 / ACM / Route53 / IsC
+- AWS : ECS (Fargate) / ECR
 
 ### テスト
 - RSpec
@@ -204,7 +200,7 @@
 
 ### 開発環境
 - VScode
-- Docker/docker-compose
+- Docker (20.10.11) / docker-compose (1.29.2)
 
 ## 機能一覧
 
