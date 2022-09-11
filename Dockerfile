@@ -22,7 +22,6 @@ WORKDIR /caian_app
 COPY Gemfile /caian_app/Gemfile
 COPY Gemfile.lock /caian_app/Gemfile.lock
 
-# RUN gem install bundler
 RUN bundle install
 # RUN gem update --system
 
@@ -30,4 +29,22 @@ RUN bundle install
 # RUN mkdir -p tmp/sockets
 # RUN mkdir -p tmp/pids
 
-COPY . /caian_app
+# COPY . /caian_app
+
+# Fargate用に設定追加（docker-compose.ymlを利用しないため）
+COPY --chown=app:app . /caian_app
+RUN yarn install
+COPY entrypoint.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint.sh
+ENTRYPOINT ["entrypoint.sh"]
+
+RUN chmod +x ./bin/webpack
+RUN NODE_ENV=production ./bin/webpack
+
+RUN mkdir -p tmp/sockets
+RUN mkdir -p tmp/pids
+
+VOLUME /caian_app/public
+VOLUME /caian_app/tmp
+
+CMD /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec puma -C config/puma.rb"
