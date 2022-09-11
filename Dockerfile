@@ -38,8 +38,8 @@ COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 
-RUN chmod +x ./bin/webpack
-RUN NODE_ENV=production ./bin/webpack
+# RUN chmod +x ./bin/webpack
+# RUN NODE_ENV=production ./bin/webpack
 
 RUN mkdir -p tmp/sockets
 RUN mkdir -p tmp/pids
