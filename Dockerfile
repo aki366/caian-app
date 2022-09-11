@@ -32,7 +32,7 @@ RUN bundle install
 # COPY . /caian_app
 
 # Fargate用に設定追加（docker-compose.ymlを利用しないため）
-COPY --chown=app:app . /caian_app
+# COPY --chown=app:app . /caian_app
 RUN yarn install
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
