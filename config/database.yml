@@ -4,8 +4,10 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: <%= ENV['DB_USERNAME'] %>
   password: <%= ENV['DB_PASSWORD'] %>
+  # RDSでサービスを立ち上げる際の設定
+  host: <%= ENV['DB_HOSTNAME'] %>
   # db名はdocker-compose.ymlにかいてあるサービス名
-  host: caian_db
+  # host: caian_db
 
 development:
   <<: *default
