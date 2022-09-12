@@ -29,7 +29,7 @@ RUN bundle install
 # RUN mkdir -p tmp/sockets
 # RUN mkdir -p tmp/pids
 
-# COPY . /caian_app
+COPY . /caian_app
 
 # Fargate用に設定追加（docker-compose.ymlを利用しないため）
 # COPY --chown=app:app . /caian_app
