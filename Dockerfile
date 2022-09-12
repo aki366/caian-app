@@ -39,7 +39,9 @@ RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 
 # RUN chmod +x ./bin/webpack
-# RUN NODE_ENV=production ./bin/webpack
+
+# CSSがコンパイルされずにエラーになるため設定
+RUN NODE_ENV=production ./bin/webpack
 
 RUN mkdir -p tmp/sockets
 RUN mkdir -p tmp/pids
