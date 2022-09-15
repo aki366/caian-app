@@ -6,11 +6,11 @@ services:
     # Dockerfile のあるディレクトリのパスを指定「.」で同じフォルダ内
     build: .
     # デフォルトのコマンド指定
-    command: bundle exec puma -C config/puma.rb
+    # command: bundle exec puma -C config/puma.rb
     # データの参照先（ホスト側のカレントディレクトリにマウントする）
     volumes:
       # Docker.fileのCOPY . /caian_appですでに実行されているのでコメントアウト
-      - .:/caian_app
+      # - .:/caian_app
       - public-data:/caian_app/public
       - tmp-data:/caian_app/tmp
     # 出力結果を見やすくする
@@ -21,6 +21,13 @@ services:
     depends_on:
       - db
     user: root
+    # 環境変数の指定（初期設定値）
+    environment:
+      DB_HOSTNAME: caian_db
+      # DB_USERNAME: admin
+      # DB_PASSWORD: mH9Cn6uElNxPCHlGNh5z
+      DB_USERNAME: docker
+      DB_PASSWORD: password
 
   db:
     # コンテナ名の指定

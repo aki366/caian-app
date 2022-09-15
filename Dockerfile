@@ -19,6 +19,8 @@ RUN mkdir /caian_app
 
 WORKDIR /caian_app
 
+# ENV DB_HOSTNAME caian_db
+
 COPY Gemfile /caian_app/Gemfile
 COPY Gemfile.lock /caian_app/Gemfile.lock
 
@@ -33,20 +35,23 @@ COPY . /caian_app
 
 # Fargate用に設定追加（docker-compose.ymlを利用しないため）
 # COPY --chown=app:app . /caian_app
-RUN yarn install
-COPY entrypoint.sh /usr/bin/
-RUN chmod +x /usr/bin/entrypoint.sh
-ENTRYPOINT ["entrypoint.sh"]
+# RUN yarn install
+# COPY entrypoint.sh /usr/bin/
+# RUN chmod +x /usr/bin/entrypoint.sh
+# ENTRYPOINT ["entrypoint.sh"]
 
 # RUN chmod +x ./bin/webpack
 
 # CSSがコンパイルされずにエラーになるため設定
-RUN NODE_ENV=production ./bin/webpack
+# RUN NODE_ENV=production ./bin/webpack
 
-RUN mkdir -p tmp/sockets
-RUN mkdir -p tmp/pids
+# RUN mkdir -p tmp/sockets
+# RUN mkdir -p tmp/pids
 
 VOLUME /caian_app/public
 VOLUME /caian_app/tmp
+
+# COPY public-data /caian_app/public
+# COPY tmp-data /caian_app/tmp
 
 CMD /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec puma -C config/puma.rb"

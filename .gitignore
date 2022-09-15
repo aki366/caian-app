@@ -13,6 +13,9 @@
 # db
 /mysql
 
+# AWS
+/AWSCLIV2*
+
 # Ignore the default SQLite database.
 /db/*.sqlite3
 /db/*.sqlite3-*
