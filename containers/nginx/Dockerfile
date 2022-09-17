@@ -8,11 +8,10 @@ RUN rm -f /etc/nginx/conf.d/*
 
 # Nginxの設定ファイルをコンテナにコピー
 # ADD /containers/nginx/nginx.conf /etc/nginx/conf.d/caian_app.conf
-ADD nginx.conf /etc/nginx/conf.d/caian_app.conf
+ADD ./nginx.conf /etc/nginx/conf.d/caian_app.conf
 
 # for health check
 RUN apt-get update && apt-get install -y curl
-
 
 # ビルド完了後にNginxを起動
 CMD /usr/sbin/nginx -g 'daemon off;' -c /etc/nginx/nginx.conf
