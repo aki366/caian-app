@@ -1,8 +1,8 @@
 #!/bin/bash
-# set -e
+set -e
  
 # Remove a potentially pre-existing server.pid for Rails.
-# rm -f /caian_app/tmp/pids/server.pid
+rm -f /caian_app/tmp/pids/server.pid
 
 # echo "test"
 

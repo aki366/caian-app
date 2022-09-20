@@ -16,6 +16,7 @@ COPY Gemfile /caian_app/Gemfile
 COPY Gemfile.lock /caian_app/Gemfile.lock
 
 RUN bundle install
+RUN gem update --system
 
 COPY . /caian_app
 
