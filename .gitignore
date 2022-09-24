@@ -15,6 +15,7 @@
 
 # AWS
 /AWSCLIV2*
+/sessionmanager-bundle*
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
