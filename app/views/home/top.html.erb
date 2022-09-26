@@ -16,19 +16,27 @@
       <%= link_to "ユーザー登録", new_user_path %>
     </div>
 
-    <div class="top-container-text">
-      <ul>Cainaとは</ul>
-      <li>チームリーダーのマネージメントをサポートする</li>
-      <li>実績評価とチケット管理が一つになったSNSサービスです</li>
-      <br>
+    <div class="top-container-guest-text">
       <li>ゲストログインから</li>
       <li>無料でサービスをお試し下さい</li>
+    </div>
+    <div class="top-container-guest-user-login">
+      <%= link_to "ゲストとしてログインする", guest_login_path %>
+    </div>
+
+    <%# <div class="top-container-caian-text">
+      <ul>Cainaとは</ul>
+      <li>マネージメントをサポートする</li>
+      <li>実績評価とチケット管理が一つになったSNSサービスです</li>
       <br>
-      <ul>新規ユーザー登録 簡単1ステップ</ul>
-      <br>
-      <li>あなたは所属するチームのリーダーから招待を受け取りメンバーになるだけ</li>
+      <ul>サービス概要</ul>
+      <li>チームに所属するメンバーとリーダーで構成されています。</li>
       <li>あなたがリーダーとなって、自由にチームを作りメンバーを招待することも可能です</li>
       <li>役職や細かい権限の設定は不要。</li>
     </div>
+
+    <div class="top-container-user-register-bottom">
+      <%= link_to "ユーザー登録", new_user_path %>
+
   </div>
 </div>
