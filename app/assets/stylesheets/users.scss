@@ -260,6 +260,23 @@
 }
 
 /* users/new, users/edit ================================ */
+.user-new-container {
+  top: 0px;
+  position: relative;
+  width: auto;
+  background: linear-gradient(106deg, #0f9e71 60.18%, #28ac82 99.82%);
+  color: #f5f8fa;
+  clear: both;
+  width: 100%;
+}
+
 .users-form input {
   margin-bottom: 15px;
+}
+
+.user-new-taitle {
+  font-weight: 300;
+  padding: 10px;
+  font-size: 28px;
+  text-align: center;
 }
