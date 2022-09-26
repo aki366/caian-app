@@ -259,6 +259,25 @@
   }
 }
 
+/* sessions ================================ */
+.sessions-container {
+  top: 0px;
+  position: relative;
+  width: auto;
+  background: linear-gradient(106deg, #0f9e71 60.18%, #28ac82 99.82%);
+  color: #f5f8fa;
+  clear: both;
+  width: 100%;
+  height: 900px;
+}
+
+.sessions-taitle {
+  font-weight: 300;
+  padding: 30px 0px 10px;
+  font-size: 28px;
+  text-align: center;
+}
+
 /* users/new, users/edit ================================ */
 .user-new-container {
   top: 0px;
@@ -268,6 +287,7 @@
   color: #f5f8fa;
   clear: both;
   width: 100%;
+  height: 900px;
 }
 
 .users-form input {
@@ -276,7 +296,7 @@
 
 .user-new-taitle {
   font-weight: 300;
-  padding: 10px;
+  padding: 30px 0px 10px;
   font-size: 28px;
   text-align: center;
 }
