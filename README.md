@@ -19,14 +19,14 @@ https://caian.link
 <details>
 <summary>ER図（表示）</summary>
 
-![figure of ER](app/assets/images/ER図.png)
+![figure of ER](app/assets/images/ERD.png)
 </details>
 
 ### インフラ構成図
 <details>
 <summary>インフラ構成図（表示）</summary>
 
-![figure of ER](app/assets/images/インフラ構成図.png)
+![figure of ER](app/assets/images/Infrastructure_diagram.png)
 </details>
 
 ### 画面設計図
@@ -36,20 +36,20 @@ https://caian.link
 <details>
 <summary>ユーザー詳細（表示）</summary>
 
-![figure of ER](app/assets/images/ユーザー詳細.png)
+![figure of ER](app/assets/images/user_show.png)
 </details>
 
 <details>
 <summary>チーム管理（表示）</summary>
 
-![figure of ER](app/assets/images/チーム管理.png
+![figure of ER](app/assets/images/team_management.png
 )
 </details>
 
 <details>
 <summary>チームトーク（表示）</summary>
 
-![figure of ER](app/assets/images/チームトーク.png
+![figure of ER](app/assets/images/team_talk.png
 )
 </details>
 
@@ -57,7 +57,7 @@ https://caian.link
 <details>
 <summary>画面遷移図（表示）</summary>
 
-![画面遷移図](app/assets/images/画面遷移図.png)
+![画面遷移図](app/assets/images/Screen_transition_diagram.png.png)
 </details>
 
 <br>
