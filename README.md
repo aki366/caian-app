@@ -1,11 +1,12 @@
-# Caian
+# [Caian](https://caian.link)
+https://caian.link
+
 ![figure of ER](app/assets/images/top.png)
 <br>
-※現在開発中の為、サービスを公開しておりません。
 
 ## 開発実績
 - 2022/02/01 開発開始
-- 2022/09/06 時点(total：1097.5h)
+- 2022/09/27 時点(total：1200.5h)
 
 <p align="left"> 
   <img alt="Top Langs" height="150px" src="https://github-readme-stats.vercel.app/api/top-langs/?username=aki366&layout=compact&show_icons=true&theme=onedark" />
@@ -18,14 +19,14 @@
 <details>
 <summary>ER図（表示）</summary>
 
-![figure of ER](app/assets/images/ER図.png)
+![figure of ER](app/assets/images/ERD.png)
 </details>
 
 ### インフラ構成図
 <details>
 <summary>インフラ構成図（表示）</summary>
 
-![figure of ER](app/assets/images/インフラ構成図.png)
+![figure of ER](app/assets/images/Infrastructure_diagram.png)
 </details>
 
 ### 画面設計図
@@ -35,20 +36,20 @@
 <details>
 <summary>ユーザー詳細（表示）</summary>
 
-![figure of ER](app/assets/images/ユーザー詳細.png)
+![figure of ER](app/assets/images/user_show.png)
 </details>
 
 <details>
 <summary>チーム管理（表示）</summary>
 
-![figure of ER](app/assets/images/チーム管理.png
+![figure of ER](app/assets/images/team_management.png
 )
 </details>
 
 <details>
 <summary>チームトーク（表示）</summary>
 
-![figure of ER](app/assets/images/チームトーク.png
+![figure of ER](app/assets/images/team_talk.png
 )
 </details>
 
@@ -56,7 +57,7 @@
 <details>
 <summary>画面遷移図（表示）</summary>
 
-![画面遷移図](app/assets/images/画面遷移図.png)
+![画面遷移図](app/assets/images/Screen_transition_diagram.png)
 </details>
 
 <br>
