@@ -106,7 +106,6 @@ header {
 .header-loginout {
   position: absolute;
   right: 20px;
-  width: 130px;
   height: 25px;
   text-align: center;
   overflow: hidden;
@@ -222,13 +221,15 @@ body {
 
 .top-container {
   top: 0px;
-  position: relative;
-  width: auto;
   background: linear-gradient(106deg, #0f9e71 60.18%, #28ac82 99.82%);
   color: #f5f8fa;
   clear: both;
   width: 100%;
   height: 900px;
+  position: absolute;
+  overflow-x: hidden;
+  min-height: 100%;
+  background-color: #f5f8fa;
 }
 
 .top-container-logo {
@@ -236,6 +237,7 @@ body {
   font-size: 62px;
   font-weight: 700;
   text-align: center;
+  padding: 30px 0px 0px 0px;
 }
 
 .top-container-taitl {
@@ -480,7 +482,7 @@ body {
   font-weight: 300;
   border-radius: 2px;
   margin-top: 8px;
-  margin-bottom: 0;
+  margin-bottom: 18px;
   float: right;
 }
 
