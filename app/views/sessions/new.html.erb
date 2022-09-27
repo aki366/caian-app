@@ -1,24 +1,26 @@
-<div class="main users-new">
-  <div class="sessions-container">
-    <div class="sessions-taitle">ログイン</div>
-    <div class="form users-form">
-      <div class="form-body">
-        <% if @error_message %>
-          <div class="form-error">
-            <%= @error_message %>
-          </div>
-        <% end %>
-        <%= form_with model: @user, url: login_index_path do |f| %>
-          <%= f.label "メールアドレス" %>
-          <%= f.email_field :email %>
+<div class="sessions-container">
+  <div class="sessions-taitle">ログイン</div>
+  <div class="form users-form">
+    <div class="form-body">
+      <% if @error_message %>
+        <div class="form-error">
+          <%= @error_message %>
+        </div>
+      <% end %>
+      <%= form_with model: @user, url: login_index_path do |f| %>
+        <%= f.label "メールアドレス" %>
+        <%= f.email_field :email %>
 
-          <%= f.label "パスワード" %>
-          <%= f.password_field :password %>
+        <%= f.label "パスワード" %>
+        <%= f.password_field :password %>
 
-          <%= f.submit "ログイン" %>
-          <%= link_to "ゲストとしてログインする", guest_login_path, style: "color:#1ea3ff;" %>
-        <% end %>
+        <%= f.submit "ログイン" %>
+      <% end %>
+
+      <div class="top-container-guest-user-login">
+        <%= link_to "ゲストとしてログインする", guest_login_path %>
       </div>
+
     </div>
   </div>
 </div>
