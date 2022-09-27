@@ -1,11 +1,12 @@
-# Caian
+# [Caian](https://caian.link)
+https://caian.link
+
 ![figure of ER](app/assets/images/top.png)
 <br>
-※現在開発中の為、サービスを公開しておりません。
 
 ## 開発実績
 - 2022/02/01 開発開始
-- 2022/09/06 時点(total：1097.5h)
+- 2022/09/27 時点(total：1200.5h)
 
 <p align="left"> 
   <img alt="Top Langs" height="150px" src="https://github-readme-stats.vercel.app/api/top-langs/?username=aki366&layout=compact&show_icons=true&theme=onedark" />
