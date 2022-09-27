@@ -57,7 +57,7 @@ https://caian.link
 <details>
 <summary>画面遷移図（表示）</summary>
 
-![画面遷移図](app/assets/images/Screen_transition_diagram.png.png)
+![画面遷移図](app/assets/images/Screen_transition_diagram.png)
 </details>
 
 <br>
