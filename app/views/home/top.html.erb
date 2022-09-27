@@ -1,12 +1,40 @@
-<div class="main users-new">
-  <div class="container">
-    <div class=top-main>
-      <h1>あなたの変えたいが組織を変える</h1>
-      <br>
-      <h3>マネージメントに集中したい。</h3>
-      <h3>もっとスマートに自分の成果を管理したい。</h3>
-      <br>
-      <h1>そんな思いにCaianは答えます</h1>
-    </div>
+<div class="top-container">
+  <h1 class="top-container-logo">
+  Caian
+  </h1>
+  <div class="top-container-taitl">
+    <ul>あなたの変えたいが</ul>
+    <ul>チームを変える</ul>
+    <li>マネージメントを楽にしたい</li>
+    <li>そんな思いにCaianは答えます</li>
   </div>
+
+  <div class="src-scenes-Static"></div>
+
+  <div class="top-container-user-register">
+    <%= link_to "ユーザー登録", new_user_path %>
+  </div>
+
+  <div class="top-container-guest-text">
+    <li>ゲストログインから</li>
+    <li>無料でサービスをお試し下さい</li>
+  </div>
+  <div class="top-container-guest-user-login">
+    <%= link_to "ゲストとしてログインする", guest_login_path %>
+  </div>
+
+  <%# <div class="top-container-caian-text">
+    <ul>Cainaとは</ul>
+    <li>マネージメントをサポートする</li>
+    <li>実績評価とチケット管理が一つになったSNSサービスです</li>
+    <br>
+    <ul>サービス概要</ul>
+    <li>チームに所属するメンバーとリーダーで構成されています。</li>
+    <li>あなたがリーダーとなって、自由にチームを作りメンバーを招待することも可能です</li>
+    <li>役職や細かい権限の設定は不要。</li>
+  </div>
+
+  <div class="top-container-user-register-bottom">
+    <%= link_to "ユーザー登録", new_user_path %>
+
 </div>
