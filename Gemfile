@@ -31,7 +31,7 @@ end
 
 group :development do
   gem 'web-console'
-  gem 'rack-mini-profiler', '~> 2.0'
+  gem 'rack-mini-profiler', '~> 2.0', require: false
   gem 'listen'
   gem 'pre-commit'
   gem 'rubocop'
