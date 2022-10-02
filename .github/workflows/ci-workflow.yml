@@ -2,6 +2,7 @@ name: "CI flow for Amazon ECS"
 
 on:
   push:
+  pull_request:
     branches:
       - develop
       # - 'feature/**'
@@ -10,10 +11,6 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - run: echo "GitHub push test"
-
-# on:
-#   push:
-#   # pull_request:
 
 # env:
 #   SLACK_WEBHOOK: https://hooks.slack.com/services/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
