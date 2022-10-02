@@ -14,7 +14,7 @@ on:
       - develop
 
 env:
-  SLACK_WEBHOOK: https://hooks.slack.com/services/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
+  SLACK_WEBHOOK: https://hooks.slack.com/services/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
 
 jobs:
   ci:
