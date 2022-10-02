@@ -19,7 +19,7 @@ jobs:
 
     steps:
     # actions/checkoutリポジトリのaction.ymlを利用する
-    - uses: actions/checkout@v1 # https://github.com/actions/checkout/blob/master/action.yml
+    - uses: actions/checkout@v2 # https://github.com/actions/checkout/blob/master/action.yml
         # https://help.github.com/en/articles/workflow-syntax-for-github-actions#jobsjob_idstepsuses
         #   @~でバージョンやブランチ、コミットIDを指定できる
         #   自リポジトリのaction.ymlがあるディレクトリを相対パスで指定することもできる
@@ -28,7 +28,7 @@ jobs:
         #     ex. uses: docker://alpine:3.8
     - name: Set up Ruby 2.6
       # actions/checkoutリポジトリのaction.ymlを利用する
-      uses: actions/setup-ruby@v1 # https://github.com/actions/setup-ruby/blob/master/action.yml
+      uses: actions/setup-ruby@v2 # https://github.com/actions/setup-ruby/blob/master/action.yml
       with:
         ruby-version: 2.6.x
     - name: Test with Rspec
