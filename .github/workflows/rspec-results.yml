@@ -12,14 +12,13 @@ on:
 
 jobs:
   run_spec:
-    # name: RSpec
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
     steps:
       - uses: actions/checkout@v2
       - name: Set up Ruby 3.0
-        uses: ruby/setup-ruby@v2
+        # uses: ruby/setup-ruby@v2
         with:
           ruby-version: 3.0.3
       - name: Test with Rspec
