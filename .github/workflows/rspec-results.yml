@@ -22,13 +22,12 @@ jobs:
           ruby-version: 3.0.3
           bundler-cache: true
 
-      - name: Yarn install
-        run: yarn install
+      # - name: Yarn install
+      #   run: yarn install
 
       - name: Budle install
         run: |
           bundle install
-          gem update --system
 
       - name: Setup Database
         run: |
