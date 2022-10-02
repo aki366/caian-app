@@ -18,8 +18,8 @@ jobs:
     steps:
       - run: echo "GitHub push test"
 
-# env:
-#   SLACK_WEBHOOK: https://hooks.slack.com/services/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
+env:
+  SLACK_WEBHOOK: https://hooks.slack.com/services/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
 
 # jobs:
 #   ci:
