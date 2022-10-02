@@ -29,12 +29,12 @@ jobs:
         run: |
           bundle install
 
-      - name: Setup Database
-        run: |
-          # brew install mysql
-          sudo mysql.server start
-          bundle exec rails db:create
-          bundle exec rails db:migrate
+      # - name: Setup Database
+      #   run: |
+      #     # brew install mysql
+      #     sudo mysql.server start
+      #     bundle exec rails db:create
+      #     bundle exec rails db:migrate
 
       - name: Test with Rspec
         run: bundle exec rspec -f d --dry-run --order defined
