@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-22.04
     timeout-minutes: 10
 
-    # steps:
+    steps:
     #   - run: echo "GitHub push test"
 
     # steps:
