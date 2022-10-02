@@ -21,6 +21,12 @@ jobs:
         with:
           ruby-version: 3.0.3
           bundler-cache: true
+
+      - name: Run annotate
+        run: |
+          bundle exec rails db:create
+          bundle exec rails db:migrate
+
       - name: Test with Rspec
       # - run: gem install bundler
       # - run: bundle install
