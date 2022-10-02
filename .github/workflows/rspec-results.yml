@@ -20,7 +20,8 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.0.3
+          bundler-cache: true
       - name: Test with Rspec
-      - run: gem install bundler
-      - run: bundle install
-      - run: bundle exec rspec
+      # - run: gem install bundler
+      # - run: bundle install
+        run: bundle exec rspec
