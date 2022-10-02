@@ -17,21 +17,10 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      # actions/checkoutリポジトリのaction.ymlを利用する
-      - uses: actions/checkout@v2 # https://github.com/actions/checkout/blob/master/action.yml
-        # https://help.github.com/en/articles/workflow-syntax-for-github-actions#jobsjob_idstepsuses
-        #   @~でバージョンやブランチ、コミットIDを指定できる
-        #   自リポジトリのaction.ymlがあるディレクトリを相対パスで指定することもできる
-        #     ex. uses: ./.github/actions/my-action
-        #   Dockerhubのイメージを利用することもできる
-        #     ex. uses: docker://alpine:3.8
+      - uses: actions/checkout@v2
       - name: Set up Ruby 3.0
-        # actions/checkoutリポジトリのaction.ymlを利用する
-        uses: actions/setup-ruby@v2 # https://github.com/actions/setup-ruby/blob/master/action.yml
+        uses: ruby/setup-ruby@v2
         with:
-          ruby-version: 3.0.x
+          ruby-version: 3.0.3
       - name: Test with Rspec
-        run: |
-          gem install bundler
-          bundle install --path vendor/bundle --quiet --jobs 4 --retry 3
-          bundle exec rspec
+        run: bundle exec rspec
