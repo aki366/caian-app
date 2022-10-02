@@ -5,7 +5,7 @@ on: [push]
 #   push:
 jobs:
   check-bats-version:
-    runs-on: macos-12
+    runs-on: ubuntu-22.04
     steps:
       - run: echo "GitHub push test"
 
