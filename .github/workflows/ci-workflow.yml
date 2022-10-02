@@ -2,12 +2,16 @@ name: "CI flow for Amazon ECS"
 
 on:
   push:
-  pull_request:
     branches:
       - main
       - release
       - develop
       # - 'feature/**'
+  pull_request:
+    branches:
+      - main
+      - release
+      - develop
 jobs:
   check-bats-version:
     runs-on: ubuntu-22.04
