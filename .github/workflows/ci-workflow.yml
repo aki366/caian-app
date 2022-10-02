@@ -1,8 +1,8 @@
 name: "CI flow for Amazon ECS"
 
-on: [push]
-# on:
-#   push:
+# on: [push]
+on:
+  push:
 jobs:
   check-bats-version:
     runs-on: ubuntu-22.04
