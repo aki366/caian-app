@@ -14,14 +14,6 @@ jobs:
   run_spec:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    services:
-      mysql:
-        image: mysql:8.0
-        ports:
-          - 3306:3306
-        env:                    
-          MYSQL_ROOT_PASSWORD: password  
-          TZ: "Asia/Tokyo"
 
     steps:
       - uses: actions/checkout@v2
@@ -30,19 +22,22 @@ jobs:
           ruby-version: 3.0.3
           bundler-cache: true
 
-      - name: Yarn install
-        run: yarn install
+      - name: Docker
+        run: docker-compose up --build
 
-      - name: Budle install
-        run: |
-          gem install bundler
-          bundle install --jobs 4 --retry 3
+      # - name: Yarn install
+      #   run: yarn install
 
-      - name: Setup Database
-        run: |
-          sudo mysql.server start
-          bundle exec rails db:create
-          bundle exec rails db:migrate
+      # - name: Budle install
+      #   run: |
+      #     bundle install
+      #     gem update --system
 
-      - name: Test with Rspec
-        run: bundle exec rspec -f d --dry-run --order defined
+      # - name: Setup Database
+      #   run: |
+
+      #     bundle exec rails db:create
+      #     bundle exec rails db:migrate
+
+      # - name: Test with Rspec
+      #   run: bundle exec rspec -f d --dry-run --order defined
