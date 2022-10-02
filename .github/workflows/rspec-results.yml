@@ -24,4 +24,4 @@ jobs:
       - name: Test with Rspec
       # - run: gem install bundler
       # - run: bundle install
-        run: bundle exec rspec
+        run: bundle exec rspec -f d --dry-run --order defined
