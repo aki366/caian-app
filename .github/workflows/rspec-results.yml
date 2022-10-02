@@ -31,6 +31,8 @@ jobs:
 
       - name: Setup Database
         run: |
+          # brew install mysql
+          sudo mysql.server start
           bundle exec rails db:create
           bundle exec rails db:migrate
 
