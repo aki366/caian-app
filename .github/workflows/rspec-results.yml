@@ -14,26 +14,46 @@ jobs:
   run_spec:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    services:
+      mysql:
+        image: mysql:8.0
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+        options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
 
     steps:
+      - name: Checkout code
       - uses: actions/checkout@v2
+
+      - name: Set up Ruby
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.0.3
           bundler-cache: true
 
-      # - name: Yarn install
-      #   run: yarn install
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
-      - name: Budle install
+      - name: Bundler and gem install
         run: |
-          bundle install
+          gem install bundler
+          bundle install --jobs 4 --retry 3 --path vendor/bundle
 
-      - name: Setup Database
+      - name: Yarn install
+        run: yarn install --check-files
+
+      - name: Database create and migrate
         run: |
-          sudo mysql.server start
-          bundle exec rails db:create
-          bundle exec rails db:migrate
+          cp config/database.yml.ci config/database.yml
+          bundle exec rails db:create RAILS_ENV=test
+          bundle exec rails db:migrate RAILS_ENV=test
 
       - name: Test with Rspec
         run: bundle exec rspec -f d --dry-run --order defined
