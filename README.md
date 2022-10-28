@@ -6,7 +6,7 @@ https://caian.link
 
 ## 開発実績
 - 2022/02/01 開発開始
-- 2022/10/04 時点(total：1238.5h)
+- 2022/10/22 時点(total：1291.5h)
 
 <p align="left"> 
   <img alt="Top Langs" height="150px" src="https://github-readme-stats.vercel.app/api/top-langs/?username=aki366&layout=compact&show_icons=true&theme=onedark" />
@@ -182,8 +182,9 @@ https://caian.link
 
 ### インフラ
 - Nginx (1.23.1) / Puma (5.6.2)
-- AWS : VPC / EC2 / RDS / ALB / S3 / ACM / Route53 / IsC
+- AWS : VPC / EC2 / RDS / ALB / S3 / ACM / Route53
 - AWS : ECS (Fargate) / ECR
+- Terraform
 
 ### テスト
 - RSpec
