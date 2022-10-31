@@ -17,6 +17,10 @@
 /AWSCLIV2*
 /sessionmanager-bundle*
 
+# Terraform
+/terraform-aws/.terraform*
+/terraform-aws/terraform.tfstate
+
 # Ignore the default SQLite database.
 /db/*.sqlite3
 /db/*.sqlite3-*
