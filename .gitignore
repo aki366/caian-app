@@ -19,7 +19,7 @@
 
 # Terraform
 /terraform-aws/.terraform*
-/terraform-aws/terraform.tfstate
+/terraform-aws/terraform*
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
