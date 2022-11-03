@@ -4,10 +4,6 @@ https://caian.link
 ![figure of ER](app/assets/images/top.png)
 <br>
 
-## 開発実績
-- 2022/02/01 開発開始
-- 2022/10/22 時点(total：1291.5h)
-
 <p align="left"> 
   <img alt="Top Langs" height="150px" src="https://github-readme-stats.vercel.app/api/top-langs/?username=aki366&layout=compact&show_icons=true&theme=onedark" />
   <img alt="github stats" height="150px" src="https://github-readme-stats.vercel.app/api?username=aki366&theme=onedark&show_icons=ture" />
@@ -184,7 +180,7 @@ https://caian.link
 - Nginx (1.23.1) / Puma (5.6.2)
 - AWS : VPC / EC2 / RDS / ALB / S3 / ACM / Route53
 - AWS : ECS (Fargate) / ECR
-- Terraform
+- Terraform (1.3.3)
 
 ### テスト
 - RSpec
