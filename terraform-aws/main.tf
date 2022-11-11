@@ -18,7 +18,7 @@ resource "aws_instance" "app_server" {
   instance_type = "t1.micro"
 
   tags = {
-    Name = "ExampleAppServerInstance"
+    # variables.tfの"instance_name"の"default"が変数として設定
     Name = var.instance_name
   }
 }
