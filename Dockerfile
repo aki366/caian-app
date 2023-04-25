@@ -20,9 +20,6 @@ RUN gem update --system
 
 COPY . /caian_app
 
-VOLUME /caian_app/public
-VOLUME /caian_app/tmp
-
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
