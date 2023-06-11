@@ -26,7 +26,6 @@ services:
         consistency: delegated
       - .docker/nginx.conf.template:/etc/nginx/templates/nginx.conf.template
       - tmp-data:/caian_app/tmp
-      # - public-data:/caian_app/public
     tty: true
     stdin_open: true
     depends_on:
@@ -44,7 +43,6 @@ services:
     volumes:
       - ./docker/nginx.conf.template:/etc/nginx/templates/nginx.conf.template
       - tmp-data:/caian_app/tmp
-      # - public-data:/caian_app/public
     depends_on:
       - app
 volumes:
@@ -52,8 +50,6 @@ volumes:
     driver: local
   tmp-data:
     driver: local
-  # public-data:
-  #   driver: local
 networks:
   default:
     name: caian_network
