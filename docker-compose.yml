@@ -10,6 +10,8 @@ services:
     environment:
       MYSQL_ROOT_HOST: '%'
       MYSQL_ROOT_PASSWORD: password
+    tty: true
+    stdin_open: true
   app:
     build: .
     volumes:
@@ -37,5 +39,11 @@ services:
       - app
 volumes:
   db-data:
+    driver: local
   public-data:
+    driver: local
   tmp-data:
+    driver: local
+networks:
+  default:
+    name: caian_network
