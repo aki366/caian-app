@@ -5,15 +5,15 @@ default: &default
   username: <%= ENV['DB_USERNAME'] %>
   password: <%= ENV['DB_PASSWORD'] %>
   # RDSでサービスを立ち上げる際の設定
-  host: <%= ENV['DB_HOSTNAME'] %>
   # db名はdocker-compose.ymlにかいてあるサービス名
   # host: caian_db
 
 development:
   <<: *default
-  database: app_database
-  username: app_user
-  password: password
+  database: caian_development
+  username: root
+  password:
+  host: mysql
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

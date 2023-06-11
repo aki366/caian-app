@@ -5,19 +5,28 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - db-data:/var/lib/mysql
+      - ./mysql-init:/docker-entrypoint-initdb.d
+      - type: volume
+        source: mysql-data
+        target: /var/lib/mysql
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_HOST: '%'
-      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
     tty: true
     stdin_open: true
   app:
     build: .
+    ports:
+      - 3000:3000
     volumes:
-      - .:/caian_app
-      - public-data:/caian_app/public
+      - type: bind
+        source: .
+        target: /caian_app
+        consistency: delegated
+      - .docker/nginx.conf.template:/etc/nginx/templates/nginx.conf.template
       - tmp-data:/caian_app/tmp
+      # - public-data:/caian_app/public
     tty: true
     stdin_open: true
     depends_on:
@@ -30,20 +39,21 @@ services:
   nginx:
     build:
       context: ./containers/nginx
-    volumes:
-      - public-data:/caian_app/public
-      - tmp-data:/caian_app/tmp
     ports:
       - 80:80
+    volumes:
+      - ./docker/nginx.conf.template:/etc/nginx/templates/nginx.conf.template
+      - tmp-data:/caian_app/tmp
+      # - public-data:/caian_app/public
     depends_on:
       - app
 volumes:
-  db-data:
-    driver: local
-  public-data:
+  mysql-data:
     driver: local
   tmp-data:
     driver: local
+  # public-data:
+  #   driver: local
 networks:
   default:
     name: caian_network
