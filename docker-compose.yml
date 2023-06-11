@@ -1,64 +1,55 @@
 version: "3"
 services:
-  rails:
-    # コンテナ名の指定
-    container_name: caian_rails
-    # Dockerfile のあるディレクトリのパスを指定「.」で同じフォルダ内
-    build: .
-    # デフォルトのコマンド指定
-    # command: bundle exec puma -C config/puma.rb
-    # データの参照先（ホスト側のカレントディレクトリにマウントする）
-    volumes:
-      # Docker.fileのCOPY . /caian_appですでに実行されているのでコメントアウト
-      - .:/caian_app
-      - public-data:/caian_app/public
-      - tmp-data:/caian_app/tmp
-    # 出力結果を見やすくする
-    tty: true
-    # 入力を可能にする
-    stdin_open: true
-    # 依存関係の指定（dbが起動した後に、webが起動するようになる）
-    depends_on:
-      - db
-    user: root
-    # 環境変数の指定（初期設定値）
-    environment:
-      DB_HOSTNAME: caian_db
-      DB_USERNAME: docker
-      DB_PASSWORD: password
-
-  db:
-    # コンテナ名の指定
-    container_name: caian_db
-    # イメージの指定
+  mysql:
     image: mysql:8.0.30
-    # ポートの指定（外部からのアクセス時のポート：Dockerコンテナからアクセス時のポート）
     ports:
       - "3306:3306"
-    # ボリュームとは、データを永続化できる場所のこと
     volumes:
-      - ./mysql:/var/lib/mysql
-    # 環境変数の指定（初期設定値）
+      - ./mysql-init:/docker-entrypoint-initdb.d
+      - type: volume
+        source: mysql-data
+        target: /var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
     environment:
-      TZ: Asia/Tokyo
-      MYSQL_ROOT_HOST: localhost
-      MYSQL_ROOT_PASSWORD: <%= ENV['DB_PASSWORD'] %>
-
-  #nginxのコンテナ作成
-  web:
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+    tty: true
+    stdin_open: true
+  app:
+    build: .
+    ports:
+      - 3000:3000
+    volumes:
+      - type: bind
+        source: .
+        target: /caian_app
+        consistency: delegated
+      - .docker/nginx.conf.template:/etc/nginx/templates/nginx.conf.template
+      - tmp-data:/caian_app/tmp
+    tty: true
+    stdin_open: true
+    depends_on:
+      - mysql
+    user: root
+    environment:
+      DB_HOSTNAME: mysql
+      DB_USERNAME: root
+      DB_PASSWORD: password
+  nginx:
     build:
       context: ./containers/nginx
-    volumes:
-      - public-data:/caian_app/public
-      - tmp-data:/caian_app/tmp
     ports:
       - 80:80
+    volumes:
+      - ./docker/nginx.conf.template:/etc/nginx/templates/nginx.conf.template
+      - tmp-data:/caian_app/tmp
     depends_on:
-      - rails
-
+      - app
 volumes:
-  db:
+  mysql-data:
     driver: local
-  public-data:
   tmp-data:
-  log-data:
+    driver: local
+networks:
+  default:
+    name: caian_network
