@@ -21,7 +21,6 @@ gem 'mysql2'
 
 group :development, :test do
   gem 'rspec-rails', '~> 5.0.0'
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # see: https://github.com/faker-ruby/faker
   gem 'faker'
   # see: https://github.com/thoughtbot/factory_bot_rails
