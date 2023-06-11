@@ -9,8 +9,9 @@ RUN apt-get update && apt-get install -y curl apt-transport-https wget && \
 RUN apt-get update -qq && apt-get install -y build-essential nodejs
 
 RUN mkdir /caian_app
-
 WORKDIR /caian_app
+
+RUN mkdir -p /caian_app/tmp/pids
 
 COPY Gemfile /caian_app/Gemfile
 COPY Gemfile.lock /caian_app/Gemfile.lock
@@ -18,13 +19,9 @@ COPY Gemfile.lock /caian_app/Gemfile.lock
 RUN bundle install
 RUN gem update --system
 
-COPY . /caian_app
-
-VOLUME /caian_app/public
-VOLUME /caian_app/tmp
-
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 
-CMD /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec puma -C config/puma.rb"
+CMD ["sh", "-c", "mkdir -p tmp/sockets && bundle exec puma -C config/puma.rb"]
+# CMD /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec puma -C config/puma.rb"

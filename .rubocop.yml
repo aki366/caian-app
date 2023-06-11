@@ -5,15 +5,17 @@ require:
 
 # 対象外
 AllCops:
+  NewCops: enable
   Exclude:
-    - "vendor/**/*"
-    - "bin/**"
-    - "db/schema.rb"
-    - "node_modules/**/*"
-    - "tmp/**/*"
-    - "lib/**/*"
+    - "**/vendor/**/*"
+    - "**/bin/**"
+    - "**/db/schema.rb"
+    - "**/node_modules/**/*"
+    - "**/tmp/**/*"
+    - "**/lib/**/*"
+    - "**/*.yml"
   DisplayCopNames: true
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 3.0
 
 # trueかfalseを設定しないと警告が出る
 Style/HashEachMethods:
@@ -61,7 +63,7 @@ Metrics/CyclomaticComplexity:
 
 # 1行の文字数
 Layout/LineLength:
-  Max: 160
+  Max: 120
   Exclude:
     - "db/migrate/*.rb"
 

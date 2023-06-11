@@ -87,4 +87,6 @@ Rails.application.configure do
   # 接続先のホスト名を設定
   config.hosts << "caian.link"
 
+  config.log_level = :info
+
 end
