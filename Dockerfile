@@ -23,5 +23,5 @@ COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 
-CMD ["sh", "-c", "mkdir -p tmp/sockets && bundle exec puma -C config/puma.rb"]
-# CMD /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec puma -C config/puma.rb"
+# CMD ["sh", "-c", "mkdir -p tmp/sockets && bundle exec puma -C config/puma.rb"]
+CMD /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec puma -C config/puma.rb"
