@@ -26,6 +26,7 @@ services:
         consistency: delegated
       - .docker/nginx.conf.template:/etc/nginx/templates/nginx.conf.template
       - tmp-data:/caian_app/tmp
+      - tmp-data:/caian_app/public
     tty: true
     stdin_open: true
     depends_on:
@@ -34,7 +35,7 @@ services:
     environment:
       DB_HOSTNAME: mysql
       DB_USERNAME: root
-      DB_PASSWORD: password
+      DB_PASSWORD:
   nginx:
     build:
       context: ./containers/nginx
