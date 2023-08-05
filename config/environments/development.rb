@@ -87,6 +87,8 @@ Rails.application.configure do
   # 接続先のホスト名を設定
   config.hosts << "caian.link"
 
-  config.log_level = :info
+  # 標準出力にログを出力する
+  config.logger = ActiveSupport::TaggedLogging.new(ActiveSupport::Logger.new(STDOUT))
+  # config.log_level = :info
 
 end
