@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def render_404(e)
+  def render_404(e = nil)
     # 動的ページ
     render "error_404", status: 404, formats: [:html]
 
