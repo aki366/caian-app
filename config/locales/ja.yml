@@ -207,3 +207,4 @@ ja:
     pm: 午後
   flash_messages:
     already_logged_in: "すでにログインしています"
+    comment_posted: "コメントを投稿しました"
