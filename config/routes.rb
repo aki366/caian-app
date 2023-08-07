@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   get "guest_login", to: "guest_user_login#create"
 
-  resources :login, only: [:new, :create], controller: :sessions  
+  resources :login, only: %i[new create], controller: :sessions
   delete    :logout, to: "sessions#destroy"
 
   resources :users do
