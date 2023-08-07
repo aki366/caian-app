@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-
   before_action :set_current_user
   before_action :fetch_the_my_teams, except: %i[top about]
   before_action :fetch_the_rooms, except: %i[top about]
@@ -31,7 +30,7 @@ class ApplicationController < ActionController::Base
 
   def forbid_login_user
     if @current_user
-      flash[:notice] = "すでにログインしています"
+      flash[:notice] = t('flash_messages.already_logged_in')
       redirect_to tickets_path
     end
   end

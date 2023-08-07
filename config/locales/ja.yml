@@ -205,3 +205,5 @@ ja:
       long: "%Y/%m/%d %H:%M"
       short: "%m/%d %H:%M"
     pm: 午後
+  flash_messages:
+    already_logged_in: "すでにログインしています"
