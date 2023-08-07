@@ -9,8 +9,6 @@ class CommentsController < ApplicationController
     if @comment.save
       flash[:notice] = t('flash_messages.comment_posted')
       redirect_to ticket_path(@ticket.id)
-    else
-      redirect_to ticket_path(@ticket.id)
     end
   end
 
