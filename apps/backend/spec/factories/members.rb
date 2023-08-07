@@ -1,5 +1,4 @@
 FactoryBot.define do
-
   factory :member do
     association :team
     # team_id { 1 }
