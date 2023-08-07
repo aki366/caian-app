@@ -1,6 +1,5 @@
 class SessionsController < ApplicationController
-
-  before_action :forbid_login_user,{only:[:new, :create]}
+  before_action :forbid_login_user, {only: %i[new create]}
 
   def new
     # ログインフォームのviewで使用するため@userを定義
@@ -11,10 +10,10 @@ class SessionsController < ApplicationController
     @user = User.find_by(email: login_params[:email])&.authenticate(login_params[:password])
     if @user
       session[:user_id] = @user.id
-      flash[:notice] = "ログインしました"
+      flash[:notice] = t('flash_messages.logged_in')
       redirect_to tickets_path
     else
-      flash[:notice] = "メールアドレスまたはパスワードが間違っています"
+      flash[:notice] = t('flash_messages.login_failed')
       @email = params[:email]
       @password = params[:password]
       redirect_to new_login_path
@@ -23,7 +22,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    flash[:notice] = "ログアウトしました"
+    flash[:notice] = t('flash_messages.logged_out')
     redirect_to new_login_path
   end
 

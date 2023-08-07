@@ -1,5 +1,4 @@
 class TeamsController < ApplicationController
-
   before_action :authenticate_user
 
   def new
@@ -16,7 +15,7 @@ class TeamsController < ApplicationController
           user_id: @current_user.id,
           team_id: @team.id
         )
-        flash[:notice] = "チームを作成しました"
+        flash[:notice] = t('flash_messages.team_created')
         redirect_to "/teams/#{@team.id}"
       end
     end

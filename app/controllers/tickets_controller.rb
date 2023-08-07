@@ -1,5 +1,4 @@
 class TicketsController < ApplicationController
-
   before_action :authenticate_user,{only:[:new, :show, :edit, :update, :destroy]}
   before_action :ensure_correct_user,{only:[:edit, :update, :destroy]}
 
@@ -31,9 +30,6 @@ class TicketsController < ApplicationController
     @team = Team.find(params[:team_id])
     @ticket = @current_user.tickets.new(ticket_params)
     if @ticket.save
-      flash[:notice] = "投稿を作成しました"
-      redirect_to room_team_path(@team.id)
-    else
       redirect_to room_team_path(@team.id)
     end
   end
@@ -45,7 +41,7 @@ class TicketsController < ApplicationController
   def update
     @ticket = Ticket.find(params[:id])
     if @ticket.update(ticket_params)
-      flash[:notice] = "投稿を編集しました"
+      flash[:notice] = t('flash_messages.ticket_updated')
       redirect_to room_team_path(@team.id)
     else
       render :edit
@@ -57,7 +53,7 @@ class TicketsController < ApplicationController
     @tickets = @team.tickets.find(params[:id])
     if @current_user.id == @tickets.user.id
       @tickets.destroy
-      flash[:notice] = "投稿を削除しました"
+      flash[:notice] = t('flash_messages.ticket_deleted')
       redirect_to room_team_path(@team.id)
     end
   end
