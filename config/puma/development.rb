@@ -1,6 +1,4 @@
 require 'rails'
-require './config/environment.rb'
+require './config/environment'
 
-if Rails.env.development?
-  bind 'tcp://0.0.0.0:3000'
-end
+bind 'tcp://0.0.0.0:3000' if Rails.env.development?
