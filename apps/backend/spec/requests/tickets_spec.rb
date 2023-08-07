@@ -6,6 +6,7 @@ RSpec.describe "Tickets Request", type: :request do
     subject { get new_ticket_path(user.id) }
     let!(:user) { create(:user) }
     include_context 'login_as_user'
+
     it '新規投稿画面に遷移できること' do
       subject
       expect(response).to be_successful
@@ -16,6 +17,7 @@ RSpec.describe "Tickets Request", type: :request do
     let!(:user) { create(:user) }
     let(:user_ticket) { create(:ticket, user_id: user.id) }
     include_context 'login_as_user'
+
     context 'パラメータが正常なとき' do
       it '新規投稿できること' do
         expect do
@@ -28,14 +30,17 @@ RSpec.describe "Tickets Request", type: :request do
 
   describe 'GET #index' do
     subject { get tickets_path }
+
     context 'ログインしているとき' do
       let!(:user) { create(:user) }
       include_context 'login_as_user'
+
       it '投稿の一覧画面に遷移できること' do
         subject
         expect(response).to be_successful
       end
     end
+
     context 'ログインしていないとき' do
       it '投稿の一覧画面に遷移できないこと' do
         subject
@@ -48,13 +53,16 @@ RSpec.describe "Tickets Request", type: :request do
     subject { get ticket_path(ticket.id) }
     let!(:ticket) { create(:ticket) }
     let!(:user) { create(:user) }
+
     context 'ログインしているとき' do
       include_context 'login_as_user'
+
       it '投稿の詳細画面に遷移できること' do
         subject
         expect(response).to be_successful
       end
     end
+
     context 'ログインしていないとき' do
       it '投稿の詳細画面に遷移できないこと' do
         subject
@@ -68,14 +76,17 @@ RSpec.describe "Tickets Request", type: :request do
     let!(:user_ticket) { create(:ticket, user_id: user.id) }
     let(:other_user_ticket) { create(:ticket) }
     subject { get edit_ticket_path(user_ticket.id) }
+
     context 'ログインしているとき' do
       include_context 'login_as_user'
+
       context 'ユーザーが自分の場合' do
         it '投稿の編集画面に遷移できること' do
           subject
           expect(response).to be_successful
         end
       end
+
       context 'ユーザーが自分ではない場合' do
         it '投稿の編集画面に遷移できないこと' do
           other_user_id = user.id + 1
@@ -85,6 +96,7 @@ RSpec.describe "Tickets Request", type: :request do
         end
       end
     end
+
     context 'ログインしていないとき' do
       it '投稿の編集画面に遷移できないこと' do
         subject
@@ -96,8 +108,10 @@ RSpec.describe "Tickets Request", type: :request do
   describe 'PATCH #update' do
     let!(:user) { create(:user) }
     let!(:user_ticket) { create(:ticket, user_id: user.id) }
+
     context 'ログインしているとき' do
       include_context 'login_as_user'
+
       context 'パラメータが正常な場合' do
         it '投稿内容が更新されること' do
           expect do
@@ -106,6 +120,7 @@ RSpec.describe "Tickets Request", type: :request do
           expect(response).to redirect_to(ticket_path)
         end
       end
+
       context 'パラメータが不正な場合' do
         it '投稿内容が更新されないこと' do
           expect do
@@ -115,6 +130,7 @@ RSpec.describe "Tickets Request", type: :request do
         end
       end
     end
+
     context 'ログインしていないとき' do
       it '投稿内容が更新されないこと' do
         expect do
@@ -130,6 +146,7 @@ RSpec.describe "Tickets Request", type: :request do
     let!(:user) { create(:user) }
     let!(:user_ticket) { create(:ticket, user_id: user.id) }
     let(:other_user) { create(:user) }
+
     context 'ログインしているとき' do
       include_context 'login_as_user'
       context 'ユーザーが自分の場合' do
@@ -138,6 +155,7 @@ RSpec.describe "Tickets Request", type: :request do
           expect(response).to redirect_to(tickets_path)
         end
       end
+
       context 'ユーザーが自分ではない場合' do
         it '投稿の削除ができないこと' do
           user_ticket = user.id + 1
@@ -147,6 +165,7 @@ RSpec.describe "Tickets Request", type: :request do
         end
       end
     end
+
     context 'ログインしていないとき' do
       it '投稿の削除ができないこと' do
         expect { subject }.not_to change { user_ticket }

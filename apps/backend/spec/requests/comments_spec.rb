@@ -6,6 +6,7 @@ RSpec.describe "Comments Request", type: :request do
     let!(:user_ticket) { create(:ticket) }
     let!(:user) { create(:user) }
     include_context 'login_as_user'
+
     context 'パラメータが正常なとき' do
       it 'コメントが投稿できること' do
         expect do
@@ -14,6 +15,7 @@ RSpec.describe "Comments Request", type: :request do
         expect(response).to have_http_status(:redirect)
       end
     end
+
     context 'パラメータが不正なとき' do
       it 'コメントが投稿できないこと' do
         expect do
@@ -75,6 +77,7 @@ RSpec.describe "Comments Request", type: :request do
           expect(response).to have_http_status(:redirect)
         end
       end
+
       context 'ユーザーが自分ではない場合' do
         it 'コメントの削除ができないこと' do
           other_user
@@ -83,6 +86,7 @@ RSpec.describe "Comments Request", type: :request do
         end
       end
     end
+
     context 'ログインしていないとき' do
       it 'コメントの削除ができないこと' do
         expect { subject }.not_to change { ticket_comment }

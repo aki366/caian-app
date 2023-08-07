@@ -12,22 +12,27 @@ RSpec.describe "Users Model", type: :model do
         @user.valid?
       end
     end
+
     context '名前が31文字以上のとき' do
       before do
         @user.name = 'a' * 31
       end
+
       it '登録が失敗すること' do
         @user.valid?
       end
     end
+
     context '名前がないとき' do
       before do
         @user.name = ''
       end
+
       it '登録が失敗すること' do
         @user.valid?
       end
     end
+
     context 'メールアドレスの大文字と小文字が違うとき' do
       it '登録が成功すること' do
         @user = FactoryBot.create(:user)
@@ -36,34 +41,40 @@ RSpec.describe "Users Model", type: :model do
         expect(@user2).to be_valid
       end
     end
+
     context 'メールアドレスがないとき' do
       before do
         @user.email = ''
       end
+
       it '登録が失敗すること' do
         @user.valid?
       end
     end
-    context 'メールアドレスがすでに登録されているとき
-    ' do
+
+    context 'メールアドレスがすでに登録されているとき' do
       before do
         @user = FactoryBot.create(:user)
         @user2 = FactoryBot.build(:user, email: @user.email)
       end
+
       it '登録が失敗すること' do
         @user2.valid?
       end
     end
+
     context 'メールアドレスの形が不正のとき' do
       it '登録が失敗すること' do
         @user.email = '456-9333'
         @user.valid?
       end
     end
+
     context 'パスワードがないとき' do
       before do
         @user.password = ''
       end
+
       it '登録が失敗すること' do
         @user.valid?
       end
