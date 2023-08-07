@@ -1,5 +1,4 @@
 class CommentsController < ApplicationController
-
   before_action :authenticate_user
 
   def create
@@ -8,9 +7,7 @@ class CommentsController < ApplicationController
     @comment.user_id = @current_user.id
     @comment.ticket_id = @ticket.id
     if @comment.save
-      flash[:notice] = "コメントを投稿しました"
-      redirect_to ticket_path(@ticket.id)
-    else
+      flash[:notice] = t('flash_messages.comment_posted')
       redirect_to ticket_path(@ticket.id)
     end
   end

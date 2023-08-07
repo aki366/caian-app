@@ -8,9 +8,7 @@ class MessagesController < ApplicationController
     @message.user_id = @current_user.id
     @message.room_id = @room.id
     if @message.save
-      flash[:notice] = "投稿しました"
-      redirect_to room_path(@room.id)
-    else
+      flash[:notice] = t('flash_messages.message_posted')
       redirect_to room_path(@room.id)
     end
   end

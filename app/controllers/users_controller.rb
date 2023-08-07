@@ -49,7 +49,7 @@ class UsersController < ApplicationController
     if @user.save
       write_image(@user.user_image, image) if image
       session[:user_id] = @user.id
-      flash[:notice] = "ユーザー登録が完了しました"
+      flash[:notice] = t('flash_messages.signed_up')
       redirect_to user_path(@user.id)
     else
       @user.user_image = image if image
@@ -78,7 +78,7 @@ class UsersController < ApplicationController
       # user情報編集は理解しやすいよう、かたまりで上にまとめて、
       # 保存に成功した時点で画像をファイルに書き込む。
       write_image(@user.user_image, image) if image
-      flash[:notice] = "ユーザー情報を編集しました"
+      flash[:notice] = t('flash_messages.user_updated')
       redirect_to user_path(@user.id)
     else
       @user.user_image = image
@@ -90,7 +90,7 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-    flash[:notice] = "アカウントを削除しました"
+    flash[:notice] = t('flash_messages.user_deleted')
     redirect_to root_path
   end
 

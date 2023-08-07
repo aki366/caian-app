@@ -14,5 +14,4 @@ class Ticket < ApplicationRecord
   # ActiveStorage用のカラム
   # 複数形の場合 has_many_attached :images
   has_one_attached :image
-
 end

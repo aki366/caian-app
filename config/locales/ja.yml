@@ -205,3 +205,18 @@ ja:
       long: "%Y/%m/%d %H:%M"
       short: "%m/%d %H:%M"
     pm: 午後
+  flash_messages:
+    logged_in: "ログインしました"
+    logged_out: "ログアウトしました"
+    already_logged_in: "すでにログインしています"
+    login_failed: "メールアドレスまたはパスワードが間違っています"
+    comment_posted: "コメントを投稿しました"
+    logged_in: "ゲストユーザーとしてログインしました"
+    message_posted: "メッセージを投稿しました"
+    message_deleted: "メッセージを削除しました"
+    signed_up: "ユーザー登録が完了しました"
+    user_updated: "ユーザー情報を編集しました"
+    user_deleted: "アカウントを削除しました"
+    team_created: "チームを作成しました"
+    ticket_updated: "チケットを編集しました"
+    ticket_deleted: "チケットを削除しました"

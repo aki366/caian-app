@@ -31,3 +31,18 @@
 
 en:
   hello: "Hello world"
+  flash_messages:
+    logged_in: "You are logged in"
+    logged_out: "Logged out"
+    already_logged_in: "Already logged in"
+    login_failed: "Email address or password is incorrect"
+    comment_posted: "Comment posted"
+    logged_in: "You have logged in as a guest user"
+    message_posted: "Message posted"
+    message_deleted: "Message deleted"
+    signed_up: "User registration has been completed"
+    user_updated: "Edited user information"
+    user_deleted: "Account deleted"
+    team_created: "Teams have been created"
+    ticket_updated: "Ticket has been edited"
+    ticket_deleted: "Ticket removed"

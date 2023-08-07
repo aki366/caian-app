@@ -1,8 +1,7 @@
 class ApplicationController < ActionController::Base
-
   before_action :set_current_user
-  before_action :fetch_the_my_teams, except: [:top, :about]
-  before_action :fetch_the_rooms, except: [:top, :about]
+  before_action :fetch_the_my_teams, except: %i[top about]
+  before_action :fetch_the_rooms, except: %i[top about]
 
   def set_current_user
     @current_user = User.find_by(id: session[:user_id])
@@ -26,14 +25,12 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_user
-    if @current_user == nil
-      redirect_to new_login_path
-    end
+    redirect_to new_login_path if @current_user == nil
   end
 
   def forbid_login_user
     if @current_user
-      flash[:notice] = "すでにログインしています"
+      flash[:notice] = t('flash_messages.already_logged_in')
       redirect_to tickets_path
     end
   end
