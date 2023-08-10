@@ -4,10 +4,14 @@ https://caian.link
 ![figure of ER](app/assets/images/top.png)
 <br>
 
-## 開発実績
-- 2022/02/01 開発開始
-- 2022/10/04 時点(total：1238.5h)
+## 開発環境の構築手順
+1. リポジトリをクローンしたら、トップディレクトリに移動します。
+2. 以下のコマンドを実行して、環境構築用のシェルを起動します。このシェルは、コンテナイメージの作成からサービスの立ち上げまでを行います。
+```
+$./bin/setup_docker.sh
+```
 
+## 開発実績
 <p align="left"> 
   <img alt="Top Langs" height="150px" src="https://github-readme-stats.vercel.app/api/top-langs/?username=aki366&layout=compact&show_icons=true&theme=onedark" />
   <img alt="github stats" height="150px" src="https://github-readme-stats.vercel.app/api?username=aki366&theme=onedark&show_icons=ture" />
