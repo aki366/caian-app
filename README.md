@@ -188,6 +188,7 @@ $./bin/setup_docker.sh
 - Nginx (1.23.1) / Puma (5.6.2)
 - AWS : VPC / EC2 / RDS / ALB / S3 / ACM / Route53 / IsC
 - AWS : ECS (Fargate) / ECR
+- Terraform (1.3.3)
 
 ### テスト
 - RSpec
