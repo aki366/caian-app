@@ -39,16 +39,22 @@ fi
 
 # Dockerコンテナを起動
 docker compose -f docker-compose.yml up -d
-echo -e "コンテナを起動しました\n"
+echo -e "コンテナを起動しました。\n"
 
 # caian_appのセットアップ
 echo "caian_appのセットアップを開始します。"
 
+start_time=$(date +%s)
+
 # MySQLのログに「Ready for start up」が出力されるのを待つ
-until docker compose -f docker-compose.yml logs mysql 2>&1 | grep "Ready for start up"; do
-  echo "Waiting for MySQL to be ready..."
-  sleep 2
+echo " Waiting for MySQL to be ready..."
+while ! docker compose -f docker-compose.yml logs mysql 2>&1 | grep -q "Ready for start up"; do
+  elapsed_time=$(($(date +%s) - start_time))
+  echo -ne "  Elapsed time: $elapsed_time sec.\r"
+  sleep 1
 done
+
+echo -e "\n  MySQL is now ready. Execution time: $elapsed_time sec.\n"
 
 # caian-app-1が起動していない場合、コンテナを開始する
 if [ "$(docker inspect --format '{{.State.Running}}' caian-app-1)" == "false" ]; then
