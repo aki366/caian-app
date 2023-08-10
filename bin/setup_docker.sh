@@ -7,15 +7,17 @@ IMAGE_NAME="caian_app"
 # caian_app イメージの作成日を取得
 CREATION_DATE=$(docker inspect $IMAGE_NAME --format '{{.Created}}' 2>/dev/null)
 
-echo "コンテナイメージの最終更新日を確認します。"
+echo "コンテナイメージの状態をチェックします。"
 if [ -z "$CREATION_DATE" ]; then
-  echo -e "$IMAGE_NAME イメージが存在しないため、イメージを作成します。\n"
+  echo -e " $IMAGE_NAME イメージが存在しないため、イメージを作成します。\n"
   docker compose -f docker-compose.yml build
   if [[ $? != 0 ]]; then
-    echo -e "Dockerイメージのビルドに失敗しました。\n"
+    echo -e " Dockerイメージのビルドに失敗しました。\n"
     exit 1
   fi
 else
+  # イメージの作成日から、ミリ秒部分を切り捨てる
+  CREATION_DATE=$(echo "$CREATION_DATE" | cut -d. -f1)
   # イメージの作成日をUnixタイムスタンプに変換
   CREATION_TIMESTAMP=$(date -jf "%Y-%m-%dT%H:%M:%S" "$CREATION_DATE" +%s)
   # 現在の日付をUnixタイムスタンプに変換
@@ -26,20 +28,21 @@ else
   ELAPSED_TIME=$(($CURRENT_TIMESTAMP - $CREATION_TIMESTAMP))
 
   if [ $ELAPSED_TIME -ge $TWO_WEEKS ]; then
-    echo -e "イメージが古いため、更新します。\n"
+    echo -e " イメージが古いため、更新します。\n"
     docker compose -f docker-compose.yml build
 
     if [[ $? != 0 ]]; then
-      echo -e "Dockerイメージのビルドに失敗しました。\n"
+      echo -e " Dockerイメージのビルドに失敗しました。\n"
       exit 1
     fi
   fi
-  echo -e "古いイメージではないため、更新しません。\n"
+  echo -e " 古いイメージではないため、更新しません。\n"
 fi
 
 # Dockerコンテナを起動
+echo "コンテナを起動します。"
 docker compose -f docker-compose.yml up -d
-echo -e "コンテナを起動しました。\n"
+echo
 
 # caian_appのセットアップ
 echo "caian_appのセットアップを開始します。"
@@ -70,11 +73,11 @@ done
 # コンテナ内でのMySQLのデータベース一覧を取得
 DATABASES=$(docker-compose -f docker-compose.yml exec -T mysql mysql -u root -e "SHOW DATABASES;" | tr -d "| " | grep -v Database)
 
-echo "DBのセットアップを開始します。"
+echo " DBのセットアップを開始します。"
 # caian_appデータベースの存在確認
 if ! echo " $DATABASES" | grep -q "caian_development"; then
   # caian_appが存在しない場合、データベースを作成
-  echo "  caian_development が存在していないため、作成しています。\n"
+  echo "  caian_development が存在していないため、作成しています。"
   docker compose -f docker-compose.yml exec -T app bundle exec rails db:create > /dev/null 2>&1
   docker compose -f docker-compose.yml exec -T app bundle exec rails db:migrate > /dev/null 2>&1
   echo -e "  caian_development を作成しました。"
@@ -85,7 +88,7 @@ fi
 # caian_testデータベースの存在確認
 if ! echo "$DATABASES" | grep -q "caian_test"; then
   # caian_testが存在しない場合、データベースを作成しマイグレーションを実行
-  echo "  caian_test が存在していないため、作成しています。\n"
+  echo "  caian_test が存在していないため、作成しています。"
   docker compose -f docker-compose.yml exec -T app bundle exec rails db:create RAILS_ENV=test > /dev/null 2>&1
   docker compose -f docker-compose.yml exec -T app bundle exec rails db:migrate RAILS_ENV=test > /dev/null 2>&1
   echo -e "  caian_test を作成しました。\n"
