@@ -56,7 +56,7 @@ done
 
 echo -e "\n  MySQL is now ready. Execution time: $elapsed_time sec.\n"
 
-# caian-app-1が起動していない場合、コンテナを開始する
+# caian-app-1が起動していない場合、コンテナを起動する
 if [ "$(docker inspect --format '{{.State.Running}}' caian-app-1)" == "false" ]; then
   docker start caian-app-1
 fi
@@ -70,24 +70,27 @@ done
 # コンテナ内でのMySQLのデータベース一覧を取得
 DATABASES=$(docker-compose -f docker-compose.yml exec -T mysql mysql -u root -e "SHOW DATABASES;" | tr -d "| " | grep -v Database)
 
+echo "DBのセットアップを開始します。"
 # caian_appデータベースの存在確認
-if ! echo "$DATABASES" | grep -q "caian_development"; then
+if ! echo " $DATABASES" | grep -q "caian_development"; then
   # caian_appが存在しない場合、データベースを作成
-  docker compose -f docker-compose.yml exec -T app bundle exec rails db:create
-  docker compose -f docker-compose.yml exec -T app bundle exec rails db:migrate
-  echo -e "caian_development を作成しました。"
+  echo "  caian_development が存在していないため、作成しています。\n"
+  docker compose -f docker-compose.yml exec -T app bundle exec rails db:create > /dev/null 2>&1
+  docker compose -f docker-compose.yml exec -T app bundle exec rails db:migrate > /dev/null 2>&1
+  echo -e "  caian_development を作成しました。"
 else
-  echo -e "caian_development は存在していたため、作成しません。"
+  echo -e "  caian_development は存在していたため、作成しません。"
 fi
 
 # caian_testデータベースの存在確認
 if ! echo "$DATABASES" | grep -q "caian_test"; then
   # caian_testが存在しない場合、データベースを作成しマイグレーションを実行
-  docker compose -f docker-compose.yml exec -T app bundle exec rails db:create RAILS_ENV=test
-  docker compose -f docker-compose.yml exec -T app bundle exec rails db:migrate RAILS_ENV=test
-  echo -e "caian_test を作成しました。\n"
+  echo "  caian_test が存在していないため、作成しています。\n"
+  docker compose -f docker-compose.yml exec -T app bundle exec rails db:create RAILS_ENV=test > /dev/null 2>&1
+  docker compose -f docker-compose.yml exec -T app bundle exec rails db:migrate RAILS_ENV=test > /dev/null 2>&1
+  echo -e "  caian_test を作成しました。\n"
 else
-  echo -e "caian_test は存在していたため、作成しません。\n"
+  echo -e "  caian_test は存在していたため、作成しません。\n"
 fi
 
 # コンテナの状態を表示
