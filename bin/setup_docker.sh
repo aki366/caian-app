@@ -66,3 +66,7 @@ if ! echo "$DATABASES" | grep -q "caian_test"; then
 else
   echo -e "caian_test は存在していたため、作成しません。\n"
 fi
+
+# コンテナの状態を表示
+echo -e "セットアップが完了しました。\n"
+docker ps -a --format "{{.ID}} {{.Names}} {{.Status}}" | awk '{ printf "%-13s %-44s %-50s\n", $1, $2, $3 " " $4 " " $5 " " $6 " " $7 " " $8 " " $9}'
