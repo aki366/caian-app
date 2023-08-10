@@ -36,3 +36,7 @@ else
   fi
   echo -e "古いイメージではないため、更新しません。\n"
 fi
+
+# Dockerコンテナを起動
+docker compose -f docker-compose.yml up -d
+echo -e "コンテナを起動しました\n"
