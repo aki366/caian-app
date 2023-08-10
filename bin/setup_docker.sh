@@ -44,6 +44,23 @@ echo -e "コンテナを起動しました\n"
 # caian_appのセットアップ
 echo "caian_appのセットアップを開始します。"
 
+# MySQLのログに「Ready for start up」が出力されるのを待つ
+until docker compose -f docker-compose.yml logs mysql 2>&1 | grep "Ready for start up"; do
+  echo "Waiting for MySQL to be ready..."
+  sleep 2
+done
+
+# caian-app-1が起動していない場合、コンテナを開始する
+if [ "$(docker inspect --format '{{.State.Running}}' caian-app-1)" == "false" ]; then
+  docker start caian-app-1
+fi
+
+# caian-app-1のヘルスチェックがtrueになるのを待つ
+until [ "$(docker inspect --format '{{.State.Status}}' caian-app-1)" == "running" ]; do
+  echo "Waiting for caian-app-1 to be healthy..."
+  sleep 2
+done
+
 # コンテナ内でのMySQLのデータベース一覧を取得
 DATABASES=$(docker-compose -f docker-compose.yml exec -T mysql mysql -u root -e "SHOW DATABASES;" | tr -d "| " | grep -v Database)
 
