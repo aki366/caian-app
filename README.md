@@ -11,6 +11,9 @@ https://caian.link
 $./bin/setup_docker.sh
 ```
 
+## Wiki
+開発に関わるドキュメントについては、[wiki](https://github.com/aki366/Caian_app/wiki/Wiki) を参照して下さい。
+
 ## 開発実績
 <p align="left"> 
   <img alt="Top Langs" height="150px" src="https://github-readme-stats.vercel.app/api/top-langs/?username=aki366&layout=compact&show_icons=true&theme=onedark" />
