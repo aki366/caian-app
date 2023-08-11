@@ -10,12 +10,6 @@ RUN apt-get update -qq && apt-get install -y build-essential nodejs
 
 RUN mkdir /caian_app
 WORKDIR /caian_app
-
-COPY Gemfile /caian_app/Gemfile
-COPY Gemfile.lock /caian_app/Gemfile.lock
-
-RUN bundle install
-
 COPY . /caian_app
 
 # nginxのerrorページを表示するために、publicディレクトリをマウント
@@ -23,8 +17,7 @@ VOLUME /caian_app/public
 # nginx socketファイルをマウント
 VOLUME /caian_app/tmp
 
-COPY entrypoint.sh /usr/bin/
-RUN chmod +x /usr/bin/entrypoint.sh
-ENTRYPOINT ["entrypoint.sh"]
+RUN gem install bundler:2.3.0
+RUN bundle install
 
 CMD /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec rails s"

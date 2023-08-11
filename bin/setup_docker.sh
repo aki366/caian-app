@@ -38,7 +38,7 @@ else
   fi
 fi
 
-echo -e "\nコンテナの起動"
+echo "コンテナの起動"
 docker compose -f docker-compose.yml up -d
 
 echo -e "\nDBのセットアップ確認"
@@ -62,28 +62,10 @@ if [ "$(docker inspect --format '{{.State.Running}}' caian-app-1)" == "false" ];
   docker start caian-app-1 > /dev/null 2>&1
 fi
 
-# データベース一覧を取得
-DATABASES=$(docker-compose -f docker-compose.yml exec -T mysql mysql -u root -e "SHOW DATABASES;" | tr -d "| " | grep -v Database)
+docker compose -f docker-compose.yml exec app /bin/bash -c "
+  chmod +x ./entrypoint.sh &&
+  ./entrypoint.sh
+"
 
-# 開発環境用DBの確認
-if ! echo " $DATABASES" | grep -q "caian_development"; then
-  echo "  caian_development が存在していないため、作成しています。"
-  docker compose -f docker-compose.yml exec -T app bundle exec rails db:create > /dev/null 2>&1
-  docker compose -f docker-compose.yml exec -T app bundle exec rails db:migrate > /dev/null 2>&1
-  echo -e "  caian_development を作成しました。"
-else
-  echo -e "  caian_development は存在していたため、作成しません。"
-fi
-
-# テスト用DBの確認
-if ! echo "$DATABASES" | grep -q "caian_test"; then
-  echo "  caian_test が存在していないため、作成しています。"
-  docker compose -f docker-compose.yml exec -T app bundle exec rails db:create RAILS_ENV=test > /dev/null 2>&1
-  docker compose -f docker-compose.yml exec -T app bundle exec rails db:migrate RAILS_ENV=test > /dev/null 2>&1
-  echo -e "  caian_test を作成しました。\n"
-else
-  echo -e "  caian_test は存在していたため、作成しません。\n"
-fi
-
-echo -e "セットアップが完了しました。\n"
+echo -e "\nセットアップが完了しました。\n"
 docker ps -a --format "{{.ID}} {{.Names}} {{.Status}}" | awk '{ printf "%-13s %-44s %-50s\n", $1, $2, $3 " " $4 " " $5 " " $6 " " $7 " " $8 " " $9}'
