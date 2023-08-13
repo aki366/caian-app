@@ -5,7 +5,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./mysql-init:/docker-entrypoint-initdb.d
+      - ./apps/backend/mysql-init:/docker-entrypoint-initdb.d
       - type: volume
         source: mysql-data
         target: /var/lib/mysql
@@ -16,15 +16,15 @@ services:
     tty: true
     stdin_open: true
   app:
-    build: .
+    build: ./apps/backend
     ports:
       - 3000:3000
     volumes:
       - type: bind
-        source: .
+        source: ./apps/backend
         target: /caian_app
         consistency: delegated
-      - .docker/nginx.conf.template:/etc/nginx/templates/nginx.conf.template
+      - ./apps/backend/.docker/nginx.conf.template:/etc/nginx/templates/nginx.conf.template
       - tmp-data:/caian_app/tmp
       - tmp-data:/caian_app/public
     tty: true
@@ -39,11 +39,11 @@ services:
     command: bundle exec rails server -b 0.0.0.0
   nginx:
     build:
-      context: ./containers/nginx
+      context: ./apps/backend/containers/nginx
     ports:
       - 80:80
     volumes:
-      - ./docker/nginx.conf.template:/etc/nginx/templates/nginx.conf.template
+      - ./apps/backend/.docker/nginx.conf.template:/etc/nginx/templates/nginx.conf.template
       - tmp-data:/caian_app/tmp
     depends_on:
       - app

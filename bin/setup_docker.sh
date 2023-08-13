@@ -2,13 +2,13 @@
 
 echo -e "start caian_app setup_docker\n"
 
-IMAGE_NAME="caian_app"
+IMAGE_NAME="caian-app"
 CREATION_DATE=$(docker inspect $IMAGE_NAME --format '{{.Created}}' 2>/dev/null)
 
 echo "コンテナイメージの確認"
 if [ -z "$CREATION_DATE" ]; then
   echo " $IMAGE_NAME のイメージが存在していないため、作成しています。"
-  docker compose -f docker-compose.yml build
+  docker compose -f docker-compose.yml build --no-cache
   if [[ $? != 0 ]]; then
     echo -e " Dockerイメージのビルドに失敗しました。\n"
     exit 1
@@ -27,7 +27,7 @@ else
 
   if [ $ELAPSED_TIME -ge $TWO_WEEKS ]; then
     echo -e " イメージが古いため、更新します。\n"
-    docker compose -f docker-compose.yml build
+    docker compose -f docker-compose.yml build --no-cache
 
     if [[ $? != 0 ]]; then
       echo -e " Dockerイメージのビルドに失敗しました。\n"
