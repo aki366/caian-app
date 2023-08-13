@@ -1,0 +1,57 @@
+version: "3"
+services:
+  mysql:
+    image: mysql:8.0.30
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./apps/backend/mysql-init:/docker-entrypoint-initdb.d
+      - type: volume
+        source: mysql-data
+        target: /var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+    tty: true
+    stdin_open: true
+  app:
+    build: ./apps/backend
+    ports:
+      - 3000:3000
+    volumes:
+      - type: bind
+        source: ./apps/backend
+        target: /caian_app
+        consistency: delegated
+      - ./apps/backend/.docker/nginx.conf.template:/etc/nginx/templates/nginx.conf.template
+      - tmp-data:/caian_app/tmp
+      - tmp-data:/caian_app/public
+    tty: true
+    stdin_open: true
+    depends_on:
+      - mysql
+    user: root
+    environment:
+      DB_HOSTNAME: mysql
+      DB_USERNAME: root
+      DB_PASSWORD:
+    command: bundle exec rails server -b 0.0.0.0
+  nginx:
+    build:
+      context: ./apps/backend/containers/nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./apps/backend/.docker/nginx.conf.template:/etc/nginx/templates/nginx.conf.template
+      - tmp-data:/caian_app/tmp
+    depends_on:
+      - app
+volumes:
+  mysql-data:
+    driver: local
+  tmp-data:
+    driver: local
+networks:
+  default:
+    name: caian_network
