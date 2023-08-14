@@ -5,55 +5,54 @@
 #   git config --global core.excludesfile '~/.gitignore_global'
 
 # Ignore bundler config.
-/.bundle
+/apps/backend/.bundle
 
 # password
-/.env*
+/apps/backend/.env*
 
 # db
-/mysql
+/apps/backend/mysql
 
 # AWS
-/AWSCLIV2*
-/sessionmanager-bundle*
+/apps/backend/AWSCLIV2*
+/apps/backend/sessionmanager-bundle*
 
 # Ignore the default SQLite database.
-/db/*.sqlite3
-/db/*.sqlite3-*
-/*.sqlite3
+/apps/backend/db/*.sqlite3
+/apps/backend/db/*.sqlite3-*
+/apps/backend/*.sqlite3
 
 # Ignore all logfiles and tempfiles.
-/log/*
-/tmp/*
-!/log/.keep
-!/tmp/.keep
+/apps/backend/log/*
+/apps/backend/tmp/*
+/apps/backend/!/log/.keep
+/apps/backend/!/tmp/.keep
 .vscode
 
 # Ignore pidfiles, but keep the directory.
-/tmp/pids/*
-!/tmp/pids/
-!/tmp/pids/.keep
-/vendor/bundle
+/apps/backend/tmp/pids/*
+/apps/backend/!/tmp/pids/
+/apps/backend/!/tmp/pids/.keep
+/apps/backend/vendor/bundle
 
 # Ignore uploaded files in development.
-/storage/*
-!/storage/.keep
+/apps/backend/storage/*
+/apps/backend/!/storage/.keep
 
-/public/assets
-.byebug_history
+/apps/backend/public/assets
+/apps/backend/.byebug_history
 
 # Test
-/spec/examples.txt
+/apps/backend/spec/examples.txt
 
 # Ignore master key for decrypting credentials and more.
-/config/master.key
-
-/public/packs
-public/user_images
-/public/packs-test/*
-/node_modules
-/yarn-error.log
-yarn-debug.log*
-.yarn-integrity
+/apps/backend/config/master.key
+/apps/backend/public/packs
+/apps/backend/public/user_images
+/apps/backend/public/packs-test/*
+/apps/backend/node_modules
+/apps/backend/yarn-error.log
+/apps/backend/yarn-debug.log*
+/apps/backend/.yarn-integrity
 .DS_Store
-/config/database.yml
+/apps/backend/config/database.yml
