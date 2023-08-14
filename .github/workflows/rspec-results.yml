@@ -4,15 +4,21 @@ on:
   push:
     branches:
       - 'feature/**'
+    paths:
+      - 'apps/backend/**'
     paths-ignore:
       - 'README.md'
+      - 'apps/backend/README.md'
   pull_request:
     branches:
       - main
       - release
       - develop
+    paths:
+    - 'apps/backend/**'
     paths-ignore:
       - 'README.md'
+      - 'apps/backend/README.md'
 
 jobs:
   run_spec:
