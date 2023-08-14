@@ -55,4 +55,3 @@
 /apps/backend/yarn-debug.log*
 /apps/backend/.yarn-integrity
 .DS_Store
-/apps/backend/config/database.yml
