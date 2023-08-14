@@ -38,7 +38,7 @@ services:
       DB_HOSTNAME: mysql
       DB_USERNAME: root
       DB_PASSWORD:
-    command: /bin/sh -c "bundle install && rm -f tmp/pids/server.pid && bundle exec rails s -b 0.0.0.0"
+    command: /bin/sh -c "bundle install && yarn install && rm -f tmp/pids/server.pid && bundle exec rails s -b 0.0.0.0"
   frontend:
     build:
       context: ./apps/frontend
