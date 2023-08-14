@@ -53,13 +53,28 @@ if ! docker compose -f docker-compose.yml logs mysql 2>&1 | grep -q "Ready for s
     echo -ne "  Elapsed time: $elapsed_time sec.\r"
     sleep 1
   done
-  echo -e "\n  MySQL is now ready.\n"
+  echo -e "\n  MySQL is now ready."
 fi
+
+echo -e "\nRailsコンテナのセットアップ確認"
 
 # caian-app-1が起動していない場合、コンテナを起動する
 if [ "$(docker inspect --format '{{.State.Running}}' caian-app-1)" == "false" ]; then
   echo " caian-app コンテナが停止しているため、起動します。"
   docker start caian-app-1 > /dev/null 2>&1
+fi
+
+# rails用コンテナの起動状態を確立する
+if ! docker compose -f docker-compose.yml logs app 2>&1 | grep -q "Use Ctrl-C to stop"; then
+  start_time=$(date +%s)
+  echo " Waiting for Rails to be ready..."
+
+  while ! docker compose -f docker-compose.yml logs app 2>&1 | grep -q "Use Ctrl-C to stop"; do
+    elapsed_time=$(($(date +%s) - start_time))
+    echo -ne "  Elapsed time: $elapsed_time sec.\r"
+    sleep 1
+  done
+  echo -e "\n  Rails is now ready.\n"
 fi
 
 docker compose -f docker-compose.yml exec app /bin/bash -c "

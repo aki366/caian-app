@@ -16,7 +16,9 @@ services:
     tty: true
     stdin_open: true
   app:
-    build: ./apps/backend
+    build:
+      context: ./apps/backend
+      dockerfile: Dockerfile
     ports:
       - 3000:3000
     volumes:
@@ -36,7 +38,7 @@ services:
       DB_HOSTNAME: mysql
       DB_USERNAME: root
       DB_PASSWORD:
-    command: bundle exec rails server -b 0.0.0.0
+    command: /bin/sh -c "bundle install && rm -f tmp/pids/server.pid && bundle exec rails s -b 0.0.0.0"
   frontend:
     build:
       context: ./apps/frontend
