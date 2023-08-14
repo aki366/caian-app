@@ -22,11 +22,11 @@ services:
     volumes:
       - type: bind
         source: ./apps/backend
-        target: /caian_app
+        target: /caian-app
         consistency: delegated
       - ./apps/backend/.docker/nginx.conf.template:/etc/nginx/templates/nginx.conf.template
-      - tmp-data:/caian_app/tmp
-      - tmp-data:/caian_app/public
+      - tmp-data:/caian-app/tmp
+      - tmp-data:/caian-app/public
     tty: true
     stdin_open: true
     depends_on:
@@ -37,6 +37,19 @@ services:
       DB_USERNAME: root
       DB_PASSWORD:
     command: bundle exec rails server -b 0.0.0.0
+  frontend:
+    build:
+      context: ./apps/frontend
+      dockerfile: Dockerfile
+    volumes:
+      - type: bind
+        target: /caian-frontend
+        source: ./apps/frontend
+    ports:
+      - "3001:3000"
+    command: /bin/sh -c "npm install && npm start"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
   nginx:
     build:
       context: ./apps/backend/containers/nginx
@@ -44,7 +57,7 @@ services:
       - 80:80
     volumes:
       - ./apps/backend/.docker/nginx.conf.template:/etc/nginx/templates/nginx.conf.template
-      - tmp-data:/caian_app/tmp
+      - tmp-data:/caian-app/tmp
     depends_on:
       - app
 volumes:
@@ -54,4 +67,4 @@ volumes:
     driver: local
 networks:
   default:
-    name: caian_network
+    name: caian-network
