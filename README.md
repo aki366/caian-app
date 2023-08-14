@@ -1,7 +1,7 @@
 # [Caian](https://caian.link)
 https://caian.link
 
-![figure of ER](app/assets/images/top.png)
+![figure of ER](docs/images/root/top.png)
 <br>
 
 ## 開発環境の構築手順
@@ -80,21 +80,21 @@ $./bin/setup_docker.sh
 <summary>ER図</summary>
 <br>
 
-![figure of ER](app/assets/images/ERD.png)
+![figure of ER](docs/images/root/ERD.png)
 </details>
 
 <details>
 <summary>インフラ構成図</summary>
 <br>
 
-![figure of ER](app/assets/images/Infrastructure_diagram.png)
+![figure of ER](docs/images/root/Infrastructure_diagram.png)
 </details>
 
 <details>
 <summary>画面遷移図</summary>
 <br>
 
-![画面遷移図](app/assets/images/Screen_transition_diagram.png)
+![画面遷移図](docs/images/root/Screen_transition_diagram.png)
 </details>
 
 <br>
@@ -106,14 +106,14 @@ $./bin/setup_docker.sh
 <summary>ユーザー詳細</summary>
 <br>
 
-![figure of ER](app/assets/images/user_show.png)
+![figure of ER](docs/images/root/user_show.png)
 </details>
 
 <details>
 <summary>チーム管理</summary>
 <br>
 
-![figure of ER](app/assets/images/team_management.png
+![figure of ER](docs/images/root/team_management.png
 )
 </details>
 
@@ -121,7 +121,7 @@ $./bin/setup_docker.sh
 <summary>チームトーク</summary>
 <br>
 
-![figure of ER](app/assets/images/team_talk.png
+![figure of ER](docs/images/root/team_talk.png
 )
 </details>
 
