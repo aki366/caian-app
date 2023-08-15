@@ -4,7 +4,34 @@ https://caian.link
 ![figure of ER](docs/images/root/top.png)
 <br>
 
-## 開発環境の構築手順
+# 開発環境
+## ディレクトリ構成：Monorepo
+Monorepo は、システムを構成する複数のコンポーネントの独立性を保ちつつ、全ての構成を1つのリポジトリで管理する手法です。
+
+```bash
+├ apps/
+│ ├ backend/
+│ └ frontend/
+├ bin/
+└ docs/
+docker-compose.yml
+README.md
+```
+
+<details>
+<summary>なぜ、Monorepoにしたか</summary>
+
+---
+
+下記のメリットから、Monorepo にすることで開発効率を向上させることができると考えました。
+- システムに必要なコンポーネントが全て1つのリポジトリに集約される
+- git clone を一度実行するだけで、システムの開発に必要なコードがすべて手に入る
+- システム全体の把握が容易になり、コンポーネント同士の依存関係や共有コードの管理がしやすい
+- システム全体がどういった変更がなされているのか、何が起きているかのトラッキングがしやすい
+- それぞれのリポジトリにコミットすることの心理的ハードルを下げることができる
+</details>
+
+## 構築手順
 1. リポジトリをクローンしたら、トップディレクトリに移動します。
 2. 以下のコマンドを実行して、環境構築用のシェルを起動します。このシェルは、コンテナイメージの作成からサービスの立ち上げまでを行います。
 ```
@@ -14,67 +41,31 @@ $./bin/setup_docker.sh
 ## Wiki
 開発に関わるドキュメントについては、[wiki](https://github.com/aki366/Caian_app/wiki/Wiki) を参照して下さい。
 
-## 開発実績
+# 使用技術
+
 <p align="left"> 
-  <img alt="Top Langs" height="150px" src="https://github-readme-stats.vercel.app/api/top-langs/?username=aki366&layout=compact&show_icons=true&theme=onedark" />
+ <img alt="Top Langs" height="150px" src="https://github-readme-stats.vercel.app/api/top-langs/?username=aki366&layout=compact&show_icons=true&theme=onedark" />
   <img alt="github stats" height="150px" src="https://github-readme-stats.vercel.app/api?username=aki366&theme=onedark&show_icons=ture" />
 </p>
 
-<br>
 
-## 使用技術
-
-### Front-end
-- React
-- JavaScript
-- HTML/CSS
-
-### Back-end
-- Ruby (3.0.3)
-- Rails (6.1.5)
-
-### Database
-- MySQL (8.0.30)
-
-### Infrastructure
-- Web Server & Application Server
-  - Nginx (1.23.1)
-  - Puma (5.6.2)
-
-- AWS Services
-  - Route 53
-  - VPC
-  - ALB
-  - ECR
-  - ECS (Fargate)
-  - RDS
-  - S3
-
-### Testing
-- RSpec (3.11)
-- Jest
-
-### Linting Tools
-- RuboCop (1.26.1)
-
-### CI/CD
-- GitHub Actions
-
-### Version Control
-- Git
-
-### Hosting & Collaboration
-- GitHub
-
-### Development Environment
-- VScode
-- Docker (24.0.5)
-- Docker Compose (2.20.2)
-- Docker Desktop (4.22.0)
+| Category | Technology |
+| --- | --- |
+| Front-end | React<br>JavaScript<br>HTML/CSS |
+| Back-end | Ruby (3.0.3)<br>Ruby on Rails (6.1.5) |
+| Database | MySQL (8.0.30) |
+| Infrastructure<br>Web Server & Application Server | Nginx (1.23.1)<br>Puma (5.6.2) |
+| Infrastructure<br>Cloud Service | AWS ( Route 53 / VPC / ALB / ECR / ECS (Fargate) / RDS / S3 ) |
+| Testing | RSpec (3.11)<br>Jest |
+| Linting | RuboCop (1.26.1) |
+| CI/CD| GitHub Actions |
+| Version Control | Git (2.33.0) |
+| Hosting & Collaboration | GitHub |
+| Development Environment | Docker (24.0.5)<br>Docker Compose (2.20.2)<br>Docker Desktop (4.22.0) |
 
 <br>
 
-## 設計
+# 設計
 
 <details>
 <summary>ER図</summary>
@@ -99,8 +90,8 @@ $./bin/setup_docker.sh
 
 <br>
 
-## デザイン
-### [figma](https://www.figma.com/file/89WqHwRatfXBjokkGxmqq4/original?node-id=0%3A1)
+# デザイン
+## [figma](https://www.figma.com/file/89WqHwRatfXBjokkGxmqq4/original?node-id=0%3A1)
 
 <details>
 <summary>ユーザー詳細</summary>
@@ -127,7 +118,7 @@ $./bin/setup_docker.sh
 
 <br>
 
-## サービス概要
+# サービス概要
 当サービスは、チームの実績評価を効果的に行うためのプラットフォームです。メンバーは自らの課題解決の実績を投稿し、リーダーがそれに対してポイントを付与します。各課題はカテゴリ別に分類されるため、チームや個人の強みや向き合うべき課題を明確に可視化することができます。
 
 <details>
@@ -191,7 +182,7 @@ $./bin/setup_docker.sh
 
 <br>
 
-## 制作背景
+# 制作背景
 
 <details>
 <summary>制作背景について</summary>
@@ -202,7 +193,7 @@ $./bin/setup_docker.sh
 
 <br>
 
-## 機能一覧
+# 機能一覧
 
 <details>
 <summary>ユーザー詳細</summary>
