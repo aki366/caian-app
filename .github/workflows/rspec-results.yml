@@ -13,9 +13,6 @@ on:
       - develop
     paths:
     - 'apps/backend/**'
-    paths-ignore:
-      - 'README.md'
-      - 'apps/backend/README.md'
 
 jobs:
   run_spec:
