@@ -1,0 +1,29 @@
+name: Update Wiki List
+
+on:
+  push:
+    paths:
+      - '.wiki/**'
+
+jobs:
+  update-list:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout wiki repository
+      uses: actions/checkout@v2
+      with:
+        repository: ${{ github.repository }}.wiki
+
+    - name: Generate and update the list
+      run: |
+        echo "Generating a list of wiki pages with their last update date..."
+        PAGES_LIST=$(git log --pretty=format:'%ai %s' --reverse)
+        echo "$PAGES_LIST" > SortedWikiPages.md
+
+    - name: Commit and push the changes
+      run: |
+        git config user.name "GitHub Action"
+        git config user.email "action@github.com"
+        git add SortedWikiPages.md
+        git commit -m "Update sorted wiki pages list"
+        git push
