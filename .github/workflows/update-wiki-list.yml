@@ -2,7 +2,7 @@ name: Check Wiki updates
 
 on:
   schedule:
-    - cron: '26 15 * * *' # This runs every day at 00:26 JST (which is 15:26 UTC)
+    - cron: '14 16 * * *' # This runs every day at 01:12 JST
 
 jobs:
   check-wiki:
@@ -22,13 +22,10 @@ jobs:
         echo "| Pages | Last update |" >> SortedWikiPages.md
         echo "| --- | --- |" >> SortedWikiPages.md
 
+        ONE_DAY_AGO_DATE=$(date -d '3 hours ago' --utc +'%Y-%m-%dT%H:%M:%S')
+
         for file in *; do
           FILE_DATE=$(git log -1 --pretty=format:'%ai' -- "$file")
-          ONE_DAY_AGO_DATE=$(date -d '1 day ago' --utc +'%Y-%m-%dT%H:%M:%S')
-
-          # Debug output
-          echo "File: $file, Last Update: $FILE_DATE, One Day Ago: $ONE_DAY_AGO_DATE"
-
           if [[ ! "$file" == "SortedWikiPages.md" ]] && [[ "$FILE_DATE" < "$ONE_DAY_AGO_DATE" ]]; then
             echo "| $file | $(echo $FILE_DATE | cut -d ' ' -f 1) |" >> SortedWikiPages.md
           fi
