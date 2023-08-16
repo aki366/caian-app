@@ -1,12 +1,12 @@
-name: Update Wiki List
+name: Check Wiki updates
 
 on:
-  push:
-    paths:
-      - '.wiki/**'
+  schedule:
+    - cron: '17 22 * * *' # This runs every day at 22:15 JST (which is 13:15 UTC)
+    # - cron: '0 12 * * *' # This runs every day at 12:00 UTC
 
 jobs:
-  update-list:
+  check-wiki:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout wiki repository
@@ -14,13 +14,7 @@ jobs:
       with:
         repository: ${{ github.repository }}.wiki
 
-    - name: Generate and update the list
-      run: |
-        echo "Generating a list of wiki pages with their last update date..."
-        PAGES_LIST=$(git log --pretty=format:'%ai %s' --reverse)
-        echo "$PAGES_LIST" > SortedWikiPages.md
-
-    - name: Commit and push the changes
+    - name: Check updates
       run: |
         git config user.name "GitHub Action"
         git config user.email "action@github.com"
