@@ -2,7 +2,7 @@ name: Check Wiki updates
 
 on:
   schedule:
-    - cron: '13 14 * * *' # This runs every day at 23:13 JST (which is 14:13 UTC)
+    - cron: '2 15 * * *' # This runs every day at 00:02 JST (which is 15:02 UTC)
 
 jobs:
   check-wiki:
@@ -23,8 +23,14 @@ jobs:
         echo "| --- | --- |" >> SortedWikiPages.md
 
         for file in *; do
-          if [[ ! "$file" == "SortedWikiPages.md" ]] && [[ "$(git log -1 --pretty=format:'%ai' -- "$file")" < "$(date -d '1 day ago' --utc +'%Y-%m-%dT%H:%M:%S')" ]]; then
-            echo "| $file | $(git log -1 --pretty=format:'%ai' -- "$file" | cut -d ' ' -f 1) |" >> SortedWikiPages.md
+          FILE_DATE=$(git log -1 --pretty=format:'%ai' -- "$file")
+          ONE_DAY_AGO_DATE=$(date -d '1 day ago' --utc +'%Y-%m-%dT%H:%M:%S')
+
+          # Debug output
+          echo "File: $file, Last Update: $FILE_DATE, One Day Ago: $ONE_DAY_AGO_DATE"
+
+          if [[ ! "$file" == "SortedWikiPages.md" ]] && [[ "$FILE_DATE" < "$ONE_DAY_AGO_DATE" ]]; then
+            echo "| $file | $(echo $FILE_DATE | cut -d ' ' -f 1) |" >> SortedWikiPages.md
           fi
         done
 
