@@ -2,7 +2,7 @@ name: Check Wiki updates
 
 on:
   schedule:
-    - cron: '14 16 * * *' # This runs every day at 01:12 JST
+    - cron: '45 16 * * *' # This runs every day at 01:45 JST
 
 jobs:
   check-wiki:
@@ -27,7 +27,7 @@ jobs:
         for file in *; do
           FILE_DATE=$(git log -1 --pretty=format:'%ai' -- "$file")
           if [[ ! "$file" == "SortedWikiPages.md" ]] && [[ "$FILE_DATE" < "$ONE_DAY_AGO_DATE" ]]; then
-            echo "| $file | $(echo $FILE_DATE | cut -d ' ' -f 1) |" >> SortedWikiPages.md
+            echo "| [$file](https://github.com/aki366/caian-app/wiki/$file) | $(echo $FILE_DATE | cut -d ' ' -f 1) |" >> SortedWikiPages.md
           fi
         done
 
