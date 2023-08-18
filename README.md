@@ -38,8 +38,8 @@ README.md
 $./bin/setup_docker.sh
 ```
 
-## Wiki
-開発に関わるドキュメントについては、[wiki](https://github.com/aki366/Caian_app/wiki/Wiki) を参照して下さい。
+## [Wiki](https://github.com/aki366/Caian_app/wiki)
+開発に関わるドキュメントについては、[wiki](https://github.com/aki366/Caian_app/wiki) を参照して下さい。
 
 # 使用技術
 
