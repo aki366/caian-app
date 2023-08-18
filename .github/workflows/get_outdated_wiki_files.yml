@@ -1,4 +1,4 @@
-name: Check Wiki updates
+name: Get outdated wiki files
 
 on:
   schedule:
