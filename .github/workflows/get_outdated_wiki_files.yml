@@ -1,8 +1,8 @@
-name: Get outdated wiki files
+name: Get outdated wiki pages
 
 on:
   schedule:
-    - cron: '45 15 * * *' # This runs every day at 00:45 JST
+    - cron: '07 16 * * *' # This runs every day at 01:07 JST
 
 jobs:
   check-wiki:
@@ -15,19 +15,20 @@ jobs:
 
     - name: Check for old updates and add to the list
       run: |
-        echo "" > SortedWikiPages.md
+        echo "" > MaintenanceList.md
 
-        echo "| Pages | Last update |" >> SortedWikiPages.md
-        echo "| --- | --- |" >> SortedWikiPages.md
+        echo "| Pages | Last update |" >> MaintenanceList.md
+        echo "| --- | --- |" >> MaintenanceList.md
 
         OFFSET_DAYS=10
         ONE_DAY_AGO_DATE=$(TZ="Asia/Tokyo" date -d "$OFFSET_DAYS days ago" +'%Y-%m-%d %H:%M:%S')
 
-        for file in *; do
-          FILE_DATE=$(git log -1 --pretty=format:'%ad' --date=format:'%Y-%m-%d %H:%M:%S' -- "$file")
-          if [[ ! "$file" == "SortedWikiPages.md" ]] && [[ "$FILE_DATE" < "$ONE_DAY_AGO_DATE" ]]; then
-            FILE_WITHOUT_EXTENSION=${file%.md}
-            echo "| [$FILE_WITHOUT_EXTENSION](https://github.com/aki366/caian-app/wiki/$FILE_WITHOUT_EXTENSION) | $(echo $FILE_DATE | cut -d ' ' -f 1) |" >> SortedWikiPages.md
+        for PAGE in *; do
+          FILE_DATE=$(git log -1 --pretty=format:'%ad' --date=format:'%Y-%m-%d %H:%M:%S' -- "$PAGE")
+          if [[ ! "$PAGE" == "MaintenanceList.md" ]] && [[ "$FILE_DATE" < "$ONE_DAY_AGO_DATE" ]]; then
+            FILE_WITHOUT_EXTENSION=${PAGE%.md}
+            echo "| [$FILE_WITHOUT_EXTENSION](https://github.com/aki366/caian-app/wiki/$FILE_WITHOUT_EXTENSION) | $(echo $FILE_DATE | cut -d ' ' -f 1) |" >> MaintenanceList.md
+            echo "PAGE :" PAGE " FILE_WITHOUT_EXTENSION :" FILE_WITHOUT_EXTENSION
           fi
         done
 
@@ -35,7 +36,7 @@ jobs:
         if [[ `git status --porcelain` ]]; then
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
-          git add SortedWikiPages.md
+          git add MaintenanceList.md
           git commit -m "Update sorted wiki pages list"
           git push origin master
         fi
