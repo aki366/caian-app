@@ -2,7 +2,7 @@ name: Get outdated wiki pages
 
 on:
   schedule:
-    - cron: '07 16 * * *' # This runs every day at 01:07 JST
+    - cron: '28 16 * * *' # This runs every day at 01:28 JST
 
 jobs:
   check-wiki:
