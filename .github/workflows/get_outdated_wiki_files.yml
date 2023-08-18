@@ -2,7 +2,7 @@ name: Get outdated wiki files
 
 on:
   schedule:
-    - cron: '07 15 * * *' # This runs every day at 00:07 JST
+    - cron: '23 15 * * *' # This runs every day at 00:23 JST
 
 jobs:
   check-wiki:
@@ -15,22 +15,19 @@ jobs:
 
     - name: Check for old updates and add to the list
       run: |
-        # Clear the SortedWikiPages.md file
         echo "" > SortedWikiPages.md
 
-        # Add header to the file
         echo "| Pages | Last update |" >> SortedWikiPages.md
         echo "| --- | --- |" >> SortedWikiPages.md
 
         OFFSET_DAYS=10
         ONE_DAY_AGO_DATE=$(TZ="Asia/Tokyo" date -d "$OFFSET_DAYS days ago" +'%Y-%m-%d %H:%M:%S')
-        echo "ONE_DAY_AGO_DATE: "$ONE_DAY_AGO_DATE
 
         for file in *; do
           FILE_DATE=$(git log -1 --pretty=format:'%ad' --date=format:'%Y-%m-%d %H:%M:%S' -- "$file")
           if [[ ! "$file" == "SortedWikiPages.md" ]] && [[ "$FILE_DATE" < "$ONE_DAY_AGO_DATE" ]]; then
-            echo "| [$file](https://github.com/aki366/caian-app/wiki/$file) | $(echo $FILE_DATE | cut -d ' ' -f 1) |" >> SortedWikiPages.md
-            echo " FILE_DATE: "$FILE_DATE " " $file
+            FILE_WITHOUT_EXTENSION=${file%.md}
+            echo "| [$FILE_WITHOUT_EXTENSION](https://github.com/aki366/caian-app/wiki/$FILE_WITHOUT_EXTENSION) | $(echo $FILE_DATE | cut -d ' ' -f 1) |" >> SortedWikiPages.md
           fi
         done
 
