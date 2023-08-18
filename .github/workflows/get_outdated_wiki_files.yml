@@ -23,7 +23,7 @@ jobs:
         echo "| --- | --- |" >> SortedWikiPages.md
 
         OFFSET_DAYS=10
-        ONE_DAY_AGO_DATE=$(TZ="Asia/Tokyo" date -v-"$OFFSET_DAYS"d +'%Y-%m-%d %H:%M:%S')
+        ONE_DAY_AGO_DATE=$(TZ="Asia/Tokyo" date -d "$OFFSET_DAYS days ago" +'%Y-%m-%d %H:%M:%S')
         echo "ONE_DAY_AGO_DATE: "$ONE_DAY_AGO_DATE
 
         for file in *; do
