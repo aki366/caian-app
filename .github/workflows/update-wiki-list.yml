@@ -2,7 +2,7 @@ name: Check Wiki updates
 
 on:
   schedule:
-    - cron: '47 14 * * *' # This runs every day at 23:47 JST
+    - cron: '50 14 * * *' # This runs every day at 23:47 JST
 
 jobs:
   check-wiki:
