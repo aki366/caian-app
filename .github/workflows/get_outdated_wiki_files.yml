@@ -2,7 +2,7 @@ name: Get outdated wiki pages
 
 on:
   schedule:
-    - cron: '19 6 * * *' # This runs every day at 15:19 JST
+    - cron: '0 0 * * 4' # This runs every Thursday at 00:00 UTC, which is Friday at 09:00 JST
 
 jobs:
   check-wiki:
@@ -21,7 +21,7 @@ jobs:
         echo "| Pages | Last update |" >> MaintenanceList.md
         echo "| --- | --- |" >> MaintenanceList.md
 
-        OFFSET_DAYS=10
+        OFFSET_DAYS=365
         THRESHOLD_DATE=$(TZ="Asia/Tokyo" date -d "$OFFSET_DAYS days ago" +'%Y-%m-%d %H:%M:%S')
         echo "THRESHOLD_DATE :" $THRESHOLD_DATE
 
