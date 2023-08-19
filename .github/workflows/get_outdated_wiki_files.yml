@@ -2,7 +2,7 @@ name: Get outdated wiki pages
 
 on:
   schedule:
-    - cron: '41 5 * * *' # This runs every day at 14:41 JST
+    - cron: '19 6 * * *' # This runs every day at 15:19 JST
 
 jobs:
   check-wiki:
@@ -27,11 +27,10 @@ jobs:
 
         for file in *; do
           FILE_DATE=$(git log -1 --pretty=format:'%ad' --date=format:'%Y-%m-%d %H:%M:%S' -- "$file")
-          echo "file :" $file "FILE_DATE :" $FILE_DATE
           if [[ ! "$file" == "MaintenanceList.md" ]] && [[ "$FILE_DATE" < "$THRESHOLD_DATE" ]]; then
             FILE_WITHOUT_EXTENSION=${file%.md}
-            echo "| [$file](https://github.com/aki366/caian-app/wiki/$file) | $(echo $FILE_DATE | cut -d ' ' -f 1) |" >> MaintenanceList.md
-            echo " FILE_WITHOUT_EXTENSION :" $FILE_WITHOUT_EXTENSION
+            echo "| [$FILE_WITHOUT_EXTENSION](https://github.com/${{ github.repository }}/wiki/$FILE_WITHOUT_EXTENSION) | $(echo $FILE_DATE | cut -d ' ' -f 1) |" >> MaintenanceList.md
+            echo "file :" $file "FILE_DATE :" $FILE_DATE
           fi
         done
 
