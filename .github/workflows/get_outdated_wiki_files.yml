@@ -2,7 +2,7 @@ name: Get outdated wiki pages
 
 on:
   schedule:
-    - cron: '32 5 * * *' # This runs every day at 14:32 JST
+    - cron: '41 5 * * *' # This runs every day at 14:41 JST
 
 jobs:
   check-wiki:
@@ -12,6 +12,7 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: ${{ github.repository }}.wiki
+        fetch-depth: 0
 
     - name: Check for old updates and add to the list
       run: |
