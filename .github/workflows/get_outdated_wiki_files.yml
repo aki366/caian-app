@@ -2,7 +2,7 @@ name: Get outdated wiki pages
 
 on:
   schedule:
-    - cron: '12 5 * * *' # This runs every day at 14:12 JST
+    - cron: '32 5 * * *' # This runs every day at 14:32 JST
 
 jobs:
   check-wiki:
@@ -21,16 +21,16 @@ jobs:
         echo "| --- | --- |" >> MaintenanceList.md
 
         OFFSET_DAYS=10
-        ONE_DAY_AGO_DATE=$(TZ="Asia/Tokyo" date -d "$OFFSET_DAYS days ago" +'%Y-%m-%d %H:%M:%S')
-        echo $ONE_DAY_AGO_DATE
+        THRESHOLD_DATE=$(TZ="Asia/Tokyo" date -d "$OFFSET_DAYS days ago" +'%Y-%m-%d %H:%M:%S')
+        echo "THRESHOLD_DATE :" $THRESHOLD_DATE
 
         for file in *; do
           FILE_DATE=$(git log -1 --pretty=format:'%ad' --date=format:'%Y-%m-%d %H:%M:%S' -- "$file")
-          echo $FILE_DATE
-          if [[ ! "$file" == "MaintenanceList.md" ]] && [[ "$FILE_DATE" < "$ONE_DAY_AGO_DATE" ]]; then
+          echo "file :" $file "FILE_DATE :" $FILE_DATE
+          if [[ ! "$file" == "MaintenanceList.md" ]] && [[ "$FILE_DATE" < "$THRESHOLD_DATE" ]]; then
             FILE_WITHOUT_EXTENSION=${file%.md}
             echo "| [$file](https://github.com/aki366/caian-app/wiki/$file) | $(echo $FILE_DATE | cut -d ' ' -f 1) |" >> MaintenanceList.md
-            echo "file :" $file " FILE_WITHOUT_EXTENSION :" $FILE_WITHOUT_EXTENSION
+            echo " FILE_WITHOUT_EXTENSION :" $FILE_WITHOUT_EXTENSION
           fi
         done
 
