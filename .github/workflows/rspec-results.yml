@@ -60,7 +60,6 @@ jobs:
           bundle exec rails db:migrate RAILS_ENV=test
 
       - name: Test with Rspec
-        continue-on-error: true # Add this to continue even if the test fails
         id: rspec_test  # Add this to reference this step later
         run: |
           cd apps/backend
