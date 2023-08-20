@@ -24,6 +24,7 @@ gem 'dotenv-rails'
 
 # API
 gem 'jbuilder'
+gem 'rack-cors'
 
 # Development and debugging
 group :development do
