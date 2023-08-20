@@ -1,52 +1,47 @@
-name: Send build results to Slack
+name: Send merge results to Slack
 
 on:
-  push:
-    branches:
-      - 'feature/**'
   pull_request:
+    types:
+      - closed
     branches:
       - main
-      - release
-      - develop
 
 jobs:
-  build:
+  notify_merge_result:
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
     steps:
-      # Check out theis repo
-      - uses: actions/checkout@v2
-      - run: echo "GitHub build"
-      # Start a Slack workflow using a webhook trigger
-      # https://github.com/slackapi/slack-github-action
-      - name: Send GitHub Action trigger data to Slack workflow
-        id: slack
-        uses: slackapi/slack-github-action@v1.16.0
-        with:
-          payload: |
-            {
-              "text": ":github: ビルド結果: ${{ job.status }}\n\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": ":github: ビルド結果: ${{ job.status }}\n\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
-                  }
-                },
-                {
-                  "type": "context",
-                  "elements": [
-                    {
-                      "type": "mrkdwn",
-                      "text": "Author: <https://github.com/${{ github.event.sender.login }}|@${{ github.event.sender.login }}>"
-                    }
-                  ]
+    - uses: actions/checkout@v2
+
+    # 通知内容を設定
+    - name: Set notification message
+      id: set_msg
+      run: |
+        if [ "${{ github.event.pull_request.merged }}" == "true" ]; then
+          echo "::set-output name=result:::github: Merge Result: merged successfully\n\n${{ github.event.pull_request.html_url }}"
+        else
+          echo "::set-output name=result:::github: <@U0372GW7YUX> Merge Result: merge failed\n\n${{ github.event.pull_request.html_url }}"
+        fi
+
+    # Slackへの通知
+    - name: Notify Slack
+      uses: slackapi/slack-github-action@v1.16.0
+      with:
+        payload: |
+          {
+            "text": "${{ steps.set_msg.outputs.result }}",
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "${{ steps.set_msg.outputs.result }}"
                 }
-              ]
-            }
-        env:
-          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
+              }
+            ]
+          }
+      env:
+        SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
