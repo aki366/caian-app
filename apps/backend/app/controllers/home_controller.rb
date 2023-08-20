@@ -6,6 +6,6 @@ class HomeController < ApplicationController
   end
 
   def about
-    render json: { message: 'Welcome to the about page!' }
+    render json: {message: 'Welcome to the about page!'}
   end
 end
