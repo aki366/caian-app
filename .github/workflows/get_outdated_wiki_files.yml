@@ -2,7 +2,8 @@ name: Get outdated wiki pages
 
 on:
   schedule:
-    - cron: '19 6 * * *' # This runs every day at 15:19 JST
+    - cron: '50 2 * * *' # This runs every day at 11:50 JST
+    # - cron: '0 0 * * 4' # This runs every Thursday at 00:00 UTC, which is Friday at 09:00 JST
 
 jobs:
   check-wiki:
@@ -17,13 +18,13 @@ jobs:
     - name: Check for old updates and add to the list
       run: |
         echo "" > MaintenanceList.md
-
         echo "| Pages | Last update |" >> MaintenanceList.md
         echo "| --- | --- |" >> MaintenanceList.md
 
         OFFSET_DAYS=10
         THRESHOLD_DATE=$(TZ="Asia/Tokyo" date -d "$OFFSET_DAYS days ago" +'%Y-%m-%d %H:%M:%S')
         echo "THRESHOLD_DATE :" $THRESHOLD_DATE
+        CHANGES_MADE=false
 
         for file in *; do
           FILE_DATE=$(git log -1 --pretty=format:'%ad' --date=format:'%Y-%m-%d %H:%M:%S' -- "$file")
@@ -31,6 +32,7 @@ jobs:
             FILE_WITHOUT_EXTENSION=${file%.md}
             echo "| [$FILE_WITHOUT_EXTENSION](https://github.com/${{ github.repository }}/wiki/$FILE_WITHOUT_EXTENSION) | $(echo $FILE_DATE | cut -d ' ' -f 1) |" >> MaintenanceList.md
             echo "file :" $file "FILE_DATE :" $FILE_DATE
+            CHANGES_MADE=true
           fi
         done
 
@@ -42,3 +44,25 @@ jobs:
           git commit -m "Update MaintenanceList"
           git push origin master
         fi
+        echo "CHANGES_MADE=$CHANGES_MADE" >> $GITHUB_ENV
+
+    - name: Send notification to Slack
+      if: env.CHANGES_MADE == 'true'
+      uses: slackapi/slack-github-action@v1.16.0
+      with:
+        payload: |
+          {
+            "text": ":warning: Outdated Wiki Pages Found!",
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": ":github: 古いWikiページが検出されました。計画的にメンテナンスをしていきましょう。\n[MaintenanceList](https://github.com/${{ github.repository }}/wiki/MaintenanceList)"
+                }
+              }
+            ]
+          }
+      env:
+        SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
