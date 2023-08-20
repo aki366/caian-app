@@ -63,35 +63,3 @@ jobs:
         continue-on-error: true # Add this to continue even if the test fails
         id: rspec_test  # Add this to reference this step later
         run: bundle exec rspec -f d --dry-run --order defined
-
-      # 通知内容を設定
-      - name: Set notification message
-        id: set_msg
-        run: |
-          if [ "${{ steps.rspec_test.outcome }}" == "success" ]; then
-            echo "::set-output name=result:::github: RSpec Test Result: Tests passed\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
-          else
-            echo "::set-output name=result:::github: <@U0372GW7YUX> RSpec Test Result: Tests failed\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
-          fi
-
-      # Slackへの通知
-      - name: Send GitHub Action trigger data to Slack workflow
-        id: slack
-        uses: slackapi/slack-github-action@v1.16.0
-        with:
-          payload: |
-            {
-              "text": "${{ steps.set_msg.outputs.result }}",  # Use the set message here
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "${{ steps.set_msg.outputs.result }}"  # Use the set message here
-                  }
-                },
-              ]
-            }
-        env:
-          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
