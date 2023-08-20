@@ -2,7 +2,7 @@ name: Get outdated wiki pages
 
 on:
   schedule:
-    - cron: '50 2 * * *' # This runs every day at 11:50 JST
+    - cron: '15 4 * * *' # This runs every day at 13:15 JST
     # - cron: '0 0 * * 4' # This runs every Thursday at 00:00 UTC, which is Friday at 09:00 JST
 
 jobs:
@@ -21,7 +21,7 @@ jobs:
         echo "| Pages | Last update |" >> MaintenanceList.md
         echo "| --- | --- |" >> MaintenanceList.md
 
-        OFFSET_DAYS=10
+        OFFSET_DAYS=365
         THRESHOLD_DATE=$(TZ="Asia/Tokyo" date -d "$OFFSET_DAYS days ago" +'%Y-%m-%d %H:%M:%S')
         echo "THRESHOLD_DATE :" $THRESHOLD_DATE
         CHANGES_MADE=false
@@ -58,7 +58,7 @@ jobs:
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": ":github: 古いWikiページが検出されました。計画的にメンテナンスをしていきましょう。\n[MaintenanceList](https://github.com/${{ github.repository }}/wiki/MaintenanceList)"
+                  "text": ":github: 古いWikiページが検出されました。メンテナンスをしていきましょう。\nhttps://github.com/${{ github.repository }}/wiki/MaintenanceList"
                 }
               }
             ]
