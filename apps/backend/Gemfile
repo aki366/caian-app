@@ -11,7 +11,6 @@ gem 'bcrypt'
 # Frontend related
 gem 'webpacker'
 gem 'turbolinks', '~> 5' # Reactと干渉する可能性があるので、問題が発生したら削除
-gem 'bootstrap-sass'
 gem 'sass-rails', '>= 6'
 gem 'jquery-rails'
 gem 'uglifier'
