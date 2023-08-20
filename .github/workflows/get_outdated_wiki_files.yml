@@ -2,7 +2,7 @@ name: Get outdated wiki pages
 
 on:
   schedule:
-    - cron: '31 4 * * *' # This runs every day at 13:15 JST
+    - cron: '51 4 * * *' # This runs every day at 13:51 JST
     # - cron: '0 0 * * 4' # This runs every Thursday at 00:00 UTC, which is Friday at 09:00 JST
 
 jobs:
@@ -58,7 +58,7 @@ jobs:
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": ":github: @aki 古いWikiページが検出されました。メンテナンスをしていきましょう。\nhttps://github.com/${{ github.repository }}/wiki/MaintenanceList"
+                  "text": ":github: <@U0372GW7YUX> 古いWikiページが検出されました。メンテナンスをしていきましょう。\nhttps://github.com/${{ github.repository }}/wiki/MaintenanceList"
                 }
               }
             ]
