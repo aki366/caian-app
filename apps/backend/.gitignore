@@ -8,7 +8,6 @@
 /.bundle
 
 # password
-/.env*
 
 # db
 /mysql
