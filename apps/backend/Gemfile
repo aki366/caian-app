@@ -2,39 +2,47 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.0.3"
 
+# Core
 gem 'rails', '~> 6.1.4', '>= 6.1.4.6'
-gem 'bootstrap-sass'
 gem 'puma', '~> 5.6'
-gem 'sass-rails', '>= 6'
-gem 'webpacker'
-gem 'turbolinks', '~> 5'
-gem 'jbuilder'
-gem 'bootsnap', '>= 1.4.4', require: false
-gem 'uglifier'
-gem 'pry-rails'
-gem 'jquery-rails'
+gem 'mysql2'
 gem 'bcrypt'
+
+# Frontend related
+gem 'webpacker'
+gem 'turbolinks', '~> 5' # Reactと干渉する可能性があるので、問題が発生したら削除
+gem 'sass-rails', '>= 6'
+gem 'jquery-rails'
+gem 'uglifier'
+
+# Asset management and processing
 gem "image_processing", ">= 1.2"
 gem 'mini_magick'
+
+# Config
 gem 'dotenv-rails'
-gem 'mysql2'
 
-group :development, :test do
-  gem 'rspec-rails', '~> 5.0.0'
-  # see: https://github.com/faker-ruby/faker
-  gem 'faker'
-  # see: https://github.com/thoughtbot/factory_bot_rails
-  gem 'factory_bot_rails', '5.2.0'
-end
+# API
+gem 'jbuilder'
+gem 'rack-cors'
 
+# Development and debugging
 group :development do
+  gem 'pry-rails'
   gem 'web-console'
-  gem 'rack-mini-profiler', '~> 2.0', require: false
   gem 'listen'
   gem 'pre-commit'
   gem 'rubocop'
   gem 'rubocop-rails'
   gem 'bullet'
+  gem 'rack-mini-profiler', '~> 2.0', require: false
+end
+
+# Testing
+group :development, :test do
+  gem 'rspec-rails', '~> 5.0.0'
+  gem 'factory_bot_rails', '5.2.0'
+  gem 'faker'
 end
 
 group :test do
@@ -48,4 +56,8 @@ group :test do
   gem 'guard-minitest'
 end
 
+# Optimizations
+gem 'bootsnap', '>= 1.4.4', require: false
+
+# For Windows users
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
