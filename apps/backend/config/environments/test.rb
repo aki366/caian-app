@@ -59,5 +59,5 @@ Rails.application.configure do
   # config.action_view.annotate_rendered_view_with_filenames = true
 
   # 接続先のホスト名を設定
-  config.hosts << "caian.link"
+  config.hosts.clear
 end

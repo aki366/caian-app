@@ -85,7 +85,7 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
 
   # 接続先のホスト名を設定
-  config.hosts << "caian.link"
+  config.hosts.clear
 
   # 標準出力にログを出力する
   config.logger = ActiveSupport::TaggedLogging.new(ActiveSupport::Logger.new($stdout))
