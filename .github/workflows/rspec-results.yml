@@ -52,6 +52,11 @@ jobs:
       - name: Yarn install
         run: yarn install --check-files
 
+      - name: Compile Webpacker assets
+        run: |
+          cd apps/backend
+          bundle exec rails webpacker:compile
+
       - name: Database create and migrate
         run: |
           cd apps/backend
