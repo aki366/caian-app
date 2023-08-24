@@ -40,7 +40,9 @@ jobs:
           node-version: '14'
 
       - name: Update caniuse-lite
-        run: npx browserslist@latest --update-db
+        run: |
+          cd apps/backend
+          npx browserslist@latest --update-db
 
       - name: Cache node modules
         uses: actions/cache@v2
