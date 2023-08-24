@@ -50,7 +50,9 @@ jobs:
           bundle install --jobs 4 --retry 3
 
       - name: Yarn install
-        run: yarn install --check-files
+        run: |
+          cd apps/backend
+          yarn install --check-files
 
       - name: Compile Webpacker assets
         run: |
