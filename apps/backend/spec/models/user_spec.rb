@@ -1,82 +1,71 @@
 require 'rails_helper'
 
-RSpec.describe "Users Model", type: :model do
-  before do
-    @user = FactoryBot.build(:user)
-  end
+RSpec.describe User, type: :model do
+  let!(:user) { create(:user) }
 
   describe '#create' do
     context '名前が30文字以下のとき' do
+      before { user.name = 'a' * 30 }
+
       it '登録が成功すること' do
-        @user.name = 'a' * 30
-        @user.valid?
+        user.valid?
       end
     end
 
     context '名前が31文字以上のとき' do
-      before do
-        @user.name = 'a' * 31
-      end
+      before { user.name = 'a' * 31 }
 
       it '登録が失敗すること' do
-        @user.valid?
+        user.valid?
       end
     end
 
     context '名前がないとき' do
-      before do
-        @user.name = ''
-      end
+      before { user.name = '' }
 
       it '登録が失敗すること' do
-        @user.valid?
+        user.valid?
       end
     end
 
     context 'メールアドレスの大文字と小文字が違うとき' do
-      it '登録が成功すること' do
-        # @user = FactoryBot.create(:user)
-        # @user2 = FactoryBot.build(:user, email: @user.email.upcase)
-        # @user2.valid?
-        # expect(@user2).to be_valid
+      let!(:other_user) { build(:user, email: user.email.upcase) }
+
+      it '登録が失敗すること' do
+        other_user.valid?
+        expect(other_user).to_not be_valid
       end
     end
 
     context 'メールアドレスがないとき' do
-      before do
-        @user.email = ''
-      end
+      before { user.email = '' }
 
       it '登録が失敗すること' do
-        @user.valid?
+        user.valid?
       end
     end
 
     context 'メールアドレスがすでに登録されているとき' do
-      before do
-        @user = FactoryBot.create(:user)
-        @user2 = FactoryBot.build(:user, email: @user.email)
-      end
+      let!(:other_user) { create(:user) }
 
       it '登録が失敗すること' do
-        @user2.valid?
+        other_user.valid?
       end
     end
 
     context 'メールアドレスの形が不正のとき' do
+      before { user.email = '456-9333' }
+
       it '登録が失敗すること' do
-        @user.email = '456-9333'
-        @user.valid?
+        user.valid?
       end
     end
 
     context 'パスワードがないとき' do
-      before do
-        @user.password = ''
-      end
+      before { user.password = '' }
 
       it '登録が失敗すること' do
-        @user.valid?
+        user.valid?
       end
     end
   end
