@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe 'Users #index system', type: :system do
 
   describe 'ログインしているとき' do

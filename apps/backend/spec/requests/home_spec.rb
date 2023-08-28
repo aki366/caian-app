@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe 'Home Request', type: :request do
 
   describe 'GET #top' do

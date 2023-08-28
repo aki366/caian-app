@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe 'Sessions Request', type: :request do
 
   describe 'GET #new' do

@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe "Tickets Model", type: :model do
   before do
     @ticket = FactoryBot.build(:ticket)

@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe "Comments Request", type: :request do
 
   describe 'POST #create' do

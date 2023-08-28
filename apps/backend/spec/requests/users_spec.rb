@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe 'Users Request', type: :request do
   let(:user) { create(:user) }
 

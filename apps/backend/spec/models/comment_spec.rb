@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe "Comments Model", type: :model do
   before do
     @comment = FactoryBot.build(:comment)

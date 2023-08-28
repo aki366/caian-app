@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe "Messages Model", type: :model do
   before do
     @message = FactoryBot.build(:message)
