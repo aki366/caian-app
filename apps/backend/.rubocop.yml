@@ -67,6 +67,10 @@ Layout/LineLength:
   Exclude:
     - "db/migrate/*.rb"
 
+# describe内のブロック行数
+Metrics/BlockLength:
+  Enabled: false
+
 # メソッドの行数
 Metrics/MethodLength:
   Max: 20

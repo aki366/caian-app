@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe 'Users #create system', type: :system do
 
   describe 'ユーザーの新規登録をするとき' do

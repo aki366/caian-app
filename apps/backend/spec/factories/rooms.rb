@@ -1,5 +1,4 @@
 FactoryBot.define do
-
   factory :room do
     trait :with_users do
       after(:create) do |room|

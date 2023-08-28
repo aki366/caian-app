@@ -1,12 +1,10 @@
-require 'rails_helper'
-
 RSpec.describe 'Rooms Request', type: :request do
 
   describe 'POST #create' do
     subject { post rooms_path(user_ids: [user.id, room_user.id]) }
     let!(:user) { create(:user) }
     let(:room_user) { create(:user) }
-    # let(:other_user) { create(:user) }
+
     context 'ログインしているとき' do
       include_context 'login_as_user'
       context 'パラメータが正常な場合' do
@@ -27,6 +25,7 @@ RSpec.describe 'Rooms Request', type: :request do
       #   end
       # end
     end
+
     context 'ログインしていないとき' do
       it 'トークルームが作成できないこと' do
         expect { subject }.to change(RoomUser, :count).by(+0)
@@ -38,6 +37,7 @@ RSpec.describe 'Rooms Request', type: :request do
   describe 'GET #show' do
     let!(:user) { create(:user) }
     let!(:other_user) { create(:user) }
+
     context 'ログインしているとき' do
       include_context 'login_as_user'
       context 'トークルームのユーザーが自分の場合' do
@@ -48,6 +48,7 @@ RSpec.describe 'Rooms Request', type: :request do
         end
       end
     end
+
     context 'ログインしていないとき' do
       it 'トークルーム画面に遷移できないこと' do
         Room.create(user_ids: [user.id, other_user.id])
