@@ -20,7 +20,7 @@ services:
       context: ./apps/backend
       dockerfile: Dockerfile
     ports:
-      - 3000:3000
+      - "3000:3000"
     volumes:
       - type: bind
         source: ./apps/backend
@@ -56,7 +56,7 @@ services:
     build:
       context: ./apps/backend/containers/nginx
     ports:
-      - 80:80
+      - "80:80"
     volumes:
       - ./apps/backend/containers/nginx/nginx.conf:/etc/nginx/templates/nginx.conf
       - nginx-logs:/var/log/nginx
