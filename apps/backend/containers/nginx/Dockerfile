@@ -4,10 +4,17 @@ FROM nginx:1.18.0
 RUN rm -f /etc/nginx/conf.d/*
 
 # Nginxの設定ファイルをコンテナにコピー
-ADD ./nginx.conf /etc/nginx/conf.d/caian_app.conf
+COPY ./nginx.conf /etc/nginx/conf.d/caian_app.conf
 
-# for health check
-RUN apt-get update && apt-get install -y curl
+# ヘルスチェックとクリーンアップを追加
+RUN apt-get update && \
+    apt-get install -y curl && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# ヘルスチェックの設定
+HEALTHCHECK --interval=30s --timeout=3s \
+    CMD curl --silent --fail http://localhost/ || exit 1
 
 # ビルド完了後にNginxを起動
-CMD /usr/sbin/nginx -g 'daemon off;' -c /etc/nginx/nginx.conf
+CMD ["/usr/sbin/nginx", "-g", "daemon off;", "-c", "/etc/nginx/nginx.conf"]
