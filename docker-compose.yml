@@ -26,9 +26,9 @@ services:
         source: ./apps/backend
         target: /caian-app
         consistency: delegated
-      - ./apps/backend/.docker/nginx.conf.template:/etc/nginx/templates/nginx.conf.template
+      - ./apps/backend/containers/nginx/nginx.conf:/etc/nginx/templates/nginx.conf
       - tmp-data:/caian-app/tmp
-      - tmp-data:/caian-app/public
+      - public-data:/caian-app/public
     tty: true
     stdin_open: true
     depends_on:
@@ -58,14 +58,20 @@ services:
     ports:
       - 80:80
     volumes:
-      - ./apps/backend/.docker/nginx.conf.template:/etc/nginx/templates/nginx.conf.template
+      - ./apps/backend/containers/nginx/nginx.conf:/etc/nginx/templates/nginx.conf
+      - nginx-logs:/var/log/nginx
       - tmp-data:/caian-app/tmp
+      - public-data:/caian-app/public
     depends_on:
       - app
 volumes:
   mysql-data:
     driver: local
   tmp-data:
+    driver: local
+  public-data:
+    driver: local
+  nginx-logs:
     driver: local
 networks:
   default:
