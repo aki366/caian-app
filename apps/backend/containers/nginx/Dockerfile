@@ -13,8 +13,8 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # ヘルスチェックの設定
-HEALTHCHECK --interval=30s --timeout=3s \
-    CMD curl --silent --fail http://localhost/ || exit 1
+# HEALTHCHECK --interval=30s --timeout=3s \
+#     CMD curl --silent --fail http://localhost/ || exit 1
 
 # ビルド完了後にNginxを起動
 CMD ["/usr/sbin/nginx", "-g", "daemon off;", "-c", "/etc/nginx/nginx.conf"]
