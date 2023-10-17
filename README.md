@@ -1,5 +1,4 @@
-# [Caian](https://caian.link)
-https://caian.link
+# [Caian](http://54.178.37.168/)
 
 ![figure of ER](docs/images/root/top.png)
 <br>
@@ -35,7 +34,7 @@ README.md
 1. リポジトリをクローンしたら、トップディレクトリに移動します。
 2. 以下のコマンドを実行して、環境構築用のシェルを起動します。このシェルは、コンテナイメージの作成からサービスの立ち上げまでを行います。
 ```
-$./bin/setup_docker.sh
+./bin/setup_docker.sh
 ```
 
 ## [Wiki](https://github.com/aki366/Caian_app/wiki)
