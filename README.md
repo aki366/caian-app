@@ -1,5 +1,4 @@
-# [Caian](https://caian.link)
-https://caian.link
+# Caian
 
 ![figure of ER](docs/images/root/top.png)
 <br>
