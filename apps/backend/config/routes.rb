@@ -40,8 +40,4 @@ Rails.application.routes.draw do
   resources :rooms do
     resources :messages
   end
-
-  # matchメソッドと:viaオプションを使うことで
-  # 複数のHTTP verbに同時にマッチするルーティングを作成
-  match "*path", to: "application#render_404", via: :all
 end
