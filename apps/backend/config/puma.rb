@@ -44,7 +44,6 @@ plugin :tmp_restart
 
 app_root = File.expand_path("..", __dir__)
 # nginx.confのserverと一致させる設定
-# bind "unix://#{app_root}/tmp/sockets/puma.sock"
-bind "tcp://0.0.0.0:3000"
+bind "unix://#{app_root}/tmp/sockets/puma.sock"
 
 stdout_redirect "#{app_root}/log/puma.stdout.log", "#{app_root}/log/puma.stderr.log", true
