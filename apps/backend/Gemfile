@@ -26,7 +26,6 @@ gem 'dotenv-rails'
 gem 'jbuilder'
 gem 'rack-cors'
 
-# Development and debugging
 group :development do
   gem 'pry-rails'
   gem 'web-console'
@@ -38,7 +37,6 @@ group :development do
   gem 'rack-mini-profiler', '~> 2.0', require: false
 end
 
-# Testing
 group :development, :test do
   gem 'rspec-rails', '~> 5.0.0'
   gem 'factory_bot_rails', '5.2.0'
