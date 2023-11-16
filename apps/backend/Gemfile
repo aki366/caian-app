@@ -26,6 +26,12 @@ gem 'dotenv-rails'
 gem 'jbuilder'
 gem 'rack-cors'
 
+# Optimizations
+gem 'bootsnap', '>= 1.4.4', require: false
+
+# For Windows users
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
 group :development do
   gem 'pry-rails'
   gem 'web-console'
@@ -52,9 +58,3 @@ group :test do
   gem 'guard'
   gem 'guard-minitest'
 end
-
-# Optimizations
-gem 'bootsnap', '>= 1.4.4', require: false
-
-# For Windows users
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
