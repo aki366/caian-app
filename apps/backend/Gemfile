@@ -4,7 +4,7 @@ ruby "3.0.3"
 
 # Core
 gem 'rails', '~> 6.1.4', '>= 6.1.4.6'
-gem 'puma', '~> 5.6'
+gem 'puma'
 gem 'mysql2'
 gem 'bcrypt'
 
@@ -26,7 +26,12 @@ gem 'dotenv-rails'
 gem 'jbuilder'
 gem 'rack-cors'
 
-# Development and debugging
+# Optimizations
+gem 'bootsnap', require: false
+
+# For Windows users
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
 group :development do
   gem 'pry-rails'
   gem 'web-console'
@@ -35,18 +40,17 @@ group :development do
   gem 'rubocop'
   gem 'rubocop-rails'
   gem 'bullet'
-  gem 'rack-mini-profiler', '~> 2.0', require: false
+  gem 'rack-mini-profiler', require: false
 end
 
-# Testing
 group :development, :test do
-  gem 'rspec-rails', '~> 5.0.0'
-  gem 'factory_bot_rails', '5.2.0'
+  gem 'rspec-rails'
+  gem 'factory_bot_rails'
   gem 'faker'
 end
 
 group :test do
-  gem 'capybara', '>= 3.26'
+  gem 'capybara'
   gem 'selenium-webdriver'
   gem 'rails-controller-testing'
   gem 'minitest'
@@ -54,9 +58,3 @@ group :test do
   gem 'guard'
   gem 'guard-minitest'
 end
-
-# Optimizations
-gem 'bootsnap', '>= 1.4.4', require: false
-
-# For Windows users
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

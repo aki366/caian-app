@@ -314,11 +314,11 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt
-  bootsnap (>= 1.4.4)
+  bootsnap
   bullet
-  capybara (>= 3.26)
+  capybara
   dotenv-rails
-  factory_bot_rails (= 5.2.0)
+  factory_bot_rails
   faker
   guard
   guard-minitest
@@ -332,12 +332,12 @@ DEPENDENCIES
   mysql2
   pre-commit
   pry-rails
-  puma (~> 5.6)
+  puma
   rack-cors
-  rack-mini-profiler (~> 2.0)
+  rack-mini-profiler
   rails (~> 6.1.4, >= 6.1.4.6)
   rails-controller-testing
-  rspec-rails (~> 5.0.0)
+  rspec-rails
   rubocop
   rubocop-rails
   sass-rails (>= 6)
