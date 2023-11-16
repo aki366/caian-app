@@ -40,7 +40,7 @@ group :development do
   gem 'rubocop'
   gem 'rubocop-rails'
   gem 'bullet'
-  gem 'rack-mini-profiler', '~> 2.0', require: false
+  gem 'rack-mini-profiler', require: false
 end
 
 group :development, :test do
