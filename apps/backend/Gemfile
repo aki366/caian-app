@@ -6,55 +6,53 @@ ruby "3.0.3"
 gem 'rails', '~> 6.1.4', '>= 6.1.4.6'
 gem 'puma'
 gem 'mysql2'
-gem 'bcrypt'
+gem 'bcrypt' # 安全なパスワードハッシュを生成
 
 # Frontend related
-gem 'webpacker'
-gem 'turbolinks', '~> 5' # Reactと干渉する可能性があるので、問題が発生したら削除
-gem 'sass-rails', '>= 6'
-gem 'jquery-rails'
-gem 'uglifier'
+gem 'webpacker' # RailsでのJavaScriptモジュール管理
+gem 'turbolinks', '~> 5' # ナビゲーションを高速化
+gem 'sass-rails', '>= 6' # Rails用のSassアダプタ
+gem 'jquery-rails' # Rails用のjQuery
+gem 'uglifier' # JavaScriptの圧縮
 
 # Asset management and processing
-gem "image_processing", ">= 1.2"
-gem 'mini_magick'
+gem "image_processing", ">= 1.2" # 高レベルな画像処理ラッパー
+gem 'mini_magick' # ImageMagickまたはGraphicsMagickコマンドラインのRubyラッパー
 
 # Config
-gem 'dotenv-rails'
+gem 'dotenv-rails' # `.env`から環境変数を読み込む
 
 # API
-gem 'jbuilder'
-gem 'rack-cors'
+gem 'jbuilder' # JSON構造を作成
+gem 'rack-cors' # CORSを処理
 
 # Optimizations
-gem 'bootsnap', require: false
+gem 'bootsnap', require: false # アプリケーションの起動時間を短縮
 
 # For Windows users
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby] # タイムゾーンデータを提供
 
 group :development do
-  gem 'pry-rails'
-  gem 'web-console'
-  gem 'listen'
-  gem 'pre-commit'
-  gem 'rubocop'
-  gem 'rubocop-rails'
-  gem 'bullet'
-  gem 'rack-mini-profiler', require: false
+  gem 'pry-rails' # デバッグのための強力なインターフェースを提供
+  gem 'web-console' # ブラウザ上のRailsコンソール
+  gem 'listen' # ファイルの変更を監視し、通知
+  gem 'pre-commit' # gitのpre-commitフック
+  gem 'rubocop' # Rubyの静的コード解析ツール
+  gem 'rubocop-rails' # Railsのベストプラクティスを強制するRuboCopの拡張
+  gem 'bullet' # N+1クエリと未使用のイーガーロードを検出
+  gem 'rack-mini-profiler', require: false # 読み込み速度をプロファイリング
 end
 
 group :development, :test do
-  gem 'rspec-rails'
-  gem 'factory_bot_rails'
-  gem 'faker'
+  gem 'rspec-rails' # テストフレームワーク
+  gem 'factory_bot_rails' # ファクトリーの定義と使用のためのフレームワークとDSLを提供
+  gem 'faker' # ダミーデータ生成ライブラリ
 end
 
 group :test do
-  gem 'capybara'
-  gem 'selenium-webdriver'
-  gem 'rails-controller-testing'
-  gem 'minitest'
-  gem 'minitest-reporters'
-  gem 'guard'
-  gem 'guard-minitest'
+  gem 'capybara' # ユーザーが実際にどのようにインタラクションするかをシミュレートして、Webアプリケーションをテスト
+  gem 'selenium-webdriver' # Webサイトの自動テストを書くツール
+  gem 'rails-controller-testing' # コントローラーテストに`assigns`を戻す
+  gem 'guard' # ファイルシステムの変更をハンドリング
+  gem 'guard-rspec' # Guardを使用してテストを自動的かつインテリジェントに起動
 end
