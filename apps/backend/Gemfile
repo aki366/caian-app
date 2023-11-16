@@ -37,16 +37,17 @@ group :development do
   gem 'web-console' # ブラウザ上のRailsコンソール
   gem 'listen' # ファイルの変更を監視し、通知
   gem 'pre-commit' # gitのpre-commitフック
-  gem 'rubocop' # Rubyの静的コード解析ツール
-  gem 'rubocop-rails' # Railsのベストプラクティスを強制するRuboCopの拡張
   gem 'bullet' # N+1クエリと未使用のイーガーロードを検出
   gem 'rack-mini-profiler', require: false # 読み込み速度をプロファイリング
 end
 
+# 本番環境では使用しないが、開発環境とGitHub Actionsで使用するものを定義
 group :development, :test do
   gem 'rspec-rails' # テストフレームワーク
   gem 'factory_bot_rails' # ファクトリーの定義と使用のためのフレームワークとDSLを提供
   gem 'faker' # ダミーデータ生成ライブラリ
+  gem 'rubocop' # Rubyの静的コード解析ツール
+  gem 'rubocop-rails' # Railsのベストプラクティスを強制するRuboCopの拡張
 end
 
 group :test do
