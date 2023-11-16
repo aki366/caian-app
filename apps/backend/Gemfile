@@ -54,5 +54,5 @@ group :test do
   gem 'selenium-webdriver'
   gem 'rails-controller-testing'
   gem 'guard'
-  gem 'guard-minitest'
+  gem 'guard-rspec'
 end
