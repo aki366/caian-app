@@ -314,7 +314,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt
-  bootsnap (>= 1.4.4)
+  bootsnap
   bullet
   capybara (>= 3.26)
   dotenv-rails
