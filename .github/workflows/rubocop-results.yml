@@ -32,4 +32,4 @@ jobs:
       - name: Run RuboCop
         run: |
           cd apps/backend
-          git diff --name-only origin/main...HEAD | grep '\.rb$' | xargs bundle exec rubocop
+          git diff --name-only origin/main...${{ github.head_ref }} | grep '\.rb$' | xargs bundle exec rubocop
