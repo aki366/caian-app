@@ -18,10 +18,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Debug token
-        run: |
-          echo "GH_TOKEN=${{ env.GH_TOKEN }}"
-
       - name: Exit if No Ruby Files for Linting
         run: |
           cd apps/backend
@@ -29,10 +25,6 @@ jobs:
           if [ -z "$FILE_LIST" ]; then
             echo "No .rb files to analyze"
             exit 0
-          else
-            echo ""
-            echo "Analyzing the following Ruby files"
-            echo "$FILE_LIST"
           fi
 
       - name: Set up Ruby
