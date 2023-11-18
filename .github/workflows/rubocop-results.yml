@@ -48,7 +48,6 @@ jobs:
       - name: Run RuboCop
         if: ${{ env.HAS_RUBY_FILES == 'true' }}
         run: |
-          cd apps/backend
           gh pr diff ${{ github.event.number }} --name-only |
           grep '\.rb$' |
           xargs --no-run-if-empty bundle exec rubocop --force-exclusion
