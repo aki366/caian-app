@@ -23,6 +23,7 @@ jobs:
         run: |
           cd apps/backend
           FILE_LIST=$(gh pr diff ${{ github.event.number }} --name-only)
+          echo "ファイルリストのチェック $FILE_LIST"
           if [ -z "$FILE_LIST" ]; then
             echo "exitになった"
             exit 0
