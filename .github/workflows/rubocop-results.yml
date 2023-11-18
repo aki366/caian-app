@@ -24,9 +24,9 @@ jobs:
           cd apps/backend
           FILE_LIST=$(gh pr diff ${{ github.event.number }} --name-only)
           echo $FILE_LIST
-          RUBY_FILES=$(echo "$FILE_LIST" | grep -q '\.rb$')
+          RUBY_FILES=$(echo "$FILE_LIST" | grep '\.rb$')
+          echo "Ruby files"
           echo $RUBY_FILES
-          echo "HAS_RUBY_FILES=$(echo "$RUBY_FILES" && echo 'true' || echo 'false')" >> $GITHUB_ENV
 
       - name: Set up Ruby
         if: ${{ env.HAS_RUBY_FILES == 'true' }}
