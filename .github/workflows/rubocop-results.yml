@@ -27,6 +27,7 @@ jobs:
             echo "HAS_RUBY_FILES=true" >> $GITHUB_ENV
           else
             echo "HAS_RUBY_FILES=false" >> $GITHUB_ENV
+          fi
 
       - name: Set up Ruby
         if: env.HAS_RUBY_FILES == 'true'
