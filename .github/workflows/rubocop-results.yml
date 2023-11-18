@@ -23,28 +23,25 @@ jobs:
         run: |
           cd apps/backend
           FILE_LIST=$(gh pr diff ${{ github.event.number }} --name-only)
-          if echo "$FILE_LIST" | grep -q '\.rb$'; then
-            echo "HAS_RUBY_FILES=true" >> $GITHUB_ENV
-            echo $FILE_LIST
-          else
-            echo "HAS_RUBY_FILES=false" >> $GITHUB_ENV
-          fi
+          echo $FILE_LIST
+          echo "HAS_RUBY_FILES=$(echo "$FILE_LIST" | grep -q '\.rb$' && echo 'true' || echo 'false')" >> $GITHUB_ENV
+          echo $HAS_RUBY_FILES
 
       - name: Set up Ruby
-        if: env.HAS_RUBY_FILES == 'true'
+        if: ${{ env.HAS_RUBY_FILES == 'true' }}
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.0.3
 
       - name: Install dependencies
-        if: env.HAS_RUBY_FILES == 'true'
+        if: ${{ env.HAS_RUBY_FILES == 'true' }}
         run: |
           gem install bundler
           cd apps/backend
           bundle install
 
       - name: Run RuboCop
-        if: env.HAS_RUBY_FILES == 'true'
+        if: ${{ env.HAS_RUBY_FILES == 'true' }}
         run: |
           cd apps/backend
           gh pr diff ${{ github.event.number }} --name-only |
