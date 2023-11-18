@@ -21,6 +21,7 @@ jobs:
       - name: Exit if No Ruby Files for Linting
         run: |
           cd apps/backend
+          echo ${{ github.event.number }}
           FILE_LIST=$(gh pr diff ${{ github.event.number }} --name-only | grep '\.rb$')
           echo $FILE_LIST
           if [ -z "$FILE_LIST" ]; then
