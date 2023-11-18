@@ -21,11 +21,15 @@ jobs:
       - name: Check for Ruby files
         id: check-ruby
         run: |
-          cd apps/backend
           FILE_LIST=$(gh pr diff ${{ github.event.number }} --name-only)
-          RUBY_FILES=$(echo "$FILE_LIST" | grep '\.rb$')
-          echo "Ruby files"
-          printf "%s\n" $RUBY_FILES
+          if [ -z "$FILE_LIST" ]; then
+            exit 0
+          else
+            RUBY_FILES=$(echo "$FILE_LIST" | grep '\.rb$')
+            echo "Ruby files"
+            printf "%s\n" $RUBY_FILES
+          fi
+
           if [ -z "$RUBY_FILES" ]; then
             echo "HAS_RUBY_FILES=false" >> $GITHUB_ENV
           else
