@@ -11,7 +11,7 @@ on:
       - 'apps/backend/**'
 
 env:
-  GH_TOKEN: ${{ github.token }}
+  GH_TOKEN: ${{ github.token }} # ghコマンドを使用する場合はenvでtokenの設定が必要
 
 jobs:
   rubocop:
