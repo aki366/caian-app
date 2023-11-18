@@ -21,8 +21,10 @@ jobs:
       - name: Check for Ruby files
         id: check-ruby
         run: |
+          cd apps/backend
           FILE_LIST=$(gh pr diff ${{ github.event.number }} --name-only)
           if [ -z "$FILE_LIST" ]; then
+            echo "exitになった"
             exit 0
           else
             RUBY_FILES=$(echo "$FILE_LIST" | grep '\.rb$')
