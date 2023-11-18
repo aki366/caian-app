@@ -18,6 +18,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.0.3
+
       - name: Exit if No Ruby Files for Linting
         run: |
           cd apps/backend
@@ -26,11 +31,6 @@ jobs:
             echo "No .rb files to analyze"
             exit 0
           fi
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.0.3
 
       - name: Install dependencies
         run: |
