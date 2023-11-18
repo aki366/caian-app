@@ -21,25 +21,25 @@ jobs:
       - name: Check for Ruby files
         id: check-ruby
         run: |
-        FILE_LIST=$(gh pr diff ${{ github.event.number }} --name-only)
-        echo "FILE_LIST: $FILE_LIST"
-        if [ -z "$FILE_LIST" ]; then
-          echo "exit 0 の場合"
-          exit 0
-        else
-          RUBY_FILES=$(echo "$FILE_LIST" | grep '\.rb$')
-          echo "RUBY_FILES: $RUBY_FILES"
-          if [ -z "$RUBY_FILES" ]; then
-            echo "RUBY_FILESがfalseの場合"
-            echo "HAS_RUBY_FILES=false" >> $GITHUB_ENV
+          FILE_LIST=$(gh pr diff ${{ github.event.number }} --name-only)
+          echo "FILE_LIST: $FILE_LIST"
+          if [ -z "$FILE_LIST" ]; then
+            echo "exit 0 の場合"
+            exit 0
           else
-            echo "Ruby files"
-            if [ -n "$RUBY_FILES" ]; then
-              printf "%s\n" $RUBY_FILES
+            RUBY_FILES=$(echo "$FILE_LIST" | grep '\.rb$')
+            echo "RUBY_FILES: $RUBY_FILES"
+            if [ -z "$RUBY_FILES" ]; then
+              echo "RUBY_FILESがfalseの場合"
+              echo "HAS_RUBY_FILES=false" >> $GITHUB_ENV
+            else
+              echo "Ruby files"
+              if [ -n "$RUBY_FILES" ]; then
+                printf "%s\n" $RUBY_FILES
+              fi
+              echo "HAS_RUBY_FILES=true" >> $GITHUB_ENV
             fi
-            echo "HAS_RUBY_FILES=true" >> $GITHUB_ENV
           fi
-        fi
 
       - name: Set up Ruby
         if: ${{ env.HAS_RUBY_FILES == 'true' }}
