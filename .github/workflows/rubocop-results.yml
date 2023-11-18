@@ -32,4 +32,6 @@ jobs:
       - name: Run RuboCop
         run: |
           cd apps/backend
-          git diff --name-only origin/main...${{ github.head_ref }} | grep '\.rb$' | xargs bundle exec rubocop
+          gh pr diff ${{ github.event.number }} --name-only |
+          xargs -I {} sh -c '[ -f "{}" ] && echo "{}"' |
+          xargs --no-run-if-empty bundle exec rubocop --force-exclusion
