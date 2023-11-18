@@ -7,6 +7,7 @@ class User < ApplicationRecord
   validates :email, {presence: true, uniqueness:true, length: {maximum: 256}}
   validates :password, {presence: true, length: {maximum: 30}, if: ->(record) { record.new_record? || record.password.present? }}
 
+  
   has_many :tickets, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :room_users, dependent: :destroy
