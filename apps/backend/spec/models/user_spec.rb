@@ -1,7 +1,6 @@
 RSpec.describe User, type: :model do
   let!(:user) { create(:user) }
 
-  
   describe '#create' do
     context '名前が30文字以下のとき' do
       before { user.name = 'a' * 30 }
