@@ -23,6 +23,12 @@ jobs:
         with:
           ruby-version: 3.0.3
 
+      - name: Install dependencies
+        run: |
+          gem install bundler
+          cd apps/backend
+          bundle install
+
       - name: Exit if No Ruby Files for Linting
         run: |
           cd apps/backend
@@ -31,12 +37,6 @@ jobs:
             echo "No .rb files to analyze"
             exit 0
           fi
-
-      - name: Install dependencies
-        run: |
-          gem install bundler
-          cd apps/backend
-          bundle install
 
       - name: Run RuboCop
         run: |
