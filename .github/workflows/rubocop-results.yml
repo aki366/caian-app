@@ -21,6 +21,7 @@ jobs:
       - name: Check for Ruby files
         id: check-ruby
         run: |
+          # grepの結果.rbファイルが存在しない場合、以上終了するため`|| true`を追加
           RUBY_FILES=$(gh pr diff ${{ github.event.number }} --name-only | grep '\.rb$' || true)
           if [ -n "$RUBY_FILES" ]; then
             echo "Ruby files to be checked for Lint"
