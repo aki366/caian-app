@@ -8,7 +8,7 @@ on:
       - 'apps/backend/**'
 
 env:
-  GH_TOKEN: ${{ github.token }} # ghコマンドを使用する場合はenvでtokenの設定が必要
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # ghコマンドを使用する場合はenvでtokenの設定が必要
 
 jobs:
   rubocop:
@@ -21,9 +21,7 @@ jobs:
       - name: Exit if No Ruby Files for Linting
         run: |
           cd apps/backend
-          echo ${{ github.event.number }}
           FILE_LIST=$(gh pr diff ${{ github.event.number }} --name-only | grep '\.rb$')
-          echo $FILE_LIST
           if [ -z "$FILE_LIST" ]; then
             echo "No .rb files to analyze"
             exit 0
