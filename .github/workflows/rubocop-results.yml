@@ -23,10 +23,12 @@ jobs:
         run: |
           FILE_LIST=$(gh pr diff ${{ github.event.number }} --name-only)
           if [ -z "$FILE_LIST" ]; then
+            echo "exit 0 の場合"
             exit 0
           else
             RUBY_FILES=$(echo "$FILE_LIST" | grep '\.rb$')
             if [ -z "$RUBY_FILES" ]; then
+              echo "RUBY_FILESがfalseの場合"
               echo "HAS_RUBY_FILES=false" >> $GITHUB_ENV
             else
               echo "Ruby files"
