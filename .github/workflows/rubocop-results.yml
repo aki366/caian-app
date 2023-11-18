@@ -22,6 +22,10 @@ jobs:
         run: |
           cd apps/backend
           FILE_LIST=$(gh pr diff ${{ github.event.number }} --name-only)
+          if [ -z "$FILE_LIST" ]; then
+            echo "No .rb files to analyze"
+            exit 0
+          fi
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
