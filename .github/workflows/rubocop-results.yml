@@ -1,0 +1,55 @@
+name: RuboCop Lint Check
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'apps/backend/**'
+
+env:
+  GH_TOKEN: ${{ github.token }} # ghコマンドを使用する場合はenvでtokenの設定が必要
+
+jobs:
+  rubocop:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Check for Ruby files
+        id: check-ruby
+        run: |
+          # grepの結果.rbファイルが存在しない場合、以上終了するため`|| true`を追加
+          RUBY_FILES=$(gh pr diff ${{ github.event.number }} --name-only | grep '\.rb$' || true)
+          if [ -n "$RUBY_FILES" ]; then
+            echo "Ruby files to be checked for Lint"
+            printf "%s\n" $RUBY_FILES
+            echo "HAS_RUBY_FILES=true" >> $GITHUB_ENV
+          else
+            echo "Skip processing because the .rb file does not exist"
+            echo "HAS_RUBY_FILES=false" >> $GITHUB_ENV
+          fi
+
+      - name: Set up Ruby
+        if: ${{ env.HAS_RUBY_FILES == 'true' }}
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.0.3
+
+      - name: Install dependencies
+        if: ${{ env.HAS_RUBY_FILES == 'true' }}
+        run: |
+          gem install bundler
+          cd apps/backend
+          bundle install
+
+      - name: Run RuboCop
+        if: ${{ env.HAS_RUBY_FILES == 'true' }}
+        run: |
+          RUBY_FILES=$(gh pr diff ${{ github.event.number }} --name-only | grep '\.rb$')
+          if [ -n "$RUBY_FILES" ]; then
+            cd apps/backend
+            echo "$RUBY_FILES" | sed 's|apps/backend/||' | xargs bundle exec rubocop --force-exclusion
+          fi
