@@ -25,6 +25,9 @@ jobs:
           if [ -z "$FILE_LIST" ]; then
             echo "No .rb files to analyze"
             exit 0
+          else
+            echo "Analyzing the following Ruby files:"
+            echo "$FILE_LIST"
           fi
 
       - name: Set up Ruby
