@@ -22,6 +22,7 @@ jobs:
         id: check-ruby
         run: |
           FILE_LIST=$(gh pr diff ${{ github.event.number }} --name-only)
+          echo "FILE_LIST: $FILE_LIST"
           RUBY_FILES=$(echo "$FILE_LIST" | grep '\.rb$')
           echo "RUBY_FILES: $RUBY_FILES"
           if [ -n "$RUBY_FILES" ]; then
