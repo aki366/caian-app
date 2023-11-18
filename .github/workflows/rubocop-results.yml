@@ -25,7 +25,7 @@ jobs:
           FILE_LIST=$(gh pr diff ${{ github.event.number }} --name-only)
           RUBY_FILES=$(echo "$FILE_LIST" | grep '\.rb$')
           echo "Ruby files"
-          echo $RUBY_FILES
+          printf "%s\n" $RUBY_FILES
           if [ -z "$RUBY_FILES" ]; then
             echo "HAS_RUBY_FILES=false" >> $GITHUB_ENV
           else
