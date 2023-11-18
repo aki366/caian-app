@@ -18,6 +18,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Debug token
+        run: |
+          echo "GH_TOKEN=${{ env.GH_TOKEN }}"
+
       - name: Exit if No Ruby Files for Linting
         run: |
           cd apps/backend
