@@ -48,6 +48,6 @@ jobs:
       - name: Run RuboCop
         if: ${{ env.HAS_RUBY_FILES == 'true' }}
         run: |
-          FILE_LIST=$(gh pr diff ${{ github.event.number }} --name-only)
+          FILE_LIST=$(gh pr diff ${{ github.event.number }} --name-only | sed 's|apps/backend/||')
           RUBY_FILES=$(echo "$FILE_LIST" | grep '\.rb$')
           echo "$RUBY_FILES" | xargs bundle exec rubocop --force-exclusion
