@@ -51,5 +51,4 @@ jobs:
           cd apps/backend
           gh pr diff ${{ github.event.number }} --name-only |
           grep '\.rb$' |
-          xargs -I {} sh -c '[ -f "{}" ] && echo "{}"' |
           xargs --no-run-if-empty bundle exec rubocop --force-exclusion
