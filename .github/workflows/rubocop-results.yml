@@ -21,6 +21,7 @@ jobs:
       - name: Exit if No Ruby Files for Linting
         run: |
           cd apps/backend
+          FILE_LIST=$(gh pr diff ${{ github.event.number }} --name-only)
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
