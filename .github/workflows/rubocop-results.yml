@@ -22,10 +22,7 @@ jobs:
         run: |
           cd apps/backend
           FILE_LIST=$(gh pr diff ${{ github.event.number }} --name-only)
-          if ! echo "$FILE_LIST" | grep -q '\.rb$'; then
-            echo "No .rb files to analyze"
-            exit 0
-          fi
+          echo "::set-output name=has_ruby_files::$(echo $FILE_LIST | grep -q '\.rb$' && echo 'true' || echo 'false')"
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
