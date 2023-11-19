@@ -11,7 +11,7 @@
       "problemMatcher":[
         {
           "owner": "ruby",
-          "fileLocation": ["relative", "${workspaceFolder}"],
+          "fileLocation": [ "relative", "${workspaceFolder}" ],
           "pattern": {
             "regexp": "^rspec\\s+(.*):(\\d+)\\s+#\\s+(.*)$",
             "file": 1, "line": 2, "message": 3
