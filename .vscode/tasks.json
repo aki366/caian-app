@@ -1,0 +1,28 @@
+// tasks.json
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run RSpec current file with line",
+      "type": "shell",
+      "command": "cd apps/backend && bundle exec rspec -fd -ff ${relative}:${input:LineNumber}",
+      "group": "test",
+      "problemMatcher":[
+        {
+          "owner": "ruby",
+          "fileLocation": ["relative", "${workspaceFolder}"],
+          "pattern": {
+            "regexp": "^rspec\\s+(.*):(\\d+)\\s+#\\s+(.*)$",
+            "file": 1, "line": 2, "message": 3
+          }
+        }
+      ]
+    } ],
+    "inputs": [
+      {
+        "id": "LineNumber",
+        "type": "promptString",
+        "description": "Enter the line number to run RSpec on:"
+      }
+    ]
+}
