@@ -8,9 +8,11 @@
 Monorepo は、システムを構成する複数のコンポーネントの独立性を保ちつつ、全ての構成を1つのリポジトリで管理する手法です。
 
 ```bash
+├ .github/
+├ .vscode/
 ├ apps/
-│ ├ backend/
-│ └ frontend/
+│ ├ backend/  # Rails
+│ └ frontend/ # React
 ├ bin/
 └ docs/
 docker-compose.yml
