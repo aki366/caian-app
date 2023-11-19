@@ -5,7 +5,7 @@
     {
       "label": "Run RSpec current file with line",
       "type": "shell",
-      "command": "cd apps/backend && bundle exec rspec -fd -ff ${relative}:${input:LineNumber}",
+      "command": "docker compose -f docker-compose.yml exec -it app /bin/bash -c \"bundle exec rspec -fd -ff ${relative}:${input:LineNumber}\"",
       "group": "test",
       "problemMatcher":[
         {
