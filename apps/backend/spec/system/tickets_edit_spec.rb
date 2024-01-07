@@ -1,5 +1,4 @@
 RSpec.describe 'Tickets #edit system', type: :system do
-
   describe 'ログインしているとき' do
     let(:user) { create(:user) }
     # let!(:user_ticket) { create(:ticket, user_id: user.id) }

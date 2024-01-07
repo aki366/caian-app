@@ -1,5 +1,4 @@
 RSpec.describe 'Sessions Request', type: :request do
-
   describe 'GET #new' do
     subject { get new_login_path }
 
@@ -25,7 +24,7 @@ RSpec.describe 'Sessions Request', type: :request do
 
     context 'パラメータが正常なとき' do
       it 'ユーザーのログインができること' do
-        post login_index_path, params: { user: {email: user.email, password: user.password} }
+        post login_index_path, params: {user: {email: user.email, password: user.password}}
         expect(response).to redirect_to(tickets_path)
       end
     end
@@ -35,14 +34,14 @@ RSpec.describe 'Sessions Request', type: :request do
       include_context 'login_as_user'
 
       it '既にログイン済みの場合' do
-        post login_index_path, params: { user: {email: user.email, password: user.password} }
+        post login_index_path, params: {user: {email: user.email, password: user.password}}
         expect(flash[:notice]).to eq("すでにログインしています")
       end
     end
 
     context 'パラメータが不正なとき' do
       it 'ユーザーのログインができないこと' do
-        post login_index_path, params: { user: {email: user.email, password: "invalid_password"} }
+        post login_index_path, params: {user: {email: user.email, password: "invalid_password"}}
         expect(response).to redirect_to(new_login_path)
       end
     end

@@ -15,7 +15,7 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 
 # Include additional helpers
-require 'support/factory_bot.rb'
+require 'support/factory_bot'
 require './spec/support/contexts/login_as_user'
 
 RSpec.configure do |config|
@@ -28,7 +28,7 @@ RSpec.configure do |config|
 
   # Clean up screenshots before running tests
   config.before(:all) do
-    FileUtils.rm_rf(Dir[Rails.root.join('tmp', 'screenshots', '*')], secure: true)
+    FileUtils.rm_rf(Rails.root.join('tmp/screenshots'), secure: true)
   end
 
   config.include FactoryBot::Syntax::Methods

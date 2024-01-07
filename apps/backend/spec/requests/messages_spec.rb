@@ -1,5 +1,4 @@
 RSpec.describe "Messages Request", type: :request do
-
   describe 'POST #create' do
     let!(:user) { create(:user) }
     let!(:other_user) { create(:user) }
@@ -11,7 +10,7 @@ RSpec.describe "Messages Request", type: :request do
         it 'メッセージが投稿できること' do
           Room.create(user_ids: [user.id, other_user.id])
           expect do
-            post room_messages_path(Room.last.id), params: { message: {text: "メッセージを投稿しました"} }
+            post room_messages_path(Room.last.id), params: {message: {text: "メッセージを投稿しました"}}
           end.to change(Message, :count).by(1)
           expect(response).to have_http_status(:redirect)
         end
@@ -32,7 +31,7 @@ RSpec.describe "Messages Request", type: :request do
       it 'メッセージが投稿できないこと' do
         Room.create(user_ids: [user.id, other_user.id])
         expect do
-          post room_messages_path(Room.last.id), params: { message: {text: "メッセージを投稿しました"} }
+          post room_messages_path(Room.last.id), params: {message: {text: "メッセージを投稿しました"}}
         end.to change(Message, :count).by(0)
         expect(response).to have_http_status(:redirect)
       end
@@ -83,7 +82,7 @@ RSpec.describe "Messages Request", type: :request do
     context 'ログインしているとき' do
       include_context 'login_as_user'
       before do
-        post room_messages_path(Room.first.id), params: { message: {text: "メッセージを投稿しました"} }
+        post room_messages_path(Room.first.id), params: {message: {text: "メッセージを投稿しました"}}
       end
 
       context 'ユーザーが自分の場合' do

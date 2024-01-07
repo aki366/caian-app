@@ -1,5 +1,4 @@
 RSpec.describe 'Users #new system', type: :system do
-
   describe 'ユーザーの新規登録をするとき' do
     it 'ユーザーの新規作成画面に遷移できること' do
       # # トップ画面にアクセス

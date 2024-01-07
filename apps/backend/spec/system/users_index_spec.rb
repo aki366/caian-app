@@ -1,5 +1,4 @@
 RSpec.describe 'Users #index system', type: :system do
-
   describe 'ログインしているとき' do
     let!(:user) { create(:user) }
     let!(:other_user) { create(:user) }

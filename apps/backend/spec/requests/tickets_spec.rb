@@ -1,5 +1,4 @@
 RSpec.describe "Tickets Request", type: :request do
-
   describe 'GET #new' do
     subject { get new_ticket_path(user.id) }
     let!(:user) { create(:user) }

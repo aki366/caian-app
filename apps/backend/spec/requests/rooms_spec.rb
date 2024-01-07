@@ -1,5 +1,4 @@
 RSpec.describe 'Rooms Request', type: :request do
-
   describe 'POST #create' do
     subject { post rooms_path(user_ids: [user.id, room_user.id]) }
     let!(:user) { create(:user) }
