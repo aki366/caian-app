@@ -28,7 +28,7 @@ RSpec.configure do |config|
 
   # Clean up screenshots before running tests
   config.before(:all) do
-    FileUtils.rm_rf(Dir[Rails.root.join('tmp', 'screenshots', '*')], secure: true)
+    FileUtils.rm_rf(Rails.root.join('tmp/screenshots'), secure: true)
   end
 
   config.include FactoryBot::Syntax::Methods
