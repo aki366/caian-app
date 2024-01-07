@@ -7,7 +7,10 @@ RSpec.describe 'Users #update system', type: :system do
       it 'ユーザー情報が更新されること' do
         visit edit_user_path(user.id)
         fill_in 'name', with: 'ヤマダ'
-        expect { click_on '変更'; user.reload }.to change(user, :name)
+        expect do
+          click_on '変更'
+          user.reload
+        end.to change(user, :name)
         expect(current_path).to eq user_path(user.id)
         expect(page).to have_content 'ユーザー情報を編集しました'
       end
@@ -17,7 +20,10 @@ RSpec.describe 'Users #update system', type: :system do
       it 'ユーザー情報が更新されないこと' do
         visit edit_user_path(user.id)
         fill_in 'name', with: ''
-        expect { click_on '変更'; user.reload }.not_to change(user, :name)
+        expect do
+          click_on '変更'
+          user.reload
+        end.not_to change(user, :name)
         expect(current_path).to eq "/users/#{user.id}"
         expect(page).to have_content 'Nameを入力してください'
       end
@@ -27,7 +33,10 @@ RSpec.describe 'Users #update system', type: :system do
       it 'ユーザー情報が更新されること' do
         visit edit_user_path(user.id)
         fill_in 'email', with: 'system@example.com'
-        expect { click_on '変更'; user.reload }.to change(user, :email)
+        expect do
+          click_on '変更'
+          user.reload
+        end.to change(user, :email)
         expect(current_path).to eq user_path(user.id)
         expect(page).to have_content 'ユーザー情報を編集しました'
       end
@@ -37,7 +46,10 @@ RSpec.describe 'Users #update system', type: :system do
       it 'ユーザー情報が更新されないこと' do
         visit edit_user_path(user.id)
         fill_in 'email', with: ''
-        expect { click_on '変更'; user.reload }.not_to change(user, :email)
+        expect do
+          click_on '変更'
+          user.reload
+        end.not_to change(user, :email)
         expect(current_path).to eq "/users/#{user.id}"
         expect(page).to have_content 'Emailを入力してください'
       end
@@ -47,7 +59,10 @@ RSpec.describe 'Users #update system', type: :system do
       it 'ユーザー情報が更新されること' do
         visit edit_user_path(user.id)
         fill_in 'password', with: 'password'
-        expect { click_on '変更'; user.reload }.to change(user, :password_digest)
+        expect do
+          click_on '変更'
+          user.reload
+        end.to change(user, :password_digest)
         expect(current_path).to eq user_path(user.id)
         expect(page).to have_content 'ユーザー情報を編集しました'
       end
@@ -58,7 +73,10 @@ RSpec.describe 'Users #update system', type: :system do
         visit edit_user_path(user.id)
         fill_in 'name',     with: 'ヤマダ'
         fill_in 'password', with: ''
-        expect { click_on '変更'; user.reload }.to change(user, :name)
+        expect do
+          click_on '変更'
+          user.reload
+        end.to change(user, :name)
         expect(current_path).to eq user_path(user.id)
         expect(page).to have_content 'ユーザー情報を編集しました'
       end
