@@ -1,5 +1,4 @@
 RSpec.describe 'Users #create system', type: :system do
-
   describe 'ユーザーの新規登録をするとき' do
     context 'フォームの入力値が正常な場合' do
       it 'ユーザーが作成できること' do

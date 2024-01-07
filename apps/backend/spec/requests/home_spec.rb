@@ -1,5 +1,4 @@
 RSpec.describe 'Home Request', type: :request do
-
   describe 'GET #top' do
     subject { get top_path }
     it 'トップ画面に遷移できること' do

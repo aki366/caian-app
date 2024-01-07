@@ -1,5 +1,4 @@
 RSpec.describe 'Tickets #new system', type: :system do
-
   describe 'ログインしているとき' do
     let!(:user) { create(:user) }
     include_context 'login_as_user'

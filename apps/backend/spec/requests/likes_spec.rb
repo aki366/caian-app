@@ -1,5 +1,4 @@
 RSpec.describe "Likes Request", type: :request do
-
   describe 'POST #create' do
     subject { post ticket_likes_path(user_ticket.id) }
     # let!(:user_ticket) { create(:ticket) }
@@ -26,7 +25,7 @@ RSpec.describe "Likes Request", type: :request do
     # let!(:user_ticket) { create(:ticket) }
     let!(:user) { create(:user) }
     # let!(:ticket_like) { create(:like, ticket_id: user_ticket.id, user_id: user.id) }
-    let(:other_user) {create(:user)}
+    let(:other_user) { create(:user) }
 
     context 'ログインしているとき' do
       include_context 'login_as_user'

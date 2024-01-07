@@ -1,5 +1,4 @@
 RSpec.describe "Comments Request", type: :request do
-
   describe 'POST #create' do
     # let!(:user_ticket) { create(:ticket) }
     let!(:user) { create(:user) }
@@ -87,8 +86,8 @@ RSpec.describe "Comments Request", type: :request do
 
     context 'ログインしていないとき' do
       it 'コメントの削除ができないこと' do
-      #   expect { subject }.not_to change { ticket_comment }
-      #   expect(response).to have_http_status(:redirect)
+        #   expect { subject }.not_to change { ticket_comment }
+        #   expect(response).to have_http_status(:redirect)
       end
     end
   end

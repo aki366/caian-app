@@ -1,5 +1,4 @@
 RSpec.describe 'Users #destroy system', type: :system do
-
   describe 'ログインしているとき' do
     let!(:user) { create(:user) }
     include_context 'login_as_user'

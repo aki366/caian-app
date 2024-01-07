@@ -15,7 +15,7 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 
 # Include additional helpers
-require 'support/factory_bot.rb'
+require 'support/factory_bot'
 require './spec/support/contexts/login_as_user'
 
 RSpec.configure do |config|
