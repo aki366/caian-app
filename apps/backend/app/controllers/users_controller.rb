@@ -61,28 +61,17 @@ class UsersController < ApplicationController
   end
 
   def update
-    redirect_to user_path(@user.id) and return if @user.guest?
+    return redirect_to user_path(@user.id) if @user.guest?
 
-    # user/editの入力フォームの値がnilでなければ
-    # trueとなりインスタンス変数の@user.XXに代入される
-    @user.name = params[:name] if params[:name]
-    @user.email = params[:email] if params[:email]
-    @user.password = params[:password] if params[:password]
+    update_user_attributes
+    update_user_image if params[:image]
 
-    image = params[:image]
-    hash = SecureRandom.hex(10)
-    @user.user_image = "#{@user.name}_#{hash}.jpg" if image
     if @user.save
-      # もしイメージがパラメーターに含まれていれば、
-      # write_imageメソッドを呼び出す。
-      # user情報編集は理解しやすいよう、かたまりで上にまとめて、
-      # 保存に成功した時点で画像をファイルに書き込む。
-      write_image(@user.user_image, image) if image
+      write_image(@user.user_image, params[:image]) if params[:image]
       flash[:notice] = t('flash_messages.user_updated')
       redirect_to user_path(@user.id)
     else
-      @user.user_image = image
-      # 同じコントローラ内のeditのビューを表示
+      @user.user_image = params[:image]
       render :edit
     end
   end
@@ -111,6 +100,17 @@ class UsersController < ApplicationController
 
   private
 
+    def update_user_attributes
+      @user.name = params[:name] if params[:name]
+      @user.email = params[:email] if params[:email]
+      @user.password = params[:password] if params[:password]
+    end
+
+    def update_user_image
+      hash = SecureRandom.hex(10)
+      @user.user_image = "#{@user.name}_#{hash}.jpg"
+    end
+
     def set_user
       @user = User.find(params[:id])
     end
@@ -126,9 +126,7 @@ class UsersController < ApplicationController
     # ensure_correct_userという現在のuser_idと
     # 対象のuser_idが一致していないとはじくメソッド
     def ensure_correct_user
-      if @current_user.id != params[:id].to_i
-        redirect_to tickets_path
-      end
+      redirect_to tickets_path if @current_user.id != params[:id].to_i
     end
 
     def user_params
