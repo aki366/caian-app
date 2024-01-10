@@ -1,13 +1,13 @@
 class TicketsController < ApplicationController
-  before_action :authenticate_user,{only:[:new, :show, :edit, :update, :destroy]}
-  before_action :ensure_correct_user,{only:[:edit, :update, :destroy]}
+  before_action :authenticate_user, {only: %i[new show edit update destroy]}
+  before_action :ensure_correct_user, {only: %i[edit update destroy]}
 
   # ticketのみ404エラ−に検索機能を実装する際に使用
   # rescue_from ActiveRecord::RecordNotFound,   with: :render_404
   # rescue_from ActionController::RoutingError, with: :render_404
 
   def index
-    if @current_user == nil
+    if @current_user.nil?
       redirect_to new_login_path
     else
       @tickets = Ticket.all.includes(:user).order(created_at: :desc)
@@ -23,15 +23,12 @@ class TicketsController < ApplicationController
     @likes = Like.find_by(user_id: @current_user.id, ticket_id: @ticket.id)
   end
 
-  def new
-  end
+  def new; end
 
   def create
     @team = Team.find(params[:team_id])
     @ticket = @current_user.tickets.new(ticket_params)
-    if @ticket.save
-      redirect_to room_team_path(@team.id)
-    end
+    redirect_to room_team_path(@team.id) if @ticket.save
   end
 
   def edit
@@ -51,11 +48,12 @@ class TicketsController < ApplicationController
   def destroy
     @team = Team.find(params[:team_id])
     @tickets = @team.tickets.find(params[:id])
-    if @current_user.id == @tickets.user.id
-      @tickets.destroy
-      flash[:notice] = t('flash_messages.ticket_deleted')
-      redirect_to room_team_path(@team.id)
-    end
+
+    return unless @current_user.id == @tickets.user.id
+
+    @tickets.destroy
+    flash[:notice] = t('flash_messages.ticket_deleted')
+    redirect_to room_team_path(@team.id)
   end
 
   private
@@ -64,7 +62,6 @@ class TicketsController < ApplicationController
     # def render_404
     #   respond_to do |format|
     #     # defaultの404ページを表示させる場合↓
-    #     # format.html { render file: Rails.root.join('public/404.html'), status: 404, layout: false, content_type: 'text/html' }
     #     format.html { redirect_to not_found_404_path }
     #     format.xml  { head :not_found_404 }
     #     format.any  { head :not_found_404 }
@@ -73,9 +70,7 @@ class TicketsController < ApplicationController
 
     def ensure_correct_user
       @ticket = Ticket.find(params[:id])
-      if @ticket.user_id != @current_user.id
-        redirect_to room_team_path(@team.id)
-      end
+      redirect_to room_team_path(@team.id) if @ticket.user_id != @current_user.id
     end
 
     def ticket_params
@@ -83,7 +78,7 @@ class TicketsController < ApplicationController
         :subject,
         :content,
         :team_id,
-        :image,
+        :image
       )
     end
 end

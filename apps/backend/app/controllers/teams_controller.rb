@@ -9,20 +9,18 @@ class TeamsController < ApplicationController
     @team = Team.new(team_params)
     if team_params[:name] == ""
       render :new
-    else
-      if @team.save
-        @member = @team.members.create(
-          user_id: @current_user.id,
-          team_id: @team.id
-        )
-        flash[:notice] = t('flash_messages.team_created')
-        redirect_to "/teams/#{@team.id}"
-      end
+    elsif @team.save
+      @member = @team.members.create(
+        user_id: @current_user.id,
+        team_id: @team.id
+      )
+      flash[:notice] = t('flash_messages.team_created')
+      redirect_to "/teams/#{@team.id}"
     end
   end
 
   def show
-    if @current_user == nil
+    if @current_user.nil?
       redirect_to new_login_path
     else
       @team = Team.find(params[:id])
@@ -36,14 +34,14 @@ class TeamsController < ApplicationController
     @team_message = TeamMessage.new
     @ticket = Ticket.new
     if Member.where(
-      :user_id => @current_user.id,
-      :team_id => @team.id
+      user_id: @current_user.id,
+      team_id: @team.id
     ).present?
       @members = @team.members
       @team_messages = @team.team_messages.includes(:user)
       @tickets = @team.tickets.includes(:user)
       @team_contents = @team_messages | @tickets
-      @team_contents.sort!{ |a, b| a.created_at <=> b.created_at }
+      @team_contents.sort! { |a, b| a.created_at <=> b.created_at }
     else
       redirect_back(fallback_location: root_path)
     end
