@@ -10,13 +10,13 @@ gem 'bcrypt' # 安全なパスワードハッシュを生成
 
 # Frontend related
 gem 'webpacker' # RailsでのJavaScriptモジュール管理
-gem 'turbolinks', '~> 5' # ナビゲーションを高速化
-gem 'sass-rails', '>= 6' # Rails用のSassアダプタ
+gem 'turbolinks' # ナビゲーションを高速化
+gem 'sass-rails' # Rails用のSassアダプタ
 gem 'jquery-rails' # Rails用のjQuery
 gem 'uglifier' # JavaScriptの圧縮
 
 # Asset management and processing
-gem "image_processing", ">= 1.2" # 高レベルな画像処理ラッパー
+gem "image_processing" # 高レベルな画像処理ラッパー
 gem 'mini_magick' # ImageMagickまたはGraphicsMagickコマンドラインのRubyラッパー
 
 # Config

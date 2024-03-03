@@ -331,7 +331,7 @@ DEPENDENCIES
   faker
   guard
   guard-rspec
-  image_processing (>= 1.2)
+  image_processing
   jbuilder
   jquery-rails
   listen
@@ -347,10 +347,10 @@ DEPENDENCIES
   rspec-rails
   rubocop
   rubocop-rails
-  sass-rails (>= 6)
+  sass-rails
   selenium-webdriver
   simplecov
-  turbolinks (~> 5)
+  turbolinks
   tzinfo-data
   uglifier
   web-console
