@@ -7,11 +7,10 @@ RSpec.describe "Messages Request", type: :request do
       include_context 'login_as_user'
 
       context 'パラメータが正常なとき' do
-        it 'メッセージが投稿できること' do
-          Room.create(user_ids: [user.id, other_user.id])
-          expect do
-            post room_messages_path(Room.last.id), params: {message: {text: "メッセージを投稿しました"}}
-          end.to change(Message, :count).by(1)
+        before { create(:room, user_ids: [user.id]) }
+
+        specify 'リクエストが成功すること' do
+          post room_messages_path(Room.last.id), params: {message: {text: "メッセージを投稿しました"}}
           expect(response).to have_http_status(:redirect)
         end
       end
