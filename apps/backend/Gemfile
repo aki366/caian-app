@@ -56,4 +56,5 @@ group :test do
   gem 'rails-controller-testing' # コントローラーテストに`assigns`を戻す
   gem 'guard' # ファイルシステムの変更をハンドリング
   gem 'guard-rspec' # Guardを使用してテストを自動的かつインテリジェントに起動
+  gem 'simplecov', require: false # テストカバレッジを計測
 end
