@@ -6,22 +6,19 @@ RSpec.describe "Messages Request", type: :request do
     context 'ログインしているとき' do
       include_context 'login_as_user'
 
-      context 'パラメータが正常なとき' do
-        before { create(:room, user_ids: [user.id]) }
+      before { create(:room, user_ids: [user.id]) }
 
+      context 'パラメータが正常なとき' do
         specify 'リクエストが成功すること' do
-          post room_messages_path(Room.last.id), params: {message: {text: "メッセージを投稿しました"}}
+          post room_messages_path(Room.last.id), params: { message: { text: "メッセージを投稿しました" } }
           expect(response).to have_http_status(:redirect)
         end
       end
 
       context 'パラメータが不正なとき' do
-        it 'メッセージが投稿できないこと' do
-          # Room.create(user_ids: [user.id, other_user.id])
-          # expect do
-          #   post room_messages_path(Room.last.id), params: { message: {text: ""} }
-          # end.to change(Message, :count).by(0)
-          # expect(response).to have_http_status(:redirect)
+        specify 'リクエストが失敗すること' do
+          post room_messages_path(Room.last.id), params: { message: {text: ""} }
+          expect(response).to have_http_status(:redirect)
         end
       end
     end
