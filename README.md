@@ -1,6 +1,6 @@
 # Caian
 
-![figure of ER](docs/readme/images/ng)
+![figure of ER](docs/readme/images/top.png)
 <br>
 
 # 開発環境
