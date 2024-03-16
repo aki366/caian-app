@@ -25,3 +25,6 @@
 - `/tickets/show/`
 - `/tickets/index/`
 - `/users/show/`
+
+## 設計
+### ERD
