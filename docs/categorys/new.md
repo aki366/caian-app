@@ -28,3 +28,61 @@
 
 ## 設計
 ### ERD
+```mermaid
+erDiagram
+
+Companys {
+	varchar name
+}
+
+Teams {
+	int company_id FK "index"
+}
+
+Members {
+	int team_id FK "index"
+	int user_id FK "index"
+}
+
+Users {
+	varchar name
+	char role
+	int company_id FK "index"
+}
+
+Tickets {
+  varchar name
+  int company_id FK "index"
+	int user_id FK "index"
+  text description
+  date manufacture_date
+}
+
+TicketCategorys {
+  int ticket_id FK "index"
+  int category_id FK "index"
+}
+
+CategoryUsers {
+ int user_id FK "index"
+ int category_id FK "index"
+}
+
+Categorys {
+  varchar name
+  int parent_id FK "null: true, index"
+  text description
+}
+
+Companys ||--o{ Teams : ""
+Teams ||--|{ Members : ""
+Users ||--o{ Members : ""
+Users ||--o{ Tickets : ""
+Users ||--o{ CategoryUsers : ""
+Categorys ||--o{ CategoryUsers : ""
+Companys ||--o{ Tickets : ""
+Companys ||--|{ Users : ""
+Tickets ||--o{ TicketCategorys : ""
+TicketCategorys }o--|| Categorys : ""
+Categorys ||--o| Categorys : "parent"
+```
