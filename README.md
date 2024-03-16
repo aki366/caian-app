@@ -1,6 +1,6 @@
 # Caian
 
-![figure of ER](docs/images/root/top.png)
+![figure of ER](docs/readme/images/top.png)
 <br>
 
 # 開発環境
@@ -72,21 +72,21 @@ README.md
 <summary>ER図</summary>
 <br>
 
-![figure of ER](docs/images/root/ERD.png)
+![figure of ER](docs/readme/images/ERD.png)
 </details>
 
 <details>
 <summary>インフラ構成図</summary>
 <br>
 
-![figure of ER](docs/images/root/Infrastructure_diagram.png)
+![figure of ER](docs/readme/images/Infrastructure_diagram.png)
 </details>
 
 <details>
 <summary>画面遷移図</summary>
 <br>
 
-![画面遷移図](docs/images/root/Screen_transition_diagram.png)
+![画面遷移図](docs/readme/images/Screen_transition_diagram.png)
 </details>
 
 <br>
@@ -98,14 +98,14 @@ README.md
 <summary>ユーザー詳細</summary>
 <br>
 
-![figure of ER](docs/images/root/user_show.png)
+![figure of ER](docs/readme/images/user_show.png)
 </details>
 
 <details>
 <summary>チーム管理</summary>
 <br>
 
-![figure of ER](docs/images/root/team_management.png
+![figure of ER](docs/readme/images/team_management.png
 )
 </details>
 
@@ -113,7 +113,7 @@ README.md
 <summary>チームトーク</summary>
 <br>
 
-![figure of ER](docs/images/root/team_talk.png
+![figure of ER](docs/readme/images/team_talk.png
 )
 </details>
 
