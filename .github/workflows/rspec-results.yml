@@ -1,16 +1,19 @@
 name: Send RSpec results to Slack
 
 on:
-  pull_request:
-    branches:
-      - main
-    paths:
-      - 'apps/backend/**'
   push:
     branches:
       - '**'
     paths:
       - 'apps/backend/**'
+  pull_request:
+    branches:
+      - main
+      - release
+      - develop
+    paths:
+    - 'apps/backend/**'
+  workflow_call:
 
 jobs:
   run_spec:

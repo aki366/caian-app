@@ -53,3 +53,6 @@ jobs:
           title: "Update Gemfile.lock on ${{ env.DATE }}"
           body: "Automated update of Gemfile.lock by GitHub Actions"
           draft: false
+
+  call-workflow:
+    uses: ./.github/workflows/rspec-results.yml
