@@ -23,6 +23,9 @@ jobs:
         with:
           app_id: ${{ secrets.APP_ID }}
           private_key: ${{ secrets.APP_PRIVATE_KEY }}
+        env:
+          GITHUB_API_URL: https://api.github.com
+          REPOSITORY: aki366/caian-app
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
