@@ -11,7 +11,6 @@ jobs:
 
     env:
       BACKEND_DIR: 'apps/backend'
-      DATE: $(date +'%Y%m%d')
 
     steps:
       - name: Checkout code
@@ -21,6 +20,9 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.0.3'
+
+      - name: Set DATE variable
+        run: echo "DATE=$(date +'%Y%m%d')" >> $GITHUB_ENV
 
       - name: Update dependencies
         run: |
@@ -32,22 +34,22 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
-          if git ls-remote --exit-code --heads origin update-bundle-${{ env.DATE }}; then
-            git checkout update-bundle-${{ env.DATE }}
+          if git ls-remote --exit-code --heads origin update-bundle-${DATE}; then
+            git checkout update-bundle-${DATE}
           else
-            git checkout -b update-bundle-${{ env.DATE }}
+            git checkout -b update-bundle-${DATE}
           fi
 
           git add ${{ env.BACKEND_DIR }}/Gemfile.lock
-          git commit -m "Update Gemfile.lock ${{ env.DATE }}"
+          git commit -m "Update Gemfile.lock ${DATE}"
 
-          git pull --rebase origin update-bundle-${{ env.DATE }} || true
-          git push origin update-bundle-${{ env.DATE }}
+          git pull --rebase origin update-bundle-${DATE} || true
+          git push origin update-bundle-${DATE}
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
           commit-message: Update Gemfile.lock
-          branch: update-bundle-${{ env.DATE }}
-          title: "Update Gemfile.lock on ${{ env.DATE }}"
+          branch: update-bundle-${DATE}
+          title: "Update Gemfile.lock on ${DATE}"
           body: "Automated update of Gemfile.lock by GitHub Actions"
