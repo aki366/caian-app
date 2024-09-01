@@ -51,6 +51,8 @@ jobs:
 
       - name: Check if Pull Request already exists
         id: check_pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           PR_EXISTS=$(gh pr list --head update-bundle-${DATE} --state open --json number --jq '.[0].number')
           if [ -z "$PR_EXISTS" ]; then
