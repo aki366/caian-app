@@ -5,6 +5,9 @@ on:
     - cron: '0 9 * * *'
   workflow_dispatch:
 
+env:
+  BACKEND_DIR: 'apps/backend'
+
 jobs:
   bundle-update:
     runs-on: ubuntu-latest
