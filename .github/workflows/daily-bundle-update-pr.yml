@@ -41,8 +41,9 @@ jobs:
           cd ${{ env.BACKEND_DIR }}
           bundle update
 
-          echo -e "\n --- git status ---"
+          echo -e "\n\n --- git status ---"
           git status
+          echo -e "\n\n"
           git add Gemfile.lock
 
           if git diff --cached --quiet; then
@@ -51,22 +52,23 @@ jobs:
             git commit -m "Update Gemfile.lock ${{ env.DATE }}"
             git pull --rebase origin update-bundle-${{ env.DATE }} || true
             git push origin update-bundle-${{ env.DATE }}
-            echo -e "\n --- chnges to commit --- \n"
+            echo -e "\n\n chnges to commit \n"
           fi
 
-          echo -e "\n --- git log --oneline -n 5 ---"
+          echo -e "\n\n --- git log --oneline -n 5 ---"
           git log --oneline -n 5
 
           git fetch origin main
           if git diff origin/main..update-bundle-${{ env.DATE }} --quiet; then
-            echo -e "\n --- No differences with main branch --- \n"
+            echo -e "\n\n --- No differences with main branch --- \n"
           else
-            echo -e "\n --- Differences found with main branch --- \n"
-            echo "::set-output name=pr_needed::true"
+            echo -e "\n\n --- Differences found with main branch --- \n"
+            echo "pr_needed=true" >> $GITHUB_ENV
           fi
 
       - name: Check if Pull Request already exists
         id: check_pr
+        if: env.pr_needed == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -78,7 +80,7 @@ jobs:
           fi
 
       - name: Create Pull Request
-        if: env.pr_exists == 'false'
+        if: env.pr_exists == 'false' && env.pr_needed == 'true'
         uses: peter-evans/create-pull-request@v4
         with:
           commit-message: Update Gemfile.lock
