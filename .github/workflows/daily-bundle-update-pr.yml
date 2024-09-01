@@ -51,7 +51,7 @@ jobs:
           branch: update-bundle-v${{ env.DATE }}
           add-paths: ${{ env.BACKEND_DIR }}/Gemfile.lock
           commit-message: "Update Gemfile.lock on ${{ env.DATE }}"
-          committer	: Display Name <${{ OWNER_EMAIL }}>
+          committer	: Display Name <${OWNER_EMAIL}>
           reviewers: aki366
           title: "Update Gemfile.lock on ${{ env.DATE }}"
           body: "Automated update of Gemfile.lock by GitHub Actions"
