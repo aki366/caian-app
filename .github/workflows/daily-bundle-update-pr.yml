@@ -37,6 +37,8 @@ jobs:
           fi
 
           cd ${{ env.BACKEND_DIR }}
+          ls -l | grep Gem
+          cat Gemfile.lock
           bundle update
 
           git add Gemfile.lock
@@ -70,3 +72,4 @@ jobs:
           branch: update-bundle-${{ env.DATE }}
           title: "Update Gemfile.lock on ${{ env.DATE }}"
           body: "Automated update of Gemfile.lock by GitHub Actions"
+          draft: false
