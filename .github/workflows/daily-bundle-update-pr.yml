@@ -15,6 +15,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -24,33 +26,30 @@ jobs:
       - name: Set DATE variable
         run: echo "DATE=$(date +'%Y%m%d')" >> $GITHUB_ENV
 
-      - name: Update dependencies
+      - name: Ensure main is up to date
         run: |
+          git switch main
+          git pull origin main
+
+      - name: Update Gemfile.lock
+        run: |
+          echo "--- git branch ---"
+          git branch
           cd ${{ env.BACKEND_DIR }}
           bundle update
 
-      - name: Commit and push changes
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-
-          if git ls-remote --exit-code --heads origin update-bundle-${DATE}; then
-            git fetch origin update-bundle-${DATE}:update-bundle-${DATE}
-            git checkout update-bundle-${DATE}
-          else
-            git checkout -b update-bundle-${DATE}
-          fi
-
-          git add ${{ env.BACKEND_DIR }}/Gemfile.lock
-          git commit -m "Update Gemfile.lock ${DATE}"
-
-          git pull --rebase origin update-bundle-${DATE} || true
-          git push origin update-bundle-${DATE}
+          echo "--- git status ---"
+          git status
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
-          commit-message: Update Gemfile.lock
-          branch: update-bundle-${DATE}
-          title: "Update Gemfile.lock on ${DATE}"
+          base: main
+          branch: update-bundle-${{ env.DATE }}
+          add-paths: ${{ env.BACKEND_DIR }}/Gemfile.lock
+          commit-message: "Update Gemfile.lock on ${{ env.DATE }}"
+          committer	: Display Name <${OWNER_EMAIL}>
+          reviewers: aki366
+          title: "Update Gemfile.lock on ${{ env.DATE }}"
           body: "Automated update of Gemfile.lock by GitHub Actions"
+          draft: false
