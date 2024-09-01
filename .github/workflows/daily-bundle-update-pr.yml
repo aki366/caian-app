@@ -28,12 +28,9 @@ jobs:
 
       - name: Ensure main is up to date
         run: |
-          git fetch origin
           git switch main
+          git fetch origin
           git pull origin main
-
-      - name: Rebase update-bundle branch onto main
-        run: |
           git checkout -b update-bundle-${{ env.DATE }}
 
       - name: Update Gemfile.lock
@@ -50,8 +47,12 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
-          git commit -m "Update Gemfile.lock on ${{ env.DATE }}"
-          git push origin update-bundle-${{ env.DATE }}
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update Gemfile.lock on ${{ env.DATE }}"
+            git push --force-with-lease origin update-bundle-${{ env.DATE }}
+          fi
 
           echo "--- git log --oneline -n 5 ---"
           git log --oneline -n 5
