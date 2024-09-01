@@ -54,7 +54,6 @@ jobs:
             echo "chnges to commit"
           fi
 
-          echo "
           echo "--- git log --oneline -n 5 ---"
           git log --oneline -n 5
 
