@@ -31,7 +31,7 @@ jobs:
           git switch main
           git fetch origin
           git pull origin main
-          git checkout -b update-bundle-${{ env.DATE }}
+          git checkout -b update-bundle-v${{ env.DATE }}
 
       - name: Update Gemfile.lock
         run: |
@@ -51,7 +51,7 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "Update Gemfile.lock on ${{ env.DATE }}"
-            git push --force-with-lease origin update-bundle-${{ env.DATE }}
+            git push --force-with-lease origin update-bundle-v${{ env.DATE }}
           fi
 
           echo "--- git log --oneline -n 5 ---"
@@ -61,7 +61,7 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           base: main
-          branch: update-bundle-${{ env.DATE }}
+          branch: update-bundle-v${{ env.DATE }}
           title: "Update Gemfile.lock on ${{ env.DATE }}"
           body: "Automated update of Gemfile.lock by GitHub Actions"
           draft: false
