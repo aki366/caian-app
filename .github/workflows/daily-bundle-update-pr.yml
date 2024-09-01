@@ -34,6 +34,7 @@ jobs:
           git checkout -b update-bundle-${{ env.DATE }}
           git add ${{ env.BACKEND_DIR }}/Gemfile.lock
           git commit -m "Update Gemfile.lock ${{ env.DATE }}"
+          git pull --rebase origin update-bundle-${{ env.DATE }} || true
           git push origin update-bundle-${{ env.DATE }}
 
       - name: Create Pull Request
