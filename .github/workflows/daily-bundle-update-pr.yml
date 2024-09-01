@@ -23,10 +23,7 @@ jobs:
 
       - name: Update dependencies
         run: |
-          echo $BACKEND_DIR
-          echo ${{ env.BACKEND_DIR }}
           cd ${{ env.BACKEND_DIR }}
-          pwd
           bundle update
 
       - name: Commit and push changes
@@ -34,7 +31,7 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git checkout -b update-bundle-$(date +'%Y%m%d')
-          git add Gemfile.lock
+          git add ${{ env.BACKEND_DIR }}/Gemfile.lock
           git commit -m "Update Gemfile.lock $(date +'%Y-%m-%d')"
           git push origin update-bundle-$(date +'%Y%m%d')
 
