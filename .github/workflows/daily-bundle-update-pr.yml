@@ -34,6 +34,7 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
+          git switch main
           git fetch origin main
           if git diff origin/main..update-bundle-${{ env.DATE }} --quiet; then
             echo "--- No differences with main branch ---"
