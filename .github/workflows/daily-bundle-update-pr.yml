@@ -2,7 +2,7 @@ name: Daily Bundle Update PR
 
 on:
   schedule:
-    - cron: '22 10 * * *'
+    - cron: '24 1 * * *'
 
 jobs:
   bundle-update:
