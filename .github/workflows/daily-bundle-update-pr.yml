@@ -19,7 +19,9 @@ jobs:
           ruby-version: '3.0.3'
 
       - name: Update dependencies
-        run: bundle update
+        run: |
+          cd $BACKEND_DIR
+          bundle update
 
       - name: Commit and push changes
         run: |
