@@ -41,28 +41,37 @@ jobs:
           cd ${{ env.BACKEND_DIR }}
           bundle update
 
-          echo -e "\n\n --- git status ---"
+          echo ""
+          echo "--- git status ---"
           git status
-          echo -e "\n\n"
+          echo ""
           git add Gemfile.lock
 
           if git diff --cached --quiet; then
-            echo -e "\n --- No changes to commit --- \n"
+            echo ""
+            echo "--- No changes to commit ---"
+            echo ""
           else
             git commit -m "Update Gemfile.lock ${{ env.DATE }}"
             git pull --rebase origin update-bundle-${{ env.DATE }} || true
             git push origin update-bundle-${{ env.DATE }}
-            echo -e "\n\n chnges to commit \n"
+            echo """
+            echo "chnges to commit"
+            echo ""
           fi
 
-          echo -e "\n\n --- git log --oneline -n 5 ---"
+          echo "
+          echo "--- git log --oneline -n 5 ---"
           git log --oneline -n 5
 
           git fetch origin main
+          echo ""
           if git diff origin/main..update-bundle-${{ env.DATE }} --quiet; then
-            echo -e "\n\n --- No differences with main branch --- \n"
+            echo "--- No differences with main branch ---"
+            echo ""
           else
-            echo -e "\n\n --- Differences found with main branch --- \n"
+            echo "--- Differences found with main branch ---"
+            echo ""
             echo "pr_needed=true" >> $GITHUB_ENV
           fi
 
