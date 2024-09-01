@@ -49,6 +49,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           add-paths: ${{ env.BACKEND_DIR }}/Gemfile.lock
           commit-message: "Update Gemfile.lock on ${{ env.DATE }}"
+          committer	: Display Name <${OWNER_EMAIL}>
           reviewers: aki366
           title: "Update Gemfile.lock on ${{ env.DATE }}"
           body: "Automated update of Gemfile.lock by GitHub Actions"
