@@ -11,6 +11,7 @@ jobs:
 
     env:
       BACKEND_DIR: 'apps/backend'
+      DATE: $(date +'%Y%m%d')
 
     steps:
       - name: Checkout code
@@ -30,15 +31,15 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git checkout -b update-bundle-$(date +'%Y%m%d')
+          git checkout -b update-bundle-${{ env.DATE }}
           git add ${{ env.BACKEND_DIR }}/Gemfile.lock
-          git commit -m "Update Gemfile.lock $(date +'%Y-%m-%d')"
-          git push origin update-bundle-$(date +'%Y%m%d')
+          git commit -m "Update Gemfile.lock ${{ env.DATE }}"
+          git push origin update-bundle-${{ env.DATE }}
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
           commit-message: Update Gemfile.lock
-          branch: update-bundle-$(date +'%Y%m%d')
-          title: "Update Gemfile.lock on $(date +'%Y-%m-%d')"
+          branch: update-bundle-${{ env.DATE }}
+          title: "Update Gemfile.lock on ${{ env.DATE }}"
           body: "Automated update of Gemfile.lock by GitHub Actions"
