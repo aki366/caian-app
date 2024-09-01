@@ -46,7 +46,7 @@ jobs:
         with:
           base: main
           branch: update-bundle-${{ env.DATE }}
-          token: ${{ secrets.REPO_SCOPED_TOKEN }}
+          token: ${{ github.REPO_SCOPED_TOKEN }}
           add-paths: ${{ env.BACKEND_DIR }}/Gemfile.lock
           commit-message: "Update Gemfile.lock on ${{ env.DATE }}"
           committer	: Display Name <${OWNER_EMAIL}>
