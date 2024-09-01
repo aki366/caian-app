@@ -29,11 +29,11 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
-          if git ls-remote --exit-code --heads origin update-bundle-${DATE}; then
-            git fetch origin update-bundle-${DATE}:update-bundle-${DATE}
-            git checkout update-bundle-${DATE}
+          if git ls-remote --exit-code --heads origin update-bundle-${{ env.DATE }}; then
+            git fetch origin update-bundle-${{ env.DATE }}:update-bundle-${{ env.DATE }}
+            git checkout update-bundle-${{ env.DATE }}
           else
-            git checkout -b update-bundle-${DATE}
+            git checkout -b update-bundle-${{ env.DATE }}
           fi
 
           cd ${{ env.BACKEND_DIR }}
@@ -44,9 +44,9 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Update Gemfile.lock ${DATE}"
-            git pull --rebase origin update-bundle-${DATE} || true
-            git push origin update-bundle-${DATE}
+            git commit -m "Update Gemfile.lock ${{ env.DATE }}"
+            git pull --rebase origin update-bundle-${{ env.DATE }} || true
+            git push origin update-bundle-${{ env.DATE }}
           fi
 
       - name: Check if Pull Request already exists
@@ -54,7 +54,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          PR_EXISTS=$(gh pr list --head update-bundle-${DATE} --state open --json number --jq '.[0].number')
+          PR_EXISTS=$(gh pr list --head update-bundle-${{ env.DATE }} --state open --json number --jq '.[0].number')
           if [ -z "$PR_EXISTS" ]; then
             echo "pr_exists=false" >> $GITHUB_ENV
           else
@@ -66,6 +66,6 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           commit-message: Update Gemfile.lock
-          branch: update-bundle-${DATE}
-          title: "Update Gemfile.lock on ${DATE}"
+          branch: update-bundle-${{ env.DATE }}
+          title: "Update Gemfile.lock on ${{ env.DATE }}"
           body: "Automated update of Gemfile.lock by GitHub Actions"
