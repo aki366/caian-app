@@ -29,9 +29,7 @@ jobs:
       - name: Ensure main is up to date
         run: |
           git switch main
-          git fetch origin
           git pull origin main
-          git checkout -b update-bundle-v${{ env.DATE }}
 
       - name: Update Gemfile.lock
         run: |
@@ -42,26 +40,19 @@ jobs:
 
           echo "--- git status ---"
           git status
-          git add Gemfile.lock
 
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-
-          if git diff --cached --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "Update Gemfile.lock on ${{ env.DATE }}"
-            git push --force-with-lease origin update-bundle-v${{ env.DATE }}
-          fi
-
-          echo "--- git log --oneline -n 5 ---"
-          git log --oneline -n 5
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
           base: main
           branch: update-bundle-v${{ env.DATE }}
+          add-paths: ${{ env.BACKEND_DIR }}/Gemfile.lock
+          commit-message: "Update Gemfile.lock on ${{ env.DATE }}"
+          committer	: Display Name <${{ OWNER_EMAIL }}>
+          reviewers: aki366
           title: "Update Gemfile.lock on ${{ env.DATE }}"
           body: "Automated update of Gemfile.lock by GitHub Actions"
           draft: false
