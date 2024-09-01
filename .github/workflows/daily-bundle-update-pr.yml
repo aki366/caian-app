@@ -39,7 +39,7 @@ jobs:
           cd ${{ env.BACKEND_DIR }}
           bundle update
 
-          git add ${{ env.BACKEND_DIR }}/Gemfile.lock
+          git add Gemfile.lock
           git commit -m "Update Gemfile.lock ${DATE}"
 
           git pull --rebase origin update-bundle-${DATE} || true
