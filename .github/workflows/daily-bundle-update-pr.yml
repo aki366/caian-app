@@ -1,0 +1,39 @@
+name: Daily Bundle Update PR
+
+on:
+  schedule:
+    - cron: '0 9 * * *'
+  workflow_dispatch:
+
+jobs:
+  bundle-update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0.3'
+
+      - name: Update dependencies
+        run: bundle update
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git checkout -b update-bundle-$(date +'%Y%m%d')
+          git add Gemfile.lock
+          git commit -m "Update Gemfile.lock $(date +'%Y-%m-%d')"
+          git push origin update-bundle-$(date +'%Y%m%d')
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          commit-message: Update Gemfile.lock
+          branch: update-bundle-$(date +'%Y%m%d')
+          title: "Update Gemfile.lock on $(date +'%Y-%m-%d')"
+          body: "Automated update of Gemfile.lock by GitHub Actions"
