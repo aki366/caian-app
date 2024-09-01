@@ -2,7 +2,8 @@ name: Daily Bundle Update PR
 
 on:
   schedule:
-    - cron: '24 1 * * *'
+    - cron: '0 9 * * *'
+  workflow_dispatch:
 
 jobs:
   bundle-update:
