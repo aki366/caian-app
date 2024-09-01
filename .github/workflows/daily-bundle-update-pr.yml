@@ -41,14 +41,11 @@ jobs:
           echo "--- git status ---"
           git status
 
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
           base: main
-          branch: update-bundle-v${{ env.DATE }}
+          branch: update-bundle-${{ env.DATE }}
           add-paths: ${{ env.BACKEND_DIR }}/Gemfile.lock
           commit-message: "Update Gemfile.lock on ${{ env.DATE }}"
           committer	: Display Name <${OWNER_EMAIL}>
