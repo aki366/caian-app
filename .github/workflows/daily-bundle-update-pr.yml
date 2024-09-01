@@ -20,7 +20,8 @@ jobs:
 
       - name: Update dependencies
         run: |
-          cd $BACKEND_DIR
+          echo ${{ env.BACKEND_DIR }}
+          cd ${{ env.BACKEND_DIR }}
           pwd
           bundle update
 
