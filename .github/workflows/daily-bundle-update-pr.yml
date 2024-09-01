@@ -46,6 +46,7 @@ jobs:
         with:
           base: main
           branch: update-bundle-${{ env.DATE }}
+          token: ${REPO_SCOPED_TOKEN}
           add-paths: ${{ env.BACKEND_DIR }}/Gemfile.lock
           commit-message: "Update Gemfile.lock on ${{ env.DATE }}"
           committer	: Display Name <${OWNER_EMAIL}>
@@ -53,6 +54,3 @@ jobs:
           title: "Update Gemfile.lock on ${{ env.DATE }}"
           body: "Automated update of Gemfile.lock by GitHub Actions"
           draft: false
-
-  call-workflow:
-    uses: ./.github/workflows/rspec-results.yml

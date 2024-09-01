@@ -13,7 +13,6 @@ on:
       - develop
     paths:
     - 'apps/backend/**'
-  workflow_call:
 
 jobs:
   run_spec:
