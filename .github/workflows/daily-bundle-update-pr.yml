@@ -41,23 +41,17 @@ jobs:
           cd ${{ env.BACKEND_DIR }}
           bundle update
 
-          echo ""
           echo "--- git status ---"
           git status
-          echo ""
           git add Gemfile.lock
 
           if git diff --cached --quiet; then
-            echo ""
             echo "--- No changes to commit ---"
-            echo ""
           else
             git commit -m "Update Gemfile.lock ${{ env.DATE }}"
             git pull --rebase origin update-bundle-${{ env.DATE }} || true
             git push origin update-bundle-${{ env.DATE }}
-            echo """
             echo "chnges to commit"
-            echo ""
           fi
 
           echo "
@@ -65,13 +59,10 @@ jobs:
           git log --oneline -n 5
 
           git fetch origin main
-          echo ""
           if git diff origin/main..update-bundle-${{ env.DATE }} --quiet; then
             echo "--- No differences with main branch ---"
-            echo ""
           else
             echo "--- Differences found with main branch ---"
-            echo ""
             echo "pr_needed=true" >> $GITHUB_ENV
           fi
 
