@@ -31,9 +31,16 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git checkout -b update-bundle-${{ env.DATE }}
+
+          if git ls-remote --exit-code --heads origin update-bundle-${{ env.DATE }}; then
+            git checkout update-bundle-${{ env.DATE }}
+          else
+            git checkout -b update-bundle-${{ env.DATE }}
+          fi
+
           git add ${{ env.BACKEND_DIR }}/Gemfile.lock
           git commit -m "Update Gemfile.lock ${{ env.DATE }}"
+
           git pull --rebase origin update-bundle-${{ env.DATE }} || true
           git push origin update-bundle-${{ env.DATE }}
 
