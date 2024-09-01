@@ -66,6 +66,7 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           commit-message: Update Gemfile.lock
+          base: main
           branch: update-bundle-${{ env.DATE }}
           title: "Update Gemfile.lock on ${{ env.DATE }}"
           body: "Automated update of Gemfile.lock by GitHub Actions"
