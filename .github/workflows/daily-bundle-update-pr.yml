@@ -21,6 +21,7 @@ jobs:
       - name: Update dependencies
         run: |
           cd $BACKEND_DIR
+          pwd
           bundle update
 
       - name: Commit and push changes
