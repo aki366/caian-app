@@ -41,19 +41,29 @@ jobs:
           cd ${{ env.BACKEND_DIR }}
           bundle update
 
+          echo -e "\n --- git status ---"
           git status
           git add Gemfile.lock
 
           if git diff --cached --quiet; then
-            echo "No changes to commit"
+            echo -e "\n --- No changes to commit --- \n"
           else
             git commit -m "Update Gemfile.lock ${{ env.DATE }}"
             git pull --rebase origin update-bundle-${{ env.DATE }} || true
             git push origin update-bundle-${{ env.DATE }}
-            echo "chnges to commit"
+            echo -e "\n --- chnges to commit --- \n"
           fi
 
+          echo -e "\n --- git log --oneline -n 5 ---"
           git log --oneline -n 5
+
+          git fetch origin main
+          if git diff origin/main..update-bundle-${{ env.DATE }} --quiet; then
+            echo -e "\n --- No differences with main branch --- \n"
+          else
+            echo -e "\n --- Differences found with main branch --- \n"
+            echo "::set-output name=pr_needed::true"
+          fi
 
       - name: Check if Pull Request already exists
         id: check_pr
