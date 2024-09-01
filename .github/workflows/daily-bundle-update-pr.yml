@@ -24,12 +24,7 @@ jobs:
       - name: Set DATE variable
         run: echo "DATE=$(date +'%Y%m%d')" >> $GITHUB_ENV
 
-      - name: Update dependencies
-        run: |
-          cd ${{ env.BACKEND_DIR }}
-          bundle update
-
-      - name: Commit and push changes
+      - name: Checkout or create branch
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
@@ -41,6 +36,13 @@ jobs:
             git checkout -b update-bundle-${DATE}
           fi
 
+      - name: Update dependencies
+        run: |
+          cd ${{ env.BACKEND_DIR }}
+          bundle update
+
+      - name: Commit and push changes
+        run: |
           git add ${{ env.BACKEND_DIR }}/Gemfile.lock
           git commit -m "Update Gemfile.lock ${DATE}"
 
