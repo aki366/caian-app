@@ -35,6 +35,7 @@ jobs:
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
           if git ls-remote --exit-code --heads origin update-bundle-${DATE}; then
+            git fetch origin update-bundle-${DATE}:update-bundle-${DATE}
             git checkout update-bundle-${DATE}
           else
             git checkout -b update-bundle-${DATE}
