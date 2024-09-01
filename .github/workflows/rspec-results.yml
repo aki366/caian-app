@@ -3,7 +3,7 @@ name: Send RSpec results to Slack
 on:
   push:
     branches:
-      - 'feature/**'
+      - '*'
     paths:
       - 'apps/backend/**'
   pull_request:
