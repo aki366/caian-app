@@ -47,6 +47,9 @@ jobs:
           git status
           git add Gemfile.lock
           git commit -m "Update Gemfile.lock on ${{ env.DATE }}"
+
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git push origin update-bundle-${{ env.DATE }}
 
           echo "--- git log --oneline -n 5 ---"
