@@ -12,10 +12,13 @@ on:
       - release
       - develop
     paths:
-    - 'apps/backend/**'
+      - 'apps/backend/**'
+    types:
+      - labeled
 
 jobs:
-  run_spec:
+  run-ci:
+    if: contains(github.event.pull_request.labels.*.name, 'manual_rspec')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     services:
