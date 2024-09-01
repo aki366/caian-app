@@ -37,8 +37,6 @@ jobs:
           fi
 
           cd ${{ env.BACKEND_DIR }}
-          ls -l | grep Gem
-          cat Gemfile.lock
           bundle update
 
           git add Gemfile.lock
