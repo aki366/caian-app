@@ -1,9 +1,8 @@
 name: Daily Bundle Update PR
 
 on:
-  # PR作成までは成功しているが、PR作成時にRspecのCIが走らないので、そこをクリアできれば、運用開始
-  # schedule:
-    # - cron: '0 9 * * *'
+  schedule:
+    - cron: '0 9 * * *'
   workflow_dispatch:
 
 jobs:
