@@ -2,7 +2,7 @@
 
 ![figure of ER](docs/readme/images/top.png)
 <br>
-
+ 
 # 開発環境
 ## ディレクトリ構成：Monorepo
 Monorepo は、システムを構成する複数のコンポーネントの独立性を保ちつつ、全ての構成を1つのリポジトリで管理する手法です。
