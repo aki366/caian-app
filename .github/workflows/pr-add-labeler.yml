@@ -27,13 +27,13 @@ jobs:
         with:
           payload: |
             {
-              "text": "<@U04KJ2MBSFR> PRがOPENされました",
+              "text": "PRがOPENされました",
               "blocks": [
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "PRがOPENされました"
+                    "text": "<@U04KJ2MBSFR> PRがOPENされました"
                   }
                 }
               ]
