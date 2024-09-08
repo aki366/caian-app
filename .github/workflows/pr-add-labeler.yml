@@ -21,3 +21,23 @@ jobs:
               -d '{"labels":["manual_rspec"]}' \
               https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/labels
           fi
+
+      - name: Notify Slack
+        uses: slackapi/slack-github-action@v1.16.0
+        with:
+          payload: |
+            {
+              "text": "<@U04KJ2MBSFR> PRがOPENされました",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "PRがOPENされました"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
