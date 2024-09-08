@@ -33,7 +33,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "@aki PRがOPENされました"
+                    "text": "<@U04KJ2MBSFR> 新しいPRがOPENになりました！レビューをお願いします！\n\n${{ github.event.pull_request.html_url }}"
                   }
                 }
               ]
