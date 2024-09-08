@@ -22,7 +22,7 @@ jobs:
         if [ "${{ github.event.pull_request.merged }}" == "true" ]; then
           echo "::set-output name=result:::github: Merge Result: merged successfully\n\n${{ github.event.pull_request.html_url }}"
         else
-          echo "::set-output name=result:::github: <@U0372GW7YUX> Merge Result: merge failed\n\n${{ github.event.pull_request.html_url }}"
+          echo "::set-output name=result:::github: Merge Result: merge failed\n\n${{ github.event.pull_request.html_url }}"
         fi
 
     # Slackへの通知
