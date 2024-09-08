@@ -33,7 +33,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "<@U04KJ2MBSFR> PRがOPENされました"
+                    "text": "@aki PRがOPENされました"
                   }
                 }
               ]
