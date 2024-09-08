@@ -1,0 +1,22 @@
+name: Auto PR Labeler
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  label_pr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v3
+
+      - name: Add label if title contains specific strings
+        if: github.event.pull_request.title contains 'Update Gemfile.lock'
+        run: |
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{"labels":["manual_rspec"]}' \
+            https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/labels
