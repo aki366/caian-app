@@ -52,7 +52,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "<@U04KJ2MBSFR> 新規PRがこちらです！\n\n${{ env.PR_URLS_TITLES }}"
+                    "text": "<@U04KJ2MBSFR>/n/n :github: 前回から新規でOPENになったPRがあります！\n\n${{ env.PR_URLS_TITLES }}"
                   }
                 }
               ]
