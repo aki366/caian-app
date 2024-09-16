@@ -34,7 +34,7 @@ jobs:
           echo "Filtered PRs: $NEW_PRS"
 
           # Extract titles and URLs
-          PR_URLS_TITLES=$(echo "$NEW_PRS" | jq -r '.[] | "- <\(.url)|#\(.number) \(.title)>"')
+          PR_URLS_TITLES=$(echo "$NEW_PRS" | jq -r '.[] | "<\- \(.url)|#\(.number) \(.title)>"')
           echo "PR_URLS_TITLES: $PR_URLS_TITLES"
 
           # Save for later steps
@@ -52,7 +52,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "<@U04KJ2MBSFR>\n\n :github: 前回から新規でOPENになったPRがあります！\n\n${{ env.PR_URLS_TITLES }}"
+                    "text": "<@U04KJ2MBSFR>\n\n :github: 新規でOPENになったPRがあるよ！\n\n${{ env.PR_URLS_TITLES }}"
                   }
                 }
               ]
