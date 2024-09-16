@@ -13,16 +13,13 @@ jobs:
       - name: Check out the repository
         uses: actions/checkout@v2
 
-      - name: Check Open PR
-        id: check_pr
-        run: |
-          OPEN_PR=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-          "https://api.github.com/repos/${{ github.repository }}/pulls?state=open")
-          echo "OPEN_PR: $OPEN_PR"
-          echo "OPEN_PR_COUNT=$(echo $OPEN_PR | jq '. | length')" >> $GITHUB_ENV
+      - name: Set GH_TOKEN environment variable
+        run: echo "GH_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_ENV
 
-      - name: Get PRs created after the previous day's regular time.
+      - name: Get PRs created after 9 AM previous day
         id: get_prs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # Calculate previous day's 9:00 AM in UTC
           PREVIOUS_DATE=$(date -u -d 'yesterday 09:00' +%Y-%m-%dT%H:%M:%SZ)
