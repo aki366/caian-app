@@ -18,6 +18,7 @@ jobs:
         run: |
           OPEN_PR=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
           "https://api.github.com/repos/${{ github.repository }}/pulls?state=open")
+          echo "OPEN_PR: $OPEN_PR"
           echo "OPEN_PR_COUNT=$(echo $OPEN_PR | jq '. | length')" >> $GITHUB_ENV
 
       - name: Get previous run time
@@ -30,11 +31,13 @@ jobs:
         run: echo $(date -u +%Y-%m-%dT%H:%M:%SZ) > .github/previous_run_time.txt
 
       - name: Get PRs URL
+        id: get_pr_urls
         if: env.OPEN_PR_COUNT != '0'
         run: |
           PR_URLS=$(echo $OPEN_PR | jq -r --arg PREVIOUS_RUN_TIME "$PREVIOUS_RUN_TIME" \
-          '[.[] | select(.created_at >= $PREVIOUS_RUN_TIME) | .html_url]')
-          echo "PR_URLS=$PR_URLS" >> $GITHUB_ENV
+          '[.[] | select(.created_at >= $PREVIOUS_RUN_TIME) | .html_url] | join("\n- ")')
+          echo "PR_URLS=- $PR_URLS" >> $GITHUB_ENV
+          echo "::set-output name=pr_urls::- $PR_URLS"
 
       - name: Notify Slack
         if: env.OPEN_PR_COUNT != '0'
@@ -48,7 +51,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "<@U04KJ2MBSFR> OPENになっているPRがあるので、レビューをお願いします！\n\n${{ github.event.pull_request.html_url }}"
+                    "text": "<@U04KJ2MBSFR> OPENになっているPRがあるので、レビューをお願いします！\n\n${{ steps.get_pr_urls.outputs.pr_urls }}"
                   }
                 }
               ]
