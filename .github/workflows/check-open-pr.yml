@@ -1,0 +1,49 @@
+name: Check OPEN PR
+
+on:
+  schedule:
+    - cron: '0 9 * * *'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2
+
+      - name: Set current day of month
+        env:
+          TZ: Asia/Tokyo
+        run: |
+          echo "CURRENT_DATETIME=$(date +'%Y-%m-%d %H:%M:%S')" >> $GITHUB_ENV
+          echo "CURRENT_DAY_OF_MONTH=$(date +'%-d')" >> $GITHUB_ENV
+
+      - name: Check Open PR
+        id: check_pr
+        run: |
+          OPEN_PR=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          "https://api.github.com/repos/${{ github.repository }}/pulls?state=open")
+          echo "OPEN_PR_COUNT=$(echo $OPEN_PR | jq '. | length')" >> $GITHUB_ENV
+
+      - name: Notify Slack
+        if: env.OPEN_PR_COUNT != '0'
+        uses: slackapi/slack-github-action@v1.16.0
+        with:
+          payload: |
+            {
+              "text": "OPENになっているPRがあります",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "<@U04KJ2MBSFR> OPENになっているPRがあるので、レビューをお願いします！\n\n${{ github.event.pull_request.html_url }}"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
