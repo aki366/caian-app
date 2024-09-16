@@ -2,7 +2,7 @@ name: Check OPEN PR
 
 on:
   schedule:
-    - cron: '0 9 * * *'
+    - cron: '0 0 * * *'
   workflow_dispatch:
 
 jobs:
@@ -13,19 +13,28 @@ jobs:
       - name: Check out the repository
         uses: actions/checkout@v2
 
-      - name: Set current day of month
-        env:
-          TZ: Asia/Tokyo
-        run: |
-          echo "CURRENT_DATETIME=$(date +'%Y-%m-%d %H:%M:%S')" >> $GITHUB_ENV
-          echo "CURRENT_DAY_OF_MONTH=$(date +'%-d')" >> $GITHUB_ENV
-
       - name: Check Open PR
         id: check_pr
         run: |
           OPEN_PR=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
           "https://api.github.com/repos/${{ github.repository }}/pulls?state=open")
           echo "OPEN_PR_COUNT=$(echo $OPEN_PR | jq '. | length')" >> $GITHUB_ENV
+
+      - name: Get previous run time
+        id: previous-run-time
+        run: |
+          PREVIOUS_RUN_TIME=$(cat .github/previous_run_time.txt || echo "1970-01-01T00:00:00Z")
+          echo "PREVIOUS_RUN_TIME=$PREVIOUS_RUN_TIME" >> $GITHUB_ENV
+
+      - name: Save current time for next run
+        run: echo $(date -u +%Y-%m-%dT%H:%M:%SZ) > .github/previous_run_time.txt
+
+      - name: Get PRs URL
+        if: env.OPEN_PR_COUNT != '0'
+        run: |
+          PR_URLS=$(echo $OPEN_PR | jq -r --arg PREVIOUS_RUN_TIME "$PREVIOUS_RUN_TIME" \
+          '[.[] | select(.created_at >= $PREVIOUS_RUN_TIME) | .html_url]')
+          echo "PR_URLS=$PR_URLS" >> $GITHUB_ENV
 
       - name: Notify Slack
         if: env.OPEN_PR_COUNT != '0'
