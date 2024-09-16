@@ -34,7 +34,7 @@ jobs:
           echo "Filtered PRs: $NEW_PRS"
 
           # Extract titles and URLs
-          PR_URLS_TITLES=$(echo "$NEW_PRS" | jq -r '.[] | "- [\(.title)](\(.url))"')
+          PR_URLS_TITLES=$(echo "$NEW_PRS" | jq -r '.[] | "<\(.url)|\(.title)>"')
           echo "PR_URLS_TITLES: $PR_URLS_TITLES"
 
           # Save for later steps
