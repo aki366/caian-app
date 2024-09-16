@@ -2,7 +2,7 @@ name: Check OPEN PR
 
 on:
   schedule:
-    - cron: '0 9 * * *'
+    - cron: '0 0 * * *'
   workflow_dispatch:
 
 jobs:
@@ -13,33 +13,46 @@ jobs:
       - name: Check out the repository
         uses: actions/checkout@v2
 
-      - name: Set current day of month
-        env:
-          TZ: Asia/Tokyo
-        run: |
-          echo "CURRENT_DATETIME=$(date +'%Y-%m-%d %H:%M:%S')" >> $GITHUB_ENV
-          echo "CURRENT_DAY_OF_MONTH=$(date +'%-d')" >> $GITHUB_ENV
+      - name: Set GH_TOKEN environment variable
+        run: echo "GH_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_ENV
 
-      - name: Check Open PR
-        id: check_pr
+      - name: Get PRs created after 9 AM previous day
+        id: get_prs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          OPEN_PR=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-          "https://api.github.com/repos/${{ github.repository }}/pulls?state=open")
-          echo "OPEN_PR_COUNT=$(echo $OPEN_PR | jq '. | length')" >> $GITHUB_ENV
+          # Calculate previous day's 9:00 AM in UTC
+          PREVIOUS_DATE=$(date -u -d 'yesterday 09:00' +%Y-%m-%dT%H:%M:%SZ)
+          echo "PREVIOUS_DATE: $PREVIOUS_DATE"
+
+          # Fetch all open PRs
+          PRS=$(gh pr list --json number,title,createdAt,url)
+          echo "All PRs: $PRS"
+
+          # Filter PRs created after 9 AM previous day
+          NEW_PRS=$(echo "$PRS" | jq --arg PREVIOUS_DATE "$PREVIOUS_DATE" '[.[] | select(.createdAt >= $PREVIOUS_DATE)]')
+          echo "Filtered PRs: $NEW_PRS"
+
+          # Extract titles and URLs
+          PR_URLS_TITLES=$(echo "$NEW_PRS" | jq -r '.[] | "<\(.url)|#\(.number) \(.title)>"')
+          echo "PR_URLS_TITLES: $PR_URLS_TITLES"
+
+          # Save for later steps
+          echo "PR_URLS_TITLES=$PR_URLS_TITLES" >> $GITHUB_ENV
 
       - name: Notify Slack
-        if: env.OPEN_PR_COUNT != '0'
+        if: env.PR_URLS_TITLES != ''
         uses: slackapi/slack-github-action@v1.16.0
         with:
           payload: |
             {
-              "text": "OPENになっているPRがあります",
+              "text": "前日の9時以降に作成された新規PRがあります",
               "blocks": [
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "<@U04KJ2MBSFR> OPENになっているPRがあるので、レビューをお願いします！\n\n${{ github.event.pull_request.html_url }}"
+                    "text": "<@U04KJ2MBSFR> 新規PRがこちらです！\n\n${{ env.PR_URLS_TITLES }}"
                   }
                 }
               ]
