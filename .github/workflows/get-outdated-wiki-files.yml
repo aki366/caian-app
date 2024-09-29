@@ -57,7 +57,7 @@ jobs:
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": ":github: <@U0372GW7YUX> 古いWikiページが検出されました。メンテナンスをしていきましょう。\nhttps://github.com/${{ github.repository }}/wiki/MaintenanceList"
+                  "text": ":github: ${{ secrets.SLACK_DEV_MENTION_ID }} 古いWikiページが検出されました。メンテナンスをしていきましょう。\nhttps://github.com/${{ github.repository }}/wiki/MaintenanceList"
                 }
               }
             ]
