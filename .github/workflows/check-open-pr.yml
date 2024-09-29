@@ -52,7 +52,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "${{ secrets.SLACK_PR_MENTION_ID }}\n\n :github: 新規でOPENになったPRがあるよ！\n\n${{ env.PR_URLS_TITLES }}"
+                    "text": "${{ secrets.SLACK_DEV_MENTION_ID }}\n\n :github: 新規でOPENになったPRがあるよ！\n\n${{ env.PR_URLS_TITLES }}"
                   }
                 }
               ]
