@@ -3,7 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.3.7"
 
 # Core
-gem 'rails', '6.1.7.10'
+gem 'rails', '7.1.5.1'
 gem 'puma'
 gem 'mysql2'
 gem 'bcrypt' # 安全なパスワードハッシュを生成
