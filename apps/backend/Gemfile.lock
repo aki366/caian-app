@@ -100,7 +100,9 @@ GEM
       railties (>= 5.0.0)
     faker (3.5.1)
       i18n (>= 1.8.11, < 2)
-    ffi (1.17.1)
+    ffi (1.17.1-aarch64-linux-gnu)
+    ffi (1.17.1-x86_64-darwin)
+    ffi (1.17.1-x86_64-linux-gnu)
     formatador (1.1.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
@@ -388,7 +390,7 @@ DEPENDENCIES
   webpacker
 
 RUBY VERSION
-   ruby 3.0.3p157
+   ruby 3.3.7p123
 
 BUNDLED WITH
    2.3.8
