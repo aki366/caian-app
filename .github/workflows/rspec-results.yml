@@ -15,6 +15,7 @@ on:
       - 'apps/backend/**'
     types:
       - labeled
+  workflow_dispatch:
 
 jobs:
   run-ci:
