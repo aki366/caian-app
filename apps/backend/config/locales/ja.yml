@@ -211,7 +211,6 @@ ja:
     already_logged_in: "すでにログインしています"
     login_failed: "メールアドレスまたはパスワードが間違っています"
     comment_posted: "コメントを投稿しました"
-    logged_in: "ゲストユーザーとしてログインしました"
     message_posted: "メッセージを投稿しました"
     message_deleted: "メッセージを削除しました"
     signed_up: "ユーザー登録が完了しました"
