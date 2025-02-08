@@ -3,7 +3,6 @@ RSpec.describe Ticket, type: :model do
   let(:ticket) { FactoryBot.build(:ticket, user: user, subject: subject, content: content) }
 
   describe '#create' do
-
     describe '正常系' do
       context 'contentに英数字、大文字小文字、記号ひらがなカタカナ漢字で投稿したとき' do
         let!(:subject) { '新人育成のベストプラクティス' }
