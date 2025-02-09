@@ -34,16 +34,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Extract Ruby version from Gemfile
-        id: ruby-version
-        run: |
-          RUBY_VERSION=$(grep -E '^ruby ' apps/backend/Gemfile | awk '{print $2}' | tr -d "'\"")
-          echo "Ruby version found: $RUBY_VERSION"
-          echo "ruby_version=$RUBY_VERSION" >> $GITHUB_ENV
+      - name: Get Ruby version from Gemfile
+        run: echo "RUBY_VERSION=$(awk '/^ruby / {gsub(/"/, "", $2); print $2}' apps/backend/Gemfile)" >> $GITHUB_ENV
 
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: ${{ env.ruby_version }}
+          ruby-version: ${{ env.RUBY_VERSION }}
           bundler-cache: true
 
       - name: Setup Node.js
