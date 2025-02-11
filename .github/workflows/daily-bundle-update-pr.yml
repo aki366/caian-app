@@ -13,15 +13,6 @@ jobs:
       BACKEND_DIR: 'apps/backend'
 
     steps:
-      # GitHub App Tokenを使用してセキュアにすれば、PR作成時にCIが走るようになるらしい
-      # https://github.com/peter-evans/create-pull-request/blob/v4/docs/concepts-guidelines.md#triggering-further-workflow-runs
-      # - name: Generate token
-      #   id: generate_token
-      #   uses: tibdex/github-app-token@v1
-      #   with:
-      #     app_id: ${{ secrets.APP_ID }}
-      #     private_key: ${{ secrets.APP_PRIVATE_KEY }}
-
       - run: "echo 'The created token is masked: ${{ steps.generate_token.outputs.token }}'"
 
       - name: Checkout code
@@ -29,10 +20,13 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Get Ruby version from Gemfile
+        run: echo "RUBY_VERSION=$(awk '/^ruby / {gsub(/"/, "", $2); print $2}' apps/backend/Gemfile)" >> $GITHUB_ENV
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.0.3'
+          ruby-version: ${{ env.RUBY_VERSION }}
 
       - name: Set DATE variable
         run: echo "DATE=$(date +'%Y%m%d')" >> $GITHUB_ENV

@@ -32,11 +32,14 @@ jobs:
             echo "HAS_RUBY_FILES=false" >> $GITHUB_ENV
           fi
 
+      - name: Get Ruby version from Gemfile
+        run: echo "RUBY_VERSION=$(awk '/^ruby / {gsub(/"/, "", $2); print $2}' apps/backend/Gemfile)" >> $GITHUB_ENV
+
       - name: Set up Ruby
         if: ${{ env.HAS_RUBY_FILES == 'true' }}
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.0.3
+          ruby-version: ${{ env.RUBY_VERSION }}
 
       - name: Install dependencies
         if: ${{ env.HAS_RUBY_FILES == 'true' }}
