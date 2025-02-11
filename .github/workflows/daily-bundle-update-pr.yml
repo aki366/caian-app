@@ -29,13 +29,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get Ruby version from Gemfile
-        run: echo "RUBY_VERSION=$(awk '/^ruby / {gsub(/"/, "", $2); print $2}' apps/backend/Gemfile)" >> $GITHUB_ENV
-
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: ${{ env.RUBY_VERSION }}
+          ruby-version: '3.0.3'
 
       - name: Set DATE variable
         run: echo "DATE=$(date +'%Y%m%d')" >> $GITHUB_ENV
