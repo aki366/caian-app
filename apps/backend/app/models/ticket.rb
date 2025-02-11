@@ -1,7 +1,7 @@
 class Ticket < ApplicationRecord
   validates :content, {presence: true, length: {maximum: 1000}}
   validates :subject, {presence: true, length: {maximum: 100}}
-  validates :user_id
+  validates :user_id, {presence: true}
 
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy

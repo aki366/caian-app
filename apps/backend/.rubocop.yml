@@ -15,7 +15,7 @@ AllCops:
     - "**/lib/**/*"
     - "**/*.yml"
   DisplayCopNames: true
-  TargetRubyVersion: 3.3.7
+  TargetRubyVersion: 3.0
 
 # trueかfalseを設定しないと警告が出る
 Style/HashEachMethods:
