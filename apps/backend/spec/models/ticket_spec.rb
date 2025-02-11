@@ -1,36 +1,76 @@
-RSpec.describe "Tickets Model", type: :model do
-  before do
-    @ticket = FactoryBot.build(:ticket)
-  end
+RSpec.describe Ticket, type: :model do
+  let!(:user) { FactoryBot.create(:user) }
+  let(:ticket) { FactoryBot.build(:ticket, user: user, subject: subject, content: content) }
 
   describe '#create' do
-    context '投稿内容が1文字のとき' do
-      it '投稿が成功すること' do
-        @ticket.content = 'a' * 1
-        @ticket.valid?
+    describe '正常系' do
+      context 'contentに英数字、大文字小文字、記号ひらがなカタカナ漢字で投稿したとき' do
+        let!(:subject) { '新人育成のベストプラクティス' }
+        let!(:content) { '@:20xX、新人育成のベストプラクティス１０' }
+
+        it '投稿が成功すること' do
+          expect(ticket).to be_valid
+        end
+      end
+
+      context 'contentが1000文字のとき' do
+        let!(:subject) { '新人育成のベストプラクティス' }
+        let!(:content) { 'a' * 1000 }
+
+        it '投稿が成功すること' do
+          expect(ticket).to be_valid
+        end
+      end
+
+      context 'subjectが100文字のとき' do
+        let!(:subject) { 'a' * 100 }
+        let!(:content) { '@:20xX、新人育成のベストプラクティス１０' }
+
+        it '投稿が成功すること' do
+          expect(ticket).to be_valid
+        end
       end
     end
 
-    context '投稿内容がないとき' do
-      it '投稿が失敗すること' do
-        @ticket.content = ''
-        @ticket.valid?
-        expect(@ticket.errors.full_messages).to include('Contentを入力してください')
-      end
-    end
+    describe '異常系' do
+      context 'contentがのnilとき' do
+        let!(:subject) { '新人育成のベストプラクティス' }
+        let!(:content) { '' }
 
-    context '投稿内容が1000文字のとき' do
-      it '投稿が成功すること' do
-        @ticket.content = 'a' * 1000
-        @ticket.valid?
+        it '投稿が失敗すること' do
+          expect(ticket).not_to be_valid
+          expect(ticket.errors[:content]).to include('を入力してください')
+        end
       end
-    end
 
-    context '投稿内容が1001文字のとき' do
-      it '投稿が失敗すること' do
-        @ticket.content = 'a' * 1001
-        @ticket.valid?
-        expect(@ticket.errors.full_messages).to include('Contentは1000文字以内で入力してください')
+      context 'contentが1001文字のとき' do
+        let!(:subject) { '新人育成のベストプラクティス' }
+        let!(:content) { 'a' * 1001 }
+
+        it '投稿が失敗すること' do
+          expect(ticket).not_to be_valid
+          expect(ticket.errors[:content]).to include('は1000文字以内で入力してください')
+        end
+      end
+
+      context 'subjectがnilのとき' do
+        let!(:subject) { '' }
+        let!(:content) { '@:20xX、新人育成のベストプラクティス１０' }
+
+        it '投稿が失敗すること' do
+          expect(ticket).not_to be_valid
+          expect(ticket.errors[:subject]).to include('を入力してください')
+        end
+      end
+
+      context 'subjectが101文字のとき' do
+        let!(:subject) { 'a' * 101 }
+        let!(:content) { '@:20xX、新人育成のベストプラクティス１０' }
+
+        it '投稿が失敗すること' do
+          expect(ticket).not_to be_valid
+          expect(ticket.errors[:subject]).to include('は100文字以内で入力してください')
+        end
       end
     end
   end
