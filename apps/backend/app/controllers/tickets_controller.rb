@@ -25,14 +25,14 @@ class TicketsController < ApplicationController
 
   def new; end
 
+  def edit
+    @ticket = Ticket.find(params[:id])
+  end
+
   def create
     @team = Team.find(params[:team_id])
     @ticket = @current_user.tickets.new(ticket_params)
     redirect_to room_team_path(@team.id) if @ticket.save
-  end
-
-  def edit
-    @ticket = Ticket.find(params[:id])
   end
 
   def update

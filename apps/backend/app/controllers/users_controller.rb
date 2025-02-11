@@ -41,6 +41,9 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def edit
+  end
+
   def create
     @user = User.new(user_params)
     image = params[:user][:user_image]
@@ -55,9 +58,6 @@ class UsersController < ApplicationController
       @user.user_image = image if image
       render :new
     end
-  end
-
-  def edit
   end
 
   def update

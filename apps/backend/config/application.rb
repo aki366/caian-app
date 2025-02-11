@@ -26,7 +26,7 @@ module CaianApp
     # CORS Configuration
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins (ENV['CORS_ORIGINS']&.split(',') || [])
+        origins(ENV['CORS_ORIGINS']&.split(',') || [])
         resource '*',
                  headers: :any,
                  methods: %i[get post put patch delete options head],

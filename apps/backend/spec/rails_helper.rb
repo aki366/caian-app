@@ -19,7 +19,7 @@ require 'support/factory_bot'
 require './spec/support/contexts/login_as_user'
 
 RSpec.configure do |config|
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  config.fixture_path = "#{Rails.root.join('spec/fixtures')}"
   config.use_transactional_fixtures = true
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
@@ -45,7 +45,7 @@ end
 
 # Register Chrome driver for Capybara
 Capybara.register_driver :chrome do |app|
-  options = ::Selenium::WebDriver::Chrome::Options.new
+  options = Selenium::WebDriver::Chrome::Options.new
 
   options.add_argument('--headless')
   options.add_argument('--no-sandbox')

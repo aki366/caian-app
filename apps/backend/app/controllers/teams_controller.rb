@@ -1,6 +1,16 @@
 class TeamsController < ApplicationController
   before_action :authenticate_user
 
+  def show
+    if @current_user.nil?
+      redirect_to new_login_path
+    else
+      @team = Team.find(params[:id])
+      @members = @team.members.includes(:user)
+      @tickets = @team.tickets.includes(:user)
+    end
+  end
+
   def new
     @team = Team.new
   end
@@ -16,16 +26,6 @@ class TeamsController < ApplicationController
       )
       flash[:notice] = t('flash_messages.team_created')
       redirect_to "/teams/#{@team.id}"
-    end
-  end
-
-  def show
-    if @current_user.nil?
-      redirect_to new_login_path
-    else
-      @team = Team.find(params[:id])
-      @members = @team.members.includes(:user)
-      @tickets = @team.tickets.includes(:user)
     end
   end
 
