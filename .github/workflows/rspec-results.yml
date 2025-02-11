@@ -15,7 +15,6 @@ on:
       - 'apps/backend/**'
     types:
       - labeled
-  workflow_dispatch:
 
 jobs:
   run-ci:
@@ -33,17 +32,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
-      - name: Extract Ruby version from Gemfile
-        id: ruby-version
-        run: |
-          RUBY_VERSION=$(grep -E '^ruby ' apps/backend/Gemfile | awk '{print $2}' | tr -d "'\"")
-          echo "Ruby version found: $RUBY_VERSION"
-          echo "ruby_version=$RUBY_VERSION" >> $GITHUB_ENV
-
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: ${{ env.ruby_version }}
+          ruby-version: 3.0.3
           bundler-cache: true
 
       - name: Setup Node.js
