@@ -1,12 +1,5 @@
 class RoomsController < ApplicationController
-
   before_action :authenticate_user
-
-  def create
-    @room = Room.new(room_params)
-    @room.save
-    redirect_to room_path(@room.id)
-  end
 
   def show
     @room = Room.find(params[:id])
@@ -27,6 +20,12 @@ class RoomsController < ApplicationController
   end
 
   def new; end
+
+  def create
+    @room = Room.new(room_params)
+    @room.save
+    redirect_to room_path(@room.id)
+  end
 
   private
 
