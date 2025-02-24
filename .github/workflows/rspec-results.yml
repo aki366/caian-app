@@ -43,6 +43,9 @@ jobs:
           ruby-version: ${{ env.RUBY_VERSION }}
           bundler-cache: true
 
+      - name: Remove bundle cache
+        run: rm -rf apps/backend/vendor/bundle
+
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
