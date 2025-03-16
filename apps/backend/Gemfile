@@ -58,3 +58,7 @@ group :test do
   gem 'guard-rspec' # Guardを使用してテストを自動的かつインテリジェントに起動
   gem 'simplecov', require: false # テストカバレッジを計測
 end
+
+# Loggerのエラーを回避するための一時的なバージョン指定で、Rails7.1系のアプデ作業が終了したら削除する
+# ref: https://github.com/rails/rails/issues/54271
+gem 'concurrent-ruby', '<= 1.3.4'
