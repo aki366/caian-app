@@ -37,8 +37,7 @@ jobs:
       - name: Get Ruby version from Gemfile
         run: echo "RUBY_VERSION=$(awk '/^ruby / {gsub(/"/, "", $2); print $2}' apps/backend/Gemfile)" >> $GITHUB_ENV
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+      - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ env.RUBY_VERSION }}
           bundler-cache: true
@@ -46,8 +45,7 @@ jobs:
       - name: Remove bundle cache
         run: rm -rf apps/backend/vendor/bundle
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
+      - uses: actions/setup-node@v2
         with:
           node-version: '14'
 
@@ -56,8 +54,7 @@ jobs:
           cd apps/backend
           npx browserslist@latest --update-db
 
-      - name: Cache node modules
-        uses: actions/cache@v2
+      - uses: actions/cache@v4
         with:
           path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
