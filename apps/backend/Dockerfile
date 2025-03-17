@@ -1,4 +1,4 @@
-FROM ruby:3.1.6
+FROM ruby:3.4.2
 
 ENV LANG C.UTF-8
 ENV TZ Asia/Tokyo
